@@ -1,7 +1,8 @@
 //vilify's main js file
 
 //Game Constants
-FPS = 20; //The number of frames per second (the amount of time for second that things get updated)
+var FPS = 20; //The number of frames per second (the amount of time for second that things get updated)
+var ctx = document.getElementById('canvas').getContext('2d');
 
 function Update() {
     //Updates the game objects
