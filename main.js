@@ -12,6 +12,13 @@ function Update() {
 }
 
 function Draw() {
+    //Clear stage so we can draw over it
+    stage.clearRect(0,0,640,480);
+    
+    //Draw background (currently just a solid color)
+    stage.fillStyle = "black";
+    stage.fillRect(0, 0, 640, 480);
+    
     //TODO: Draw the game objects on the canvas
 }
 
