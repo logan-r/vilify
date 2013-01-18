@@ -50,9 +50,13 @@ function GameMap(_map) {
 }
 
 Map = new GameMap([
-[1,0,0],
-[1,1,0],
-[0,1,1]
+[1,0,1,0,1,0,1],
+[0,1,0,1,0,1,0],
+[1,0,1,0,1,0,1],
+[0,1,0,1,0,1,0],
+[1,0,1,0,1,0,1],
+[0,1,0,1,0,1,0],
+[1,0,1,0,1,0,1]
 ]);
 
 setInterval(Update, 1000/FPS); //Updates the game FPS times per second
