@@ -2,6 +2,7 @@
 
 //Game Constants
 var FPS = 20; //The number of frames per second (the amount of time for second that things get updated)
+var TILE_PADDING = 2.5; //The amount of space in between tiles
 var stage = document.getElementById('canvas').getContext('2d'); //create a variable stage to draw upon
 var Map;
 
@@ -34,18 +35,21 @@ function GameMap(_map) {
     this.draw = function() {
         for (row=0; row<this._map.length; row++) { //Loop through the rows
             for (column=0; column<this._map[row].length; column++) { //Loop through the column
+                //get tile color
                 if (this._map[row][column] == 1) { //on path tile
                     stage.fillStyle = "white";
                 } else { //not on path tile
                     stage.fillStyle = "grey";
                 }
-                stage.fillRect(64*row,64*column,64,64); //draw a 64x64 tile in the correct location
+                
+                //draw a 64x64 tile in the correct location
+                stage.fillRect(row*64+TILE_PADDING*(row+1),column*64+TILE_PADDING*(column+1)+1,64,64);
             }
         }
     }
 }
 
-Map = GameMap([
+Map = new GameMap([
 [1,0,0],
 [1,1,0],
 [0,1,1]
