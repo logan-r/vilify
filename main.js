@@ -1,10 +1,9 @@
-//vilify's main js file
+//Vilify's main js file
 
 //Game Constants
 var FPS = 20; //The number of frames per second (the amount of time for second that things get updated)
-var TILE_PADDING = 2.5; //The amount of space in between tiles
 var stage = document.getElementById('canvas').getContext('2d'); //create a variable stage to draw upon
-var Map;
+var Map; //The game map
 
 function Update() {
     //TODO: Update the game objects
@@ -43,12 +42,13 @@ function GameMap(_map) {
                 }
                 
                 //draw a 64x64 tile in the correct location
-                stage.fillRect(row*64+TILE_PADDING*(row+1),column*64+TILE_PADDING*(column+1)+1,64,64);
+                stage.fillRect(row*64, column*64, 64, 64);
             }
         }
     }
 }
 
+//Create the game map
 Map = new GameMap([
 [1,0,1,0,1,0,1],
 [0,1,0,1,0,1,0],
@@ -59,4 +59,5 @@ Map = new GameMap([
 [1,0,1,0,1,0,1]
 ]);
 
-setInterval(Update, 1000/FPS); //Updates the game FPS times per second
+//Create a timer that calls a function, Update (which updates the game), FPS times per second
+setInterval(Update, 1000/FPS);
