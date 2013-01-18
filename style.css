@@ -1,6 +1,6 @@
 /* Main stylesheet */
 
-#canvas {
-    height: 480px;
-    width: 640px;
+body {
+    margin: 0;
+    padding: 0;
 }
