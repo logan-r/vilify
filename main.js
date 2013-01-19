@@ -14,11 +14,11 @@ function Update() {
 
 function Draw() {
     //Clear stage so we can draw over it
-    stage.clearRect(0,0,640,480);
+    stage.clearRect(0,0,640,452);
     
     //Draw background (currently just a solid color)
     stage.fillStyle = "black";
-    stage.fillRect(0, 0, 640, 480);
+    stage.fillRect(0,0,640,452);
     
     //Draw map
     Map.draw();
@@ -42,7 +42,7 @@ function GameMap(_map) {
                 }
                 
                 //draw a 64x64 tile in the correct location
-                stage.fillRect(row*64, column*64, 64, 64);
+                stage.fillRect(row*64+2, column*64+2, 64, 64);
             }
         }
     }
