@@ -22,6 +22,11 @@ function Draw() {
     
     //Draw map
     Map.draw();
+    
+    //Draw menu
+    stage.font = "40px Snowburst One";
+    stage.fillStyle = "white";
+    stage.fillText("Vilify",485,50);
 }
 
 function GameMap(_map) {
