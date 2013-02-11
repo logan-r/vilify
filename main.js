@@ -8,7 +8,7 @@ var tileLength = 64; //The tile length (since it is awkward to call it a width o
 
 //object constructors
 
-fucntion Tower() { //tower object creator
+function Tower() { //tower object creator
     //TODO: Define some basic attributs that all towers can inherit        
 }
 
