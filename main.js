@@ -5,6 +5,16 @@ var FPS = 20; //The number of frames per second (the amount of time for second t
 var stage = document.getElementById('canvas').getContext('2d'); //create a variable stage to draw upon
 var Map; //The game map
 
+//object creators
+
+fucntion Tower(){ //tower object creator
+    //TODO: Define some basic attributs that all towers can inherit        
+}
+
+function Monster(){ //monster object creator
+    //TODO: Define some basic attributes that all monsters can inherit
+}
+
 function Update() {
     //TODO: Update the game objects
     
