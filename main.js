@@ -12,6 +12,14 @@ function Tower() { //tower object creator
     //TODO: Define some basic attributs that all towers can inherit        
 }
 
+function Monster() { //tower object creator
+    //TODO: Define some basic attributs that all towers can inherit        
+}
+
+function Potion() { //tower object creator
+    //TODO: Define some basic attributs that all towers can inherit        
+}
+
 function Hero() { //hero object creator
     //TODO: Define some basic attributes that all heroes can inherit
 }
