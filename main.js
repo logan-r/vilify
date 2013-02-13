@@ -50,17 +50,42 @@ function GameMap(_map) {
 }
 
 //Create the game map
-Map = new GameMap([
-[1,0,1,0,1,0,1],
-[0,1,0,1,0,1,0],
-[1,0,1,0,1,0,1],
-[0,1,0,1,0,1,0],
-[1,0,1,0,1,0,1],
-[0,1,0,1,0,1,0],
-[1,0,1,0,1,0,1]
-]);
+Map = new GameMap(loadMapFile("map"));
 
 //Global functions
+
+function loadMapFile(filename) {
+    var request = new XMLHttpRequest();
+    request.open("GET", filename + ".txt", false);
+    request.send();
+
+    if (request.readyState === 4) { // 4 means DONE
+        var data = request.responseText;
+        if (!data) return null; // No data, return
+
+        var array2D = [];
+
+        // Trim trailing and leading whitespaces (including newlines),
+        // and replace double newlines to single newline, and split it into lines.
+        var lines = data.trim().replace(/\n\n/g, "\n").split("\n");
+
+        for (var line in lines) {
+            var vals = lines[line].trim().split(",");
+            var row;
+
+            if (vals[0].search("//") !== 0) { // Not a comment
+                row = [];
+                for (var val in vals) {
+                    row.push(parseInt(vals[val]));
+                }
+                array2D.push(row);
+            }
+        }
+        return array2D;
+    } else {
+        return null;
+    }
+}
 
 function update() {
     //TODO: Update the game objects
