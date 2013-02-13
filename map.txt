@@ -1,0 +1,11 @@
+// Where the map is stored
+// Would be in csv file format except for these comments
+// Would be parsed into array of array (A.K.A. 2D array)
+
+1, 0, 1, 0, 1, 0, 1
+0, 1, 0, 1, 0, 1, 0
+1, 0, 1, 0, 1, 0, 1
+0, 1, 0, 1, 0, 1, 0
+1, 0, 1, 0, 1, 0, 1
+0, 1, 0, 1, 0, 1, 0
+1, 0, 1, 0, 1, 0, 1
