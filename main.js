@@ -1,28 +1,32 @@
-//Vilify's main js file
+// Vilify's main js file
 
-//Game Constants
-var FPS = 20; //The number of frames per second (the amount of time for second that things get updated)
-var stage = document.getElementById('canvas').getContext('2d'); //create a variable stage to draw upon
-var Map; //The game map
-var tileLength = 64; //The tile length (since it is awkward to call it a width or height)
+// Game Constants
+var FPS = 20; // The number of frames per second (the amount of time for second that things get updated)
+var stage = document.getElementById('canvas').getContext('2d'); // Create a variable stage to draw upon
+var Map; // The game map
+var tileLength = 64; // The tile length (since it is awkward to call it a width or height)
+var TOWERS;
+xhrGet("towers.json", null, function(xhr) {
+    TOWERS = JSON.parse(xhr.responseText);
+});
 
-//object constructors
+// Object constructors
 
-function Tower() { //tower object creator
-    //TODO: Define some basic attributs that all towers can inherit        
+function Tower() { // Tower object constructor
+    // TODO: Define some basic attributs that all towers can inherit        
 }
 
-function Monster() { //monster object creator
-    //TODO: Define some basic attributs that all monsters can inherit        
+function Monster() { // Monster object constructor
+    // TODO: Define some basic attributs that all monsters can inherit        
 }
 
-function Potion() { //potion object creator
-    //TODO: Define some basic attributs that all potions can inherit        
+function Potion() { // Potion object constructor
+    // TODO: Define some basic attributs that all potions can inherit        
 }
 
 
-function Hero() { //hero object creator
-    //TODO: Define some basic attributes that all heroes can inherit
+function Hero() { // Hero object constructor
+    // TODO: Define some basic attributes that all heroes can inherit
 }
 
 function GameMap(_map) {
@@ -33,34 +37,64 @@ function GameMap(_map) {
     */
     this._map = _map;
     this.draw = function() {
-        for (var row = 0; row < this._map.length; row++) { //Loop through the rows
-            for (var column = 0; column < this._map[row].length; column++) { //Loop through the columns
-                //get tile color
-                if (this._map[row][column] === 1) { //on path tile
+        for (var row = 0; row < this._map.length; row++) { // Loop through the rows
+            for (var column = 0; column < this._map[row].length; column++) { // Loop through the columns
+                // get tile color
+                if (this._map[row][column] === 1) { // on path tile
                     stage.fillStyle = "white";
-                } else { //not on path tile
+                } else { // not on path tile
                     stage.fillStyle = "grey";
                 }
                 
-                //draw a 64x64 tile in the correct location
+                // draw a 64x64 tile in the correct location
                 stage.fillRect(row * tileLength + 2, column * tileLength + 2, tileLength, tileLength);
             }
         }
     }
 }
 
-//Create the game map
-Map = new GameMap(loadMapFile("map"));
+// Create the game map
+Map = new GameMap(loadMapFile("map.txt"));
 
-//Global functions
+// Global functions
+
+function xhrGet(reqUri, type, callback) {
+    /*
+    General abstract function for getting resources
+    reqUri: the uri of the resource
+    type: the type of resource, pass "null" if the type is text
+    callback: callback function
+    */
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", reqUri, true);
+    
+    // If type is not null or undefined
+    if (type) {
+        xhr.responseType = type; // Default is text
+    }
+    
+    xhr.onload = function() {
+        if (callback) {
+            try {
+                callback(xhr);
+            } catch (e) {
+                throw "xhrGet failed: " + reqUri +
+                    "\nException: " + e +
+                    "\nResponseText: " + xhr.responseText;
+            }
+        }
+    };
+    
+    xhr.send();
+}
 
 function loadMapFile(filename) {
-    var request = new XMLHttpRequest();
-    request.open("GET", filename + ".txt", false);
-    request.send();
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", filename, false); // Might want to change this to do it asynchronously
+    xhr.send();
 
-    if (request.readyState === 4) { // 4 means DONE
-        var data = request.responseText;
+    if (xhr.readyState === 4) { // 4 means DONE
+        var data = xhr.responseText;
         if (!data) return null; // No data, return
 
         var array2D = [];
@@ -73,7 +107,7 @@ function loadMapFile(filename) {
             var vals = lines[line].trim().split(",");
             var row;
 
-            if (vals[0].search("//") !== 0) { // Not a comment
+            if (vals[0].search("// ") !== 0) { // Not a comment
                 row = [];
                 for (var val in vals) {
                     row.push(parseInt(vals[val]));
@@ -88,21 +122,21 @@ function loadMapFile(filename) {
 }
 
 function update() {
-    //TODO: Update the game objects
+    // TODO: Update the game objects
 }
 
 function draw() {
-    //Clear stage so we can draw over it
+    // Clear stage so we can draw over it
     stage.clearRect(0, 0, stage.width, stage.height);
     
-    //Draw background (currently just a solid color)
+    // Draw background (currently just a solid color)
     stage.fillStyle = "black";
     stage.fillRect(0, 0, stage.width, stage.height);
     
-    //Draw map
+    // Draw map
     Map.draw();
     
-    //Draw menu
+    // Draw menu
     stage.font = "40px Snowburst One";
     stage.fillStyle = "white";
     stage.fillText("Vilify", 485, 50);
@@ -113,5 +147,5 @@ function tick() {
     draw();
 }
 
-//Create a timer that calls a function, tick (which updates the game and draw), FPS times per second
+// Create a timer that calls a function, tick (which updates the game and draw), FPS times per second
 setInterval(tick, 1000/FPS);
