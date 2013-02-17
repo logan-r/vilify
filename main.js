@@ -41,9 +41,9 @@ function GameMap(_map) {
             for (var column = 0; column < this._map[row].length; column++) { // Loop through the columns
                 // get tile color
                 if (this._map[row][column] === 1) { // on path tile
-                    stage.fillStyle = "white";
+                    stage.fillStyle = "white"; //TODO: add images instead of color
                 } else { // not on path tile
-                    stage.fillStyle = "grey";
+                    stage.fillStyle = "grey"; //TODO: add images instead of color
                 }
                 
                 // draw a 64x64 tile in the correct location
