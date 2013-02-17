@@ -8,11 +8,8 @@ You are a mad scientist, who has just completed a doomsday device! In 24 hours t
 ### Game Rules:
 Before you do anything else you should [read the game rules](wiki/Game-Rules). This will show you what we are trying to develop. Also you should check it regularly for any updates.
 
-### Download the files
-You can download all the files as a zip or you can click on the file in the file menu, then copy and paste the code into a text editor and save as a .html, .css, .js, etc. Open index.html in a web browser and the game should run. (or whatever is currently developed of the game should run).
-
-### Editing the code
-Click the edit button on the file you want to edit.
+### Playing/Testing Vilify
+Download the project, extract the files and open index.html in a modern web browser. When Vilify is completed it will be put online for all to play.
 
 ### Tutorials
 1. [Codecademy JavaScript Track](http://www.codecademy.com/tracks/javascript)
