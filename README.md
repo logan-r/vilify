@@ -6,7 +6,7 @@ You are a mad scientist, who has just completed a doomsday device! In 24 hours t
 ## Developer Guidelines:
 
 ### Game Rules:
-Before you do anything else you should [read the game rules](wiki/Game-Rules). This will show you what we are trying to develop. Also you should check it regularly for any updates.
+Before you do anything else you should [read the game rules](https://github.com/Logi0/vilify/wiki/Game-Rules). This will show you what we are trying to develop. Also you should check it regularly for any updates.
 
 ### Playing/Testing Vilify
 Download the project, extract the files and open index.html in a modern web browser. When Vilify is completed it will be put online for all to play.
