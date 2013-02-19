@@ -3,7 +3,7 @@
 {
 Potions [
  { "potion":"killPotion"}
- { "potion":"weakeningPotion"},
+ { "potion":"weakeningPotion"}
  { "potion":"slowDownPotion"}
  { "potion":"heroToMonsterPotion"}
  { "potion":"stickPotion"}
