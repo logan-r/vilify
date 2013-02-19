@@ -6,6 +6,9 @@
 "Towers": [
  { "tower":"rayTower"}, 
  { "tower":"freezeTower"}, 
- { "tower":"doubleRayTower"}
+ { "tower":"doubleRayTower"},
+ { "tower": "laserTower"},
+ { "tower":"freezeRayTower"},
+ { "tower":"forceFieldTower"}
  ]
  }
