@@ -1,5 +1,6 @@
 { "_comments":["none"]
- Potions [
+}
+ {"Potions": [
  { "potion":"killPotion"}
  { "potion":"weakeningPotion"}
  { "potion":"slowDownPotion"}
