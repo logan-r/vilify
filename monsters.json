@@ -1,7 +1,7 @@
 { "_comments":["none"]}
 
 {
-Monsters [
+ "Monsters": [
  { "monster":"zombie"}, 
  { "monster":"ghost"}, 
  { "monster":"werewolf"},
