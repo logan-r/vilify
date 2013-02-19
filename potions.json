@@ -7,6 +7,6 @@ Potions [
  { "potion":"slowDownPotion"},
  { "potion":"heroToMonsterPotion"},
  { "potion":"stickPotion"},
- { "potion":"doubleWeakeningPotion}
+ { "potion":"doubleWeakeningPotion"}
  ]
  }
