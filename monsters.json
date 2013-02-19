@@ -1,1 +1,12 @@
 { "_comments":["none"]}
+
+{
+Monsters [
+ { "monster":"zombie"}, 
+ { "monster":"ghost"}, 
+ { "monster":"werewolf"},
+ { "monster":"vampire"},
+ { "monster":"goblin"},
+ { "monster":"cyclops"}
+ ]
+ }
