@@ -1,11 +1,11 @@
-{ "_comments":["none"]
+{
+    "_comments": ["none"],
+    "potions": {
+        "killPotion": {},
+        "weakeningPotion": {},
+        "slowDownPotion": {},
+        "heroToMonsterPotion": {},
+        "stickPotion":{},
+        "doubleWeakeningPotion": {}
+    }
 }
- {"Potions": [
- { "potion":"killPotion"}
- { "potion":"weakeningPotion"}
- { "potion":"slowDownPotion"}
- { "potion":"heroToMonsterPotion"}
- { "potion":"stickPotion"}
- { "potion":"doubleWeakeningPotion"}
- ]
- }
