@@ -2,10 +2,16 @@
     "_comments": ["none"],
     "potions": {
         "killPotion": {},
-        "weakeningPotion": {},
+        "weakenPotion": {},
         "slowDownPotion": {},
         "heroToMonsterPotion": {},
         "stickPotion":{},
         "doubleWeakeningPotion": {}
     }
+    "killPotion": {
+    "damage": 100,
+    "range": 1,
+    "rate": 1
+    }
 }
+    
