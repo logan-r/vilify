@@ -3,15 +3,15 @@
                 "purpose tower ideas and tower stats at https://github.com/Logi0/vilify/wiki/Tower-Ideas"],
 }
 "Ray Tower": {
-    "damage": damage(int),
-    "range": range(int),
-    "rate": rate(float),
+    "damage": damage(int)
+    "range": range(int)
+    "rate": rate(float)
     "materials": {
-        "stuffs": amount(int),
+        "stuffs": amount(int)
         "other stuffs": amount(int)
     }
     "effects": {
-        "name of effect": value(int), // If it's a "slow", then how much would it slow the heroes down?
+        "name of effect": value(int)
         "another effect": value(int)
     }
 }
