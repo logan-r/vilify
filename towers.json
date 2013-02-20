@@ -3,15 +3,15 @@
                 "purpose tower ideas and tower stats at https://github.com/Logi0/vilify/wiki/Tower-Ideas"],
 }
 "Ray Tower": {
-    "damage": damage(int)
-    "range": range(int)
-    "rate": rate(float)
+    "damage": 1
+    "range": 3
+    "rate": 3.0
     "materials": {
-        "stuffs": amount(int)
-        "other stuffs": amount(int)
+        "stuffs": 1
+        "other stuffs": 1
     }
     "effects": {
-        "name of effect": value(int)
-        "another effect": value(int)
+        "name of effect": 0
+        "another effect": 0
     }
 }
