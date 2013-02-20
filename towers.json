@@ -1,14 +1,12 @@
 {
     "_comments" : ["for storing tower data",
-                "purpose tower ideas and tower stats at https://github.com/Logi0/vilify/wiki/Tower-Ideas"]
+                "purpose tower ideas and tower stats at https://github.com/Logi0/vilify/wiki/Tower-Ideas"],
+    "towers": {
+        "rayTower": {}, 
+        "freezeTower": {}, 
+        "doubleRayTower": {},
+        "laserTower": {},
+        "freezeRayTower": {},
+        "forceFieldTower": {}
+    }
 }
-{
-"Towers": [
- { "tower":"rayTower"}, 
- { "tower":"freezeTower"}, 
- { "tower":"doubleRayTower"},
- { "tower": "laserTower"},
- { "tower":"freezeRayTower"},
- { "tower":"forceFieldTower"}
- ]
- }
