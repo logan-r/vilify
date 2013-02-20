@@ -1,12 +1,11 @@
-{ "_comments":["none"]}
-
 {
- "Monsters": [
- { "monster":"zombie"}, 
- { "monster":"ghost"}, 
- { "monster":"werewolf"},
- { "monster":"vampire"},
- { "monster":"goblin"},
- { "monster":"cyclops"}
- ]
- }
+    "_comments": ["none"],
+    "monsters": {
+        "zombie": {},
+        "monster": {}, 
+        "werewolf": {},
+        "vampire": {},
+        "goblin": {},
+        "cyclops": {}
+    }
+}
