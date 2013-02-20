@@ -1,12 +1,17 @@
 {
     "_comments" : ["for storing tower data",
                 "purpose tower ideas and tower stats at https://github.com/Logi0/vilify/wiki/Tower-Ideas"],
-    "towers": {
-        "rayTower": {}, 
-        "freezeTower": {}, 
-        "doubleRayTower": {},
-        "laserTower": {},
-        "freezeRayTower": {},
-        "forceFieldTower": {}
+}
+"Ray Tower": {
+    "damage": damage(int),
+    "range": range(int),
+    "rate": rate(float),
+    "materials": {
+        "stuffs": amount(int),
+        "other stuffs": amount(int)
+    }
+    "effects": {
+        "name of effect": value(int), // If it's a "slow", then how much would it slow the heroes down?
+        "another effect": value(int)
     }
 }
