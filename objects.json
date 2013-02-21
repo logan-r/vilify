@@ -1,0 +1,40 @@
+{
+    "towers": {
+        "_comments" : ["for storing tower data",
+                    "purpose tower ideas and tower stats at https://github.com/Logi0/vilify/wiki/Tower-Ideas"],
+        "Ray Tower": {
+            "damage": 1,
+            "range": 3,
+            "rate": 3.0,
+            "materials": {
+                "stuffs": 1,
+                "other stuffs": 1
+            },
+            "effects": {
+                "name of effect": 0,
+                "another effect": 0
+            }
+        }
+    },
+    "monsters": {
+        "_comments": ["none"],
+        "Zombie": {},
+        "Werewolf": {},
+        "Vampire": {},
+        "Goblin": {},
+        "Cyclops": {}
+    },
+    "potions": {
+        "_comments": ["none"],
+        "Kill Potion": {
+            "damage": 100,
+            "range": 1,
+            "rate": 1
+        },
+        "Weakening Potion": {},
+        "Slow Down Potion": {},
+        "Hero To Monster Potion": {},
+        "Stick Potion":{},
+        "Double Weakening Potion": {}
+    }
+}
