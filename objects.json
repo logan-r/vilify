@@ -34,7 +34,7 @@
         "Weakening Potion": {
             "damage": 9,
             "range": 7,
-            "rate": 1
+            "rate": 1,
             "effects":{
                 "effect": "Hero damages only 50% of its full strength"
             }
@@ -42,7 +42,7 @@
         "Slow Down Potion": {
             "damage": 8,
             "range": 6,
-            "rate": 1
+            "rate": 1,
             "effects":{
                 "effect": "Slows Hero down by 25%"
             }
