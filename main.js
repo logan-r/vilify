@@ -3,11 +3,35 @@
 // Game Constants
 var FPS = 20; // The number of frames per second (the amount of time for second that things get updated)
 var stage = document.getElementById('canvas').getContext('2d'); // Create a variable stage to draw upon
-var Map; // The game map
 var tileLength = 64; // The tile length (since it is awkward to call it a width or height)
 var objects;
 xhrGet("objects.json", null, function(xhr) {
     objects = JSON.parse(xhr.responseText);
+});
+var Map; // The game map
+xhrGet("map.txt", null, function(xhr) {
+    var data = xhr.responseText;
+    if (!data) return null; // No data, return
+
+    var array2D = [];
+
+    // Trim trailing and leading whitespaces (including newlines),
+    // and replace double newlines to single newline, and split it into lines.
+    var lines = data.trim().replace(/\n\n/g, "\n").split("\n");
+
+    for (var line in lines) {
+        var vals = lines[line].trim().split(",");
+        var row;
+
+        if (vals[0].search("// ") !== 0) { // Not a comment
+            row = [];
+            for (var val in vals) {
+                row.push(parseInt(vals[val]));
+            }
+            array2D.push(row);
+        }
+    }
+    Map = new GameMap(array2D);
 });
 
 // Object constructors
@@ -54,7 +78,7 @@ function GameMap(_map) {
 }
 
 // Create the game map
-Map = new GameMap(loadMapFile("map.txt"));
+//Map = new GameMap(loadMapFile("map.txt"));
 
 // Global functions
 
