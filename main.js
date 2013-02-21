@@ -5,9 +5,9 @@ var FPS = 20; // The number of frames per second (the amount of time for second 
 var stage = document.getElementById('canvas').getContext('2d'); // Create a variable stage to draw upon
 var Map; // The game map
 var tileLength = 64; // The tile length (since it is awkward to call it a width or height)
-var TOWERS;
-xhrGet("towers.json", null, function(xhr) {
-    TOWERS = JSON.parse(xhr.responseText);
+var objects;
+xhrGet("objects.json", null, function(xhr) {
+    objects = JSON.parse(xhr.responseText);
 });
 
 // Object constructors
