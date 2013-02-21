@@ -145,6 +145,12 @@ function loadMapFile(filename) {
     }
 }
 
+function randInt(low, high) {
+    //generates a random number between (and including) low and high
+    //should be useful later
+    return (Math.floor(Math.random()*(high-low+1)))+low;
+}
+
 function update() {
     // TODO: Update the game objects
 }
