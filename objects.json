@@ -28,11 +28,25 @@
         "_comments": ["none"],
         "Kill Potion": {
             "damage": 100,
-            "range": 1,
+            "range": 4,
             "rate": 1
         },
-        "Weakening Potion": {},
-        "Slow Down Potion": {},
+        "Weakening Potion": {
+            "damage": 9,
+            "range": 7,
+            "rate": 1
+            "effects":{
+                "effect": "Hero damages only 50% of its full strength"
+            }
+        },
+        "Slow Down Potion": {
+            "damage": 8,
+            "range": 6,
+            "rate": 1
+            "effects":{
+                "effect": "Slows Hero down by 25%"
+            }
+        },
         "Hero To Monster Potion": {},
         "Stick Potion":{},
         "Double Weakening Potion": {}
