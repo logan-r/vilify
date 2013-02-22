@@ -57,6 +57,7 @@
     "monsters": {
         "_comments": ["none"],
         "Zombie": {
+            "durability": 40,
             "damage": 5,
             "range": 1,
             "materials":{
@@ -66,6 +67,7 @@
             }
         },
         "Werewolf": {
+            "durability": 45,
             "damage": 6,
             "range": 1,
             "materials":{
@@ -75,6 +77,7 @@
             }
         },
         "Vampire": {
+            "durability": 45,
             "damage": 7,
             "range": 1,
             "materials":{
@@ -84,6 +87,7 @@
             }
             },
         "Goblin": {
+            "durability": 50,
             "damage": 8,
             "range": 1,
             "materials":{
@@ -93,6 +97,7 @@
             }
         },
         "Cyclops": {
+            "durability": 50,
             "damage": 9,
             "range": 1,
             "materials":{
