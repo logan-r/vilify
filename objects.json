@@ -6,20 +6,19 @@
             "damage": 1,
             "range": 3,
             "rate": 3.0,
-            "materials": {
-                "stuffs": 1,
-                "other stuffs": 1
-            },
-            "effects": {
-                "name of effect": 0,
-                "another effect": 0
-            }
+            
         }
     },
     "monsters": {
         "_comments": ["none"],
-        "Zombie": {},
-        "Werewolf": {},
+        "Zombie": {
+            "damage": 5,
+            "range": 1
+        },
+        "Werewolf": {
+            "damage": 7,
+            "range":1
+        },
         "Vampire": {},
         "Goblin": {},
         "Cyclops": {}
@@ -32,7 +31,7 @@
             "rate": 1
         },
         "Weakening Potion": {
-            "damage": 9,
+            "damage": 8,
             "range": 7,
             "rate": 1,
             "effects":{
@@ -70,6 +69,6 @@
             "effects":{
                 "effect":"Hero damages only 50% of its full strenth"
             }
-            }
+        }
     }
 }
