@@ -15,6 +15,10 @@
             "damage": 1,
             "range": 6,
             "rate": 2,
+            "materials":{
+                "Freeze Ray": 4,
+                "Metals": 2
+            },
             "effects":{
                 "effect": "freeze hero for 10 seconds"
             }
@@ -22,40 +26,80 @@
         "Double Ray Tower": {
             "damage": 2,
             "range": 5,
-            "rate": 4
+            "rate": 4,
+            "materials":{
+                "Ray": 3,
+                "Ray 2": 3,
+                "Metals": 2
+            }
         },
         "Lazer Tower":{
             "damage": 3,
             "range": 4,
-            "rate": 3
+            "rate": 3,
+            "materials":{
+                "Lazer": 5,
+                "Ray": 3,
+                "Metals": 2
+            }
         },
         "Lightning Tower":{
             "damage": 4,
             "range": 3,
-            "rate": 4
+            "rate": 4,
+            "materials":{
+                "Lightning": 6,
+                "Ray": 3,
+                "Metals": 2
+            }
         }
     },
     "monsters": {
         "_comments": ["none"],
         "Zombie": {
             "damage": 5,
-            "range": 1
+            "range": 1,
+            "materials":{
+                "Brain": 3,
+                "Skin": 2,
+                "Life": 4
+            }
         },
         "Werewolf": {
             "damage": 6,
-            "range": 1
+            "range": 1,
+            "materials":{
+                "Brain": 4,
+                "Skin": 3,
+                "Life": 5
+            }
         },
         "Vampire": {
             "damage": 7,
-            "range": 1
+            "range": 1,
+            "materials":{
+                "Brain": 5,
+                "Skin": 4,
+                "Life": 6
+            }
             },
         "Goblin": {
             "damage": 8,
-            "range":1
+            "range": 1,
+            "materials":{
+                "Brain": 6,
+                "Skin": 5,
+                "Life": 5
+            }
         },
         "Cyclops": {
             "damage": 9,
-            "range":1
+            "range": 1,
+            "materials":{
+                "Brain": 6,
+                "Skin": 5,
+                "Life": 6
+            }
         }
     },
     "potions": {
@@ -64,11 +108,21 @@
             "damage": 100,
             "range": 4,
             "rate": 1
+            "materials":{
+                "Bottle": 3,
+                "Liquid": 2,
+                "Poison": 10
+            }
         },
         "Weakening Potion": {
             "damage": 10,
             "range": 7,
             "rate": 1,
+            "materials":{
+                "Bottle": 3,
+                "Liquid": 2,
+                "Poison": 4
+            },
             "effects":{
                 "effect": "Hero damages only 25% of its full strength"
             }
@@ -77,6 +131,11 @@
             "damage": 10,
             "range": 6,
             "rate": 1,
+            "materials":{
+                "Bottle": 3,
+                "Liquid": 2,
+                "Poison": 3
+            },
             "effects":{
                 "effect": "Slows Hero down by 25%"
             }
@@ -85,6 +144,11 @@
             "damage": 0,
             "range": 5,
             "rate": 1,
+            "materials":{
+                "Bottle": 3,
+                "Liquid": 2,
+                "Poison": 5
+            },
             "effects":{
                 "effect":"changes hero into a zombie or goblin depending on the hero"
             }
@@ -93,6 +157,11 @@
             "damage": 10,
             "range": 4,
             "rate": 1,
+            "materials":{
+                "Bottle": 3,
+                "Liquid": 2,
+                "Poison": 5
+            },
             "effects":{
                 "effect":"sticks hero to the square it is on for 30 seconds"
             }
@@ -101,6 +170,11 @@
             "damage": 20,
             "range": 3,
             "rate": 1,
+            "materials":{
+                "Bottle": 3,
+                "Liquid": 2,
+                "Poison": 8
+            },
             "effects":{
                 "effect":"Hero damages only 50% of its full strenth"
             }
