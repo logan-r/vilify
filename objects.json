@@ -6,7 +6,7 @@
             "damage": 1,
             "range": 7,
             "rate": 3       
-        }
+        },
         "Freeze Tower":{
             "damage": 1,
             "range": 6,
@@ -19,12 +19,12 @@
             "damage": 2,
             "range": 5,
             "rate": 4
-        }
+        },
         "Lazer Tower":{
             "damage": 3,
             "range": 4,
             "rate": 3
-        }
+        },
         "Lightning Tower":{
             "damage": 4,
             "range": 3,
