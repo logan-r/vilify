@@ -4,9 +4,31 @@
                     "purpose tower ideas and tower stats at https://github.com/Logi0/vilify/wiki/Tower-Ideas"],
         "Ray Tower": {
             "damage": 1,
+            "range": 7,
+            "rate": 3       
+        }
+        "Freeze Tower":{
+            "damage": 1,
+            "range": 6,
+            "rate": 2,
+            "effects":{
+                "effect": "freeze hero for 10 seconds"
+            }
+        }
+        "Double Ray Tower": {
+            "damage": 2,
+            "range": 5,
+            "rate": 4
+        }
+        "Lazer Tower":{
+            "damage": 3,
+            "range": 4,
+            "rate": 3
+        }
+        "Lightning Tower":{
+            "damage": 4,
             "range": 3,
-            "rate": 3.0,
-            
+            "rate": 4
         }
     },
     "monsters": {
@@ -16,12 +38,21 @@
             "range": 1
         },
         "Werewolf": {
+            "damage": 6,
+            "range": 1
+        },
+        "Vampire": {
             "damage": 7,
+            "range": 1
+            },
+        "Goblin": {
+            "damage": 8,
             "range":1
         },
-        "Vampire": {},
-        "Goblin": {},
-        "Cyclops": {}
+        "Cyclops": {
+            "damage": 9,
+            "range":1
+        }
     },
     "potions": {
         "_comments": ["none"],
@@ -31,7 +62,7 @@
             "rate": 1
         },
         "Weakening Potion": {
-            "damage": 8,
+            "damage": 10,
             "range": 7,
             "rate": 1,
             "effects":{
@@ -39,7 +70,7 @@
             }
         },
         "Slow Down Potion": {
-            "damage": 8,
+            "damage": 10,
             "range": 6,
             "rate": 1,
             "effects":{
@@ -55,7 +86,7 @@
             }
         },
         "Stick Potion":{
-            "damage": 9,
+            "damage": 10,
             "range": 4,
             "rate": 1,
             "effects":{
@@ -63,7 +94,7 @@
             }
         },
         "Double Weakening Potion": {
-            "damage": 16,
+            "damage": 20,
             "range": 3,
             "rate": 1,
             "effects":{
