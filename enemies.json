@@ -1,0 +1,11 @@
+{ 
+
+  "enemies": {
+	"_comments": ["none"],
+  	"Sidekick": {
+		"durability": 10,
+		"damage": 1,
+		"range": 1
+	},
+
+}
