@@ -14,7 +14,7 @@
             "effects":{
                 "effect": "freeze hero for 10 seconds"
             }
-        }
+        },
         "Double Ray Tower": {
             "damage": 2,
             "range": 5,
