@@ -5,7 +5,11 @@
         "Ray Tower": {
             "damage": 1,
             "range": 7,
-            "rate": 3       
+            "rate": 3,
+            "materials":{
+                "Ray": 3,
+                "Metals": 2
+            }
         },
         "Freeze Tower":{
             "damage": 1,
