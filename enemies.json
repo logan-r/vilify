@@ -5,7 +5,59 @@
   	"Sidekick": {
 		"durability": 10,
 		"damage": 1,
-		"range": 1
+		"range": 1,
+		"rate": 1
 	},
+
+	"Sidekick with Metal Suit": {
+		"durability": 10,
+		"extra durability": 2,
+		"damage": 1,
+		"range": 1,
+		"rate": 1
+	},
+
+	"Waterborg": {
+		"durability": 10,
+		"extra durability": 5,
+		"damage": 2,
+		"range": 2,
+		"rate": 2
+	},
+	"Falcon": {
+		"durability": 10,
+		"extra durability": 8,
+		"damage": 3,
+		"range": 1,
+		"rate": 3
+	},
+	"Inferno Man": {
+		"durability": 10,
+		"extra durability": 10,
+		"damage": 4,
+		"range": 2,
+		"rate": 3
+	},
+	"Chomefly": {
+		"durability": 12,
+		"extra durability": 10,
+		"damage": 5,
+		"range": 2,
+		"rate": 1
+	},
+	"Spynes": {
+		"durability": 13,
+		"extra durability": 9,
+		"damage": 2,
+		"range": 2,
+		"rate": 2
+	},
+	"Boss": {
+		"durability": 15,
+		"extra durability": 10,
+		"damage": 5,
+		"range": 1,
+		"rate": 1
+	}
 
 }
