@@ -36,7 +36,7 @@
             "range": 7,
             "rate": 1,
             "effects":{
-                "effect": "Hero damages only 50% of its full strength"
+                "effect": "Hero damages only 25% of its full strength"
             }
         },
         "Slow Down Potion": {
@@ -52,7 +52,7 @@
             "range": 5,
             "rate": 1,
             "effects":{
-                "effect":"changes hero into a zombie or goblin"
+                "effect":"changes hero into a zombie or goblin depending on the hero"
             }
         },
         "Stick Potion":{
@@ -63,6 +63,13 @@
                 "effect":"sticks hero to the square it is on for 30 seconds"
             }
         },
-        "Double Weakening Potion": {}
+        "Double Weakening Potion": {
+            "damage": 16,
+            "range": 3,
+            "rate": 1,
+            "effects":{
+                "effect":"Hero damages only 50% of its full strenth"
+            }
+            }
     }
 }
