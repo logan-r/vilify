@@ -1,25 +1,25 @@
 {
     "towers": {
-        "_comments" : ["for storing tower data",
+        "_comments": ["for storing tower data",
                     "purpose tower ideas and tower stats at https://github.com/Logi0/vilify/wiki/Tower-Ideas"],
         "Ray Tower": {
             "damage": 1,
             "range": 7,
             "rate": 3,
-            "materials":{
+            "materials": {
                 "Ray": 3,
                 "Metals": 2
             }
         },
-        "Freeze Tower":{
+        "Freeze Tower": {
             "damage": 1,
             "range": 6,
             "rate": 2,
-            "materials":{
+            "materials": {
                 "Freeze Ray": 4,
                 "Metals": 2
             },
-            "effects":{
+            "effects": {
                 "effect": "freeze hero for 10 seconds"
             }
         },
@@ -27,27 +27,27 @@
             "damage": 2,
             "range": 5,
             "rate": 4,
-            "materials":{
+            "materials": {
                 "Ray": 3,
                 "Ray 2": 3,
                 "Metals": 2
             }
         },
-        "Lazer Tower":{
+        "Lazer Tower": {
             "damage": 3,
             "range": 4,
             "rate": 3,
-            "materials":{
+            "materials": {
                 "Lazer": 5,
                 "Ray": 3,
                 "Metals": 2
             }
         },
-        "Lightning Tower":{
+        "Lightning Tower": {
             "damage": 4,
             "range": 3,
             "rate": 4,
-            "materials":{
+            "materials": {
                 "Lightning": 6,
                 "Ray": 3,
                 "Metals": 2
@@ -60,7 +60,7 @@
             "durability": 40,
             "damage": 5,
             "range": 1,
-            "materials":{
+            "materials": {
                 "Brain": 3,
                 "Skin": 2,
                 "Life": 4
@@ -70,7 +70,7 @@
             "durability": 45,
             "damage": 6,
             "range": 1,
-            "materials":{
+            "materials": {
                 "Brain": 4,
                 "Skin": 3,
                 "Life": 5
@@ -80,7 +80,7 @@
             "durability": 45,
             "damage": 7,
             "range": 1,
-            "materials":{
+            "materials": {
                 "Brain": 5,
                 "Skin": 4,
                 "Life": 6
@@ -90,7 +90,7 @@
             "durability": 50,
             "damage": 8,
             "range": 1,
-            "materials":{
+            "materials": {
                 "Brain": 6,
                 "Skin": 5,
                 "Life": 5
@@ -100,7 +100,7 @@
             "durability": 50,
             "damage": 9,
             "range": 1,
-            "materials":{
+            "materials": {
                 "Brain": 6,
                 "Skin": 5,
                 "Life": 6
@@ -112,8 +112,8 @@
         "Kill Potion": {
             "damage": 100,
             "range": 4,
-            "rate": 1
-            "materials":{
+            "rate": 1,
+            "materials": {
                 "Bottle": 3,
                 "Liquid": 2,
                 "Poison": 10
@@ -123,12 +123,12 @@
             "damage": 10,
             "range": 7,
             "rate": 1,
-            "materials":{
+            "materials": {
                 "Bottle": 3,
                 "Liquid": 2,
                 "Poison": 4
             },
-            "effects":{
+            "effects": {
                 "effect": "Hero damages only 25% of its full strength"
             }
         },
@@ -136,12 +136,12 @@
             "damage": 10,
             "range": 6,
             "rate": 1,
-            "materials":{
+            "materials": {
                 "Bottle": 3,
                 "Liquid": 2,
                 "Poison": 3
             },
-            "effects":{
+            "effects": {
                 "effect": "Slows Hero down by 25%"
             }
         },
@@ -149,25 +149,25 @@
             "damage": 0,
             "range": 5,
             "rate": 1,
-            "materials":{
+            "materials": {
                 "Bottle": 3,
                 "Liquid": 2,
                 "Poison": 5
             },
-            "effects":{
+            "effects": {
                 "effect":"changes hero into a zombie or goblin depending on the hero"
             }
         },
-        "Stick Potion":{
+        "Stick Potion": {
             "damage": 10,
             "range": 4,
             "rate": 1,
-            "materials":{
+            "materials": {
                 "Bottle": 3,
                 "Liquid": 2,
                 "Poison": 5
             },
-            "effects":{
+            "effects": {
                 "effect":"sticks hero to the square it is on for 30 seconds"
             }
         },
@@ -175,14 +175,80 @@
             "damage": 20,
             "range": 3,
             "rate": 1,
-            "materials":{
+            "materials": {
                 "Bottle": 3,
                 "Liquid": 2,
                 "Poison": 8
             },
-            "effects":{
+            "effects": {
                 "effect":"Hero damages only 50% of its full strenth"
             }
+        }
+    },
+    "heroes": {
+        "_comments": ["none"],
+        "Sidekick": {
+            "durability": 10,
+            "damage": 1,
+            "range": 1,
+            "rate": 1
+        },
+        "Sidekick with Helmet": {
+            "durability": 10,
+            "extra durability": 2,
+            "damage": 1,
+            "range": 1,
+            "rate": 1
+        },
+
+        "Sidekick with Metal Suit": {
+            "durability": 10,
+            "extra durability": 4,
+            "damage": 1,
+            "range": 1,
+            "rate": 1
+        },
+        "Waterborg": {
+            "durability": 10,
+            "extra durability": 5,
+            "damage": 2,
+            "range": 2,
+            "rate": 2
+        },
+        "Falcon": {
+            "durability": 10,
+            "extra durability": 8,
+            "damage": 3,
+            "range": 1,
+            "rate": 3
+        },
+        "Inferno Man": {
+            "durability": 10,
+            "extra durability": 10,
+            "damage": 4,
+            "range": 2,
+            "rate": 3
+        },
+        "Chomefly": {
+            "durability": 12,
+            "extra durability": 10,
+            "damage": 5,
+            "range": 2,
+            "rate": 1
+        },
+        "Spynes": {
+            "durability": 13,
+            "extra durability": 9,
+            "damage": 2,
+            "range": 2,
+            "rate": 2
+        },
+        "Boss": {
+            "durability": 15,
+            "extra durability": 10,
+            "damage": 5,
+            "range": 1,
+            "rate": 1
         }
     }
 }
