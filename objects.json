@@ -1,7 +1,7 @@
 {
     "towers": {
         "_comments": ["for storing tower data",
-                    "purpose tower ideas and tower stats at https://github.com/Logi0/vilify/wiki/Tower-Ideas"],
+                      "purpose tower ideas and tower stats at https://github.com/Logi0/vilify/wiki/Tower-Ideas"],
         "Ray Tower": {
             "damage": 1,
             "range": 7,
@@ -55,7 +55,7 @@
         }
     },
     "monsters": {
-        "_comments": ["none"],
+        "_comments": ["TODO: Add rate of attack"],
         "Zombie": {
             "durability": 40,
             "damage": 5,
@@ -181,7 +181,7 @@
                 "Poison": 8
             },
             "effects": {
-                "effect":"Hero damages only 50% of its full strenth"
+                "effect":"Hero damages only 50% of its full strength"
             }
         }
     },
