@@ -26,7 +26,7 @@ var entityType = {
 
 // Object constructors
 
-function Entity(type, dimension, durability, damage, range, rate, materials) {
+function Entity(type, dimension) {
     /*
     Stub class for representing entity in the game.
     This should never be invoked on its own.
@@ -40,48 +40,67 @@ function Entity(type, dimension, durability, damage, range, rate, materials) {
     update: stub method for update. Override recommended
     draw: stub method for draw. Override recommended
     */
-
-    this.entityType = type;
-    this.x = dimension.x;
-    this.y = dimension.y;
-    this.width = dimension.width;
-    this.height = dimension.height;
-    this.durability = durability;
-    this.damage = damage;
-    this.range = range;
-    this.rate = rate;
-    this.materials = materials;
-
-    this.update = function(elapsed) {
-
-    };
-
-    this.draw = function(elapsed) {
-
-    };
+    if (type) {
+        this.entityType = type;
+        if (dimension) {
+            this.x = dimension.x;
+            this.y = dimension.y;
+            this.width = dimension.width;
+            this.height = dimension.height;
+        }
+        this.durability = type.durability;
+        this.damage = type.damage;
+        this.range = type.range;
+        this.rate = type.rate;
+        this.materials = type.materials;
+    }
 }
+Entity.prototype.update = function(elapsed) {
+    
+};
+Entity.prototype.draw = function() {
+    
+};
 
-function Tower() { // Tower object constructor
-    // TODO: Define some basic attributs that all towers can inherit
+function Tower(name, dimension) { // Tower object constructor
+    // TODO: Define some basic attributes that all towers can inherit
 
-    Entity.
+    if (objectData.towers[name] == undefined)
+        throw "Tower: Invalid name: " + name;
+
+    Entity.call(this, objectData.towers[name], dimension);
 }
-Tower.prototype = new Entity();
+Tower.prototype = new Entity(); // Set up prototype chain.
 
-function Monster() { // Monster object constructor
-    // TODO: Define some basic attributs that all monsters can inherit        
+function Monster(name, dimension) { // Monster object constructor
+    // TODO: Define some basic attributes that all monsters can inherit
+
+    if (objectData.monsters[name] == undefined)
+        throw "Monster: Invalid name: " + name;
+
+    Entity.call(this, objectData.monsters[name], dimension);
 }
-Monster.prototype = new Entity();
+Monster.prototype = new Entity(); // Set up prototype chain.
 
-function Potion() { // Potion object constructor
-    // TODO: Define some basic attributs that all potions can inherit        
+function Potion(name) { // Potion object constructor
+    // TODO: Define some basic attributes that all potions can inherit
+
+    if (objectData.potions[name] == undefined)
+        throw "Potion: Invalid name: " + name;
+
+    Entity.call(this, objectData.potions[name]);
 }
-Potion.prototype = new Entity();
+Potion.prototype = new Entity(); // Set up prototype chain.
 
-function Hero() { // Hero object constructor
+function Hero(name, dimension) { // Hero object constructor
     // TODO: Define some basic attributes that all heroes can inherit
+
+    if (objectData.heroes[name] == undefined)
+        throw "Hero: Invalid name: " + name;
+
+    Entity.call(this, objectData.heroes[name], dimension);
 }
-Hero.prototype = new Entity();
+Hero.prototype = new Entity(); // Set up prototype chain.
 
 function GameMap(_map) {
     /*
