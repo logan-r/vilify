@@ -17,12 +17,6 @@ xhrGet("map.json", null, function(xhr) {
     Map.waves = mapData.map1.waves;
 });
 var entities = []; // The array of all the entities.
-var entityType = {
-    TOWER: 0,
-    MONSTER: 1,
-    POTION: 2,
-    HERO: 3
-}
 
 // Object constructors
 
@@ -32,7 +26,7 @@ function Entity(type, dimension) {
     This should never be invoked on its own.
     entityType: entity type from objectData
     dimension: object that contains x, y, width, height. Ex) {x: 0, y: 0, width: 64, height: 64}
-    durability: ???
+    durability: how much life does this entity has.
     damage: damage
     range: range
     rate: rate of fire
