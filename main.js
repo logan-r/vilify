@@ -2,56 +2,102 @@
 
 // Game Constants
 var FPS = 20; // The number of frames per second (the amount of time for second that things get updated)
+var time = 0; // To keep track of time elapsed
 var stage = document.getElementById('canvas').getContext('2d'); // Create a variable stage to draw upon
 var tileLength = 64; // The tile length (since it is awkward to call it a width or height)
-var objects;
+var objectData;
 xhrGet("objects.json", null, function(xhr) {
-    objects = JSON.parse(xhr.responseText);
+    objectData = JSON.parse(xhr.responseText);
 });
+var mapData; // The game map data
 var Map; // The game map
-xhrGet("map.txt", null, function(xhr) {
-    var data = xhr.responseText;
-    if (!data) return null; // No data, return
-
-    var array2D = [];
-
-    // Trim trailing and leading whitespaces (including newlines),
-    // and replace double newlines to single newline, and split it into lines.
-    var lines = data.trim().replace(/\n\n/g, "\n").split("\n");
-
-    for (var line in lines) {
-        var vals = lines[line].trim().split(",");
-        var row;
-
-        if (vals[0].search("// ") !== 0) { // Not a comment
-            row = [];
-            for (var val in vals) {
-                row.push(parseInt(vals[val]));
-            }
-            array2D.push(row);
-        }
-    }
-    Map = new GameMap(array2D);
+xhrGet("map.json", null, function(xhr) {
+    mapData = JSON.parse(xhr.responseText);
+    Map = new GameMap(mapData.map1.mapArray);
+    Map.waves = mapData.map1.waves;
 });
+var entities = []; // The array of all the entities.
 
 // Object constructors
 
-function Tower() { // Tower object constructor
-    // TODO: Define some basic attributs that all towers can inherit        
+function Entity(type, dimension) {
+    /*
+    Stub class for representing entity in the game.
+    This should never be invoked on its own.
+    entityType: entity type from objectData
+    dimension: object that contains x, y, width, height. Ex) {x: 0, y: 0, width: 64, height: 64}
+    durability: how much life does this entity has.
+    damage: damage
+    range: range
+    rate: rate of fire
+    materials: materials needed
+    update: stub method for update. Override recommended
+    draw: stub method for draw. Override recommended
+    */
+    // TODO: images!!!
+    if (type) {
+        this.entityType = type;
+        this.durability = type.durability;
+        this.damage = type.damage;
+        this.range = type.range;
+        this.rate = type.rate;
+        this.materials = type.materials;
+    }
+    if (dimension) {
+        this.x = dimension.x;
+        this.y = dimension.y;
+        this.width = dimension.width;
+        this.height = dimension.height;
+    }
 }
+Entity.prototype.update = function(elapsed) {
+    this.width = randInt(100, 200);
+    this.height = randInt(100, 200);
+};
+Entity.prototype.draw = function() {
+        stage.fillStyle = "red";
+        stage.fillRect(this.x, this.y, this.width, this.height);
+};
 
-function Monster() { // Monster object constructor
-    // TODO: Define some basic attributs that all monsters can inherit        
+function Tower(name, dimension) { // Tower object constructor
+    // TODO: Define some basic attributes that all towers can inherit
+
+    if (objectData.towers[name] == undefined)
+        throw "Tower: Invalid name: " + name;
+
+    Entity.call(this, objectData.towers[name], dimension);
 }
+Tower.prototype = new Entity(); // Set up prototype chain.
 
-function Potion() { // Potion object constructor
-    // TODO: Define some basic attributs that all potions can inherit        
+function Monster(name, dimension) { // Monster object constructor
+    // TODO: Define some basic attributes that all monsters can inherit
+
+    if (objectData.monsters[name] == undefined)
+        throw "Monster: Invalid name: " + name;
+
+    Entity.call(this, objectData.monsters[name], dimension);
 }
+Monster.prototype = new Entity(); // Set up prototype chain.
 
+function Potion(name) { // Potion object constructor
+    // TODO: Define some basic attributes that all potions can inherit
 
-function Hero() { // Hero object constructor
+    if (objectData.potions[name] == undefined)
+        throw "Potion: Invalid name: " + name;
+
+    Entity.call(this, objectData.potions[name]);
+}
+Potion.prototype = new Entity(); // Set up prototype chain.
+
+function Hero(name, dimension) { // Hero object constructor
     // TODO: Define some basic attributes that all heroes can inherit
+
+    if (objectData.heroes[name] == undefined)
+        throw "Hero: Invalid name: " + name;
+
+    Entity.call(this, objectData.heroes[name], dimension);
 }
+Hero.prototype = new Entity(); // Set up prototype chain.
 
 function GameMap(_map) {
     /*
@@ -76,9 +122,6 @@ function GameMap(_map) {
         }
     }
 }
-
-// Create the game map
-//Map = new GameMap(loadMapFile("map.txt"));
 
 // Global functions
 
@@ -112,39 +155,6 @@ function xhrGet(reqUri, type, callback) {
     xhr.send();
 }
 
-function loadMapFile(filename) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", filename, false); // Might want to change this to do it asynchronously
-    xhr.send();
-
-    if (xhr.readyState === 4) { // 4 means DONE
-        var data = xhr.responseText;
-        if (!data) return null; // No data, return
-
-        var array2D = [];
-
-        // Trim trailing and leading whitespaces (including newlines),
-        // and replace double newlines to single newline, and split it into lines.
-        var lines = data.trim().replace(/\n\n/g, "\n").split("\n");
-
-        for (var line in lines) {
-            var vals = lines[line].trim().split(",");
-            var row;
-
-            if (vals[0].search("// ") !== 0) { // Not a comment
-                row = [];
-                for (var val in vals) {
-                    row.push(parseInt(vals[val]));
-                }
-                array2D.push(row);
-            }
-        }
-        return array2D;
-    } else {
-        return null;
-    }
-}
-
 function randInt(low, high) {
     //generates a random number between (and including) low and high
     //should be useful later
@@ -152,7 +162,16 @@ function randInt(low, high) {
 }
 
 function update() {
-    // TODO: Update the game objects
+    // TODO: Update the game entities
+
+    var timeNow = new Date().getTime();
+    if (time !== 0) {
+        var elapsed = timeNow - time;
+        for (var i in entities) {
+            entities[i].update(elapsed);
+        }
+    }
+    time = timeNow;
 }
 
 function draw() {
@@ -165,6 +184,11 @@ function draw() {
     
     // Draw map
     Map.draw();
+
+    // Draw entities
+    for (var i in entities) {
+        entities[i].draw();
+    }
     
     // Draw menu
     stage.font = "40px Snowburst One";
