@@ -20,7 +20,7 @@
                 "Metals": 2
             },
             "effects": {
-                "effect": "freeze hero for 10 seconds"
+                "freeze": 10
             }
         },
         "Double Ray Tower": {
@@ -85,7 +85,7 @@
                 "Skin": 4,
                 "Life": 6
             }
-            },
+        },
         "Goblin": {
             "durability": 50,
             "damage": 8,
@@ -129,7 +129,7 @@
                 "Poison": 4
             },
             "effects": {
-                "effect": "Hero damages only 25% of its full strength"
+                "weaken": 25
             }
         },
         "Slow Down Potion": {
@@ -142,7 +142,7 @@
                 "Poison": 3
             },
             "effects": {
-                "effect": "Slows Hero down by 25%"
+                "slow": 25
             }
         },
         "Hero To Monster Potion": {
@@ -155,7 +155,7 @@
                 "Poison": 5
             },
             "effects": {
-                "effect":"changes hero into a zombie or goblin depending on the hero"
+                "transform": 1
             }
         },
         "Stick Potion": {
@@ -168,7 +168,7 @@
                 "Poison": 5
             },
             "effects": {
-                "effect":"sticks hero to the square it is on for 30 seconds"
+                "stick": 30
             }
         },
         "Double Weakening Potion": {
@@ -181,7 +181,7 @@
                 "Poison": 8
             },
             "effects": {
-                "effect":"Hero damages only 50% of its full strenth"
+                "weaken": 50
             }
         }
     },
