@@ -40,26 +40,29 @@ function Entity(type, dimension) {
     update: stub method for update. Override recommended
     draw: stub method for draw. Override recommended
     */
+    // TODO: images!!!
     if (type) {
         this.entityType = type;
-        if (dimension) {
-            this.x = dimension.x;
-            this.y = dimension.y;
-            this.width = dimension.width;
-            this.height = dimension.height;
-        }
         this.durability = type.durability;
         this.damage = type.damage;
         this.range = type.range;
         this.rate = type.rate;
         this.materials = type.materials;
     }
+    if (dimension) {
+        this.x = dimension.x;
+        this.y = dimension.y;
+        this.width = dimension.width;
+        this.height = dimension.height;
+    }
 }
 Entity.prototype.update = function(elapsed) {
-    
+    this.width = randInt(100, 200);
+    this.height = randInt(100, 200);
 };
 Entity.prototype.draw = function() {
-    
+        stage.fillStyle = "red";
+        stage.fillRect(this.x, this.y, this.width, this.height);
 };
 
 function Tower(name, dimension) { // Tower object constructor
