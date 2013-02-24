@@ -1,7 +1,7 @@
 {
+    "_comments": ["for a list of effects and what they do see https://github.com/Logi0/vilify/wiki/Effects",
+                "purpose tower ideas and tower stats at https://github.com/Logi0/vilify/wiki/Tower-Ideas"],
     "towers": {
-        "_comments": ["for storing tower data",
-                    "purpose tower ideas and tower stats at https://github.com/Logi0/vilify/wiki/Tower-Ideas"],
         "Ray Tower": {
             "damage": 1,
             "range": 7,
@@ -55,7 +55,6 @@
         }
     },
     "monsters": {
-        "_comments": ["none"],
         "Zombie": {
             "durability": 40,
             "damage": 5,
@@ -108,7 +107,6 @@
         }
     },
     "potions": {
-        "_comments": ["none"],
         "Kill Potion": {
             "damage": 100,
             "range": 4,
@@ -186,7 +184,6 @@
         }
     },
     "heroes": {
-        "_comments": ["none"],
         "Sidekick": {
             "durability": 10,
             "damage": 1,
