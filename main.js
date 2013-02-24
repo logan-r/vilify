@@ -61,6 +61,10 @@ function GameMap(_map) {
     */
     this._map = _map;
     this.draw = function() {
+        //draw border
+        stage.fillStyle = "black";
+        stage.fillRect(0, 0, this._map.length * tileLength + 10, this._map[0].length * tileLength + 10);
+        
         for (var row = 0; row < this._map.length; row++) { // Loop through the rows
             for (var column = 0; column < this._map[row].length; column++) { // Loop through the columns
                 // get tile color
@@ -71,7 +75,7 @@ function GameMap(_map) {
                 }
                 
                 // draw a 64x64 tile in the correct location
-                stage.fillRect(row * tileLength + 2, column * tileLength + 2, tileLength, tileLength);
+                stage.fillRect(row * tileLength + 5, column * tileLength + 5, tileLength, tileLength);
             }
         }
     }
