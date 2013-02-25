@@ -1,1 +1,1 @@
-Images go here.
+Images go in this folder.
