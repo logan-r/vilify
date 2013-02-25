@@ -24,7 +24,8 @@ function Entity(type, dimension) {
     /*
     Stub class for representing entity in the game.
     This should never be invoked on its own.
-    entityType: entity type from objectData
+    category: the object's category e.g. "monsters" or "towers"
+    name: the object's name e.g. "Zombie" or "Vampire"
     dimension: object that contains x, y, width, height. Ex) {x: 0, y: 0, width: 64, height: 64}
     durability: how much life does this entity has.
     damage: damage
@@ -36,12 +37,14 @@ function Entity(type, dimension) {
     */
     // TODO: images!!!
     if (type) {
-        this.entityType = type;
-        this.durability = type.durability;
-        this.damage = type.damage;
-        this.range = type.range;
-        this.rate = type.rate;
-        this.materials = type.materials;
+        this.category = type[0];
+        this.name = type[1];
+        data = objectData[this.category][this.name];
+        this.durability = data.durability;
+        this.damage = data.damage;
+        this.range = data.range;
+        this.rate = data.rate;
+        this.materials = data.materials;
     }
     if (dimension) {
         this.x = dimension.x;
@@ -65,7 +68,7 @@ function Tower(name, dimension) { // Tower object constructor
     if (objectData.towers[name] == undefined)
         throw "Tower: Invalid name: " + name;
 
-    Entity.call(this, objectData.towers[name], dimension);
+    Entity.call(this, ["towers","name"], dimension);
 }
 Tower.prototype = new Entity(); // Set up prototype chain.
 
@@ -75,7 +78,7 @@ function Monster(name, dimension) { // Monster object constructor
     if (objectData.monsters[name] == undefined)
         throw "Monster: Invalid name: " + name;
 
-    Entity.call(this, objectData.monsters[name], dimension);
+    Entity.call(this, ["monsters",name], dimension);
 }
 Monster.prototype = new Entity(); // Set up prototype chain.
 
@@ -85,7 +88,7 @@ function Potion(name) { // Potion object constructor
     if (objectData.potions[name] == undefined)
         throw "Potion: Invalid name: " + name;
 
-    Entity.call(this, objectData.potions[name]);
+    Entity.call(this, ["potions",name]);
 }
 Potion.prototype = new Entity(); // Set up prototype chain.
 
@@ -95,7 +98,7 @@ function Hero(name, dimension) { // Hero object constructor
     if (objectData.heroes[name] == undefined)
         throw "Hero: Invalid name: " + name;
 
-    Entity.call(this, objectData.heroes[name], dimension);
+    Entity.call(this, ["heroes",name], dimension);
 }
 Hero.prototype = new Entity(); // Set up prototype chain.
 
