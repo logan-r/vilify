@@ -18,6 +18,12 @@ xhrGet("map.json", null, function(xhr) {
 });
 var entities = []; // The array of all the entities.
 
+// Load images
+var walkable = new Image(); // Walkable tile
+var unwalkable = new Image(); // Unwalkable tile
+walkable.src = "images/walkable.png";
+unwalkable.src = "images/unwalkable.png";
+
 // Object constructors
 
 function Entity(type, dimension) {
@@ -118,13 +124,13 @@ function GameMap(_map) {
             for (var column = 0; column < this._map[row].length; column++) { // Loop through the columns
                 // get tile color
                 if (this._map[row][column] === 1) { // on path tile
-                    stage.fillStyle = "white"; //TODO: add images instead of color
+                    tileImage = walkable;
                 } else { // not on path tile
-                    stage.fillStyle = "grey"; //TODO: add images instead of color
+                    tileImage = unwalkable; //TODO: add images instead of color
                 }
                 
                 // draw a 64x64 tile in the correct location
-                stage.fillRect(row * tileLength + 5, column * tileLength + 5, tileLength, tileLength);
+                stage.drawImage(tileImage, row * tileLength + 5, column * tileLength + 5);
             }
         }
     }
