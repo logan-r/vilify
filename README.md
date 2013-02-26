@@ -16,3 +16,4 @@ Download the project, extract the files and open index.html in a modern web brow
 2. [Codecademy Web Fundamentals Track](http://www.codecademy.com/tracks/web)
 3. [Codecademy Draw with JavaScript Project](http://www.codecademy.com/courses/web-beginner-en-SWM11/0?curriculum_id=50b91eda28c2fb212300039e#!/exercises/0)
 4. [Canvas Tutorial](https://developer.mozilla.org/en-US/docs/HTML/Canvas/Tutorial?redirectlocale=en-US&redirectslug=Canvas_tutorial)
+5. [Udacity HTML5 Game Development](https://www.udacity.com/course/cs255)
