@@ -55,8 +55,7 @@
         }
     },
     "monsters": {
-        "_comments": ["TODO: Add rate of attack",
-                        "Done"],
+        "_comments": ["None"],
         "Zombie": {
             "durability": 40,
             "damage": 5,
