@@ -190,6 +190,8 @@
         }
     },
     "heroes": {
+        "_comments":["extra durability is extra life due to some sort of thing the hero has. For example a Sidekick's durability is 10. The durability of the helmet is 2. One has to destroy the helmet before (s)he can defeat the hero.",
+                    "Also, I added two new Hero objects. The Carrier is intended for Level 23, The Tank is intended for Level 24."],
         "Sidekick": {
             "durability": 10,
             "damage": 1,
@@ -250,6 +252,18 @@
             "durability": 15,
             "extra durability": 10,
             "damage": 5,
+            "range": 1,
+            "rate": 1
+        },
+        "The Hero Carrier": {
+            "durability": 30,
+            "damage": 6,
+            "range": 1,
+            "rate": 1
+        },
+        "Hero Tank": {
+            "durability": 35,
+            "damage": 7,
             "range": 1,
             "rate": 1
         }
