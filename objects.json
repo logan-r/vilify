@@ -60,6 +60,7 @@
             "durability": 40,
             "damage": 5,
             "range": 1,
+            "rate": 6,
             "materials": {
                 "Brain": 3,
                 "Skin": 2,
@@ -70,6 +71,7 @@
             "durability": 45,
             "damage": 6,
             "range": 1,
+            "rate": 5,
             "materials": {
                 "Brain": 4,
                 "Skin": 3,
@@ -80,6 +82,7 @@
             "durability": 45,
             "damage": 7,
             "range": 1,
+            "rate": 4,
             "materials": {
                 "Brain": 5,
                 "Skin": 4,
@@ -90,6 +93,7 @@
             "durability": 50,
             "damage": 8,
             "range": 1,
+            "rate": 3,
             "materials": {
                 "Brain": 6,
                 "Skin": 5,
@@ -100,6 +104,7 @@
             "durability": 50,
             "damage": 9,
             "range": 1,
+            "rate": 2,
             "materials": {
                 "Brain": 6,
                 "Skin": 5,
