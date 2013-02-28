@@ -26,7 +26,7 @@ unwalkable.src = "images/unwalkable.png";
 
 // Object constructors
 
-function Entity(type, dimension) {
+function Entity(type, dimension, img) {
     /*
     Stub class for representing entity in the game.
     This should never be invoked on its own.
@@ -40,6 +40,7 @@ function Entity(type, dimension) {
     materials: materials needed
     update: stub method for update. Override recommended
     draw: stub method for draw. Override recommended
+    img: image
     */
     // TODO: images!!!
     if (type) {
@@ -58,14 +59,19 @@ function Entity(type, dimension) {
         this.width = dimension.width;
         this.height = dimension.height;
     }
+    this.img = img;
 }
 Entity.prototype.update = function(elapsed) {
     this.width = randInt(100, 200);
     this.height = randInt(100, 200);
 };
 Entity.prototype.draw = function() {
+    if (img) {
+        stage.drawImage(this.img, this.x, this.y);
+    } else {
         stage.fillStyle = "red";
         stage.fillRect(this.x, this.y, this.width, this.height);
+    }
 };
 
 function Tower(name, dimension) { // Tower object constructor
