@@ -18,13 +18,78 @@ xhrGet("map.json", null, function(xhr) {
 });
 var entities = []; // The array of all the entities.
 
-// Load images
-var walkable = new Image(); // Walkable tile
-var unwalkable = new Image(); // Unwalkable tile
-walkable.src = "images/walkable.png";
-unwalkable.src = "images/unwalkable.png";
+// Create assetManager
+assetManager = new AssetManager();
 
-// Object constructors
+// Add files to assetManage
+assetManager.addImage("Walkable Tile", "images/walkable.png");
+assetManager.addImage("Unwalkable Tile", "images/unwalkable.png");
+
+/* Object constructors
+------------------------------------------------------------------------------------------------------------------*/
+
+function AssetManager() {
+    /*
+    Holds game assets (images, music, etc.) and makes sure they are all loaded before the game starts
+    */
+    
+    // TODO: Add loading for music
+    
+    // Holds assets
+    this.assets = {};
+    
+    // Holds asset file locations before they are loaded
+    this.assetFiles = {}
+    
+    // Store the total assets so we know when it is done loading
+    this.totalAssets = 0;
+    
+    // Store the currently loaded assets so we know when it is done loading
+    this.loadedAssets = 0;
+    
+    // Keep track of if AssetManager is up to date (has loaded all files)
+    this.upToDate = true; //starts true because it has loaded all 0 files
+    
+    this.addImage = function (imageName, imageFile) {
+        /*
+        imageName: a string that can later be used to get the image
+        imageFile: the file location of the image
+        */
+        this.assets[imageName] = new Image();
+        this.assets[imageName].onLoad = this.imageloaded;
+        this.assetFiles[imageName] = imageFile;
+        this.totalAssets++;
+        this.upToDate = false;
+    }
+    
+    this.imageLoaded = function () {
+        this.loadedAssets++;
+    }
+    
+    this.load = function (callback) {
+        // Loop through assets
+        for (var asset in this.assets) {
+            // Make sure property is from assets not object
+            if (this.assets.hasOwnProperty(asset)) {
+                this.assets[asset] = this.assetFiles[asset];
+            }
+        }
+        
+        // Continue looping until all images are loaded
+        while (this.currentAssets != this.totalAssets) {
+            // Wait
+        }
+        
+        // Call the callback function
+        callback();
+    }
+    
+    
+    this.getAsset = function (assetName) {
+        // Gets asset 'assetName'
+        return this.assets[assetName];
+    }
+}
 
 function Entity(type, dimension, img) {
     /*
@@ -130,9 +195,9 @@ function GameMap(_map) {
             for (var column = 0; column < this._map[row].length; column++) { // Loop through the columns
                 // get tile color
                 if (this._map[row][column] === 1) { // on path tile
-                    tileImage = walkable;
+                    tileImage = assetManager.getAsset("Walkable Tile");
                 } else { // not on path tile
-                    tileImage = unwalkable; //TODO: add images instead of color
+                    tileImage = assetManager.getAsset("Unwalkable Tile");
                 }
                 
                 // draw a 64x64 tile in the correct location
@@ -220,5 +285,8 @@ function tick() {
     draw();
 }
 
-// Create a timer that calls a function, tick (which updates the game and draw), FPS times per second
-setInterval(tick, 1000/FPS);
+// Load images and start game when done
+assetManager.load(function() {
+    // Create a timer that calls a function, tick (which updates the game and draw), FPS times per second
+    setInterval(tick, 1000/FPS);
+});
