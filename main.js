@@ -71,15 +71,10 @@ function AssetManager() {
         for (var asset in this.assets) {
             // Make sure property is from assets not object
             if (this.assets.hasOwnProperty(asset)) {
-                this.assets[asset] = this.assetFiles[asset];
+                this.assets[asset].src = this.assetFiles[asset];
             }
         }
-        
-        // Continue looping until all images are loaded
-        while (this.currentAssets != this.totalAssets) {
-            // Wait
-        }
-        
+
         // Call the callback function
         callback();
     }
