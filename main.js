@@ -178,25 +178,25 @@ function GameMap(_map) {
     /*
     Game Map Class
     _map: a 2D array, 1 = a tile that can be walked on, 0 = a tile that can't be walked on
-    draw: a function that displays the map 
+    draw: a function that displays the map
     */
     this._map = _map;
     this.draw = function() {
         //draw border
         stage.fillStyle = "black";
         stage.fillRect(0, 0, this._map.length * tileLength + 10, this._map[0].length * tileLength + 10);
-        
+
         for (var row = 0; row < this._map.length; row++) { // Loop through the rows
             for (var column = 0; column < this._map[row].length; column++) { // Loop through the columns
                 // get tile color
-                if (this._map[row][column] === 1) { // on path tile
+                if (this._map[row][column] === 0) { // on path tile
                     tileImage = assetManager.getAsset("Walkable Tile");
                 } else { // not on path tile
                     tileImage = assetManager.getAsset("Unwalkable Tile");
                 }
-                
+
                 // draw a 64x64 tile in the correct location
-                stage.drawImage(tileImage, row * tileLength + 5, column * tileLength + 5);
+                stage.drawImage(tileImage, column * tileLength + 5, row * tileLength + 5);
             }
         }
     }
