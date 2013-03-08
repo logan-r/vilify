@@ -1,7 +1,7 @@
 {
 	"_comments": ["I thought it would be more appropriate to use JSON rather than making our own",
 				  "Each array in waves represents each wave.",
-				  "Each level should have 24 waves"
+				  "Each level should have 24 waves",
 				  "Idea. tile-type system."],
 	"map1": {
 		"mapArray": [
