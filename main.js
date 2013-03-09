@@ -19,7 +19,7 @@ var settings = Game.settings = {
 		UNWALKABLE: 1,
 		START: 2,
 		END: 3
-	}
+	},
 	canvas: document.getElementById( "canvas" ), // Our drawing canvas
 	objectData: null, // Game object data
 	mapData: null, // Game map data
@@ -84,11 +84,11 @@ AssetManager.prototype = {
 	 * file: The file location of the image
 	 */
 	addImage: function( name, file ) {
-        this.assets[imageName] = new Image();
-        this.assets[imageName].onLoad = this.imageloaded;
-        this.assetFiles[imageName] = imageFile;
-        this.totalAssets++;
-        this.upToDate = false;
+        	this.assets[imageName] = new Image();
+        	this.assets[imageName].onLoad = this.imageloaded;
+        	this.assetFiles[imageName] = imageFile;
+        	this.totalAssets++;
+        	this.upToDate = false;
 	},
 
 	/**
@@ -338,8 +338,7 @@ function tick() {
 }
 
 // Load images and start game when done
-    // Create a timer that calls a function, tick (which updates the game and draw), FPS times per second
-    setInterval(tick, 1000/FPS);
-});
+// Create a timer that calls a function, tick (which updates the game and draw), FPS times per second
+setInterval(tick, 1000/FPS);
 
 })( window );
