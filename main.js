@@ -312,7 +312,7 @@ function draw() {
 	stage.fillRect(0, 0, stage.width, stage.height);
 
 	// Draw map
-	Map.draw();
+	settings.map.draw();
 
 	// Draw entities
 	for (var i in settings.entities) {
