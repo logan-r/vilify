@@ -2,7 +2,7 @@
  * Vilify main.js file
  */
 
-(function( window ) {
+(function(window) {
 
 var Game = window.Game = {
 	name: "Vilify",
@@ -20,7 +20,7 @@ var settings = Game.settings = {
 		START: 2,
 		END: 3
 	},
-	canvas: document.getElementById( "canvas" ), // Our drawing canvas
+	canvas: document.getElementById("canvas"), // Our drawing canvas
 	objectData: null, // Game object data
 	mapData: null, // Game map data
 	map: null, // Game map
@@ -28,17 +28,17 @@ var settings = Game.settings = {
 };
 
 // Our canvas context for drawing
-var stage = settings.stage = settings.canvas.getContext( "2d" );
+var stage = settings.stage = settings.canvas.getContext("2d");
 
 // Fetch object data
-ajax( "objects.json", null, function( msg ) {
-	settings.objectData = JSON.parse( msg );
+ajax( "objects.json", null, function(msg) {
+	settings.objectData = JSON.parse(msg);
 });
 
 // Fetch map data
-ajax( "map.json", null, function( msg ) {
-	settings.mapData = JSON.parse( msg );
-	settings.map = new GameMap( settings.mapData.map1.mapArray );
+ajax( "map.json", null, function(msg) {
+	settings.mapData = JSON.parse(msg);
+	settings.map = new GameMap(settings.mapData.map1.mapArray);
 	settings.map.waves = settings.mapData.map1.waves;
 });
 
@@ -46,7 +46,7 @@ ajax( "map.json", null, function( msg ) {
 Game.assetManager = new AssetManager();
 
 // Add files to asset manager
-Game.assetManager.addImage( "Walkable Tile", "images/walkable.png" );
+Game.assetManager.addImage("Walkable Tile", "images/walkable.png");
 Game.assetManager.addImage("Unwalkable Tile", "images/unwalkable.png");
 Game.assetManager.addImage("Start Tile", "images/start.png");
 Game.assetManager.addImage("End Tile", "images/end.png");
@@ -83,7 +83,7 @@ AssetManager.prototype = {
 	 * name: A string to get the image
 	 * file: The file location of the image
 	 */
-	addImage: function( name, file ) {
+	addImage: function(name, file) {
 		this.assets[imageName] = new Image();
 		this.assets[imageName].onLoad = this.imageloaded;
 		this.assetFiles[imageName] = imageFile;
@@ -101,7 +101,7 @@ AssetManager.prototype = {
 	/**
 	 * Loads the assets
 	 */
-	load: function( callback ) {
+	load: function(callback) {
 		// Loop through assets
 		for (var asset in this.assets) {
 			// Make sure property is from assets not object
@@ -117,7 +117,7 @@ AssetManager.prototype = {
 	/**
 	 * Get an asset by name
 	 */
-	getAsset: function( assetName ) {
+	getAsset: function(assetName) {
 		return this.assets[assetName];
 	}
 };
@@ -272,7 +272,7 @@ function GameMap(_map) {
  *   type: Response text type
  * callback: A function to call when a response is recieved
  */
-function ajax( uri, options, callback ) {
+function ajax(uri, options, callback) {
 	options = options || {};
 
 	// Create xhr object
@@ -281,18 +281,18 @@ function ajax( uri, options, callback ) {
 	xhr.open( options.method || "GET", uri );
 
 	// If type is undefined
-	if ( options.type ) {
+	if (options.type) {
 		xhr.responseType = options.type
 	}
 
 	xhr.onload = function() {
-		if ( typeof callback === "function" ) {
-			callback( xhr.responseText, xhr );
+		if (typeof callback === "function") {
+			callback(xhr.responseText, xhr);
 		}
 	};
 
-	if ( options.data ) {
-		return xhr.send( options.data );
+	if (options.data) {
+		return xhr.send(options.data);
 	}
 	xhr.send();
 }
@@ -303,8 +303,8 @@ function update() {
 	var timeNow = new Date().getTime();
 	if (time !== 0) {
 		var elapsed = timeNow - time;
-		for (var i in entities) {
-			entities[i].update(elapsed);
+		for (var i in settings.entities) {
+			settings.entities[i].update(elapsed);
 		}
 	}
 	time = timeNow;
@@ -341,4 +341,4 @@ function tick() {
 // Create a timer that calls a function, tick (which updates the game and draw), FPS times per second
 setInterval(tick, 1000/FPS);
 
-})( window );
+})(window);
