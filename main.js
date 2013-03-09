@@ -239,16 +239,16 @@ function GameMap(_map) {
                 var tileImage;
                 switch (this._map[row][column]) {
                     case settings.WALKABLE:
-                        tileImage = assetManager.getAsset("Walkable Tile");
+                        tileImage = Game.assetManager.getAsset("Walkable Tile");
                         break;
                     case settings.tiles.UNWALKABLE:
-                        tileImage = assetManager.getAsset("Unwalkable Tile");
+                        tileImage = Game.assetManager.getAsset("Unwalkable Tile");
                         break;
                     case settings.tiles.START:
-                        tileImage = assetManager.getAsset("Start Tile");
+                        tileImage = Game.assetManager.getAsset("Start Tile");
                         break;
                     case settings.tiles.END:
-                        tileImage = assetManager.getAsset("End Tile");
+                        tileImage = Game.assetManager.getAsset("End Tile");
                         break;
                     default:
                         throw "Invalid map!";
@@ -338,7 +338,6 @@ function tick() {
 }
 
 // Load images and start game when done
-assetManager.load(function() {
     // Create a timer that calls a function, tick (which updates the game and draw), FPS times per second
     setInterval(tick, 1000/FPS);
 });
