@@ -1,9 +1,29 @@
 /* Main stylesheet */
 
-body {
+* {
     margin: 0;
     padding: 0;
 }
+
+body {
+	font-family: tahoma, arial;
+	font-size: 16px;
+}
+
+#header {
+	background: #F8F8F8;
+	border-bottom: 1px solid #EEE;
+	font-size: 18px;
+	height: 50px;
+	line-height: 50px;
+	padding: 0 15px;
+}
+
+#logo {
+	font-family: 'Snowburst One', tahoma, arial;
+	font-size: 26px;
+}
+
 #footer{
     clear:both;
     position: relative;
