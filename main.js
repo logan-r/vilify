@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /**
  * Vilify main.js file
  */
@@ -27,6 +28,24 @@ var stage = settings.stage = settings.canvas.getContext( "2d" );
 // Fetch object data
 ajax( "objects.json", null, function( msg ) {
 	settings.objectData = JSON.parse( msg );
+=======
+// Vilify's main js file
+
+// Game Constants
+var FPS = 20; // The number of frames per second (the amount of time for second that things get updated)
+var time = 0; // To keep track of time elapsed
+var stage = document.getElementById('canvas').getContext('2d'); // Create a variable stage to draw upon
+var TILE_LENGTH = 64; // The tile length (since it is awkward to call it a width or height)
+var TILES = { // TILES "enum". Each property represents each number in map.json.
+    WALKABLE: 0,
+    UNWALKABLE: 1,
+    START: 2,
+    END: 3
+}
+var objectData;
+xhrGet("objects.json", null, function(xhr) {
+    objectData = JSON.parse(xhr.responseText);
+>>>>>>> 2beda0c786d02cf9269065e3fc67461ed9f6db61
 });
 
 // Fetch map data
@@ -225,29 +244,31 @@ function GameMap(_map) {
     this.draw = function() {
         //draw border
         stage.fillStyle = "black";
-        stage.fillRect(0, 0, this._map.length * tileLength + 10, this._map[0].length * tileLength + 10);
+        stage.fillRect(0, 0, this._map.length * TILE_LENGTH + 10, this._map[0].length * TILE_LENGTH + 10);
 
         for (var row = 0; row < this._map.length; row++) { // Loop through the rows
             for (var column = 0; column < this._map[row].length; column++) { // Loop through the columns
                 // get tile type
-                tileImage = NaN;
+                var tileImage;
                 switch (this._map[row][column]) {
-                    case 0: // Walkable Tile
+                    case TILES.WALKABLE:
                         tileImage = assetManager.getAsset("Walkable Tile");
                         break;
-                    case 1: // Unwalkable Tile
+                    case TILES.UNWALKABLE:
                         tileImage = assetManager.getAsset("Unwalkable Tile");
                         break;
-                    case 2: // Start Tile
+                    case TILES.START:
                         tileImage = assetManager.getAsset("Start Tile");
                         break;
-                    case 3: // End Tile
+                    case TILES.END:
                         tileImage = assetManager.getAsset("End Tile");
                         break;
+                    default:
+                        throw "Invalid map!";
                 }
 
                 // draw a 64x64 tile in the correct location
-                stage.drawImage(tileImage, column * tileLength + 5, row * tileLength + 5);
+                stage.drawImage(tileImage, column * TILE_LENGTH + 5, row * TILE_LENGTH + 5);
             }
         }
     }
