@@ -333,7 +333,9 @@ function tick() {
 }
 
 // Load images and start game when done
-// Create a timer that calls a function, tick (which updates the game and draw), FPS times per second
-setInterval(tick, 1000/settings.FPS);
+Game.assetManager.load(function() {
+	// Create a timer that calls a function, tick (which updates the game and draw), FPS times per second
+	setInterval(tick, 1000/settings.FPS);
+});
 
 })(window);
