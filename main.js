@@ -1,31 +1,49 @@
-// Vilify's main js file
+/**
+ * Vilify main.js file
+ */
 
-// Game Constants
-var FPS = 20; // The number of frames per second (the amount of time for second that things get updated)
-var time = 0; // To keep track of time elapsed
-var stage = document.getElementById('canvas').getContext('2d'); // Create a variable stage to draw upon
-var tileLength = 64; // The tile length (since it is awkward to call it a width or height)
-var objectData;
-xhrGet("objects.json", null, function(xhr) {
-    objectData = JSON.parse(xhr.responseText);
+(function( window ) {
+
+var Game = window.Game = {
+	name: "Vilify",
+	version: "1.0.0"
+};
+
+// Game settings
+var settings = Game.settings = {
+	fps: 20, // Frames per second
+	time: 0, // To keep track of time elapsed
+	tileLength: 64, // Tile length (since it is awkward to call it a width or height)
+	canvas: document.getElementById( "canvas" ), // Our drawing canvas
+	objectData: null, // Game object data
+	mapData: null, // Game map data
+	map: null, // Game map
+	entities: [], // Game entities
+};
+
+// Our canvas context for drawing
+var stage = settings.stage = settings.canvas.getContext( "2d" );
+
+// Fetch object data
+ajax( "objects.json", null, function( msg ) {
+	settings.objectData = JSON.parse( msg );
 });
-var mapData; // The game map data
-var Map; // The game map
-xhrGet("map.json", null, function(xhr) {
-    mapData = JSON.parse(xhr.responseText);
-    Map = new GameMap(mapData.map1.mapArray);
-    Map.waves = mapData.map1.waves;
+
+// Fetch map data
+ajax( "map.json", null, function( msg ) {
+	settings.mapData = JSON.parse( msg );
+	settings.map = new GameMap( settings.mapData.map1.mapArray );
+	settings.map.waves = settings.mapData.map1.waves;
 });
-var entities = []; // The array of all the entities.
 
-// Create assetManager
-assetManager = new AssetManager();
+// Create asset manager
+Game.assetManager = new AssetManager();
 
-// Add files to assetManage
-assetManager.addImage("Walkable Tile", "images/walkable.png");
-assetManager.addImage("Unwalkable Tile", "images/unwalkable.png");
-assetManager.addImage("Start Tile", "images/start.png");
-assetManager.addImage("End Tile", "images/end.png");
+// Add files to asset manager
+Game.assetManager.addImage( "Walkable Tile", "images/walkable.png" );
+Game.assetManager.addImage("Unwalkable Tile", "images/unwalkable.png");
+Game.assetManager.addImage("Start Tile", "images/start.png");
+Game.assetManager.addImage("End Tile", "images/end.png");
 
 /* Object constructors
 ------------------------------------------------------------------------------------------------------------------*/
@@ -51,24 +69,33 @@ function AssetManager() {
     
     // Keep track of if AssetManager is up to date (has loaded all files)
     this.upToDate = true; //starts true because it has loaded all 0 files
-    
-    this.addImage = function (imageName, imageFile) {
-        /*
-        imageName: a string that can later be used to get the image
-        imageFile: the file location of the image
-        */
+}
+
+AssetManager.prototype = {
+	/**
+	 * Adds an image to the assets
+	 * name: A string to get the image
+	 * file: The file location of the image
+	 */
+	addImage: function( name, file ) {
         this.assets[imageName] = new Image();
         this.assets[imageName].onLoad = this.imageloaded;
         this.assetFiles[imageName] = imageFile;
         this.totalAssets++;
         this.upToDate = false;
-    }
-    
-    this.imageLoaded = function () {
-        this.loadedAssets++;
-    }
-    
-    this.load = function (callback) {
+	},
+
+	/**
+	 * Called when an image is loaded
+	 */
+	imageLoaded: function() {
+		this.loadedAssets++;
+	},
+
+	/**
+	 * Loads the assets
+	 */
+	load: function( callback ) {
         // Loop through assets
         for (var asset in this.assets) {
             // Make sure property is from assets not object
@@ -79,14 +106,15 @@ function AssetManager() {
 
         // Call the callback function
         callback();
-    }
-    
-    
-    this.getAsset = function (assetName) {
-        // Gets asset 'assetName'
-        return this.assets[assetName];
-    }
-}
+	},
+
+	/**
+	 * Get an asset by name
+	 */
+	getAsset: function( assetName ) {
+		return this.assets[assetName];
+	}
+};
 
 function Entity(type, dimension, img) {
     /*
@@ -123,10 +151,12 @@ function Entity(type, dimension, img) {
     }
     this.img = img;
 }
+
 Entity.prototype.update = function(elapsed) {
-    this.width = randInt(100, 200);
-    this.height = randInt(100, 200);
+    this.width = MathEx.randInt(100, 200);
+    this.height = MathEx.randInt(100, 200);
 };
+
 Entity.prototype.draw = function() {
     if (img) {
         stage.drawImage(this.img, this.x, this.y);
@@ -136,6 +166,7 @@ Entity.prototype.draw = function() {
     }
 };
 
+
 function Tower(name, dimension) { // Tower object constructor
     // TODO: Define some basic attributes that all towers can inherit
 
@@ -144,7 +175,9 @@ function Tower(name, dimension) { // Tower object constructor
 
     Entity.call(this, ["towers","name"], dimension);
 }
+
 Tower.prototype = new Entity(); // Set up prototype chain.
+
 
 function Monster(name, dimension) { // Monster object constructor
     // TODO: Define some basic attributes that all monsters can inherit
@@ -154,7 +187,9 @@ function Monster(name, dimension) { // Monster object constructor
 
     Entity.call(this, ["monsters",name], dimension);
 }
+
 Monster.prototype = new Entity(); // Set up prototype chain.
+
 
 function Potion(name) { // Potion object constructor
     // TODO: Define some basic attributes that all potions can inherit
@@ -164,7 +199,9 @@ function Potion(name) { // Potion object constructor
 
     Entity.call(this, ["potions",name]);
 }
+
 Potion.prototype = new Entity(); // Set up prototype chain.
+
 
 function Hero(name, dimension) { // Hero object constructor
     // TODO: Define some basic attributes that all heroes can inherit
@@ -174,7 +211,9 @@ function Hero(name, dimension) { // Hero object constructor
 
     Entity.call(this, ["heroes",name], dimension);
 }
+
 Hero.prototype = new Entity(); // Set up prototype chain.
+
 
 function GameMap(_map) {
     /*
@@ -216,40 +255,38 @@ function GameMap(_map) {
 
 // Global functions
 
-function xhrGet(reqUri, type, callback) {
-    /*
-    General abstract function for getting resources
-    reqUri: the uri of the resource
-    type: the type of resource, pass "null" if the type is text
-    callback: callback function
-    */
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", reqUri, true);
-    
-    // If type is not null or undefined
-    if (type) {
-        xhr.responseType = type; // Default is text
-    }
-    
-    xhr.onload = function() {
-        if (callback) {
-            try {
-                callback(xhr);
-            } catch (e) {
-                throw "xhrGet failed: " + reqUri +
-                    "\nException: " + e +
-                    "\nResponseText: " + xhr.responseText;
-            }
-        }
-    };
-    
-    xhr.send();
-}
+/**
+ * AJAX function to get resources
+ * uri: The uri of the resource
+ * settings:
+ *   method: Method of request ("GET" or "POST")
+ *   data: A map of data to be sent to the server
+ *   type: Response text type
+ * callback: A function to call when a response is recieved
+ */
+function ajax( uri, options, callback ) {
+	options = options || {};
 
-function randInt(low, high) {
-    //generates a random number between (and including) low and high
-    //should be useful later
-    return (Math.floor(Math.random()*(high-low+1)))+low;
+	// Create xhr object
+	var xhr = new XMLHttpRequest();
+
+	xhr.open( options.method || "GET", uri );
+
+	// If type is undefined
+	if ( options.type ) {
+		xhr.responseType = options.type
+	}
+
+	xhr.onload = function() {
+		if ( typeof callback === "function" ) {
+			callback( xhr.responseText, xhr );
+		}
+	};
+
+	if ( options.data ) {
+		return xhr.send( options.data );
+	}
+	xhr.send();
 }
 
 function update() {
@@ -297,3 +334,5 @@ assetManager.load(function() {
     // Create a timer that calls a function, tick (which updates the game and draw), FPS times per second
     setInterval(tick, 1000/FPS);
 });
+
+})( window );
