@@ -24,6 +24,8 @@ assetManager = new AssetManager();
 // Add files to assetManage
 assetManager.addImage("Walkable Tile", "images/walkable.png");
 assetManager.addImage("Unwalkable Tile", "images/unwalkable.png");
+assetManager.addImage("Start Tile", "images/start.png");
+assetManager.addImage("End Tile", "images/end.png");
 
 /* Object constructors
 ------------------------------------------------------------------------------------------------------------------*/
@@ -188,11 +190,21 @@ function GameMap(_map) {
 
         for (var row = 0; row < this._map.length; row++) { // Loop through the rows
             for (var column = 0; column < this._map[row].length; column++) { // Loop through the columns
-                // get tile color
-                if (this._map[row][column] === 0) { // on path tile
-                    tileImage = assetManager.getAsset("Walkable Tile");
-                } else { // not on path tile
-                    tileImage = assetManager.getAsset("Unwalkable Tile");
+                // get tile type
+                tileImage = NaN;
+                switch (this._map[row][column]) {
+                    case 0: // Walkable Tile
+                        tileImage = assetManager.getAsset("Walkable Tile");
+                        break;
+                    case 1: // Unwalkable Tile
+                        tileImage = assetManager.getAsset("Unwalkable Tile");
+                        break;
+                    case 2: // Start Tile
+                        tileImage = assetManager.getAsset("Start Tile");
+                        break;
+                    case 3: // End Tile
+                        tileImage = assetManager.getAsset("End Tile");
+                        break;
                 }
 
                 // draw a 64x64 tile in the correct location
