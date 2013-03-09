@@ -11,7 +11,7 @@ var Game = window.Game = {
 
 // Game settings
 var settings = Game.settings = {
-	fps: 20, // Frames per second
+	FPS: 20, // Frames per second
 	time: 0, // To keep track of time elapsed
 	TILE_LENGTH: 64, // Tile length (since it is awkward to call it a width or height)
 	tiles: {
@@ -142,7 +142,7 @@ function Entity(type, dimension, img) {
 	if (type) {
 		this.category = type[0];
 		this.name = type[1];
-		data = objectData[this.category][this.name];
+		data = settings.objectData[this.category][this.name];
 		this.durability = data.durability;
 		this.damage = data.damage;
 		this.range = data.range;
@@ -176,7 +176,7 @@ Entity.prototype.draw = function() {
 function Tower(name, dimension) { // Tower object constructor
 	// TODO: Define some basic attributes that all towers can inherit
 
-	if (objectData.towers[name] == undefined)
+	if (settings.objectData.towers[name] == undefined)
 		throw "Tower: Invalid name: " + name;
 
 	Entity.call(this, ["towers","name"], dimension);
@@ -188,7 +188,7 @@ Tower.prototype = new Entity(); // Set up prototype chain.
 function Monster(name, dimension) { // Monster object constructor
 	// TODO: Define some basic attributes that all monsters can inherit
 
-	if (objectData.monsters[name] == undefined)
+	if (settings.objectData.monsters[name] == undefined)
 		throw "Monster: Invalid name: " + name;
 
 	Entity.call(this, ["monsters",name], dimension);
@@ -200,7 +200,7 @@ Monster.prototype = new Entity(); // Set up prototype chain.
 function Potion(name) { // Potion object constructor
 	// TODO: Define some basic attributes that all potions can inherit
 
-	if (objectData.potions[name] == undefined)
+	if (settings.objectData.potions[name] == undefined)
 		throw "Potion: Invalid name: " + name;
 
 	Entity.call(this, ["potions",name]);
@@ -212,7 +212,7 @@ Potion.prototype = new Entity(); // Set up prototype chain.
 function Hero(name, dimension) { // Hero object constructor
 	// TODO: Define some basic attributes that all heroes can inherit
 
-	if (objectData.heroes[name] == undefined)
+	if (settings.objectData.heroes[name] == undefined)
 		throw "Hero: Invalid name: " + name;
 
 	Entity.call(this, ["heroes",name], dimension);
@@ -282,7 +282,7 @@ function ajax(uri, options, callback) {
 
 	// If type is undefined
 	if (options.type) {
-		xhr.responseType = options.type
+		xhr.responseType = options.type;
 	}
 
 	xhr.onload = function() {
@@ -301,13 +301,13 @@ function update() {
 	// TODO: Update the game entities
 
 	var timeNow = new Date().getTime();
-	if (time !== 0) {
-		var elapsed = timeNow - time;
+	if (settings.time !== 0) {
+		var elapsed = timeNow - settings.time;
 		for (var i in settings.entities) {
 			settings.entities[i].update(elapsed);
 		}
 	}
-	time = timeNow;
+	settings.time = timeNow;
 }
 
 function draw() {
@@ -325,11 +325,6 @@ function draw() {
 	for (var i in settings.entities) {
 		settings.entities[i].draw();
 	}
-
-	// Draw menu
-	stage.font = "40px Snowburst One";
-	stage.fillStyle = "white";
-	stage.fillText("Vilify", 485, 50);
 }
 
 function tick() {
@@ -339,6 +334,6 @@ function tick() {
 
 // Load images and start game when done
 // Create a timer that calls a function, tick (which updates the game and draw), FPS times per second
-setInterval(tick, 1000/FPS);
+setInterval(tick, 1000/settings.FPS);
 
 })(window);
