@@ -75,33 +75,26 @@ function AssetManager() {
 
 	// Keep track of if AssetManager is up to date (has loaded all files)
 	this.upToDate = true; //starts true because it has loaded all 0 files
-}
-
-AssetManager.prototype = {
-	/**
-	 * Adds an image to the assets
-	 * name: A string to get the image
-	 * file: The file location of the image
-	 */
-	addImage: function(name, file) {
-		this.assets[imageName] = new Image();
-		this.assets[imageName].onLoad = this.imageloaded;
-		this.assetFiles[imageName] = imageFile;
+	
+	this.addImage = function(name, file) {
+		this.assets[name] = new Image();
+		this.assets[name].onLoad = this.imageloaded;
+		this.assetFiles[name] = file;
 		this.totalAssets++;
 		this.upToDate = false;
-	},
+	};
 
 	/**
 	 * Called when an image is loaded
 	 */
-	imageLoaded: function() {
+	this.imageLoaded = function() {
 		this.loadedAssets++;
-	},
+	};
 
 	/**
 	 * Loads the assets
 	 */
-	load: function(callback) {
+	this.load = function(callback) {
 		// Loop through assets
 		for (var asset in this.assets) {
 			// Make sure property is from assets not object
@@ -117,7 +110,7 @@ AssetManager.prototype = {
 	/**
 	 * Get an asset by name
 	 */
-	getAsset: function(assetName) {
+	this.getAsset = function(assetName) {
 		return this.assets[assetName];
 	}
 };
