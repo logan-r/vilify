@@ -37,8 +37,6 @@ var stage = settings.stage = settings.canvas.getContext("2d");
  * loaded before the game starts.
  */
 function AssetManager() {
-	// TODO: Add loading for music
-
 	// Holds assets objects
 	// asset:
 	//   type: The type of the asset (i.e. "image")
