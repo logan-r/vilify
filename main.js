@@ -11,6 +11,8 @@ var Game = window.Game = {
 
 // Game settings
 var settings = Game.settings = {
+	width: 650, // Width of the canvas
+	height: 650, // Heihgt of the canvas
 	FPS: 20, // Frames per second
 	time: 0, // To keep track of time elapsed
 	TILE_LENGTH: 64, // Tile length (since it is awkward to call it a width or height)
@@ -320,6 +322,16 @@ function draw() {
 	}
 }
 
+/**
+ * Binds an event listener to an element
+ * elem: The element
+ * type: The type of event (i.e. "click")
+ * fn: The function to call when the event fires
+ */
+function bind( elem, type, fn ) {
+	elem.addEventListener( type, fn, false );
+}
+
 function tick() {
 	update();
 	draw();
@@ -330,5 +342,16 @@ Game.assetManager.load(function() {
 	// Create a timer that calls a function, tick (which updates the game and draw), FPS times per second
 	setInterval(tick, 1000/settings.FPS);
 });
+
+// Resize the canvas when the window is resized
+var windowResize = function() {
+	var w = window.innerWidth,
+		h = window.innerHeight,
+		optimalW = w < h ? w : h;
+	settings.canvas.style.width = optimalW + "px";
+	settings.canvas.style.height = optimalW + "px";
+};
+windowResize();
+bind( window, "resize", windowResize );
 
 })(window);
