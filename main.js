@@ -44,23 +44,11 @@ ajax( "map.json", null, function(msg) {
 	settings.map.waves = settings.mapData.map1.waves;
 });
 
-// Create asset manager
-Game.assetManager = new AssetManager();
-
-// Add files to asset manager
-Game.assetManager.addImage("Walkable Tile", "images/walkable.png");
-Game.assetManager.addImage("Unwalkable Tile", "images/unwalkable.png");
-Game.assetManager.addImage("Start Tile", "images/start.png");
-Game.assetManager.addImage("End Tile", "images/end.png");
-
-/* Object constructors
-------------------------------------------------------------------------------------------------------------------*/
-
+/**
+ * Holds game assets (images, music, etc.) and makes sure they are all
+ * loaded before the game starts.
+ */
 function AssetManager() {
-	/*
-	Holds game assets (images, music, etc.) and makes sure they are all loaded before the game starts
-	*/
-
 	// TODO: Add loading for music
 
 	// Holds assets
@@ -77,26 +65,31 @@ function AssetManager() {
 
 	// Keep track of if AssetManager is up to date (has loaded all files)
 	this.upToDate = true; //starts true because it has loaded all 0 files
-	
-	this.addImage = function(name, file) {
+};
+
+AssetManager.prototype = {
+	/**
+	 * Adds an image
+	 */
+	addImage: function( name, file ) {
 		this.assets[name] = new Image();
 		this.assets[name].onLoad = this.imageloaded;
 		this.assetFiles[name] = file;
 		this.totalAssets++;
 		this.upToDate = false;
-	};
+	},
 
 	/**
 	 * Called when an image is loaded
 	 */
-	this.imageLoaded = function() {
+	imageLoaded: function() {
 		this.loadedAssets++;
-	};
+	},
 
 	/**
 	 * Loads the assets
 	 */
-	this.load = function(callback) {
+	load: function( callback ) {
 		// Loop through assets
 		for (var asset in this.assets) {
 			// Make sure property is from assets not object
@@ -112,28 +105,38 @@ function AssetManager() {
 	/**
 	 * Get an asset by name
 	 */
-	this.getAsset = function(assetName) {
+	getAsset: function( assetName ) {
 		return this.assets[assetName];
 	}
 };
 
+// Create asset manager
+Game.assetManager = new AssetManager();
+
+// Add files to asset manager
+Game.assetManager.addImage("Walkable Tile", "images/walkable.png");
+Game.assetManager.addImage("Unwalkable Tile", "images/unwalkable.png");
+Game.assetManager.addImage("Start Tile", "images/start.png");
+Game.assetManager.addImage("End Tile", "images/end.png");
+
+/**
+ * Abstract class for representing an entity in the game.
+ * This should never be invoked on its own.
+ */
 function Entity(type, dimension, img) {
 	/*
-	Stub class for representing entity in the game.
-	This should never be invoked on its own.
-	category: the object's category e.g. "monsters" or "towers"
-	name: the object's name e.g. "Zombie" or "Vampire"
-	dimension: object that contains x, y, width, height. Ex) {x: 0, y: 0, width: 64, height: 64}
-	durability: how much life does this entity has.
-	damage: damage
-	range: range
-	rate: rate of fire
-	materials: materials needed
-	update: stub method for update. Override recommended
-	draw: stub method for draw. Override recommended
-	img: image
-	*/
-	// TODO: images!!!
+	 * category: the object's category e.g. "monsters" or "towers"
+	 * name: the object's name e.g. "Zombie" or "Vampire"
+	 * dimension: object that contains x, y, width, height. Ex) {x: 0, y: 0, width: 64, height: 64}
+	 * durability: how much life does this entity has.
+	 * damage: damage
+	 * range: range
+	 * rate: rate of fire
+	 * materials: materials needed
+	 * update: stub method for update. Override recommended
+	 * draw: stub method for draw. Override recommended
+	 * img: image
+	 */
 	if (type) {
 		this.category = type[0];
 		this.name = type[1];
@@ -153,22 +156,32 @@ function Entity(type, dimension, img) {
 	this.img = img;
 }
 
-Entity.prototype.update = function(elapsed) {
-	this.width = MathEx.randInt(100, 200);
-	this.height = MathEx.randInt(100, 200);
-};
+Entity.prototype = {
+	/**
+	 * Unclear what this function does. Please specify in this comment.
+	 */
+	update: function( elapsed ) {
+		this.width = MathEx.randInt( 100, 200 );
+		this.height = MathEx.randInt( 100, 200 );
+	},
 
-Entity.prototype.draw = function() {
-	if (img) {
-		stage.drawImage(this.img, this.x, this.y);
-	} else {
-		stage.fillStyle = "red";
-		stage.fillRect(this.x, this.y, this.width, this.height);
+	/**
+	 * Unclear what this function does. Please specify in this comment.
+	 */
+	draw: function() {
+		if ( img ) {
+			stage.drawImage( this.img, this.x, this.y );
+		} else {
+			stage.fillStyle = "red";
+			stage.fillRect( this.x, this.y, this.width, this.height );
+		}
 	}
 };
 
-
-function Tower(name, dimension) { // Tower object constructor
+/**
+ * Tower object constructor
+ */
+function Tower(name, dimension) {
 	// TODO: Define some basic attributes that all towers can inherit
 
 	if (settings.objectData.towers[name] == undefined)
@@ -177,10 +190,13 @@ function Tower(name, dimension) { // Tower object constructor
 	Entity.call(this, ["towers","name"], dimension);
 }
 
-Tower.prototype = new Entity(); // Set up prototype chain.
+// Extend Entity
+Tower.prototype = new Entity();
 
-
-function Monster(name, dimension) { // Monster object constructor
+/**
+ * Monster object constructor
+ */
+function Monster(name, dimension) {
 	// TODO: Define some basic attributes that all monsters can inherit
 
 	if (settings.objectData.monsters[name] == undefined)
@@ -189,10 +205,13 @@ function Monster(name, dimension) { // Monster object constructor
 	Entity.call(this, ["monsters",name], dimension);
 }
 
-Monster.prototype = new Entity(); // Set up prototype chain.
+// Extends Entity
+Monster.prototype = new Entity();
 
-
-function Potion(name) { // Potion object constructor
+/**
+ * Potion object constructor
+ */
+function Potion(name) {
 	// TODO: Define some basic attributes that all potions can inherit
 
 	if (settings.objectData.potions[name] == undefined)
@@ -201,10 +220,13 @@ function Potion(name) { // Potion object constructor
 	Entity.call(this, ["potions",name]);
 }
 
-Potion.prototype = new Entity(); // Set up prototype chain.
+// Extends Entity
+Potion.prototype = new Entity();
 
-
-function Hero(name, dimension) { // Hero object constructor
+/**
+ * Hero object constructor
+ */
+function Hero(name, dimension) {
 	// TODO: Define some basic attributes that all heroes can inherit
 
 	if (settings.objectData.heroes[name] == undefined)
@@ -213,26 +235,35 @@ function Hero(name, dimension) { // Hero object constructor
 	Entity.call(this, ["heroes",name], dimension);
 }
 
-Hero.prototype = new Entity(); // Set up prototype chain.
+// Extends Entity
+Hero.prototype = new Entity();
 
+/**
+ * Game map class
+ * layout: A 2D array of values in the set [0, 1, 2, 3]
+ *   0: Tile that can't be walked on
+ *   1: Tile that can be walked on
+ *   2: Starting tile
+ *   3: Ending tile
+ */
+function GameMap( layout ) {
+	this.layout = layout;
+}
 
-function GameMap(_map) {
-	/*
-	Game Map Class
-	_map: a 2D array, 1 = a tile that can be walked on, 0 = a tile that can't be walked on
-	draw: a function that displays the map
-	*/
-	this._map = _map;
-	this.draw = function() {
-		//draw border
+GameMap.prototype = {
+	/**
+	 * Draws the map on the canvas
+	 */
+	draw: function() {
+		// draw border
 		stage.fillStyle = "black";
-		stage.fillRect(0, 0, this._map.length * settings.TILE_LENGTH + 10, this._map[0].length * settings.TILE_LENGTH + 10);
+		stage.fillRect(0, 0, this.layout.length * settings.TILE_LENGTH + 10, this.layout[0].length * settings.TILE_LENGTH + 10);
 
-		for (var row = 0; row < this._map.length; row++) { // Loop through the rows
-			for (var column = 0; column < this._map[row].length; column++) { // Loop through the columns
+		for (var row = 0; row < this.layout.length; row++) { // Loop through the rows
+			for (var column = 0; column < this.layout[row].length; column++) { // Loop through the columns
 				// get tile type
 				var tileImage;
-				switch (this._map[row][column]) {
+				switch (this.layout[row][column]) {
 					case settings.tiles.WALKABLE:
 						tileImage = Game.assetManager.getAsset("Walkable Tile");
 						break;
@@ -254,7 +285,7 @@ function GameMap(_map) {
 			}
 		}
 	}
-}
+};
 
 // Global functions
 
@@ -292,35 +323,55 @@ function ajax(uri, options, callback) {
 	xhr.send();
 }
 
-function update() {
+/**
+ * Updates the game state
+ */
+Game.update = function() {
 	// TODO: Update the game entities
 
 	var timeNow = new Date().getTime();
-	if (settings.time !== 0) {
+	if ( settings.time !== 0 ) {
 		var elapsed = timeNow - settings.time;
-		for (var i in settings.entities) {
+		for ( var i = 0; i < settings.entities.length; i++ ) {
 			settings.entities[i].update(elapsed);
 		}
 	}
 	settings.time = timeNow;
 }
 
-function draw() {
+/**
+ * Draws the current game state
+ */
+Game.draw = function() {
 	// Clear stage so we can draw over it
-	stage.clearRect(0, 0, stage.width, stage.height);
+	stage.clearRect( 0, 0, stage.width, stage.height );
 
 	// Draw background (currently just a solid color)
 	stage.fillStyle = "black";
-	stage.fillRect(0, 0, stage.width, stage.height);
+	stage.fillRect( 0, 0, stage.width, stage.height );
 
 	// Draw map
 	settings.map.draw();
 
 	// Draw entities
-	for (var i in settings.entities) {
+	for ( var i = 0; i < settings.entities.length; i++ ) {
 		settings.entities[i].draw();
 	}
 }
+
+/**
+ * Function to call each frame
+ */
+Game.tick = function() {
+	Game.update();
+	Game.draw();
+}
+
+// Load images and start game when done
+Game.assetManager.load(function() {
+	// Create a timer that calls a function, tick (which updates the game and draw), FPS times per second
+	setInterval(Game.tick, 1000/settings.FPS);
+});
 
 /**
  * Binds an event listener to an element
@@ -332,26 +383,16 @@ function bind( elem, type, fn ) {
 	elem.addEventListener( type, fn, false );
 }
 
-function tick() {
-	update();
-	draw();
-}
-
-// Load images and start game when done
-Game.assetManager.load(function() {
-	// Create a timer that calls a function, tick (which updates the game and draw), FPS times per second
-	setInterval(tick, 1000/settings.FPS);
-});
-
 // Resize the canvas when the window is resized
-var windowResize = function() {
-	var w = window.innerWidth,
-		h = window.innerHeight,
+// UPDATE: Test this later. Let's get the game running first
+/*var windowResize = function() {
+	var w = window.innerWidth - 3,
+		h = window.innerHeight - 3,
 		optimalW = w < h ? w : h;
 	settings.canvas.style.width = optimalW + "px";
 	settings.canvas.style.height = optimalW + "px";
 };
 windowResize();
-bind( window, "resize", windowResize );
+bind( window, "resize", windowResize );*/
 
 })(window);
