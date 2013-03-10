@@ -2,55 +2,87 @@
     "_comments": ["for a list of effects and what they do see https://github.com/Logi0/vilify/wiki/Effects",
                 "purpose tower ideas and tower stats at https://github.com/Logi0/vilify/wiki/Tower-Ideas"],
     "towers": {
-        "Ray Tower": {
+        "Basic Tower": {
             "damage": 1,
-            "range": 7,
-            "rate": 3,
+            "range": 1,
+            "rate": 1,
             "materials": {
-                "Ray": 3,
-                "Metals": 2
+                
+            }
+        },
+        "Laser Tower": {
+            "damage": 1,
+            "range": 1,
+            "rate": 1,
+            "materials": {
+                
             }
         },
         "Freeze Tower": {
             "damage": 1,
-            "range": 6,
-            "rate": 2,
+            "range": 1,
+            "rate": 1,
             "materials": {
-                "Freeze Ray": 4,
-                "Metals": 2
+                
             },
             "effects": {
-                "freeze": 10
+                "freeze": 1
             }
         },
-        "Double Ray Tower": {
-            "damage": 2,
-            "range": 5,
-            "rate": 4,
+        "Dust Tower": {
+            "damage": 1,
+            "range": 1,
+            "rate": 1,
             "materials": {
-                "Ray": 3,
-                "Ray 2": 3,
-                "Metals": 2
+                
+            },
+            "effects": {
+                "corrosion": 1
             }
         },
-        "Lazer Tower": {
-            "damage": 3,
-            "range": 4,
-            "rate": 3,
+        "Flame Tower": {
+            "damage": 1,
+            "range": 1,
+            "rate": 1,
             "materials": {
-                "Lazer": 5,
-                "Ray": 3,
-                "Metals": 2
+                
+            },
+            "effects": {
+                
+            }
+        },
+        "Posion Tower": {
+            "damage": 1,
+            "range": 1,
+            "rate": 1,
+            "materials": {
+                
+            },
+            "effects": {
+                "posion": 1
             }
         },
         "Lightning Tower": {
-            "damage": 4,
-            "range": 3,
-            "rate": 4,
+            "damage": 1,
+            "range": 1,
+            "rate": 1,
             "materials": {
-                "Lightning": 6,
-                "Ray": 3,
-                "Metals": 2
+                
+            },
+            "effects": {
+                
+            }
+        },
+        "Cursed Tower": {
+            "damage": 1,
+            "range": 1,
+            "rate": 1,
+            "materials": {
+                
+            },
+            "effects": {
+                "slow": 1,
+                "weaken": 1
             }
         }
     },
