@@ -32,18 +32,6 @@ var settings = Game.settings = {
 // Our canvas context for drawing
 var stage = settings.stage = settings.canvas.getContext("2d");
 
-// Fetch object data
-ajax( "objects.json", null, function(msg) {
-	settings.objectData = JSON.parse(msg);
-});
-
-// Fetch map data
-ajax( "map.json", null, function(msg) {
-	settings.mapData = JSON.parse(msg);
-	settings.map = new GameMap(settings.mapData.map1.mapArray);
-	settings.map.waves = settings.mapData.map1.waves;
-});
-
 /**
  * Holds game assets (images, music, etc.) and makes sure they are all
  * loaded before the game starts.
@@ -51,55 +39,107 @@ ajax( "map.json", null, function(msg) {
 function AssetManager() {
 	// TODO: Add loading for music
 
-	// Holds assets
+	// Holds assets objects
+	// asset:
+	//   type: The type of the asset (i.e. "image")
+	//   src: The file path of the asset
 	this.assets = {};
-
-	// Holds asset file locations before they are loaded
-	this.assetFiles = {}
 
 	// Store the total assets so we know when it is done loading
 	this.totalAssets = 0;
 
 	// Store the currently loaded assets so we know when it is done loading
 	this.loadedAssets = 0;
-
-	// Keep track of if AssetManager is up to date (has loaded all files)
-	this.upToDate = true; //starts true because it has loaded all 0 files
 };
 
 AssetManager.prototype = {
 	/**
-	 * Adds an image
+	 * Different types of assets require different ways of loading them
 	 */
-	addImage: function( name, file ) {
-		this.assets[name] = new Image();
-		this.assets[name].onLoad = this.imageloaded;
-		this.assetFiles[name] = file;
-		this.totalAssets++;
-		this.upToDate = false;
+	type: {
+		image: function( assetManager, asset, callback ) {
+			var img = new Image();
+			img.onload = function() {
+				if ( callback ) {
+					callback();
+				}
+				AssetManager.prototype.assetLoaded.call( assetManager );
+			};
+			img.src = asset.src;
+			asset.elem = img;
+		},
+		audio: function( assetManager, asset, callback ) {
+			var audio = document.createElement( "audio" );
+			audio.onload = function() {
+				if ( callback ) {
+					callback();
+				}
+				AssetManager.prototype.assetLoaded.call( assetManager );
+			};
+			audio.src = asset.src;
+			asset.elem = audio;
+		},
+		// JSON data needed before the game starts is an asset and should
+		// be loaded through this class
+		json: function( assetManager, asset, callback ) {
+			ajax( asset.src, null, function( msg ) {
+				asset.elem = JSON.parse( msg );
+				if ( callback ) {
+					callback( asset.elem );
+				}
+				AssetManager.prototype.assetLoaded.call( assetManager );
+			});
+		}
 	},
 
 	/**
-	 * Called when an image is loaded
+	 * Adds an asset
+	 * name: Name of the asset
+	 * type: Type of the asset (specified above)
+	 * src: The file path of the asset
+	 * callback: A function to call when this individual asset is loaded
 	 */
-	imageLoaded: function() {
+	addAsset: function( name, type, src, callback ) {
+		this.assets[name] = {
+			type: type,
+			src: src,
+			callback: callback
+		};
+		this.totalAssets++;
+	},
+
+	/**
+	 * Check if all assets are loaded
+	 */
+	isLoaded: function() {
+		return this.totalAssets === this.loadedAssets;
+	},
+
+	/**
+	 * Called when an asset is loaded
+	 */
+	assetLoaded: function() {
 		this.loadedAssets++;
+		if ( this.isLoaded() && this.loadedFn ) {
+			this.loadedFn();
+		}
 	},
 
 	/**
 	 * Loads the assets
 	 */
 	load: function( callback ) {
+		// Call the callback function when all assets are loaded
+		this.loadedFn = callback;
+
 		// Loop through assets
-		for (var asset in this.assets) {
+		for ( var asset in this.assets ) {
 			// Make sure property is from assets not object
-			if (this.assets.hasOwnProperty(asset)) {
-				this.assets[asset].src = this.assetFiles[asset];
+			if ( this.assets.hasOwnProperty( asset ) ) {
+				// Call the appropriate loading function for the type of asset
+				this.type[this.assets[asset].type]( this, this.assets[asset], this.assets[asset].callback );
 			}
 		}
-
-		// Call the callback function
-		callback();
 	},
 
 	/**
@@ -113,11 +153,23 @@ AssetManager.prototype = {
 // Create asset manager
 Game.assetManager = new AssetManager();
 
+// Fetch object data
+Game.assetManager.addAsset( "objects.json", "json", "objects.json", function( data ) {
+	settings.objectData = data;
+});
+
+// Fetch map data
+Game.assetManager.addAsset( "map.json", "json", "map.json", function( data ) {
+	settings.mapData = data;
+	settings.map = new GameMap( data.map1.mapArray );
+	settings.map.waves = data.map1.waves;
+});
+
 // Add files to asset manager
-Game.assetManager.addImage("Walkable Tile", "images/walkable.png");
-Game.assetManager.addImage("Unwalkable Tile", "images/unwalkable.png");
-Game.assetManager.addImage("Start Tile", "images/start.png");
-Game.assetManager.addImage("End Tile", "images/end.png");
+Game.assetManager.addAsset( "Walkable Tile", "image", "images/walkable.png" );
+Game.assetManager.addAsset( "Unwalkable Tile", "image", "images/unwalkable.png" );
+Game.assetManager.addAsset( "Start Tile", "image", "images/start.png" );
+Game.assetManager.addAsset( "End Tile", "image", "images/end.png" );
 
 /**
  * Abstract class for representing an entity in the game.
@@ -137,7 +189,7 @@ function Entity(type, dimension, img) {
 	 * draw: stub method for draw. Override recommended
 	 * img: image
 	 */
-	if (type) {
+	if ( type ) {
 		this.category = type[0];
 		this.name = type[1];
 		data = settings.objectData[this.category][this.name];
@@ -147,7 +199,7 @@ function Entity(type, dimension, img) {
 		this.rate = data.rate;
 		this.materials = data.materials;
 	}
-	if (dimension) {
+	if ( dimension ) {
 		this.x = dimension.x;
 		this.y = dimension.y;
 		this.width = dimension.width;
@@ -181,13 +233,13 @@ Entity.prototype = {
 /**
  * Tower object constructor
  */
-function Tower(name, dimension) {
+function Tower( name, dimension ) {
 	// TODO: Define some basic attributes that all towers can inherit
 
-	if (settings.objectData.towers[name] == undefined)
+	if ( settings.objectData.towers[name] == undefined )
 		throw "Tower: Invalid name: " + name;
 
-	Entity.call(this, ["towers","name"], dimension);
+	Entity.call( this, ["towers", name], dimension );
 }
 
 // Extend Entity
@@ -196,13 +248,13 @@ Tower.prototype = new Entity();
 /**
  * Monster object constructor
  */
-function Monster(name, dimension) {
+function Monster( name, dimension ) {
 	// TODO: Define some basic attributes that all monsters can inherit
 
-	if (settings.objectData.monsters[name] == undefined)
+	if ( settings.objectData.monsters[name] == undefined )
 		throw "Monster: Invalid name: " + name;
 
-	Entity.call(this, ["monsters",name], dimension);
+	Entity.call( this, ["monsters", name], dimension );
 }
 
 // Extends Entity
@@ -211,13 +263,13 @@ Monster.prototype = new Entity();
 /**
  * Potion object constructor
  */
-function Potion(name) {
+function Potion( name ) {
 	// TODO: Define some basic attributes that all potions can inherit
 
-	if (settings.objectData.potions[name] == undefined)
+	if ( settings.objectData.potions[name] == undefined )
 		throw "Potion: Invalid name: " + name;
 
-	Entity.call(this, ["potions",name]);
+	Entity.call( this, ["potions",name] );
 }
 
 // Extends Entity
@@ -226,13 +278,13 @@ Potion.prototype = new Entity();
 /**
  * Hero object constructor
  */
-function Hero(name, dimension) {
+function Hero( name, dimension ) {
 	// TODO: Define some basic attributes that all heroes can inherit
 
-	if (settings.objectData.heroes[name] == undefined)
+	if ( settings.objectData.heroes[name] == undefined )
 		throw "Hero: Invalid name: " + name;
 
-	Entity.call(this, ["heroes",name], dimension);
+	Entity.call( this, ["heroes", name], dimension );
 }
 
 // Extends Entity
@@ -257,7 +309,7 @@ GameMap.prototype = {
 	draw: function() {
 		// draw border
 		stage.fillStyle = "black";
-		stage.fillRect(0, 0, this.layout.length * settings.TILE_LENGTH + 10, this.layout[0].length * settings.TILE_LENGTH + 10);
+		stage.fillRect( 0, 0, this.layout.length * settings.TILE_LENGTH + 10, this.layout[0].length * settings.TILE_LENGTH + 10 );
 
 		for (var row = 0; row < this.layout.length; row++) { // Loop through the rows
 			for (var column = 0; column < this.layout[row].length; column++) { // Loop through the columns
@@ -265,23 +317,23 @@ GameMap.prototype = {
 				var tileImage;
 				switch (this.layout[row][column]) {
 					case settings.tiles.WALKABLE:
-						tileImage = Game.assetManager.getAsset("Walkable Tile");
+						tileImage = Game.assetManager.getAsset( "Walkable Tile" );
 						break;
 					case settings.tiles.UNWALKABLE:
-						tileImage = Game.assetManager.getAsset("Unwalkable Tile");
+						tileImage = Game.assetManager.getAsset( "Unwalkable Tile" );
 						break;
 					case settings.tiles.START:
-						tileImage = Game.assetManager.getAsset("Start Tile");
+						tileImage = Game.assetManager.getAsset( "Start Tile" );
 						break;
 					case settings.tiles.END:
-						tileImage = Game.assetManager.getAsset("End Tile");
+						tileImage = Game.assetManager.getAsset( "End Tile" );
 						break;
 					default:
 						throw "Invalid map!";
 				}
 
 				// draw a 64x64 tile in the correct location
-				stage.drawImage(tileImage, column * settings.TILE_LENGTH + 5, row * settings.TILE_LENGTH + 5);
+				stage.drawImage( tileImage.elem, column * settings.TILE_LENGTH + 5, row * settings.TILE_LENGTH + 5 );
 			}
 		}
 	}
@@ -298,7 +350,7 @@ GameMap.prototype = {
  *   type: Response text type
  * callback: A function to call when a response is recieved
  */
-function ajax(uri, options, callback) {
+function ajax( uri, options, callback ) {
 	options = options || {};
 
 	// Create xhr object
@@ -307,7 +359,7 @@ function ajax(uri, options, callback) {
 	xhr.open( options.method || "GET", uri );
 
 	// If type is undefined
-	if (options.type) {
+	if ( options.type ) {
 		xhr.responseType = options.type;
 	}
 
@@ -317,7 +369,7 @@ function ajax(uri, options, callback) {
 		}
 	};
 
-	if (options.data) {
+	if ( options.data ) {
 		return xhr.send(options.data);
 	}
 	xhr.send();
@@ -368,9 +420,9 @@ Game.tick = function() {
 }
 
 // Load images and start game when done
-Game.assetManager.load(function() {
+Game.assetManager.load( function() {
 	// Create a timer that calls a function, tick (which updates the game and draw), FPS times per second
-	setInterval(Game.tick, 1000/settings.FPS);
+	setInterval( Game.tick, 1000 / settings.FPS );
 });
 
 /**
