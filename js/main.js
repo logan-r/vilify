@@ -2,7 +2,7 @@
  * Vilify main.js file
  */
 
-(function(window) {
+(function( window ) {
 
 var Game = window.Game = {
 	name: "Vilify",
@@ -22,7 +22,7 @@ var settings = Game.settings = {
 		START: 2,
 		END: 3
 	},
-	canvas: document.getElementById("canvas"), // Our drawing canvas
+	canvas: document.getElementById( "canvas" ), // Our drawing canvas
 	objectData: null, // Game object data
 	mapData: null, // Game map data
 	map: null, // Game map
@@ -30,7 +30,7 @@ var settings = Game.settings = {
 };
 
 // Our canvas context for drawing
-var stage = settings.stage = settings.canvas.getContext("2d");
+var stage = settings.stage = settings.canvas.getContext( "2d" );
 
 /**
  * Holds game assets (images, music, etc.) and makes sure they are all
@@ -152,12 +152,12 @@ AssetManager.prototype = {
 Game.assetManager = new AssetManager();
 
 // Fetch object data
-Game.assetManager.addAsset( "objects.json", "json", "objects.json", function( data ) {
+Game.assetManager.addAsset( "objects.json", "json", "game_data/objects.json", function( data ) {
 	settings.objectData = data;
 });
 
 // Fetch map data
-Game.assetManager.addAsset( "map.json", "json", "map.json", function( data ) {
+Game.assetManager.addAsset( "map.json", "json", "game_data/map.json", function( data ) {
 	settings.mapData = data;
 	settings.map = new GameMap( data.map1.mapArray );
 	settings.map.waves = data.map1.waves;
@@ -173,7 +173,7 @@ Game.assetManager.addAsset( "End Tile", "image", "images/end.png" );
  * Abstract class for representing an entity in the game.
  * This should never be invoked on its own.
  */
-function Entity(type, dimension, img) {
+function Entity( type, dimension, img ) {
 	/*
 	 * category: the object's category e.g. "monsters" or "towers"
 	 * name: the object's name e.g. "Zombie" or "Vampire"
@@ -309,11 +309,11 @@ GameMap.prototype = {
 		stage.fillStyle = "black";
 		stage.fillRect( 0, 0, this.layout.length * settings.TILE_LENGTH + 10, this.layout[0].length * settings.TILE_LENGTH + 10 );
 
-		for (var row = 0; row < this.layout.length; row++) { // Loop through the rows
-			for (var column = 0; column < this.layout[row].length; column++) { // Loop through the columns
+		for ( var row = 0; row < this.layout.length; row++ ) { // Loop through the rows
+			for ( var column = 0; column < this.layout[row].length; column++ ) { // Loop through the columns
 				// get tile type
 				var tileImage;
-				switch (this.layout[row][column]) {
+				switch ( this.layout[row][column] ) {
 					case settings.tiles.WALKABLE:
 						tileImage = Game.assetManager.getAsset( "Walkable Tile" );
 						break;
@@ -445,4 +445,4 @@ function bind( elem, type, fn ) {
 windowResize();
 bind( window, "resize", windowResize );*/
 
-})(window);
+})( window );
