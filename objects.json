@@ -89,58 +89,48 @@
     "monsters": {
         "_comments": ["None"],
         "Zombie": {
-            "durability": 40,
-            "damage": 5,
+            "durability": 1,
+            "damage": 1,
             "range": 1,
-            "rate": 6,
+            "rate": 1,
             "materials": {
-                "Brain": 3,
-                "Skin": 2,
-                "Life": 4
+                
             }
         },
         "Werewolf": {
-            "durability": 45,
-            "damage": 6,
+            "durability": 1,
+            "damage": 1,
             "range": 1,
-            "rate": 5,
+            "rate": 1,
             "materials": {
-                "Brain": 4,
-                "Skin": 3,
-                "Life": 5
+                
             }
         },
         "Vampire": {
-            "durability": 45,
-            "damage": 7,
+            "durability": 1,
+            "damage": 1,
             "range": 1,
-            "rate": 4,
+            "rate": 1,
             "materials": {
-                "Brain": 5,
-                "Skin": 4,
-                "Life": 6
+                
             }
         },
         "Goblin": {
-            "durability": 50,
-            "damage": 8,
+            "durability": 1,
+            "damage": 1,
             "range": 1,
-            "rate": 3,
+            "rate": 1,
             "materials": {
-                "Brain": 6,
-                "Skin": 5,
-                "Life": 5
+                
             }
         },
         "Cyclops": {
-            "durability": 50,
-            "damage": 9,
+            "durability": 1,
+            "damage": 1,
             "range": 1,
-            "rate": 2,
+            "rate": 1,
             "materials": {
-                "Brain": 6,
-                "Skin": 5,
-                "Life": 6
+                
             }
         }
     },
@@ -225,79 +215,82 @@
         "_comments":["extra durability is extra life due to some sort of thing the hero has. For example a Sidekick's durability is 10. The durability of the helmet is 2. One has to destroy the helmet before (s)he can defeat the hero.",
                     "Also, I added two new Hero objects. The Carrier is intended for Level 23, The Tank is intended for Level 24."],
         "Sidekick": {
-            "durability": 10,
+            "durability": 1,
             "damage": 1,
             "range": 1,
-            "rate": 1
-        },
-        "Sidekick with Helmet": {
-            "durability": 10,
-            "extra durability": 2,
-            "damage": 1,
-            "range": 1,
-            "rate": 1
-        },
-
-        "Sidekick with Metal Suit": {
-            "durability": 10,
-            "extra durability": 4,
-            "damage": 1,
-            "range": 1,
-            "rate": 1
+            "rate": 1,
+            "speed": 1,
+            "upgrades": {
+                "helmet": {
+                    "armor": 1
+                },
+                "metal suit": {
+                    "armor": 1
+                }
+            }
         },
         "Waterborg": {
-            "durability": 10,
-            "extra durability": 5,
-            "damage": 2,
-            "range": 2,
-            "rate": 2
+            "durability": 1,
+            "armor": 1,
+            "damage": 1,
+            "range": 1,
+            "rate": 1,
+            "speed": 1
         },
         "Falcon": {
-            "durability": 10,
-            "extra durability": 8,
-            "damage": 3,
+            "durability": 1,
+            "armor": 1,
+            "damage": 1,
             "range": 1,
-            "rate": 3
+            "rate": 1,
+            "speed": 1
         },
         "Inferno Man": {
-            "durability": 10,
-            "extra durability": 10,
-            "damage": 4,
-            "range": 2,
-            "rate": 3
+            "durability": 1,
+            "armor": 1,
+            "damage": 1,
+            "range": 1,
+            "rate": 1,
+            "speed": 1
         },
         "Chomefly": {
-            "durability": 12,
-            "extra durability": 10,
-            "damage": 5,
-            "range": 2,
-            "rate": 1
+            "durability": 1,
+            "armor": 1,
+            "damage": 1,
+            "range": 1,
+            "rate": 1,
+            "speed": 1
         },
         "Spynes": {
-            "durability": 13,
-            "extra durability": 9,
-            "damage": 2,
-            "range": 2,
-            "rate": 2
+            "durability": 1,
+            "extra durability": 1,
+            "damage": 1,
+            "range": 1,
+            "rate": 1,
+            "speed": 1
         },
         "Boss": {
-            "durability": 15,
-            "extra durability": 10,
-            "damage": 5,
+            "durability": 1,
+            "extra durability": 1,
+            "damage": 1,
             "range": 1,
-            "rate": 1
+            "rate": 1,
+            "speed": 1
         },
         "The Hero Carrier": {
-            "durability": 30,
-            "damage": 6,
+            "_comments": ["needs a better name"],
+            "durability": 1,
+            "damage": 1,
             "range": 1,
-            "rate": 1
+            "rate": 1,
+            "speed": 1
         },
-        "Hero Tank": {
-            "durability": 35,
-            "damage": 7,
+        "The Tank": {
+            "durability": 1,
+            "damage": 1,
             "range": 1,
-            "rate": 1
+            "rate": 1,
+            "speed": 1
         }
     }
 }
