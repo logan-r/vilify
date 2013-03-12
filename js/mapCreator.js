@@ -228,7 +228,7 @@ window.addEventListener("keydown",function keyDown(evt)
 	{
 		map.set(mousex,mousey,2);
 	}
-    if (evt.keyCode==70 && !map.isEnd()) //F
+    if (evt.keyCode==69 && !map.isEnd()) //E
 	{
 		map.set(mousex,mousey,3);
 	}
