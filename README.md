@@ -5,9 +5,6 @@ You are a mad scientist, who has just completed a doomsday device! In 24 hours t
 
 ## Developer Guidelines:
 
-### Coding Style:
-[Coding Style Guidelines](https://github.com/Logi0/vilify/wiki/Coding-Style-Guidelines)
-
 ### Game Rules:
 Before you do anything else you should [read the game rules](https://github.com/Logi0/vilify/wiki/Game-Rules). This will show you what we are trying to develop. Also you should check it regularly for any updates.
 
