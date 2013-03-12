@@ -208,7 +208,7 @@ function Entity( type, dimension, img ) {
 
 Entity.prototype = {
 	/**
-	 * Unclear what this function does. Please specify in this comment.
+	 * Stub method for updating the entity. This method should be overrided.
 	 */
 	update: function( elapsed ) {
 		this.width = MathEx.randInt( 100, 200 );
@@ -216,7 +216,7 @@ Entity.prototype = {
 	},
 
 	/**
-	 * Unclear what this function does. Please specify in this comment.
+	 * Stub method for drawing the entity. This method should be overrided.
 	 */
 	draw: function() {
 		if ( img ) {
@@ -362,8 +362,8 @@ function ajax( uri, options, callback ) {
 	}
 
 	xhr.onload = function() {
-		if (typeof callback === "function") {
-			callback(xhr.responseText, xhr);
+		if ( typeof callback === "function" ) {
+			callback( xhr.responseText, xhr );
 		}
 	};
 
