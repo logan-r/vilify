@@ -3,6 +3,24 @@
 				  "Each array in waves represents each wave.",
 				  "Each level should have 24 waves",
 				  "Idea. tile-type system."],
+	"tutorial map 1": {
+		"mapArray": [
+			[2, 0, 0, 0, 0, 0, 0],
+			[0, 1, 1, 1, 1, 1, 0],
+			[0, 1, 0, 0, 0, 1, 0],
+			[0, 1, 0, 1, 0, 1, 0],
+			[0, 1, 0, 0, 0, 1, 0],
+			[0, 1, 1, 1, 1, 1, 0],
+			[0, 0, 0, 0, 0, 0, 3]
+	],
+		"waves": [
+			[],
+			[],
+			[]
+		]
+	},
+
+
 	"map1": {
 		"mapArray": [
 			[2, 0, 0, 0, 0, 0, 0, 0, 0, 0],
