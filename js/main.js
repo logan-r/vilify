@@ -209,6 +209,7 @@ function Entity( type, dimension, img ) {
 		this.height = dimension.height;
 	}
 	this.img = img;
+	this.rotation = 0;
 }
 
 Entity.prototype = {
@@ -221,11 +222,10 @@ Entity.prototype = {
 
 	/**
 	 * Stub method for drawing the entity. This method should be overrided.
-	 * rotation: optional, rotation of image in Radians
 	 */
-	draw: function( rotation ) {
+	draw: function() {
 		if ( this.img ) {
-			if ( rotation ) {
+			if ( this.rotation ) {
 				// Save stage state
 				stage.save();
 				
@@ -233,7 +233,7 @@ Entity.prototype = {
 				stage.translate( this.x + this.width / 2 , this.y + this.height / 2 );
 				
 				// Rotate
-				stage.rotate( rotation );
+				stage.rotate( this.rotation );
 				
 				// Draw image
 				stage.drawImage( this.img, -this.width / 2, -this.height / 2 );
@@ -266,6 +266,11 @@ function Tower( name, dimension, img ) {
 
 // Extend Entity
 Tower.prototype = new Entity();
+
+// Override Update Method
+Tower.prototype.update = function( elapsed ) {
+	this.rotation += Math.PI * elapsed / 1000;
+}
 
 /**
  * Monster object constructor
@@ -407,7 +412,7 @@ Game.update = function() {
 	if ( settings.time !== 0 ) {
 		var elapsed = timeNow - settings.time;
 		for ( var i = 0; i < settings.entities.length; i++ ) {
-			settings.entities[i].update(elapsed);
+			settings.entities[i].update( elapsed );
 		}
 	}
 	settings.time = timeNow;
@@ -416,7 +421,6 @@ Game.update = function() {
 /**
  * Draws the current game state
  */
-ROT = 0; // Included only for animation demo, should be removed soon
 Game.draw = function() {
 	// Clear stage so we can draw over it
 	stage.clearRect( 0, 0, stage.width, stage.height );
@@ -427,13 +431,10 @@ Game.draw = function() {
 
 	// Draw map
 	settings.map.draw();
-
-	// Rotate towers
-	ROT += 0.1;
 	
 	// Draw entities
 	for ( var i = 0; i < settings.entities.length; i++ ) {
-		settings.entities[i].draw( ROT );
+		settings.entities[i].draw();
 	}
 }
 
