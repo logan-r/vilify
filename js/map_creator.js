@@ -8,6 +8,16 @@ var matAux;
 var max=50;
 var puntos=0;
 var mouseFlag = 0;
+
+var start = new Image();
+start.src = "images/start.png";
+var walkable = new Image();
+walkable.src = "images/walkable.png";
+var unwalkable = new Image();
+unwalkable.src = "images/unwalkable.png";
+var end = new Image();
+end.src = "images/end.png";
+
 $( document ).ready( function() {
 	$( "#i_width" ).change( function() {
 		map.w = $( this ).val();
@@ -105,12 +115,23 @@ function paint( ctx ) {
 	ctx.clearRect( 0, 0, canvas.width, canvas.height );
 	for ( var i = 0; i < map.h; i++ ) {
 		for ( var j = 0; j < map.w; j++ ) {	
-			if ( map.get( j, i ) === 0 ) ctx.fillStyle = '#000';
-			else if ( map.get( j, i )===1 ) ctx.fillStyle = '#977';
-			else if (map.get(j,i)===2) ctx.fillStyle = '#0f0';
-			else if (map.get(j,i)===3) ctx.fillStyle = '#f00';
+			var img;
+			switch ( map.get( j, i ) ) {
+				case 0:
+					img = walkable;
+					break;
+				case 1:
+					img = unwalkable;
+					break;
+				case 2:
+					img = start;
+					break;
+				case 3:
+					img = end;
+					break;
+			}
 				
-			ctx.fillRect( j * xscale, i * yscale, xscale, yscale );
+			ctx.drawImage( img, j * xscale, i * yscale, xscale, yscale );
 			//bordes
 			ctx.strokeStyle = '#888';
 			ctx.strokeRect( j * xscale, i * yscale, xscale, yscale);			
