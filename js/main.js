@@ -13,7 +13,7 @@ var Game = window.Game = {
 var settings = Game.settings = {
 	width: 650, // Width of the canvas
 	height: 650, // Heihgt of the canvas
-	FPS: 20, // Frames per second
+	FPS: 30, // Frames per second
 	time: 0, // To keep track of time elapsed
 	TILE_LENGTH: 64, // Tile length (since it is awkward to call it a width or height)
 	tiles: {
@@ -221,11 +221,31 @@ Entity.prototype = {
 
 	/**
 	 * Stub method for drawing the entity. This method should be overrided.
+	 * rotation: optional, rotation of image in Radians
 	 */
-	draw: function() {
+	draw: function( rotation ) {
 		if ( this.img ) {
-			stage.drawImage( this.img, this.x, this.y );
-		} else {
+			if ( rotation ) {
+				// Save stage state
+				stage.save();
+				
+				// Move to center of image
+				stage.translate( this.x + this.width / 2 , this.y + this.height / 2 );
+				
+				// Rotate
+				stage.rotate( rotation );
+				
+				// Draw image
+				stage.drawImage( this.img, -this.width / 2, -this.height / 2 );
+				
+				// Restore stage state
+				stage.restore();
+			}
+			else {
+				stage.drawImage( this.img, -this.width / 2, -this.height / 2 );
+			}
+		}
+		else {
 			stage.fillStyle = "red";
 			stage.fillRect( this.x, this.y, this.width, this.height );
 		}
@@ -396,6 +416,7 @@ Game.update = function() {
 /**
  * Draws the current game state
  */
+ROT = 0; // Included only for animation demo, should be removed soon
 Game.draw = function() {
 	// Clear stage so we can draw over it
 	stage.clearRect( 0, 0, stage.width, stage.height );
@@ -407,9 +428,12 @@ Game.draw = function() {
 	// Draw map
 	settings.map.draw();
 
+	// Rotate towers
+	ROT += 0.1;
+	
 	// Draw entities
 	for ( var i = 0; i < settings.entities.length; i++ ) {
-		settings.entities[i].draw();
+		settings.entities[i].draw( ROT );
 	}
 }
 
@@ -427,8 +451,10 @@ Game.assetManager.load( function() {
 	setInterval( Game.tick, 1000 / settings.FPS );
 
 	// Create starting entities
-	basicTower = new Tower( "Basic Tower", { x: 68, y:68, width: 64, height: 64 }, Game.assetManager.getAsset( "Basic Tower" ).elem );
+	basicTower = new Tower( "Basic Tower", { x: (64 * 3) + 5, y: (64 * 7) + 5, width: 64, height: 64 }, Game.assetManager.getAsset( "Basic Tower" ).elem );
 	settings.entities.push( basicTower );
+	laserTower = new Tower( "Laser Tower", { x: (64 * 5) + 5, y: (64 * 1) + 5, width: 64, height: 64 }, Game.assetManager.getAsset( "Laser Tower" ).elem );
+	settings.entities.push( laserTower );
 });
 
 /**
