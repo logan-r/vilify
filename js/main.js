@@ -168,6 +168,7 @@ Game.assetManager.addAsset( "Walkable Tile", "image", "images/walkable.png" );
 Game.assetManager.addAsset( "Unwalkable Tile", "image", "images/unwalkable.png" );
 Game.assetManager.addAsset( "Start Tile", "image", "images/start.png" );
 Game.assetManager.addAsset( "End Tile", "image", "images/end.png" );
+Game.assetManager.addAsset( "Basic Tower", "image", "images/basic_tower.png" );
 
 /**
  * Abstract class for representing an entity in the game.
@@ -211,15 +212,14 @@ Entity.prototype = {
 	 * Stub method for updating the entity. This method should be overrided.
 	 */
 	update: function( elapsed ) {
-		this.width = MathEx.randInt( 100, 200 );
-		this.height = MathEx.randInt( 100, 200 );
+		
 	},
 
 	/**
 	 * Stub method for drawing the entity. This method should be overrided.
 	 */
 	draw: function() {
-		if ( img ) {
+		if ( this.img ) {
 			stage.drawImage( this.img, this.x, this.y );
 		} else {
 			stage.fillStyle = "red";
@@ -231,13 +231,13 @@ Entity.prototype = {
 /**
  * Tower object constructor
  */
-function Tower( name, dimension ) {
+function Tower( name, dimension, img ) {
 	// TODO: Define some basic attributes that all towers can inherit
 
 	if ( settings.objectData.towers[name] == undefined )
 		throw "Tower: Invalid name: " + name;
 
-	Entity.call( this, ["towers", name], dimension );
+	Entity.call( this, ["towers", name], dimension, img );
 }
 
 // Extend Entity
@@ -421,6 +421,10 @@ Game.tick = function() {
 Game.assetManager.load( function() {
 	// Create a timer that calls a function, tick (which updates the game and draw), FPS times per second
 	setInterval( Game.tick, 1000 / settings.FPS );
+
+	// Create starting entities
+	basicTower = new Tower( "Basic Tower", { x: 68, y:68, width: 64, height: 64 }, Game.assetManager.getAsset( "Basic Tower" ).elem );
+	settings.entities.push( basicTower );
 });
 
 /**
