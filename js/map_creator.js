@@ -137,15 +137,12 @@ function paint( ctx ) {
 			ctx.strokeRect( j * xscale, i * yscale, xscale, yscale );			
 		}
 	}	
-	
-	
 }
-function toRad( a ) {
-    return a * Math.PI / 180;
-}
+
 function reiniciar() {
 	objetosInit();
 }
+
 var tmp;
 function getMapArrayCode() {
 	var m = "";
