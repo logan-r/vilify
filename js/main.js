@@ -169,6 +169,10 @@ Game.assetManager.addAsset( "Unwalkable Tile", "image", "images/unwalkable.png" 
 Game.assetManager.addAsset( "Start Tile", "image", "images/start.png" );
 Game.assetManager.addAsset( "End Tile", "image", "images/end.png" );
 Game.assetManager.addAsset( "Basic Tower", "image", "images/basic_tower.png" );
+Game.assetManager.addAsset( "Laser Tower", "image", "images/ray_tower.png" );
+Game.assetManager.addAsset( "Flame Tower", "image", "images/flame_tower.png" );
+Game.assetManager.addAsset( "Lightning Tower", "image", "images/lightning_tower.png" );
+Game.assetManager.addAsset( "Curse Tower", "image", "images/curse_tower.png" );
 
 /**
  * Abstract class for representing an entity in the game.
