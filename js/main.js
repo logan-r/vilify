@@ -157,7 +157,7 @@ Game.assetManager.addAsset( "objects.json", "json", "game_data/objects.json", fu
 });
 
 // Fetch map data
-Game.assetManager.addAsset( "map.json", "json", "game_data/map.json", function( data ) {
+Game.assetManager.addAsset( "maps.json", "json", "game_data/maps.json", function( data ) {
 	settings.mapData = data;
 	settings.map = new GameMap( data.map1.mapArray );
 	settings.map.waves = data.map1.waves;
