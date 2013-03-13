@@ -10,7 +10,12 @@ body {
 	font-size: 16px;
 }
 
-#footer{
-    clear:both;
-    position: relative;
+#pop {
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-color:#CCCCCC;
+	background-color:rgba(255,0,0,0.5);
+	display:none;
+	text-align:center;
 }
