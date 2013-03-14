@@ -164,15 +164,8 @@ Game.assetManager.addAsset( "maps.json", "json", "game_data/maps.json", function
 });
 
 // Add files to asset manager
-Game.assetManager.addAsset( "Walkable Tile", "image", "images/walkable.png" );
-Game.assetManager.addAsset( "Unwalkable Tile", "image", "images/unwalkable.png" );
-Game.assetManager.addAsset( "Start Tile", "image", "images/start.png" );
-Game.assetManager.addAsset( "End Tile", "image", "images/end.png" );
-Game.assetManager.addAsset( "Basic Tower", "image", "images/basic_tower.png" );
-Game.assetManager.addAsset( "Laser Tower", "image", "images/ray_tower.png" );
-Game.assetManager.addAsset( "Flame Tower", "image", "images/flame_tower.png" );
-Game.assetManager.addAsset( "Lightning Tower", "image", "images/lightning_tower.png" );
-Game.assetManager.addAsset( "Curse Tower", "image", "images/curse_tower.png" );
+Game.assetManager.addAsset( "Tile Sprite Sheet", "image", "images/tiles.png" );
+Game.assetManager.addAsset( "Tower Sprite Sheet", "image", "images/towers.png" );
 
 /**
  * Abstract class for representing an entity in the game.
