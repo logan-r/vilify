@@ -10,13 +10,13 @@ var puntos = 0;
 var mouseFlag = 0;
 
 var start = new Image();
-start.src = "images/start.png";
+start.src = "images/tiles/start.png";
 var walkable = new Image();
-walkable.src = "images/walkable.png";
+walkable.src = "images/tiles/walkable.png";
 var unwalkable = new Image();
-unwalkable.src = "images/unwalkable.png";
+unwalkable.src = "images/tiles/unwalkable.png";
 var end = new Image();
-end.src = "images/end.png";
+end.src = "images/tiles/end.png";
 
 $( document ).ready( function() {
 	$( "#i_width" ).change( function() {
