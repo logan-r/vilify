@@ -22,24 +22,24 @@ $( document ).ready( function() {
 	$( "#i_width" ).change( function() {
 		map.w = $( this ).val();
 		recalculateScale();
-	} );
+	});
 	$( "#i_height" ).change( function() {
 		map.h=$( this ).val();
 		recalculateScale();
-	} );
+	});
 
 	$( window ).on( "mousedown", function mouseClick( evt ) {
 		mouseDown( evt );
 		mouseFlag = 1;
-	} );
+	});
 	$( window ).on( "mouseup", function() {
 		mouseFlag = 0;
-	} );
+	});
 	$( window ).on( "keydown", function keyDown( evt ) {
-		if ( evt.keyCode == 83 ) { // S
+		if ( evt.keyCode === 83 ) { // S
 			map.set( mousex, mousey, 2 );
 		}
-		if ( evt.keyCode == 69 && !map.isEnd() ) { // E
+		if ( evt.keyCode === 69 && !map.isEnd() ) { // E
 			map.set( mousex, mousey, 3 );
 		}
 	} );
@@ -59,7 +59,7 @@ $( document ).ready( function() {
 			mousey = mouseyy;
 		}
 		
-		if ( mouseFlag == 1 ) {
+		if ( mouseFlag === 1 ) {
 			//drag
 			mouseDown( evt );
 		}
@@ -218,7 +218,7 @@ window.requestAnimFrame = ( function() {
   window.webkitRequestAnimationFrame || 
   window.mozRequestAnimationFrame || 
   function( callback ) { window.setTimeout( callback, 17 ); };
-} )();
+})();
 
 
 function Map( w, h ) {
