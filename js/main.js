@@ -25,6 +25,8 @@ var settings = Game.settings = {
 	canvas: document.getElementById( "canvas" ), // Our drawing canvas
 	objectData: null, // Game object data
 	mapData: null, // Game map data
+	tileData: null, // Tile sprite sheet data
+	towerData: null, // Tower sprite sheet data
 	map: null, // Game map
 	entities: [] // Game entities
 };
@@ -163,6 +165,16 @@ Game.assetManager.addAsset( "maps.json", "json", "game_data/maps.json", function
 	settings.map.waves = data.map1.waves;
 });
 
+// Fetch tile sprite sheet data
+Game.assetManager.addAsset( "tiles.json", "json", "images/tiles.json", function( data ) {
+	settings.tileData = data;
+});
+
+// Fetch tower sprite sheet data
+Game.assetManager.addAsset( "towers.json", "json", "images/towers.json", function( data ) {
+	settings.towerData = data;
+});
+
 // Add files to asset manager
 Game.assetManager.addAsset( "Tile Sprite Sheet", "image", "images/tiles.png" );
 Game.assetManager.addAsset( "Tower Sprite Sheet", "image", "images/towers.png" );
@@ -171,7 +183,7 @@ Game.assetManager.addAsset( "Tower Sprite Sheet", "image", "images/towers.png" )
  * Abstract class for representing an entity in the game.
  * This should never be invoked on its own.
  */
-function Entity( type, dimension, img ) {
+function Entity( type, dimension, img, spriteData ) {
 	/*
 	 * category: the object's category e.g. "monsters" or "towers"
 	 * name: the object's name e.g. "Zombie" or "Vampire"
@@ -184,6 +196,7 @@ function Entity( type, dimension, img ) {
 	 * update: stub method for update. Override recommended
 	 * draw: stub method for draw. Override recommended
 	 * img: image
+	 * spriteData: where the image is located in it's sprite sheet
 	 */
 	if ( type ) {
 		this.category = type[0];
@@ -202,6 +215,7 @@ function Entity( type, dimension, img ) {
 		this.height = dimension.height;
 	}
 	this.img = img;
+	this.spriteData = spriteData;
 	this.rotation = 0;
 }
 
@@ -229,13 +243,13 @@ Entity.prototype = {
 				stage.rotate( this.rotation );
 				
 				// Draw image
-				stage.drawImage( this.img, -this.width / 2, -this.height / 2 );
+				stage.drawImage( this.img, this.spriteData.x, this.spriteData.y, this.width, this.height, -this.width / 2, -this.height / 2, this.width, this.height );
 				
 				// Restore stage state
 				stage.restore();
 			}
 			else {
-				stage.drawImage( this.img, -this.width / 2, -this.height / 2 );
+				stage.drawImage( this.img, this.spriteData.x, this.spriteData.y, this.width, this.height, this.x, this.y, this.width, this.height );
 			}
 		}
 		else {
@@ -254,7 +268,7 @@ function Tower( name, dimension, img ) {
 	if ( settings.objectData.towers[name] == undefined )
 		throw "Tower: Invalid name: " + name;
 
-	Entity.call( this, ["towers", name], dimension, img );
+	Entity.call( this, ["towers", name], dimension, Game.assetManager.getAsset( "Tower Sprite Sheet" ).elem, settings.towerData["frames"][settings.objectData.towers[name].image]["frame"] );
 }
 
 // Extend Entity
@@ -334,26 +348,26 @@ GameMap.prototype = {
 		for ( var row = 0; row < this.layout.length; row++ ) { // Loop through the rows
 			for ( var column = 0; column < this.layout[row].length; column++ ) { // Loop through the columns
 				// get tile type
-				var tileImage;
+				var spriteData;
 				switch ( this.layout[row][column] ) {
 					case settings.tiles.WALKABLE:
-						tileImage = Game.assetManager.getAsset( "Walkable Tile" );
+						spriteData = settings.tileData["frames"]["walkable.png"]["frame"];
 						break;
 					case settings.tiles.UNWALKABLE:
-						tileImage = Game.assetManager.getAsset( "Unwalkable Tile" );
+						spriteData = settings.tileData["frames"]["unwalkable.png"]["frame"];
 						break;
 					case settings.tiles.START:
-						tileImage = Game.assetManager.getAsset( "Start Tile" );
+						spriteData = settings.tileData["frames"]["start.png"]["frame"];
 						break;
 					case settings.tiles.END:
-						tileImage = Game.assetManager.getAsset( "End Tile" );
+						spriteData = settings.tileData["frames"]["end.png"]["frame"];
 						break;
 					default:
 						throw "Invalid map!";
 				}
 
 				// draw a 64x64 tile in the correct location
-				stage.drawImage( tileImage.elem, column * settings.TILE_LENGTH + 5, row * settings.TILE_LENGTH + 5 );
+				stage.drawImage( Game.assetManager.getAsset( "Tile Sprite Sheet" ).elem, spriteData.x, spriteData.y, settings.TILE_LENGTH, settings.TILE_LENGTH, column * settings.TILE_LENGTH + 5, row * settings.TILE_LENGTH + 5, settings.TILE_LENGTH, settings.TILE_LENGTH );
 			}
 		}
 	}
@@ -445,9 +459,9 @@ Game.assetManager.load( function() {
 	setInterval( Game.tick, 1000 / settings.FPS );
 
 	// Create starting entities
-	basicTower = new Tower( "Basic Tower", { x: (64 * 3) + 5, y: (64 * 7) + 5, width: 64, height: 64 }, Game.assetManager.getAsset( "Basic Tower" ).elem );
+	basicTower = new Tower( "Basic Tower", { x: (64 * 3) + 5, y: (64 * 7) + 5, width: 64, height: 64 } );
 	settings.entities.push( basicTower );
-	laserTower = new Tower( "Laser Tower", { x: (64 * 5) + 5, y: (64 * 1) + 5, width: 64, height: 64 }, Game.assetManager.getAsset( "Laser Tower" ).elem );
+	laserTower = new Tower( "Laser Tower", { x: (64 * 5) + 5, y: (64 * 1) + 5, width: 64, height: 64 } );
 	settings.entities.push( laserTower );
 });
 
