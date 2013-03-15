@@ -16,7 +16,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 	"sourceSize": {"w":64,"h":64}
 },
-"flame_tower.png":
+"dust_tower.png":
 {
 	"frame": {"x":134,"y":2,"w":64,"h":64},
 	"rotated": false,
@@ -24,7 +24,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 	"sourceSize": {"w":64,"h":64}
 },
-"lightning_tower.png":
+"flame_tower.png":
 {
 	"frame": {"x":2,"y":68,"w":64,"h":64},
 	"rotated": false,
@@ -32,9 +32,33 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 	"sourceSize": {"w":64,"h":64}
 },
-"ray_tower.png":
+"ice_tower.png":
 {
 	"frame": {"x":68,"y":68,"w":64,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+	"sourceSize": {"w":64,"h":64}
+},
+"lightning_tower.png":
+{
+	"frame": {"x":134,"y":68,"w":64,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+	"sourceSize": {"w":64,"h":64}
+},
+"poison_tower.png":
+{
+	"frame": {"x":2,"y":134,"w":64,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+	"sourceSize": {"w":64,"h":64}
+},
+"ray_tower.png":
+{
+	"frame": {"x":68,"y":134,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
@@ -45,8 +69,8 @@
 	"version": "1.0",
 	"image": "towers.png",
 	"format": "RGBA8888",
-	"size": {"w":256,"h":256},
+	"size": {"w":200,"h":200},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:977c2cb0f0fd3e1e27f202e093ae18d8$"
+	"smartupdate": "$TexturePacker:SmartUpdate:6c7a14ff51d8b0469d7e45e5d8b97e90$"
 }
 }
