@@ -25,6 +25,14 @@ window.MathEx = {
 	 */
 	toDeg: function( radian ) {
 		return radian * 180 / Math.PI;
+	},
+	/**
+	 * Gets distance between two entities.
+	 */
+	getDistance: function(ent1, ent2){
+		var x = ent1.x - ent2.x;
+		var y = ent1.y - ent2.y;
+		return Math.sqrt(x*x + y*y);
 	}
 };
 
