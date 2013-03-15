@@ -14,15 +14,17 @@
             "rate": 1,
             "image": "ray_tower.png"
         },
-        "Freeze Tower": {
+        "Ice Tower": {
             "damage": 1,
             "range": 1,
-            "rate": 1
+            "rate": 1,
+            "image": "ice_tower.png"
         },
         "Dust Tower": {
             "damage": 1,
             "range": 1,
             "rate": 1,
+            "image": "dust_tower.png",
             "effects": {
                 "corrosion": 1
             }
@@ -40,6 +42,7 @@
             "damage": 1,
             "range": 1,
             "rate": 1,
+            "image": "poison_tower.png",
             "effects": {
                 "posion": 1
             }
@@ -53,7 +56,7 @@
                 
             }
         },
-        "Cursed Tower": {
+        "Curse Tower": {
             "damage": 1,
             "range": 1,
             "rate": 1,
