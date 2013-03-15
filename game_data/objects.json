@@ -6,38 +6,24 @@
             "damage": 1,
             "range": 1,
             "rate": 1,
-            "image": "basic_tower.png",
-            "materials": {
-                
-            }
+            "image": "basic_tower.png"
         },
         "Laser Tower": {
             "damage": 1,
             "range": 1,
             "rate": 1,
-            "image": "ray_tower.png",
-            "materials": {
-                
+            "image": "ray_tower.png"
             }
         },
         "Freeze Tower": {
             "damage": 1,
             "range": 1,
-            "rate": 1,
-            "materials": {
-                
-            },
-            "effects": {
-                "freeze": 1
-            }
+            "rate": 1
         },
         "Dust Tower": {
             "damage": 1,
             "range": 1,
             "rate": 1,
-            "materials": {
-                
-            },
             "effects": {
                 "corrosion": 1
             }
@@ -47,9 +33,6 @@
             "range": 1,
             "rate": 1,
             "image": "flame_tower.png",
-            "materials": {
-                
-            },
             "effects": {
                 
             }
@@ -58,9 +41,6 @@
             "damage": 1,
             "range": 1,
             "rate": 1,
-            "materials": {
-                
-            },
             "effects": {
                 "posion": 1
             }
@@ -70,9 +50,6 @@
             "range": 1,
             "rate": 1,
             "image": "lightning_tower.png",
-            "materials": {
-                
-            },
             "effects": {
                 
             }
@@ -82,9 +59,6 @@
             "range": 1,
             "rate": 1,
             "image": "curse_tower.png",
-            "materials": {
-                
-            },
             "effects": {
                 "slow": 1,
                 "weaken": 1
@@ -92,132 +66,107 @@
         }
     },
     "monsters": {
-        "_comments": ["None"],
         "Zombie": {
             "durability": 1,
             "damage": 1,
             "range": 1,
-            "rate": 1,
-            "materials": {
-                
-            }
+            "rate": 1
         },
-        "Werewolf": {
+        "Abomination": {
             "durability": 1,
             "damage": 1,
             "range": 1,
-            "rate": 1,
-            "materials": {
-                
-            }
+            "rate": 1
         },
-        "Vampire": {
+        "RoboGuard": {
             "durability": 1,
             "damage": 1,
             "range": 1,
-            "rate": 1,
-            "materials": {
-                
-            }
+            "rate": 1
         },
-        "Goblin": {
+        "Yeti": {
             "durability": 1,
             "damage": 1,
             "range": 1,
-            "rate": 1,
-            "materials": {
-                
-            }
+            "rate": 1
         },
-        "Cyclops": {
+        "Needs Name": {
+            "_comments": ["A 4D gaurd, can attack heroes with out dystroying armor first"],
             "durability": 1,
             "damage": 1,
             "range": 1,
-            "rate": 1,
-            "materials": {
-                
-            }
+            "rate": 1
+        },
+        "Alien": {
+            "durability": 1,
+            "damage": 1,
+            "range": 1,
+            "rate": 1
+        },
+        "Mummy": {
+            "_comments": ["Kind of like curse tower"],
+            "durability": 1,
+            "damage": 1,
+            "range": 1,
+            "rate": 1
+        }
+        "Talos": {
+            "_comments": ["Huge robot"],
+            "durability": 1,
+            "damage": 1,
+            "range": 1,
+            "rate": 1
         }
     },
     "potions": {
         "Kill Potion": {
             "damage": 100,
             "range": 4,
-            "rate": 1,
-            "materials": {
-                "Bottle": 3,
-                "Liquid": 2,
-                "Poison": 10
-            }
+            "rate": 1
         },
         "Weakening Potion": {
             "damage": 10,
             "range": 7,
             "rate": 1,
-            "materials": {
-                "Bottle": 3,
-                "Liquid": 2,
-                "Poison": 4
-            },
             "effects": {
                 "weaken": 25
             }
         },
-        "Slow Down Potion": {
+        "Slow Potion": {
             "damage": 10,
             "range": 6,
             "rate": 1,
-            "materials": {
-                "Bottle": 3,
-                "Liquid": 2,
-                "Poison": 3
-            },
             "effects": {
                 "slow": 25
             }
         },
-        "Hero To Monster Potion": {
+        "Transform Potion": {
             "damage": 0,
             "range": 5,
             "rate": 1,
-            "materials": {
-                "Bottle": 3,
-                "Liquid": 2,
-                "Poison": 5
-            },
             "effects": {
                 "transform": 1
             }
         },
-        "Stick Potion": {
+        "Freeze Potion": {
             "damage": 10,
             "range": 4,
             "rate": 1,
-            "materials": {
-                "Bottle": 3,
-                "Liquid": 2,
-                "Poison": 5
-            },
             "effects": {
-                "stick": 30
+                "freeze": 30
             }
         },
         "Double Weakening Potion": {
             "damage": 20,
             "range": 3,
             "rate": 1,
-            "materials": {
-                "Bottle": 3,
-                "Liquid": 2,
-                "Poison": 8
-            },
             "effects": {
                 "weaken": 50
             }
         }
     },
     "heroes": {
-        "_comments":["extra durability is extra life due to some sort of thing the hero has. For example a Sidekick's durability is 10. The durability of the helmet is 2. One has to destroy the helmet before (s)he can defeat the hero.",
+        "_comments":["armor is extra life due to some sort of thing the hero has. For example a Sidekick's durability is 10. The durability of the helmet is 2. One has to destroy the helmet before (s)he can defeat the hero.",
                     "Also, I added two new Hero objects. The Carrier is intended for Level 23, The Tank is intended for Level 24."],
         "Sidekick": {
             "durability": 1,
