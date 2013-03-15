@@ -37,8 +37,8 @@ window.Physics = {
 	 * pos1 and pos2: x, y position vectors
 	 */
 	getDistance: function( pox1, pos2 ){
-		var x = Math.abs( pos1.x - pos2.x );
-		var y = Math.abs( pos1.y - pos2.y );
+		var x = pos1.x - pos2.x;
+		var y = pos1.y - pos2.y;
 		return Math.sqrt( x*x + y*y );
 	},
 	/**
