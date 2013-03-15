@@ -95,9 +95,12 @@ Game.assetManager.load( function() {
 	// Create starting entities
 	buildTower( "Basic Tower", 6, 9 );
 	buildTower( "Laser Tower", 2, 5 );
+	buildTower( "Ice Tower", 2, 1 );
+	buildTower( "Dust Tower", 6, 5 );
 	buildTower( "Flame Tower", 3, 7 );
+	buildTower( "Poison Tower", 7, 7 );
 	buildTower( "Lightning Tower", 5, 1 );
-	buildTower( "Cursed Tower", 8, 3 );
+	buildTower( "Curse Tower", 8, 3 );
 });
 
 // Resize the canvas when the window is resized
