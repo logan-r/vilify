@@ -111,7 +111,7 @@
             "damage": 1,
             "range": 1,
             "rate": 1
-        }
+        },
         "Talos": {
             "_comments": ["Huge robot"],
             "durability": 1,
