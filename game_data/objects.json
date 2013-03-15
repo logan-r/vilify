@@ -119,47 +119,45 @@
         }
     },
     "potions": {
-        "Kill Potion": {
-            "damage": 100,
-            "range": 4,
-            "rate": 1
+        "Deadly Concoction": {
+            "damage": 1,
+            "area": 1
+        },
+        "Rust Potion": {
+            "damage": 1,
+            "area": 1
         },
         "Weakening Potion": {
-            "damage": 10,
-            "range": 7,
-            "rate": 1,
+            "damage": 1,
+            "area": 1,
             "effects": {
                 "weaken": 25
             }
         },
         "Slow Potion": {
-            "damage": 10,
-            "range": 6,
-            "rate": 1,
+            "damage": 1,
+            "area": 1,
             "effects": {
                 "slow": 25
             }
         },
         "Transform Potion": {
-            "damage": 0,
-            "range": 5,
-            "rate": 1,
+            "damage": 1,
+            "area": 1,
             "effects": {
                 "transform": 1
             }
         },
         "Freeze Potion": {
-            "damage": 10,
-            "range": 4,
-            "rate": 1,
+            "damage": 1,
+            "area": 1,
             "effects": {
                 "freeze": 30
             }
         },
         "Double Weakening Potion": {
-            "damage": 20,
-            "range": 3,
-            "rate": 1,
+            "damage": 1,
+            "area": 1,
             "effects": {
                 "weaken": 50
             }
