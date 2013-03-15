@@ -13,7 +13,6 @@
             "range": 1,
             "rate": 1,
             "image": "ray_tower.png"
-            }
         },
         "Freeze Tower": {
             "damage": 1,
