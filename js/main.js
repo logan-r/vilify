@@ -38,6 +38,11 @@ Game.assetManager.addAsset( "Tower Sprite Sheet", "image", "images/towers.png" )
 
 // Global functions
 
+buildTower = function (type, x, y) {
+	tower = new Tower( type, { x: (64 * x) + 5, y: (64 * y) + 5, width: 64, height: 64 } );
+	settings.entities.push( tower );
+}
+
 /**
  * Updates the game state
  */
@@ -88,10 +93,11 @@ Game.assetManager.load( function() {
 	setInterval( Game.tick, 1000 / settings.FPS );
 	
 	// Create starting entities
-	basicTower = new Tower( "Basic Tower", { x: (64 * 3) + 5, y: (64 * 7) + 5, width: 64, height: 64 } );
-	settings.entities.push( basicTower );
-	laserTower = new Tower( "Laser Tower", { x: (64 * 5) + 5, y: (64 * 1) + 5, width: 64, height: 64 } );
-	settings.entities.push( laserTower );
+	buildTower( "Basic Tower", 6, 9 );
+	buildTower( "Laser Tower", 2, 5 );
+	buildTower( "Flame Tower", 3, 7 );
+	buildTower( "Lightning Tower", 5, 1 );
+	buildTower( "Cursed Tower", 8, 3 );
 });
 
 // Resize the canvas when the window is resized
