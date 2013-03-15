@@ -29,10 +29,10 @@ window.MathEx = {
 	/**
 	 * Gets distance between two entities.
 	 */
-	getDistance: function(ent1, ent2){
-		var x = ent1.x - ent2.x;
-		var y = ent1.y - ent2.y;
-		return Math.sqrt(x*x + y*y);
+	getDistance: function( x1, y1, x2, y2 ){
+		var x = x1 - x2;
+		var y = y1 - y2;
+		return Math.sqrt( x*x + y*y );
 	}
 };
 
