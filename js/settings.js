@@ -5,7 +5,7 @@
 (function( window ) {
 
 var Game = {
-  name: "Vilify",
+	name: "Vilify",
 	version: "1.0.0"
 };
 
