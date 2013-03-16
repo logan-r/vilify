@@ -126,38 +126,23 @@ window.AssetManager = AssetManager;
  * Abstract class for representing an entity in the game.
  * This should never be invoked on its own.
  */
-function Entity( type, dimension, img, spriteData ) {
+function Entity( name, dimension, spriteSheet, spriteData ) {
 	/*
-	 * category: the object's category e.g. "monsters" or "towers"
-	 * name: the object's name e.g. "Zombie" or "Vampire"
-	 * dimension: object that contains x, y, width, height. Ex) {x: 0, y: 0, width: 64, height: 64}
-	 * durability: how much life does this entity has.
-	 * damage: damage
-	 * range: range
-	 * rate: rate of fire
-	 * materials: materials needed
 	 * update: stub method for update. Override recommended
 	 * draw: stub method for draw. Override recommended
-	 * img: image
+	 * name: the name of the entity
+	 * dimension: the dimensions of the entity
+	 * spriteSheet: the sprite sheet Image object in which the sprite is located
 	 * spriteData: where the image is located in it's sprite sheet
 	 */
-	if ( type ) {
-		this.category = type[0];
-		this.name = type[1];
-		data = settings.objectData[this.category][this.name];
-		this.durability = data.durability;
-		this.damage = data.damage;
-		this.range = data.range;
-		this.rate = data.rate;
-		this.materials = data.materials;
-	}
+	this.name = name;
 	if ( dimension ) {
 		this.x = dimension.x;
 		this.y = dimension.y;
 		this.width = dimension.width;
 		this.height = dimension.height;
 	}
-	this.img = img;
+	this.spriteSheet = spriteSheet;
 	this.spriteData = spriteData;
 	this.rotation = 0;
 }
@@ -174,7 +159,7 @@ Entity.prototype = {
 	 * Stub method for drawing the entity. This method should be overrided.
 	 */
 	draw: function() {
-		if ( this.img ) {
+		if ( this.spriteSheet ) {
 			if ( this.rotation ) {
 				// Save stage state
 				stage.save();
@@ -186,13 +171,13 @@ Entity.prototype = {
 				stage.rotate( this.rotation );
 				
 				// Draw image
-				stage.drawImage( this.img, this.spriteData.x, this.spriteData.y, this.width, this.height, -this.width / 2, -this.height / 2, this.width, this.height );
+				stage.drawImage( this.spriteSheet, this.spriteData.x, this.spriteData.y, this.width, this.height, -this.width / 2, -this.height / 2, this.width, this.height );
 				
 				// Restore stage state
 				stage.restore();
 			}
 			else {
-				stage.drawImage( this.img, this.spriteData.x, this.spriteData.y, this.width, this.height, this.x, this.y, this.width, this.height );
+				stage.drawImage( this.spriteSheet, this.spriteData.x, this.spriteData.y, this.width, this.height, this.x, this.y, this.width, this.height );
 			}
 		}
 		else {
@@ -202,130 +187,7 @@ Entity.prototype = {
 	}
 };
 
-/**
- * Tower object constructor
- */
-function Tower( name, dimension, img ) {
-	// TODO: Define some basic attributes that all towers can inherit
-
-	if ( settings.objectData.towers[name] == undefined )
-		throw "Tower: Invalid name: " + name;
-
-	Entity.call( this, ["towers", name], dimension, Game.assetManager.getAsset( "Tower Sprite Sheet" ).elem, settings.towerData["frames"][settings.objectData.towers[name].image]["frame"] );
-}
-
-// Extend Entity
-Tower.prototype = new Entity();
-
-// Override Update Method
-Tower.prototype.update = function( elapsed ) {
-	this.rotation += Math.PI * elapsed / 1000;
-}
-
-window.Tower = Tower;
-
-/**
- * Monster object constructor
- */
-function Monster( name, dimension ) {
-	// TODO: Define some basic attributes that all monsters can inherit
-
-	if ( settings.objectData.monsters[name] == undefined )
-		throw "Monster: Invalid name: " + name;
-
-	Entity.call( this, ["monsters", name], dimension );
-}
-
-// Extends Entity
-Monster.prototype = new Entity();
-
-window.Monster = Monster;
-
-/**
- * Potion object constructor
- */
-function Potion( name ) {
-	// TODO: Define some basic attributes that all potions can inherit
-
-	if ( settings.objectData.potions[name] == undefined )
-		throw "Potion: Invalid name: " + name;
-
-	Entity.call( this, ["potions",name] );
-}
-
-// Extends Entity
-Potion.prototype = new Entity();
-
-window.Potion = Potion;
-
-/**
- * Hero object constructor
- */
-function Hero( name, dimension ) {
-	// TODO: Define some basic attributes that all heroes can inherit
-
-	if ( settings.objectData.heroes[name] == undefined )
-		throw "Hero: Invalid name: " + name;
-
-	Entity.call( this, ["heroes", name], dimension );
-}
-
-// Extends Entity
-Hero.prototype = new Entity();
-
-window.Hero = Hero;
-
-/**
- * Game map class
- * layout: A 2D array of values in the set [0, 1, 2, 3]
- *   0: Tile that can't be walked on
- *   1: Tile that can be walked on
- *   2: Starting tile
- *   3: Ending tile
- */
-function GameMap( layout ) {
-	this.layout = layout;
-}
-
-GameMap.prototype = {
-	/**
-	 * Draws the map on the canvas
-	 */
-	draw: function() {
-		// draw border
-		stage.fillStyle = "black";
-		stage.fillRect( 0, 0, this.layout.length * settings.TILE_LENGTH + 10, this.layout[0].length * settings.TILE_LENGTH + 10 );
-
-		for ( var row = 0; row < this.layout.length; row++ ) { // Loop through the rows
-			for ( var column = 0; column < this.layout[row].length; column++ ) { // Loop through the columns
-				// get tile type
-				var spriteData;
-				switch ( this.layout[row][column] ) {
-					case settings.tiles.WALKABLE:
-						spriteData = settings.tileData["frames"]["walkable.png"]["frame"];
-						break;
-					case settings.tiles.UNWALKABLE:
-						spriteData = settings.tileData["frames"]["unwalkable.png"]["frame"];
-						break;
-					case settings.tiles.START:
-						spriteData = settings.tileData["frames"]["start.png"]["frame"];
-						break;
-					case settings.tiles.END:
-						spriteData = settings.tileData["frames"]["end.png"]["frame"];
-						break;
-					default:
-						throw "Invalid map!";
-				}
-
-				// draw a 64x64 tile in the correct location
-				stage.drawImage( Game.assetManager.getAsset( "Tile Sprite Sheet" ).elem, spriteData.x, spriteData.y, settings.TILE_LENGTH, settings.TILE_LENGTH, column * settings.TILE_LENGTH + 5, row * settings.TILE_LENGTH + 5, settings.TILE_LENGTH, settings.TILE_LENGTH );
-			}
-		}
-	}
-};
-
-window.GameMap = GameMap;
-
+window.Entity = Entity;
 
 // Global functions
 
@@ -362,6 +224,8 @@ function ajax( uri, options, callback ) {
 	}
 	xhr.send();
 }
+
+window.ajax = ajax;
 
 /**
  * Binds an event listener to an element
