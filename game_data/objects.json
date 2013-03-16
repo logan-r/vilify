@@ -121,7 +121,12 @@
         }
     },
     "potions": {
+        "_commets": ["Most potions need better names"],
         "Deadly Concoction": {
+            "damage": 1,
+            "area": 1
+        },
+        "Damaging Potion": {
             "damage": 1,
             "area": 1
         },
@@ -136,18 +141,18 @@
                 "weaken": 25
             }
         },
-        "Slow Potion": {
+        "Gravity Increase Potion": {
             "damage": 1,
             "area": 1,
             "effects": {
-                "slow": 25
+                
             }
         },
-        "Transform Potion": {
+        "Poison": {
             "damage": 1,
             "area": 1,
             "effects": {
-                "transform": 1
+                
             }
         },
         "Freeze Potion": {
@@ -157,11 +162,11 @@
                 "freeze": 30
             }
         },
-        "Double Weakening Potion": {
+        "Bomb": {
             "damage": 1,
             "area": 1,
             "effects": {
-                "weaken": 50
+                
             }
         }
     },
