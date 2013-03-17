@@ -5,6 +5,55 @@
 (function( window ) {
 
 /**
+ * Utility functions
+ */
+window._ = {
+	/**
+	 * AJAX function to get resources
+	 * uri: The uri of the resource
+	 * settings:
+	 *   method: Method of request ("GET" or "POST")
+	 *   data: A map of data to be sent to the server
+	 *   type: Response text type
+	 * callback: A function to call when a response is recieved
+	 */
+	ajax: function( uri, options, callback ) {
+		options = options || {};
+
+		// Create xhr object
+		var xhr = new XMLHttpRequest();
+
+		xhr.open( options.method || "GET", uri );
+
+		// If type is undefined
+		if ( options.type ) {
+			xhr.responseType = options.type;
+		}
+
+		xhr.onload = function() {
+			if ( typeof callback === "function" ) {
+				callback( xhr.responseText, xhr );
+			}
+		};
+
+		if ( options.data ) {
+			return xhr.send(options.data);
+		}
+		xhr.send();
+	},
+
+	/**
+	 * Binds an event listener to an element
+	 * elem: The element
+	 * type: The type of event (i.e. "click")
+	 * fn: The function to call when the event fires
+	 */
+	bind: function( elem, type, fn ) {
+		elem.addEventListener( type, fn, false );
+	}
+};
+
+/**
  * Extra math functions (not already in Math object)
  */
 window.MathEx = {
@@ -32,26 +81,7 @@ window.MathEx = {
  * Physics functions
  */
 window.Physics = {
-	/**
-	 * Gets distance between two entities.
-	 * pos1 and pos2: x, y position vectors
-	 */
-	getDistance: function( pox1, pos2 ){
-		var x = pos1.x - pos2.x;
-		var y = pos1.y - pos2.y;
-		return Math.sqrt( x*x + y*y );
-	},
-	/**
-	 * gets the x, y velocity vector of a projectile fired from a tower
-	 * angle: angle the tower is pointed in radians
-	 * velocity: the velocity at which the projectile was fired
-	 */
-	getVelocity: function( angle, velocity ) {
-		newVelocity = { x: 0, y: 0 };
-		newVelocity.x = velocity * Math.cos(angle);
-		newVelocity.y = velocity * Math.sin(angle);
-		return newVelocity;
-	}
+
 };
 
 })( window );

@@ -19,3 +19,9 @@ body {
 	display:none;
 	text-align:center;
 }
+
+#canvas {
+	border: 2px solid #999;
+	margin: 15px auto;
+	display: block;
+}

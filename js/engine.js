@@ -1,242 +1,283 @@
-/**
- * Vilify's Game Engine file
+/*!
+ * Abstract Game Engine
  */
- 
+
 (function( window ) {
 
+if ( window.Game ) {
+	// Don't include this file twice.
+	return;
+}
+
 /**
- * Holds game assets (images, music, etc.) and makes sure they are all
- * loaded before the game starts.
+ * The abstract Game object.
+ * @object Game
  */
-function AssetManager() {
-	// Holds assets objects
-	// asset:
-	//   type: The type of the asset (i.e. "image")
-	//   src: The file path of the asset
-	this.assets = {};
-
-	// Store the total assets so we know when it is done loading
-	this.totalAssets = 0;
-
-	// Store the currently loaded assets so we know when it is done loading
-	this.loadedAssets = 0;
-};
-
-AssetManager.prototype = {
+var Game = window.Game = {
 	/**
-	 * Different types of assets require different ways of loading them
+	 * Holds game settings. Contains the required default settings.
+	 * But additional game settings can be added based on what your
+	 * game needs.
+	 * @object Game.settings
+	 *   @prop fps {Number} Frames per second
+	 *   @prop startTime {Number} The start time in milliseconds of the game.
+	 *   @prop time {Number} The elapsed time in milliseconds since the game started
 	 */
-	type: {
-		image: function( assetManager, asset, callback ) {
-			var img = new Image();
-			img.onload = function() {
-				if ( callback ) {
-					callback();
-				}
-				AssetManager.prototype.assetLoaded.call( assetManager );
-			};
-			img.src = asset.src;
-			asset.elem = img;
-		},
-		audio: function( assetManager, asset, callback ) {
-			var audio = document.createElement( "audio" );
-			audio.onload = function() {
-				if ( callback ) {
-					callback();
-				}
-				AssetManager.prototype.assetLoaded.call( assetManager );
-			};
-			audio.src = asset.src;
-			asset.elem = audio;
-		},
-		// JSON data needed before the game starts is an asset and should
-		// be loaded through this class
-		json: function( assetManager, asset, callback ) {
-			ajax( asset.src, null, function( msg ) {
-				asset.elem = JSON.parse( msg );
-				if ( callback ) {
-					callback( asset.elem );
-				}
-				AssetManager.prototype.assetLoaded.call( assetManager );
-			});
+	settings: {
+		fps: 30,
+		startTime: 0,
+		time: 0
+	},
+
+	/**
+	 * Holds Game assets
+	 * @object Game.assets
+	 */
+	assets: {},
+
+	/**
+	 * Holds game entities
+	 * @array Game.entities
+	 */
+	entities: [],
+
+	/**
+	 * True of the game is running and false if not.
+	 * @bool Game.active
+	 */
+	active: false,
+
+	/**
+	 * Function to call each frame
+	 * @function Game.tick
+	 */
+	tick: function() {
+		Game.settings.time = new Date().getTime() - Game.settings.startTime;
+		Game.update();
+		Game.draw();
+	},
+
+	/**
+	 * Updates the game state. Should be overridden.
+	 * @function Game.update
+	 */
+	update: function() {
+	},
+
+	/**
+	 * Draws the current game state to the canvas.
+	 * Should be overridden.
+	 * @function Game.draw
+	 */
+	draw: function() {
+	},
+
+	/**
+	 * Starts the engine
+	 * @function Game.start
+	 */
+	start: function() {
+		if ( !this.active ) {
+			this.settings.startTime = new Date().getTime();
+			setInterval( this.tick, 1000 / ( this.settings.fps || 30 ) );
+			this.active = true;
 		}
 	},
 
 	/**
-	 * Adds an asset
-	 * name: Name of the asset
-	 * type: Type of the asset (specified above)
-	 * src: The file path of the asset
-	 * callback: A function to call when this individual asset is loaded
+	 * Stops the engine
+	 * @function Game.stop
 	 */
-	addAsset: function( name, type, src, callback ) {
-		this.assets[name] = {
-			type: type,
-			src: src,
-			callback: callback
-		};
+	stop: function() {
+		clearInterval( this.tick );
+		this.active = false;
+	}
+};
+
+
+/**
+ * Asset object constructor
+ * @function Game.Asset
+ * @param type {String} The asset's type (defined in Asset.types)
+ * @param src {String} The file path of the asset
+ */
+Game.Asset = function( type, src ) {
+	this.type = type;
+	this.src = src;
+};
+
+/**
+ * Asset types
+ * @object Game.Asset.types
+ *   @prop image {Function} For loading image assets
+ *   @prop audio {Function} For loading audio assets
+ *   @prop json {Function} For loading JSON assets
+ */
+Game.Asset.types = {
+	image: function( asset, callback ) {
+		var img = new Image();
+		img.onload = callback;
+		img.src = asset.src;
+		asset.elem = img;
+	},
+	audio: function( asset, callback ) {
+		var audio = document.createElement( "audio" );
+		audio.onload = callback;
+		audio.src = asset.src;
+		asset.elem = audio;
+	},
+	json: function( asset, callback ) {
+		_.ajax( asset.src, null, function( msg ) {
+			asset.elem = JSON.parse( msg );
+			if ( callback ) {
+				callback( asset.elem );
+			}
+		});
+	}
+};
+
+/**
+ * Loads this asset
+ * @function Game.Asset.prototype.load
+ * @param callback {Function, optional} A function to call when the asset is loaded
+ */
+Game.Asset.prototype.load = function( callback ) {
+	Game.Asset.types[this.type]( this, callback );
+};
+
+
+/**
+ * Data structure for holding and loading Asset objects
+ * @function Game.AssetManager
+ * @param assetSrc {Object} An object source to store added Assets to
+ */
+Game.AssetManager = function( assetSrc ) {
+	this.assets = assetSrc || {};
+
+	// Total and loaded assets
+	this.totalAssets = 0;
+	this.loadedAssets = 0;
+};
+
+Game.AssetManager.prototype = {
+	/**
+	 * Adds an asset to the source object
+	 * @function Game.AssetManager.prototype.add
+	 * @param name {String} The name of the asset
+	 * @param asset {Game.Asset} The asset to be added
+	 */
+	add: function( name, asset ) {
+		this.assets[name] = asset;
 		this.totalAssets++;
 	},
 
 	/**
-	 * Check if all assets are loaded
+	 * Gets an asset
+	 * @function Game.AssetManager.prototype.get
+	 * @param name {String} The name of the asset
 	 */
-	isLoaded: function() {
+	get: function( name ) {
+		return this.assets[name];
+	},
+
+	/**
+	 * Checks if all assets in this asset manager have been loaded
+	 * @function Game.AssetManager.prototype.loaded
+	 */
+	loaded: function() {
 		return this.totalAssets === this.loadedAssets;
 	},
 
 	/**
-	 * Called when an asset is loaded
-	 */
-	assetLoaded: function() {
-		this.loadedAssets++;
-		if ( this.isLoaded() && this.loadedFn ) {
-			this.loadedFn();
-		}
-	},
-
-	/**
-	 * Loads the assets
+	 * Loads all assets currently in the asset manager
+	 * @function Game.AssetManager.prototype.load
+	 * @param callback {Function} A function to call when all assets are loaded
 	 */
 	load: function( callback ) {
-		// Call the callback function when all assets are loaded
-		this.loadedFn = callback;
+		this.callback = callback;
 
-		// Loop through assets
-		for ( var asset in this.assets ) {
-			// Make sure property is from assets not object
-			if ( this.assets.hasOwnProperty( asset ) ) {
-				// Call the appropriate loading function for the type of asset
-				this.type[this.assets[asset].type]( this, this.assets[asset], this.assets[asset].callback );
+		var self = this,
+			i;
+		for ( i in this.assets ) {
+			if ( this.assets.hasOwnProperty( i ) ) {
+				this.assets[i].load( function() {
+					self.assetLoaded();
+				});
 			}
 		}
 	},
 
 	/**
-	 * Get an asset by name
+	 * A function to call when an asset has loaded
 	 */
-	getAsset: function( assetName ) {
-		return this.assets[assetName];
+	assetLoaded: function() {
+		this.loadedAssets++;
+		if ( this.loaded() && this.callback ) {
+			this.callback();
+		}
 	}
 };
-
-window.AssetManager = AssetManager;
 
 /**
  * Abstract class for representing an entity in the game.
  * This should never be invoked on its own.
+ * @function Game.Entity
+ * @param type {Array} The objects category and name
+ * @param dimension {Object} Contains the x, y, width, and height of the entity
+ * @param img {Image} The entity's image
+ * @param spriteData {Object} Location of the image in the sprite
  */
-function Entity( name, dimension, spriteSheet, spriteData ) {
-	/*
-	 * update: stub method for update. Override recommended
-	 * draw: stub method for draw. Override recommended
-	 * name: the name of the entity
-	 * dimension: the dimensions of the entity
-	 * spriteSheet: the sprite sheet Image object in which the sprite is located
-	 * spriteData: where the image is located in it's sprite sheet
-	 */
-	this.name = name;
+Game.Entity = function( type, dimension, img, spriteData ) {
+	if ( type ) {
+		this.category = type[0];
+		this.name = type[1];
+	}
 	if ( dimension ) {
 		this.x = dimension.x;
 		this.y = dimension.y;
 		this.width = dimension.width;
 		this.height = dimension.height;
 	}
-	this.spriteSheet = spriteSheet;
+	this.img = img;
 	this.spriteData = spriteData;
-	this.rotation = 0;
-}
+	this.angle = 0;
+};
 
-Entity.prototype = {
+Game.Entity.prototype = {
 	/**
-	 * Stub method for updating the entity. This method should be overrided.
+	 * Updates the entity
+	 * @function Game.Entity.prototype.update
 	 */
-	update: function( elapsed ) {
-		
+	update: function() {
 	},
 
 	/**
-	 * Stub method for drawing the entity. This method should be overrided.
+	 * Draws the entity to the canvas
+	 * @function Game.Entity.prototype.draw
 	 */
-	draw: function() {
-		if ( this.spriteSheet ) {
-			if ( this.rotation ) {
-				// Save stage state
-				stage.save();
-				
-				// Move to center of image
-				stage.translate( this.x + this.width / 2 , this.y + this.height / 2 );
-				
-				// Rotate
-				stage.rotate( this.rotation );
-				
-				// Draw image
-				stage.drawImage( this.spriteSheet, this.spriteData.x, this.spriteData.y, this.width, this.height, -this.width / 2, -this.height / 2, this.width, this.height );
-				
-				// Restore stage state
-				stage.restore();
+	draw: function( ctx ) {
+		if ( this.img ) {
+			ctx.save();
+
+			// Rotate the image
+			if ( this.angle ) {
+				ctx.translate( this.x, this.y );
+				ctx.rotate( this.angle );
 			}
-			else {
-				stage.drawImage( this.spriteSheet, this.spriteData.x, this.spriteData.y, this.width, this.height, this.x, this.y, this.width, this.height );
-			}
-		}
-		else {
-			stage.fillStyle = "red";
-			stage.fillRect( this.x, this.y, this.width, this.height );
+
+			// Draw the image
+			ctx.drawImage( this.img, this.spriteData.x, this.spriteData.y, this.spriteData.w, this.spriteData.h, -this.width / 2, -this.height / 2, this.width, this.height );
+
+			ctx.restore();
 		}
 	}
 };
 
-window.Entity = Entity;
-
-// Global functions
-
 /**
- * AJAX function to get resources
- * uri: The uri of the resource
- * settings:
- *   method: Method of request ("GET" or "POST")
- *   data: A map of data to be sent to the server
- *   type: Response text type
- * callback: A function to call when a response is recieved
+ * The default AssetManager for your Game (you can create
+ * more if needed).
+ * @object {Game.AssetManager} Game.assetManager
  */
-function ajax( uri, options, callback ) {
-	options = options || {};
-
-	// Create xhr object
-	var xhr = new XMLHttpRequest();
-
-	xhr.open( options.method || "GET", uri );
-
-	// If type is undefined
-	if ( options.type ) {
-		xhr.responseType = options.type;
-	}
-
-	xhr.onload = function() {
-		if ( typeof callback === "function" ) {
-			callback( xhr.responseText, xhr );
-		}
-	};
-
-	if ( options.data ) {
-		return xhr.send(options.data);
-	}
-	xhr.send();
-}
-
-window.ajax = ajax;
-
-/**
- * Binds an event listener to an element
- * elem: The element
- * type: The type of event (i.e. "click")
- * fn: The function to call when the event fires
- */
-function bind( elem, type, fn ) {
-	elem.addEventListener( type, fn, false );
-}
-
-window.bind = bind;
+Game.assetManager = new Game.AssetManager( Game.assets );
 
 })( window );

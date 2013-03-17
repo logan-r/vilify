@@ -4,77 +4,84 @@
 
 (function( window ) {
 
-// Our canvas context for drawing
-var stage = window.stage = settings.stage = settings.canvas.getContext( "2d" );
+var Game = window.Game,
+	settings = Game.settings,
+	canvas = Game.canvas = document.getElementById( "canvas" ),
+	ctx = Game.ctx = canvas.getContext( "2d" );
+
+settings.width = canvas.width;
+settings.height = canvas.height;
+
+// Fetch object data
+Game.assetManager.add( "objects.json", new Game.Asset( "json", "game_data/objects.json" ) );
+
+// Fetch map data
+Game.assetManager.add( "maps.json", new Game.Asset( "json", "game_data/maps.json" ) );
+
+// Fetch tile sprite sheet data
+Game.assetManager.add( "tiles.json", new Game.Asset( "json", "images/tiles.json" ) );
+
+// Fetch tower sprite sheet data
+Game.assetManager.add( "towers.json", new Game.Asset( "json", "images/towers.json" ) );
+
+// Add files to asset manager
+Game.assetManager.add( "Tile Spritesheet", new Game.Asset( "image", "images/tiles.png" ) );
+Game.assetManager.add( "Tower Spritesheet", new Game.Asset( "image", "images/towers.png" ) );
 
 /**
  * Updates the game state
  */
 Game.update = function() {
-	// TODO: Update the game entities
-
-	var timeNow = new Date().getTime();
-	if ( settings.time !== 0 ) {
-		var elapsed = timeNow - settings.time;
-		for ( var i = 0; i < settings.entities.length; i++ ) {
-			settings.entities[i].update( elapsed );
-		}
+	for ( var i = 0; i < Game.entities.length; i++ ) {
+		Game.entities[i].update();
 	}
-	settings.time = timeNow;
-}
+};
 
 /**
  * Draws the current game state
  */
 Game.draw = function() {
-	// Clear stage so we can draw over it
-	stage.clearRect( 0, 0, stage.width, stage.height );
+	// Clear ctx so we can draw over it
+	ctx.clearRect( 0, 0, ctx.width, ctx.height );
+
+	// Draw background (currently just a solid color)
+	ctx.fillStyle = "black";
+	ctx.fillRect( 0, 0, ctx.width, ctx.height );
 
 	// Draw map
 	settings.map.draw();
 	
 	// Draw entities
-	for ( var i = 0; i < settings.entities.length; i++ ) {
-		settings.entities[i].draw();
+	for ( var i = 0; i < Game.entities.length; i++ ) {
+		Game.entities[i].draw( ctx );
 	}
-}
+};
 
-/**
- * Function to call each frame
- */
-Game.tick = function() {
-	Game.update();
-	Game.draw();
-}
 
-// Called when game starts
-var startGame = function() {
-	// Create a timer that calls a function, tick (which updates the game and draw), FPS times per second
-	setInterval( Game.tick, 1000 / settings.FPS );
-	
+// Load images and start game when done
+Game.assetManager.load( function() {
+	settings.objectData = Game.assets["objects.json"].elem;
+	settings.mapData = Game.assets["maps.json"].elem;
+	settings.tileData = Game.assets["tiles.json"].elem;
+	settings.towerData = Game.assets["towers.json"].elem;
+
+	settings.map = new Game.Map( settings.mapData.map1.mapArray );
+	settings.map.waves = settings.mapData.map1.waves;
+
 	// Create starting entities
-	buildTower( "Basic Tower", 6, 9 );
-	buildTower( "Laser Tower", 2, 5 );
-	buildTower( "Ice Tower", 2, 1 );
-	buildTower( "Dust Tower", 6, 5 );
-	buildTower( "Flame Tower", 3, 7 );
-	buildTower( "Poison Tower", 7, 7 );
-	buildTower( "Lightning Tower", 5, 1 );
-	buildTower( "Curse Tower", 8, 3 );
-};
+	Array.prototype.push.apply( Game.entities, [
+		new Game.Tower( "Basic Tower", { x: 64 * 0 + 32, y: 64 * 1 + 32, width: 64, height: 64 } ),
+		new Game.Tower( "Laser Tower", { x: 64 * 1 + 32, y: 64 * 1 + 32, width: 64, height: 64 } ),
+		new Game.Tower( "Dust Tower", { x: 64 * 2 + 32, y: 64 * 1 + 32, width: 64, height: 64 } ),
+		new Game.Tower( "Flame Tower", { x: 64 * 3 + 32, y: 64 * 1 + 32, width: 64, height: 64 } ),
+		new Game.Tower( "Curse Tower", { x: 64 * 4 + 32, y: 64 * 1 + 32, width: 64, height: 64 } ),
+		new Game.Tower( "Poison Tower", { x: 64 * 5 + 32, y: 64 * 1 + 32, width: 64, height: 64 } ),
+		new Game.Tower( "Lightning Tower", { x: 64 * 6 + 32, y: 64 * 1 + 32, width: 64, height: 64 } ),
+		new Game.Tower( "Ice Tower", { x: 64 * 7 + 32, y: 64 * 1 + 32, width: 64, height: 64 } )
+	] );
 
-window.startGame = startGame;
-
-// Resize the canvas when the window is resized
-// UPDATE: Test this later. Let's get the game running first
-/*var windowResize = function() {
-	var w = window.innerWidth - 3,
-		h = window.innerHeight - 3,
-		optimalW = w < h ? w : h;
-	settings.canvas.style.width = optimalW + "px";
-	settings.canvas.style.height = optimalW + "px";
-};
-windowResize();
-bind( window, "resize", windowResize );*/
+	// Start the engine
+	Game.start();
+});
 
 })( window );
