@@ -24,6 +24,7 @@ var settings = Game.settings = {
 	tileData: null, // Tile sprite sheet data
 	towerData: null, // Tower sprite sheet data
 	map: null, // Game map
+	sidebar: null // Game sidebar
 };
 
 /**
@@ -75,6 +76,25 @@ Game.Map.prototype = {
 					settings.tile_length );
 			}
 		}
+	}
+};
+
+/**
+ * Sidebar object constructor
+ */
+Game.Sidebar = function(){};
+
+Game.Sidebar.prototype = {
+	/**
+	 * Draws the sidebar on the canvas
+	 */
+	draw: function() {
+		// Draw sidebar background image
+		Game.ctx.drawImage( Game.assets["Sidebar"].elem, 640, -5 );
+		
+		// Draw line between map and sidebar
+		Game.ctx.fillStyle = "#999";
+		Game.ctx.fillRect( 640, 0, 2, 640 );
 	}
 };
 
