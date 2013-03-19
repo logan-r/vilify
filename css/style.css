@@ -6,12 +6,21 @@
 }
 
 .header {
-	background: rgba( 255, 255, 255, .1 );
-	border-bottom: 1px solid rgba( 255, 255, 255, .2 );
-	box-shadow: 0 0 15px rgba( 255, 255, 255, .2 );
 	font-family: 'Snowburst One';
-	padding: 10px 0;
 	text-align: center;
+	background: rgba( 0, 0, 0, .75 );
+	box-shadow: 0 0 15px rgba( 255, 255, 255, .2 );
+	border-bottom: 1px solid rgba( 255, 255, 255, .2 );
+	padding: 10px 0;
+	margin-bottom: 25px;
+}
+
+.lab-box {
+	width: 128px;
+	height: 128px;
+	box-shadow: 0 0 15px rgba( 255, 255, 255, .2 );
+	border: 1px solid rgba( 255, 255, 255, .2 );
+	margin: 10px auto;
 }
 
 body {
@@ -27,7 +36,7 @@ body {
 }
 
 #sidebar {
-	background: black url( /images/sidebar.png );
+	background: black url( '../images/sidebar.png' );
 	color: white;
 	float: left;
 	height: 640px;
