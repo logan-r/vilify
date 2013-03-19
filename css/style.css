@@ -5,23 +5,35 @@
     padding: 0;
 }
 
+.header {
+	background: rgba( 255, 255, 255, .1 );
+	border-bottom: 1px solid rgba( 255, 255, 255, .2 );
+	box-shadow: 0 0 15px rgba( 255, 255, 255, .2 );
+	font-family: 'Snowburst One';
+	padding: 10px 0;
+	text-align: center;
+}
+
 body {
 	font-family: tahoma, arial;
 	font-size: 16px;
 }
 
-#pop {
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-color:#CCCCCC;
-	background-color:rgba(255,0,0,0.5);
-	display:none;
-	text-align:center;
+#container {
+	border: 1px solid #000;
+	margin: 15px auto;
+	overflow: hidden;
+	width: 840px;
+}
+
+#sidebar {
+	background: black url( /images/sidebar.png );
+	color: white;
+	float: left;
+	height: 640px;
+	width: 200px;
 }
 
 #canvas {
-	border: 2px solid #999;
-	margin: 15px auto;
-	display: block;
+	float: right;
 }

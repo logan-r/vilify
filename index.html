@@ -6,18 +6,24 @@
 		<!-- Load stylesheets -->
         <link href='http://fonts.googleapis.com/css?family=Snowburst+One' rel='stylesheet' type='text/css'>
         <link href="css/style.css" rel="stylesheet" />
+    </head>
+    <body>
+		<div id="container">
+			<div id="sidebar">
+				<div class="header">
+					<h2>Vilify</h2>
+				</div>
+			</div>
+			<canvas id="canvas" width="640px" height="640px">
+				Your browser doesn't support HTML5! <!--will display this text if canvas isn't supported-->
+			</canvas>
+		</div>
 
 		<!-- Load scripts -->
 		<script src="js/utilities.js"></script>
         <script src="js/engine.js"></script>
         <script src="js/core.js"></script>
-    </head>
-    <body>
-        <canvas id="canvas" width="815px" height="640px">
-            Your browser doesn't support HTML5! <!--will display this text if canvas isn't supported-->
-        </canvas>
-
-		<!-- Load main.js -->
+		<script src="js/sidebar.js"></script>
         <script src="js/main.js"></script>
     </body>
 </html>

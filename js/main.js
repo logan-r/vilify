@@ -27,7 +27,6 @@ Game.assetManager.add( "towers.json", new Game.Asset( "json", "images/towers.jso
 // Add files to asset manager
 Game.assetManager.add( "Tile Spritesheet", new Game.Asset( "image", "images/tiles.png" ) );
 Game.assetManager.add( "Tower Spritesheet", new Game.Asset( "image", "images/towers.png" ) );
-Game.assetManager.add( "Sidebar", new Game.Asset( "image", "images/sidebar.png" ) );
 
 /**
  * Updates the game state
@@ -48,9 +47,6 @@ Game.draw = function() {
 	// Draw map
 	settings.map.draw();
 	
-	// Draw sidebar
-	settings.sidebar.draw();
-	
 	// Draw entities
 	for ( var i = 0; i < Game.entities.length; i++ ) {
 		Game.entities[i].draw( ctx );
@@ -67,8 +63,6 @@ Game.assetManager.load( function() {
 
 	settings.map = new Game.Map( settings.mapData.map1.mapArray );
 	settings.map.waves = settings.mapData.map1.waves;
-	
-	settings.sidebar = new Game.Sidebar();
 
 	// Create starting entities
 	Array.prototype.push.apply( Game.entities, [

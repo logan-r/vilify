@@ -80,25 +80,6 @@ Game.Map.prototype = {
 };
 
 /**
- * Sidebar object constructor
- */
-Game.Sidebar = function(){};
-
-Game.Sidebar.prototype = {
-	/**
-	 * Draws the sidebar on the canvas
-	 */
-	draw: function() {
-		// Draw sidebar background image
-		Game.ctx.drawImage( Game.assets["Sidebar"].elem, 640, -5 );
-		
-		// Draw line between map and sidebar
-		Game.ctx.fillStyle = "#999";
-		Game.ctx.fillRect( 640, 0, 2, 640 );
-	}
-};
-
-/**
  * Tower object constructor
  */
 Game.Tower = function( name, dimension, img ) {
