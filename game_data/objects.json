@@ -252,26 +252,31 @@
             "speed": 1
         }
     },
-    "Materials": {
+    "materials": {
         "Scrap Metal": {
             "type": "electronic",
-            "value": 1
+            "value": 1,
+            "image": "placeholder.png"
         },
         "Wires": {
             "type": "electronic",
-            "value": 2
+            "value": 2,
+            "image": "placeholder.png"
         },
         "Battery": {
             "type": "electronic",
-            "value": 3
+            "value": 3,
+            "image": "placeholder.png"
         },
         "Microchip": {
             "type": "electronic",
-            "value": 4
+            "value": 4,
+            "image": "placeholder.png"
         },
         "Quantum Computer": {
             "type": "electronic",
-            "value": 5
+            "value": 5,
+            "image": "placeholder.png"
         }
     }
 }
