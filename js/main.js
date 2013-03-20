@@ -24,9 +24,13 @@ Game.assetManager.add( "tiles.json", new Game.Asset( "json", "images/tiles.json"
 // Fetch tower sprite sheet data
 Game.assetManager.add( "towers.json", new Game.Asset( "json", "images/towers.json" ) );
 
+// Fetch material sprite sheet data
+Game.assetManager.add( "materials.json", new Game.Asset( "json", "images/materials.json" ) );
+
 // Add files to asset manager
 Game.assetManager.add( "Tile Spritesheet", new Game.Asset( "image", "images/tiles.png" ) );
 Game.assetManager.add( "Tower Spritesheet", new Game.Asset( "image", "images/towers.png" ) );
+Game.assetManager.add( "Material Spritesheet", new Game.Asset( "image", "images/materials.png" ) );
 
 /**
  * Updates the game state
@@ -60,6 +64,7 @@ Game.assetManager.load( function() {
 	settings.mapData = Game.assets["maps.json"].elem;
 	settings.tileData = Game.assets["tiles.json"].elem;
 	settings.towerData = Game.assets["towers.json"].elem;
+	settings.materialData = Game.assets["materials.json"].elem;
 
 	settings.map = new Game.Map( settings.mapData.map1.mapArray );
 	settings.map.waves = settings.mapData.map1.waves;
@@ -73,7 +78,8 @@ Game.assetManager.load( function() {
 		new Game.Tower( "Curse Tower", { x: 64 * 4 + 32, y: 64 * 1 + 32, width: 64, height: 64 } ),
 		new Game.Tower( "Poison Tower", { x: 64 * 5 + 32, y: 64 * 1 + 32, width: 64, height: 64 } ),
 		new Game.Tower( "Lightning Tower", { x: 64 * 6 + 32, y: 64 * 1 + 32, width: 64, height: 64 } ),
-		new Game.Tower( "Ice Tower", { x: 64 * 7 + 32, y: 64 * 1 + 32, width: 64, height: 64 } )
+		new Game.Tower( "Ice Tower", { x: 64 * 7 + 32, y: 64 * 1 + 32, width: 64, height: 64 } ),
+		new Game.Material( "Scrap Metal", { x: 64 * 7 + 32, y: 64 * 2 + 32, width: 32, height: 32 } )
 	] );
 
 	// Start the engine
