@@ -1,8 +1,15 @@
 /* Main stylesheet */
 
 * {
-    margin: 0;
-    padding: 0;
+	margin: 0;
+	padding: 0;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	-webkit-touch-callout: none;
+	-webkit-user-drag: none;
 }
 
 .header {
