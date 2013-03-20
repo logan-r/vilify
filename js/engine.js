@@ -258,16 +258,17 @@ Game.Entity.prototype = {
 	draw: function( ctx ) {
 		if ( this.img ) {
 			ctx.save();
-
+			
+			ctx.translate( this.x, this.y );
+			
 			// Rotate the image
 			if ( this.angle ) {
-				ctx.translate( this.x, this.y );
 				ctx.rotate( this.angle );
 			}
-
+			
 			// Draw the image
 			ctx.drawImage( this.img, this.spriteData.x, this.spriteData.y, this.spriteData.w, this.spriteData.h, -this.width / 2, -this.height / 2, this.width, this.height );
-
+			
 			ctx.restore();
 		}
 	}
