@@ -3,13 +3,6 @@
 * {
 	margin: 0;
 	padding: 0;
-	user-select: none;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	-o-user-select: none;
-	-webkit-touch-callout: none;
-	-webkit-user-drag: none;
 }
 
 .header {
@@ -53,6 +46,13 @@ body {
 	margin: 15px auto;
 	overflow: hidden;
 	width: 840px;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	-webkit-touch-callout: none;
+	-webkit-user-drag: none;
 }
 
 #sidebar {
