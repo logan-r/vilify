@@ -265,11 +265,11 @@
             "type": "electronic",
             "value": 3
         },
-        "Needs Name": {
+        "Microchip": {
             "type": "electronic",
             "value": 4
         },
-        "Needs Name": {
+        "Quantum Computer": {
             "type": "electronic",
             "value": 5
         }
