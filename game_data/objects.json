@@ -251,5 +251,27 @@
             "rate": 1,
             "speed": 1
         }
+    },
+    "Materials": {
+        "Scrap Metal": {
+            "type": "electronic",
+            "value": 1
+        },
+        "Wires": {
+            "type": "electronic",
+            "value": 2
+        },
+        "Battery": {
+            "type": "electronic",
+            "value": 3
+        },
+        "Needs Name": {
+            "type": "electronic",
+            "value": 4
+        },
+        "Needs Name": {
+            "type": "electronic",
+            "value": 5
+        }
     }
 }
