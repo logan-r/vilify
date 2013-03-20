@@ -6,7 +6,6 @@
 
 var Game = window.Game;
 
-// Bitches be trippin'
 Game.name = "Vilify";
 Game.version = "1.0.0";
 
@@ -143,6 +142,21 @@ Game.Hero = function( name, dimension ) {
 
 // Extends Entity
 Game.Hero.prototype = new Game.Entity();
+
+/**
+ * Material object constructor
+ */
+Game.Material = function( name, dimension, img ) {
+	// TODO: Define some basic attributes that all towers can inherit
+
+	if ( settings.objectData.materials[name] == undefined )
+		throw "Material: Invalid name: " + name;
+
+	Game.Entity.call( this, ["materials", name], dimension, Game.assets["Material Spritesheet"].elem, settings.materialData.frames[settings.objectData.materials[name].image].frame );
+}
+
+// Extend Entity
+Game.Material.prototype = new Game.Entity();
 
 // Resize the canvas when the window is resized
 // UPDATE: Test this later. Let's get the game running first
