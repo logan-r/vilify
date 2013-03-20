@@ -11,9 +11,6 @@ Before you do anything else you should [read the game rules](https://github.com/
 ### Coding Style Guidelines
 [Coding Style Guidelines](https://github.com/Logi0/vilify/wiki/Coding-Style-Guidelines)
 
-### Playing/Testing Vilify
-Download the project, extract the files and open index.html in a modern web browser. When Vilify is completed it will be put online for all to play.
-
 ### Tutorials
 1. [Codecademy JavaScript Track](http://www.codecademy.com/tracks/javascript)
 2. [Codecademy Web Fundamentals Track](http://www.codecademy.com/tracks/web)
