@@ -209,11 +209,69 @@ Game.AssetManager.prototype = {
 
 	/**
 	 * A function to call when an asset has loaded
+	 * @function Game.AssetManager.prototype.assetLoaded
 	 */
 	assetLoaded: function() {
 		this.loadedAssets++;
 		if ( this.loaded() && this.callback ) {
 			this.callback();
+		}
+	}
+};
+
+/**
+ * Class for handling input event
+ * @function Game.InputManager
+ * @param canvas {Object} A canvas DOM element that InputManager will handle input for
+ * @param offset {Object} The offset of the canvas from the top of the window
+ */
+Game.InputManager = function( canvas, offset ) {
+	this.canvas = canvas;
+	this.offset = offset || {x: 0, y: 0};
+	
+	// An array of events
+	this.events = [];
+	 
+	self = this;
+	
+	this.canvas.onclick = function( e ){ return Game.InputManager.prototype.handleClick( self, e ) };
+};
+
+Game.InputManager.prototype = {
+	/**
+	 * Handles click event
+	 * @function Game.InputManager.prototype.handleClick
+	 * @param e {Object} The event to be handled
+	 */
+	handleClick: function( self, e ) {
+		
+		x_offset = self.offset.x;
+		y_offset = self.offset.y;
+		
+		var event = {
+			x: e.pageX - x_offset,
+			y: e.pageY - y_offset
+		}
+		
+		self.events.push( event );
+		
+		return false;
+	},
+	/**
+	 * Checks what entities got clicked and clears events
+	 * @function Game.InputManager.prototype.unload
+	 * @param entities {Game.Entity[]} The entities to check for collision
+	 * @param ctx {Object} A canvas context
+	 */
+	unload: function( entities, ctx ) {
+		if (this.events.length > 0 ) {
+		event = this.events[0];
+		for ( i = 0, n = entities.length; i < n; i++ ) {
+			if ( entities[i].collides( event, ctx )) {
+				entities[i].clicked();
+			}
+		}
+		this.events = [];
 		}
 	}
 };
@@ -254,6 +312,7 @@ Game.Entity.prototype = {
 	/**
 	 * Draws the entity to the canvas
 	 * @function Game.Entity.prototype.draw
+	 * @param ctx {Object} A canvas context
 	 */
 	draw: function( ctx ) {
 		if ( this.img ) {
@@ -271,6 +330,65 @@ Game.Entity.prototype = {
 			
 			ctx.restore();
 		}
+	},
+	
+	/**
+	 * Checks if point collides with entity
+	 * @function Game.Entity.prototype.collide
+	 * @param point {Object} A point on the canvas
+	 * @param ctx {Object} A canvas context
+	 */
+	collides: function( point, ctx ) {
+		// Get corners
+		top_left     = [ -1 * this.width/2, -1 * this.height/2 ];
+		top_right    = [ this.width/2, -1 * this.height/2 ];
+		bottom_right = [ this.width/2, this.height/2 ];
+		bottom_left  = [ -1 * this.width/2, this.height/2 ];
+		
+		if ( this.angle ) {
+			// Rotate corners
+			top_left     = [top_left[0] * Math.cos( this.angle ) - top_left[1] * Math.sin( this.angle ),
+					top_left[0] * Math.sin( this.angle ) + top_left[1] * Math.cos( this.angle )];
+			
+			top_right    = [top_right[0] * Math.cos( this.angle ) - top_right[1] * Math.sin( this.angle ),
+					top_right[0] * Math.sin( this.angle ) + top_right[1] * Math.cos( this.angle )];
+			
+			bottom_right = [bottom_right[0] * Math.cos( this.angle ) - bottom_right[1] * Math.sin( this.angle ),
+					bottom_right[0] * Math.sin( this.angle ) + bottom_right[1] * Math.cos( this.angle )];
+			
+			bottom_left  = [bottom_left[0] * Math.cos( this.angle ) - bottom_left[1] * Math.sin( this.angle ),
+					bottom_left[0] * Math.sin( this.angle ) + bottom_left[1] * Math.cos( this.angle )];
+		}
+		
+		// Save context state
+		ctx.save();
+		
+		// Move to entity position
+		ctx.translate( this.x, this.y );
+		
+		// Trace entity
+		ctx.beginPath();
+		ctx.moveTo( top_left[0], top_left[1] );
+		ctx.lineTo( top_right[0], top_right[1] );
+		ctx.lineTo( bottom_right[0], bottom_right[1] );
+		ctx.lineTo( bottom_left[0], bottom_left[1] );
+		ctx.closePath();
+		
+		// Check collision
+		result = ctx.isPointInPath(point.x, point.y);
+		
+		// Restore context state
+		ctx.restore();
+		
+		return result;
+	},
+	
+	/**
+	 * Called when entity clicked
+	 * @function Game.Entity.prototype.clicked
+	 */
+	clicked: function() {
+		alert( this.name );
 	}
 };
 
