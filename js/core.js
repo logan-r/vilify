@@ -22,6 +22,7 @@ var settings = Game.settings = {
 	mapData: null, // Game map data
 	tileData: null, // Tile sprite sheet data
 	towerData: null, // Tower sprite sheet data
+	materialData: null, // Material sprite sheet data
 	map: null, // Game map
 	sidebar: null // Game sidebar
 };
