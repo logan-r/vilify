@@ -159,6 +159,12 @@ Game.Material = function( name, dimension, img ) {
 // Extend Entity
 Game.Material.prototype = new Game.Entity();
 
+// Override clicked method
+Game.Material.prototype.clicked = function() {
+	Game.getMaterial( this.name );
+	Game.killList.push( this );
+}
+
 // Resize the canvas when the window is resized
 // UPDATE: Test this later. Let's get the game running first
 /*var windowResize = function() {
