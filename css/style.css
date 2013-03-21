@@ -6,7 +6,6 @@
 }
 
 .header {
-	font-family: 'Snowburst One';
 	text-align: center;
 	background: rgba( 0, 0, 0, .75 );
 	box-shadow: 0 0 15px rgba( 255, 255, 255, .2 );
@@ -21,11 +20,33 @@
 	box-shadow: 0 0 15px rgba( 255, 255, 255, .2 );
 	border: 1px solid rgba( 255, 255, 255, .2 );
 	margin: 10px auto;
+	background-size: 100%;
+}
+
+#place-tower {
+	margin: auto;
+	text-align: center;
+	width: 75%;
+}
+
+.preview-box {
+	width: 128px;
+	height: 128px;
+	box-shadow: 0 0 15px rgba( 255, 255, 255, .2 );
+	border: 1px solid rgba( 255, 255, 255, .2 );
+	margin: 10px auto;
+	background-size: 100%;
+}
+
+#inventory {
+	position:absolute;
+	width: 100%;
+	bottom: 10px;
 }
 
 .inventory-row {
 	text-align: center;
-	letter-spacing: 9px;
+	letter-spacing: 7px;
 }
 
 .inventory-box {
@@ -37,7 +58,7 @@
 }
 
 body {
-	font-family: tahoma, arial;
+	font-family: 'Snowburst One', tahoma, arial;
 	font-size: 16px;
 }
 
@@ -61,6 +82,7 @@ body {
 	float: left;
 	height: 640px;
 	width: 200px;
+	position: relative;
 }
 
 #canvas {

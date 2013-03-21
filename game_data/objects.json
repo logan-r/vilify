@@ -14,20 +14,20 @@
             "rate": 1,
             "image": "ray_tower.png"
         },
+        "Dust Tower": {
+	    "damage": 1,
+	    "range": 1,
+	    "rate": 1,
+	    "image": "dust_tower.png",
+	    "effects": {
+		"corrosion": 1
+	    }
+        },
         "Ice Tower": {
             "damage": 1,
             "range": 1,
             "rate": 1,
             "image": "ice_tower.png"
-        },
-        "Dust Tower": {
-            "damage": 1,
-            "range": 1,
-            "rate": 1,
-            "image": "dust_tower.png",
-            "effects": {
-                "corrosion": 1
-            }
         },
         "Flame Tower": {
             "damage": 1,
@@ -256,27 +256,27 @@
         "Scrap Metal": {
             "type": "electronic",
             "value": 1,
-            "image": "placeholder.png"
+            "image": "battery.png"
         },
         "Wires": {
             "type": "electronic",
             "value": 2,
-            "image": "placeholder.png"
+            "image": "battery.png"
         },
         "Battery": {
             "type": "electronic",
             "value": 3,
-            "image": "placeholder.png"
+            "image": "battery.png"
         },
         "Microchip": {
             "type": "electronic",
             "value": 4,
-            "image": "placeholder.png"
+            "image": "battery.png"
         },
         "Quantum Computer": {
             "type": "electronic",
             "value": 5,
-            "image": "placeholder.png"
+            "image": "battery.png"
         }
     }
 }

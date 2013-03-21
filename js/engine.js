@@ -240,7 +240,7 @@ Game.InputManager = function( canvas, offset ) {
 	 
 	self = this;
 	
-	this.canvas.onclick = function( e ){ return self.handleClick( self, e ) };
+	_.bind(this.canvas, "click", function( e ){ return self.handleClick( self, e )});
 };
 
 Game.InputManager.prototype = {
