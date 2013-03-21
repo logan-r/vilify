@@ -40,6 +40,12 @@ var Game = window.Game = {
 	 * @array Game.entities
 	 */
 	entities: [],
+	
+	/**
+	 * Holds the game entities that will be destroyed this update
+	 * @array Game.entities
+	 */
+	killList: [],
 
 	/**
 	 * True of the game is running and false if not.
@@ -234,7 +240,7 @@ Game.InputManager = function( canvas, offset ) {
 	 
 	self = this;
 	
-	this.canvas.onclick = function( e ){ return Game.InputManager.prototype.handleClick( self, e ) };
+	this.canvas.onclick = function( e ){ return self.handleClick( self, e ) };
 };
 
 Game.InputManager.prototype = {
@@ -388,7 +394,7 @@ Game.Entity.prototype = {
 	 * @function Game.Entity.prototype.clicked
 	 */
 	clicked: function() {
-		alert( this.name );
+		console.log( this.name );
 	}
 };
 
