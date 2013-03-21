@@ -32,10 +32,24 @@ Game.assetManager.add( "Tile Spritesheet", new Game.Asset( "image", "images/tile
 Game.assetManager.add( "Tower Spritesheet", new Game.Asset( "image", "images/towers.png" ) );
 Game.assetManager.add( "Material Spritesheet", new Game.Asset( "image", "images/materials.png" ) );
 
+// jQuery canvas object
+var $canvas = $( "#canvas" );
+
+// Get canvas offset
+var offset = {
+    x: $canvas.offset().left,
+    y: $canvas.offset().top
+};
+
+// Create a new InputManager
+Game.inputManager = new Game.InputManager( Game.canvas, offset );
+
 /**
  * Updates the game state
  */
 Game.update = function() {
+	Game.inputManager.unload( Game.entities, Game.ctx );
+	
 	for ( var i = 0; i < Game.entities.length; i++ ) {
 		Game.entities[i].update();
 	}
