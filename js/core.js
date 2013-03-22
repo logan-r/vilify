@@ -161,7 +161,7 @@ Game.Material.prototype = new Game.Entity();
 
 // Override clicked method
 Game.Material.prototype.clicked = function() {
-	Game.getMaterial( this.name );
+	Game.Sidebar.getMaterial( this.name );
 	Game.killList.push( this );
 }
 
