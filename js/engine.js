@@ -271,14 +271,29 @@ Game.InputManager.prototype = {
 	 */
 	unload: function( entities, ctx ) {
 		if (this.events.length > 0 ) {
-		event = this.events[0];
-		for ( i = 0, n = entities.length; i < n; i++ ) {
-			if ( entities[i].collides( event, ctx )) {
-				entities[i].clicked();
+			event = this.events[0];
+			for ( i = 0, n = entities.length; i < n; i++ ) {
+				if ( entities[i].collides( event, ctx )) {
+					entities[i].clicked();
+				}
 			}
+			this.events = [];
 		}
-		this.events = [];
+	},
+	/**
+	 * Checks if/what (a) tile has been click on the map. Assumes whole canvas is map. Returns {Number[]} x, y tile location or false.
+	 * @function Game.InputManager.prototype.unloadToMap
+	 * @param tileWidth {Number} The width per tile
+	 * @param tileHeight {Number} The height per tile
+	 */
+	unloadToMap: function ( tileWidth, tileHeight ) {
+		if (this.events.length > 0 ) {
+			event = this.events[0];
+			tile = [ parseInt( event.x / tileWidth ), parseInt( event.y / tileHeight ) ];
+			this.events = [];
+			return tile;
 		}
+		return false;
 	}
 };
 
