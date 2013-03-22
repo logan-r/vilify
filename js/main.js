@@ -48,8 +48,17 @@ Game.inputManager = new Game.InputManager( Game.canvas, offset );
  * Updates the game state
  */
 Game.update = function() {
-	Game.inputManager.unload( Game.entities, Game.ctx );
+	// Process events
+	if ( !Game.Sidebar.needTile ) {
+		Game.inputManager.unload( Game.entities, Game.ctx );
+	} else {
+		tile = Game.inputManager.unloadToMap( 64, 64 );
+		if ( tile ) {
+			Game.Sidebar.giveTile( tile );
+		}
+	}
 	
+	// Update all entities
 	for ( var i = 0; i < Game.entities.length; i++ ) {
 		Game.entities[i].update();
 	}
