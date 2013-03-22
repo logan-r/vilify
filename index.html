@@ -3,9 +3,9 @@
     <head>
         <title>Vilify Game</title>
 
-	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1" />
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1" />
 
-	<!-- Load stylesheets -->
+		<!-- Load stylesheets -->
         <link href='http://fonts.googleapis.com/css?family=Snowburst+One' rel='stylesheet' type='text/css'>
         <link href="css/style.css" rel="stylesheet" />
     </head>
@@ -28,8 +28,14 @@
 				<div id="place-tower">
 					<div class="preview-box"></div>
 					<b class="preview-name"></b>
-					<br>
-					Click on any wall tile to place the tower...
+					<hr>
+					Rank: <span class="rank"></span>
+					<hr>
+					Insert a short description here...
+					<hr>
+					Click on any empty wall tile to place this tower...
+					<hr>
+					<button class="button" onclick="Game.Sidebar.changeState( 'Lab' ); Game.Sidebar.needTile = false;">Discard</button>
 				</div>
 
 				<!-- Inventory Wiget -->
@@ -62,8 +68,8 @@
 		<!-- Load scripts -->
 		<script src="js/utilities.js"></script>
         <script src="js/engine.js"></script>
+        <script src="js/sidebar.js"></script>
         <script src="js/core.js"></script>
-		<script src="js/sidebar.js"></script>
         <script src="js/main.js"></script>
     </body>
 </html>
