@@ -33,8 +33,8 @@ Game.Sidebar = {
 					 */
 					Game.Sidebar.state = "Lab";
 					Game.Sidebar.stateData = params;
-					$( "#lab" ).show();
-					$( "#inventory" ).show();
+					$( "#lab" ).fadeIn( 100 );
+					$( "#inventory" ).fadeIn( 100 );
 					$( "#lab" ).children().each( function() {
 						$(this).data( "material", "" ).css( "background-image", "none" );
 					});
@@ -47,7 +47,7 @@ Game.Sidebar = {
 					Game.Sidebar.state = "Place Tower";
 					Game.Sidebar.stateData = params;
 					Game.Sidebar.needTile = true;
-					$( "#place-tower" ).show();
+					$( "#place-tower" ).fadeIn( 100 );
 					$( ".preview-name" ).text( params.name );
 					$( ".preview-box" ).css( "background-image", "url(images/towers/" + Game.settings.objectData.towers[params.name].image + ")" );
 					$( ".rank" ).text( params.rank + "/8" );
