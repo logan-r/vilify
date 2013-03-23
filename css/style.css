@@ -84,6 +84,7 @@ hr {
 	border: 1px solid rgba( 255, 255, 255, .2 );
 	margin: 10px auto;
 	background-size: 100%;
+	background-repeat: no-repeat;
 }
 
 #place-tower {
@@ -99,6 +100,7 @@ hr {
 	border: 1px solid rgba( 255, 255, 255, .2 );
 	margin: 10px auto;
 	background-size: 100%;
+	background-repeat: no-repeat;
 }
 
 #inventory {
