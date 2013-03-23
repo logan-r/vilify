@@ -121,48 +121,47 @@
         }
     },
     "potions": {
-        "_commets": ["Most potions need better names"],
+        "Pain Potion": {
+            "damage": 1,
+            "area": 1
+        },
         "Deadly Concoction": {
             "damage": 1,
             "area": 1
         },
-        "Damaging Potion": {
+        "Rust Serum": {
             "damage": 1,
             "area": 1
         },
-        "Rust Potion": {
-            "damage": 1,
-            "area": 1
-        },
-        "Weakening Potion": {
+        "Cursed Water": {
             "damage": 1,
             "area": 1,
             "effects": {
                 "weaken": 25
             }
         },
-        "Gravity Increase Potion": {
+        "Gravity Potion": {
             "damage": 1,
             "area": 1,
             "effects": {
                 
             }
         },
-        "Poison": {
+        "Poisonous Mixture": {
             "damage": 1,
             "area": 1,
             "effects": {
                 
             }
         },
-        "Freeze Potion": {
+        "Ice Serum": {
             "damage": 1,
             "area": 1,
             "effects": {
                 "freeze": 30
             }
         },
-        "Bomb": {
+        "Explosive Mixture": {
             "damage": 1,
             "area": 1,
             "effects": {
