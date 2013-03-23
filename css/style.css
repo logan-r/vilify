@@ -49,6 +49,16 @@ hr {
 /* SIDEBAR
 -------------------------------------------------- */
 
+#header {
+	height: 60px;
+	line-height: 60px;
+	padding: 0;
+}
+
+#logo {
+	margin-top: 5px;
+}
+
 #sidebar {
 	background: black url( '../images/sidebar.png' );
 	color: white;
