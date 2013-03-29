@@ -350,6 +350,23 @@ Game.Entity.prototype = {
 			ctx.drawImage( this.img, this.spriteData.x, this.spriteData.y, this.spriteData.w, this.spriteData.h, -this.width / 2, -this.height / 2, this.width, this.height );
 			
 			ctx.restore();
+		} else {
+			// Set color
+			ctx.fillStyle = "black";			
+			
+			ctx.save();						
+			
+			ctx.translate( this.x, this.y );
+			
+			// Rotate the image
+			if ( this.angle ) {
+				ctx.rotate( this.angle );
+			}
+			
+			// Draw the image
+			ctx.fillRect( -this.width / 2, -this.height / 2, this.height, this.width );
+			
+			ctx.restore();
 		}
 	},
 	
