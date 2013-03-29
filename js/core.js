@@ -132,13 +132,13 @@ Game.Potion.prototype = new Game.Entity();
 /**
  * Hero object constructor
  */
-Game.Hero = function( name, dimension ) {
+Game.Hero = function( name, dimension, img ) {
 	// TODO: Define some basic attributes that all heroes can inherit
 
 	if ( settings.objectData.heroes[name] == undefined )
 		throw "Hero: Invalid name: " + name;
 
-	Game.Entity.call( this, ["heroes", name], dimension );
+	Game.Entity.call( this, ["heroes", name], dimension, undefined/*Game.assets["Hero Spritesheet"].elem*/, {}/*settings.heroData.frames[settings.objectData.heroes[name].image].frame*/ );
 }
 
 // Extends Entity
