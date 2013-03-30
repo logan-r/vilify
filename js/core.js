@@ -82,7 +82,7 @@ Game.Map.prototype = {
 /**
  * Tower object constructor
  */
-Game.Tower = function( name, dimension, img ) {
+Game.Tower = function( name, dimension ) {
 	// TODO: Define some basic attributes that all towers can inherit
 
 	if ( settings.objectData.towers[name] == undefined )
@@ -131,9 +131,10 @@ Game.Potion.prototype = new Game.Entity();
 
 /**
  * Hero object constructor
+ * @param path - an array of points that the hero walk through e.g. [{x: 64, y: 64}, {x: 128, y: 128}]
  */
-Game.Hero = function( name, dimension, img ) {
-	// TODO: Define some basic attributes that all heroes can inherit
+Game.Hero = function( name, dimension, path ) {
+	this.path = path
 
 	if ( settings.objectData.heroes[name] == undefined )
 		throw "Hero: Invalid name: " + name;
@@ -144,10 +145,37 @@ Game.Hero = function( name, dimension, img ) {
 // Extends Entity
 Game.Hero.prototype = new Game.Entity();
 
+// Override Update Method
+Game.Hero.prototype.update = function() {
+	// Move towards next point on path
+	if ( this.path.length > 0 ) {
+		nextPoint = this.path[0];
+		
+		// Move x
+		if ( this.x > nextPoint.x ) {
+			this.x -= 1;
+		} else if ( this.x < nextPoint.x ) {
+			this.x += 1;
+		}
+		
+		// Move y
+		if ( this.y > nextPoint.y ) {
+			this.y -= 1;
+		} else if ( this.y < nextPoint.y ) {
+			this.y += 1;
+		}
+		
+		// Check to see if hero has reached nextPoint
+		if ( this.x == nextPoint.x && this.y == nextPoint.y ) {
+			this.path.splice( 0, 1 ); // Remove nextPoint from path
+		}
+	}
+}
+
 /**
  * Material object constructor
  */
-Game.Material = function( name, dimension, img ) {
+Game.Material = function( name, dimension ) {
 	// TODO: Define some basic attributes that all towers can inherit
 
 	if ( settings.objectData.materials[name] == undefined )
