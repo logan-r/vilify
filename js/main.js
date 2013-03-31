@@ -108,7 +108,7 @@ Game.assetManager.load( function() {
 		new Game.Tower( "Poison Tower", { x: 64 * 5 + 32, y: 64 * 1 + 32, width: 64, height: 64 } ),
 		new Game.Tower( "Lightning Tower", { x: 64 * 6 + 32, y: 64 * 1 + 32, width: 64, height: 64 } ),
 		new Game.Tower( "Curse Tower", { x: 64 * 7 + 32, y: 64 * 1 + 32, width: 64, height: 64 } ),
-		new Game.Hero( "Sidekick", { x: 64 * 0 + 32, y: 64 * 0 + 32, width: 64, height: 64 }, settings.map.paths ),
+		new Game.Hero( "Sidekick", { x: 64 * 0 + 32, y: 64 * 0 + 32, width: 64, height: 64 }, settings.map.paths.slice(0) ),
 		new Game.Material( "Battery", { x: 64 * 7 + 32, y: 64 * 2 + 32, width: 32, height: 32 } ),
 		new Game.Material( "Battery", { x: 64 * 3 + 50, y: 64 * 5 + 4, width: 32, height: 32 } ),
 		new Game.Material( "Battery", { x: 64 * 9 + 12, y: 64 * 6 + 39, width: 32, height: 32 } )
