@@ -171,13 +171,13 @@
     },
     "heroes": {
         "_comments":["armor is extra life due to some sort of thing the hero has. For example a Sidekick's durability is 10. The durability of the helmet is 2. One has to destroy the helmet before (s)he can defeat the hero.",
-                    "Also, I added two new Hero objects. The Carrier is intended for Level 23, The Tank is intended for Level 24."],
+                    "Speed is in tiles per seconds"],
         "Sidekick": {
             "durability": 1,
             "damage": 1,
             "range": 1,
             "rate": 1,
-            "speed": 1,
+            "speed": 2,
             "upgrades": {
                 "helmet": {
                     "armor": 1
