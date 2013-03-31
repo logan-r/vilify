@@ -179,12 +179,13 @@ Game.Potion.prototype = new Game.Entity();
  * @param path - an array of points that the hero walk through e.g. [{x: 64, y: 64}, {x: 128, y: 128}]
  */
 Game.Hero = function( name, dimension, path ) {
-	this.path = path
-
 	if ( settings.objectData.heroes[name] == undefined )
 		throw "Hero: Invalid name: " + name;
-
+	
 	Game.Entity.call( this, ["heroes", name], dimension, undefined/*Game.assets["Hero Spritesheet"].elem*/, {}/*settings.heroData.frames[settings.objectData.heroes[name].image].frame*/ );
+	
+	this.path = path;
+	this.speed = settings.objectData.heroes[name].speed;
 }
 
 // Extends Entity
@@ -198,16 +199,16 @@ Game.Hero.prototype.update = function() {
 		
 		// Move x
 		if ( this.x > nextPoint.x ) {
-			this.x -= 1;
+			this.x -= Math.min( Math.abs(nextPoint.x - this.x), this.speed  / settings.fps * 64 );
 		} else if ( this.x < nextPoint.x ) {
-			this.x += 1;
+			this.x += Math.min( Math.abs(nextPoint.x - this.x), this.speed  / settings.fps * 64 );
 		}
 		
 		// Move y
 		if ( this.y > nextPoint.y ) {
-			this.y -= 1;
+			this.y -= Math.min( Math.abs(nextPoint.y - this.y), this.speed  / settings.fps * 64 );
 		} else if ( this.y < nextPoint.y ) {
-			this.y += 1;
+			this.y += Math.min( Math.abs(nextPoint.y - this.y), this.speed  / settings.fps * 64 );
 		}
 		
 		// Check to see if hero has reached nextPoint
