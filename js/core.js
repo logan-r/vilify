@@ -33,9 +33,54 @@ var settings = Game.settings = {
  */
 Game.Map = function( layout ) {
 	this.layout = layout;
+	this.paths = this.getPaths();
 };
 
 Game.Map.prototype = {
+	/**
+	 * Get all the paths through the map
+	 */
+	getPaths: function() {
+		path_q = [];
+		startTile = { x: 0, y: 0 };
+		endTile = { x: 9, y: 9 };
+		initPath = [startTile];
+		path_q.push(initPath);
+		while ( path_q.length != 0 ) {
+			tmpPath = path_q.splice( 0, 1 )[0];
+			lastTile = tmpPath[ tmpPath.length - 1];
+			if ( lastTile.x == endTile.x && lastTile.y == endTile.y ) {
+				for ( i = 0; i < tmpPath.length; i++ ) {
+					tmpPath[i].x = tmpPath[i].x * 64 + 32;
+					tmpPath[i].y = tmpPath[i].y * 64 + 32;
+				}
+				return tmpPath;
+			}
+			adjTiles = [{ x: lastTile.x - 1, y: lastTile.y }, { x: lastTile.x + 1, y: lastTile.y }, { x: lastTile.x, y: lastTile.y - 1 }, { x: lastTile.x, y: lastTile.y + 1 } ];
+			for ( i = 0; i < adjTiles.length; i++) {
+				adjTile = adjTiles[i];
+				if ( adjTile.x < 0 || adjTile.x > 9 || adjTile.y < 0 || adjTile.y > 9 ) {
+					continue;
+				}
+				else if ( this.layout[adjTile.y][adjTile.x] == settings.tiles.UNWALKABLE ) {
+					continue;
+				}
+				alreadyInPath = false;
+				for ( j = 0; j < tmpPath.length; j++ ) {
+					if ( adjTile.x == tmpPath[j].x  && adjTile.y == tmpPath[j].y ) {
+						alreadyInPath = true;
+					}
+				}
+				if ( !alreadyInPath ) {
+					newPath = tmpPath;
+					newPath.push( adjTile ) 
+					path_q.push( newPath );
+				}
+			}
+		}
+		// No path
+		throw "Map: No possible path!";
+	},
 	/**
 	 * Draws the map on the canvas
 	 */
