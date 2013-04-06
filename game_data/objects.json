@@ -228,27 +228,27 @@
             "speed": 1
         },
         "Boss": {
-            "durability": 1,
-            "extra durability": 1,
-            "damage": 1,
-            "range": 1,
-            "rate": 1,
-            "speed": 1
+            "durability": 902,
+            "extra durability": 100,
+            "damage": 20,
+            "range": 5,
+            "rate": 3,
+            "speed": 0.75
         },
-        "The Hero Carrier": {
-            "_comments": ["needs a better name"],
-            "durability": 1,
-            "damage": 1,
-            "range": 1,
+        "Tryptech industries mass cargo transporter mkII": {
+            "_comments": ["For lack of a better name, it's now more betterer!"],
+            "durability": 10,
+            "damage": 0,
+            "range": 0,
             "rate": 1,
-            "speed": 1
+            "speed": 0.8
         },
         "The Tank": {
-            "durability": 1,
-            "damage": 1,
-            "range": 1,
-            "rate": 1,
-            "speed": 1
+            "durability": 1000,
+            "damage": 20,
+            "range": 10,
+            "rate": 0.05,
+            "speed": 0.25
         }
     },
     "materials": {
