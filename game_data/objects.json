@@ -103,7 +103,7 @@
             "durability": 1,
             "damage": 1,
             "range": 1,
-            "rate": 1
+            "rate": 1,
             "effects": {
             	"poison":1
             }
@@ -264,7 +264,7 @@
         "Scrap Metal": {
             "type": "electronic",
             "value": 1,
-            "image": "battery.png"
+            "image": "scrap_metal.png"
         },
         "Wires": {
             "type": "electronic",
@@ -279,12 +279,12 @@
         "Microchip": {
             "type": "electronic",
             "value": 4,
-            "image": "battery.png"
+            "image": "microchip.png"
         },
         "Quantum Computer": {
             "type": "electronic",
             "value": 5,
-            "image": "battery.png"
+            "image": "quantum_computer.png"
         }
     }
 }

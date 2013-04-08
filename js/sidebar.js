@@ -60,15 +60,15 @@ Game.Sidebar = {
 	getMaterial: function( material ) {
 		if ( $( "#lab" ).children().eq( 0 ).data( "material" ) == "" ) {
 			$( "#lab" ).children().eq( 0 ).data( "material", material );
-			$( "#lab" ).children().eq( 0 ).css( "background-image", "url(images/materials.png)" );
+			$( "#lab" ).children().eq( 0 ).css( "background-image", "url(images/materials/" + Game.settings.objectData.materials[material].image + ")" );
 		}
 		else if ( $( "#lab" ).children().eq( 1 ).data( "material" ) == "" ) {
 			$( "#lab" ).children().eq( 1 ).data( "material", material );
-			$( "#lab" ).children().eq( 1 ).css( "background-image", "url(images/materials.png)" );
+			$( "#lab" ).children().eq( 1 ).css( "background-image", "url(images/materials/" + Game.settings.objectData.materials[material].image + ")" );
 		}
 		else if ( $( "#lab" ).children().eq( 2 ).data( "material" ) == "" ) {
 			$( "#lab" ).children().eq( 2 ).data( "material", material );
-			$( "#lab" ).children().eq( 2 ).css( "background-image", "url(images/materials.png)" );
+			$( "#lab" ).children().eq( 2 ).css( "background-image", "url(images/materials/" + Game.settings.objectData.materials[material].image + ")" );
 
 			this.getNewItem( 
 			$( "#lab" ).children().eq( 0 ).data( "material" ),
@@ -129,3 +129,4 @@ Game.Sidebar = {
 }
 
 })( window );
+
