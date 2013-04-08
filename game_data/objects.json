@@ -92,12 +92,21 @@
             "range": 1,
             "rate": 1
         },
-        "Needs Name": {
+        "Shifter": {
             "_comments": ["A 4D gaurd, can attack heroes with out dystroying armor first"],
             "durability": 1,
             "damage": 1,
             "range": 1,
             "rate": 1
+        },
+        "Vampire": {
+            "durability": 1,
+            "damage": 1,
+            "range": 1,
+            "rate": 1
+            "effects": {
+            	"poison":1
+            }
         },
         "Alien": {
             "durability": 1,
