@@ -84,49 +84,58 @@
             "durability": 1,
             "damage": 1,
             "range": 1,
-            "rate": 1
+            "rate": 1,
+            "effects": {
+            	"lightning": 1
+            }
         },
         "Yeti": {
             "durability": 1,
             "damage": 1,
             "range": 1,
-            "rate": 1
+            "rate": 1,
+            "effects": {
+            	"freeze": 1
+            }
         },
         "Shifter": {
             "_comments": ["A 4D gaurd, can attack heroes with out dystroying armor first"],
             "durability": 1,
             "damage": 1,
             "range": 1,
-            "rate": 1
-        },
-        "Vampire": {
-            "durability": 1,
-            "damage": 1,
-            "range": 1,
             "rate": 1,
             "effects": {
-            	"poison":1
+            	"Avoid Armor": true
             }
         },
         "Alien": {
             "durability": 1,
             "damage": 1,
             "range": 1,
-            "rate": 1
+            "rate": 1,
+            "effects": {
+            	"poison": 1
+            }
         },
         "Mummy": {
             "_comments": ["Kind of like curse tower"],
             "durability": 1,
             "damage": 1,
             "range": 1,
-            "rate": 1
+            "rate": 1,
+            "effects": {
+            	"cures": 1
+            }
         },
         "Talos": {
             "_comments": ["Huge robot"],
             "durability": 1,
             "damage": 1,
             "range": 1,
-            "rate": 1
+            "rate": 1,
+            "effects": {
+            	"fire": 1
+            }
         }
     },
     "potions": {
