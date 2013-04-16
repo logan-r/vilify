@@ -24,10 +24,9 @@ var Game = window.Game = {
 	 *   @prop time {Number} The elapsed time in milliseconds since the game started
 	 */
 	settings: {
-		fps: tickTime * 1000,
+		fps: 30,
 		startTime: 0,
-		time: 0,
-		tickTime: 0
+		time: 0
 	},
 
 	/**
@@ -59,16 +58,9 @@ var Game = window.Game = {
 	 * @function Game.tick
 	 */
 	tick: function() {
-		// Returns time in milliseconds
-		var beforeTime = performance.now();
-		
 		Game.settings.time = new Date().getTime() - Game.settings.startTime;
 		Game.update();
 		Game.draw();
-		
-		var afterTime = performance.now();
-		// With this tick time, the game can be played on both fast and slow machines.
-		Game.settings.tickTime = afterTime - beforeTime;
 	},
 
 	/**
@@ -93,7 +85,7 @@ var Game = window.Game = {
 	start: function() {
 		if ( !this.active ) {
 			this.settings.startTime = new Date().getTime();
-			setInterval( this.tick, tickTime );
+			setInterval( this.tick, 1000 / ( this.settings.fps || 30 ) );
 			this.active = true;
 		}
 	},
