@@ -99,7 +99,7 @@
             }
         },
         "Shifter": {
-            "_comments": ["A 4D gaurd, can attack heroes with out dystroying armor first"],
+            "_comments": ["A 4D guard, can attack heroes with out destroying armor first"],
             "durability": 1,
             "damage": 1,
             "range": 1,
