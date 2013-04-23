@@ -100,6 +100,108 @@ var Game = window.Game = {
 	}
 };
 
+/**
+ * Box object constructor. Box object will define most of dimensions.
+ * @function Game.Box
+ * @param x {Number} X value of top left corner
+ * @param y {Number} Y value of top left corner
+ * @param width {Number}
+ * @param height {Number}
+ */
+Game.Box = function( x, y, width, height ) {
+	if ( x instanceof Game.Box ) {
+		this.set( x );
+	} else {
+		this.x = x || 0;
+		this.y = y || 0;
+		this.width = width || 0;
+		this.height = height || 0;
+	}
+};
+
+Game.Box.prototype = {
+	/**
+	 * Getters and setters
+	 */
+	get left() { return this.x },
+	get top() { return this.y },
+	get right() { return this.x + this.width },
+	get bottom() { return this.y + this.height },
+
+	get centerx() { return this.x + this.width / 2 },
+	get centery() { return this.y + this.height / 2 },
+
+	get center() { return [ this.centerx, this.centery ] },
+	get topLeft() { return [ this.left, this.top ] },
+	get topRight() { return [ this.right, this.top ] },
+	get bottomLeft() { return [ this.left, this.bottom ] },
+	get bottomRight() { return [ this.right, this.bottom ] },
+
+	get size() { return [ this.width, this.height ] },
+
+	set left( value ) { this.x = value },
+	set top( value ) { this.y = value },
+	set right( value ) { this.x = value - this.width },
+	set bottom( value ) { this.y = value - this.height },
+
+	set centerx( value ) { this.x = value - this.width / 2 },
+	set centery( value ) { this.y = value - this.height / 2 },
+
+	set center( value ) { this.centerx = value[0]; this.centery = value[1] },
+	set topLeft( value ) { this.left = value[0]; this.top = value[1] },
+	set topRight( value ) { this.right = value[0]; this.top = value[1] },
+	set bottomLeft( value ) { this.left = value[0]; this.bottom = value[1] },
+	set bottomRight( value ) { this.right = value[0]; this.bottom = value[1] },
+
+	set size( value ) { this.width = value[0]; this.height = value[1] },
+
+	/**
+	 * Set this box with another box's property
+	 * @function Game.Box.prototype.set
+	 * @params box {Game.Box}
+	 */
+	set: function( box ) {
+		this.topLeft = box.topLeft;
+		this.size = box.size;
+	},
+
+	/**
+	 * Returns a copy
+	 * @function Game.Box.prototype.copy
+	 * @returns {Game.Box}
+	 */
+	copy: function() {
+		return new Game.Box( this.x, this.y, this.width, this.height );
+	},
+
+	/**
+	 * Basic collision with other Box
+	 * @function Game.Box.prototype.collideWith
+	 * @param box {Box}
+	 */
+	collideWith: function( box ) {
+		return !(
+			this.bottom < box.top ||
+			this.top > box.bottom ||
+			this.right < box.left ||
+			this.left > box.right
+		);
+	},
+
+	/**
+	 * Collision with a point
+	 * @function Game.Box.prototype.isPointInside
+	 * @param x {Number} X value of the point
+	 * @param y {Number} Y value of the point
+	 * @returns {BOOL}
+	 */
+	isPointInside: function( x, y ) {
+		return this.left < x && x < this.right &&
+			this.top < y && y < this.top;
+	}
+};
+
+//TODO: Maybe define Point, or Vector, which could hold x and y values and use it in Box
 
 /**
  * Asset object constructor
@@ -110,6 +212,14 @@ var Game = window.Game = {
 Game.Asset = function( type, src ) {
 	this.type = type;
 	this.src = src;
+};
+
+/**
+ * Sprite object constructor
+ * @function Game.Sprite
+ */
+Game.Sprite = function() {
+
 };
 
 /**
