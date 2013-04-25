@@ -275,14 +275,14 @@ Game.Vector2.prototype = {
 		this.x = other.x;
 		this.y = other.y;
 		return this;
-	}
+	},
 
 	/*
 	 * Returns a copy of this vector
 	 */
 	copy: function() {
 		return new Game.Vector2( this.x, this.y );
-	}
+	},
 
 	// Returns the vector with all components multiplied by the scalar parameter
 	// You would use reciprocal if you are dividing
@@ -302,8 +302,8 @@ Game.Vector2.prototype = {
 
 	// Rotates the vector by the specified angle
 	rotate: function( angle ) {
-		this.x = this.x * cos( angle ) – this.y * sin( angle );
-		this.y = this.x * sin( angle ) + this.y * cos( angle );
+		this.x = this.x * Math.cos( angle ) - this.y * Math.sin( angle );
+		this.y = this.x * Math.sin( angle ) + this.y * Math.cos( angle );
 		return this;
 	}
 }
