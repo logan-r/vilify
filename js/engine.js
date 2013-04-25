@@ -103,19 +103,25 @@ var Game = window.Game = {
 /**
  * Box object constructor. Box object will define most of dimensions.
  * @function Game.Box
- * @param x {Number} X value of top left corner
- * @param y {Number} Y value of top left corner
- * @param width {Number}
- * @param height {Number}
+ * @param x {Number, Game.Vector2, Game.Box} X value of top left corner, vector representing top left corner, Box to copy
+ * @param y {Number, Number, undefined} Y value of top left corner, width
+ * @param width {Number, Number, undefined} Width, height
+ * @param height {Number, undefined, undefined} Height
  */
 Game.Box = function( x, y, width, height ) {
 	if ( x instanceof Game.Box ) {
 		this.set( x );
 	} else {
-		this.x = x || 0;
-		this.y = y || 0;
-		this.width = width || 0;
-		this.height = height || 0;
+		if ( x instanceof Game.Vector2 ) {
+			this.topLeft = x;
+			this.width = y;
+			this.height = width;
+		} else {
+			this.x = x || 0;
+			this.y = y || 0;
+			this.width = width || 0;
+			this.height = height || 0;
+		}
 	}
 };
 
@@ -123,37 +129,57 @@ Game.Box.prototype = {
 	/**
 	 * Getters and setters
 	 */
-	get left() { return this.x },
-	get top() { return this.y },
-	get right() { return this.x + this.width },
-	get bottom() { return this.y + this.height },
+	get left() { return this.x; },
+	get top() { return this.y; },
+	get right() { return this.x + this.width; },
+	get bottom() { return this.y + this.height; },
 
-	get centerx() { return this.x + this.width / 2 },
-	get centery() { return this.y + this.height / 2 },
+	get centerx() { return this.x + this.width / 2; },
+	get centery() { return this.y + this.height / 2; },
 
-	get center() { return [ this.centerx, this.centery ] },
-	get topLeft() { return [ this.left, this.top ] },
-	get topRight() { return [ this.right, this.top ] },
-	get bottomLeft() { return [ this.left, this.bottom ] },
-	get bottomRight() { return [ this.right, this.bottom ] },
+	get center() { return new Game.Vector2( this.centerx, this.centery ); },
+	get topLeft() { return new Game.Vector2( this.left, this.top ); },
+	get topRight() { return new Game.Vector2( this.right, this.top ); },
+	get bottomLeft() { return new Game.Vector2( this.left, this.bottom ); },
+	get bottomRight() { return new Game.Vector2( this.right, this.bottom ); },
 
-	get size() { return [ this.width, this.height ] },
+	get size() { return { width: this.width, height: this.height }; },
 
-	set left( value ) { this.x = value },
-	set top( value ) { this.y = value },
-	set right( value ) { this.x = value - this.width },
-	set bottom( value ) { this.y = value - this.height },
+	set left( value ) { this.x = value; },
+	set top( value ) { this.y = value; },
+	set right( value ) { this.x = value - this.width; },
+	set bottom( value ) { this.y = value - this.height; },
 
-	set centerx( value ) { this.x = value - this.width / 2 },
-	set centery( value ) { this.y = value - this.height / 2 },
+	set centerx( value ) { this.x = value - this.width / 2; },
+	set centery( value ) { this.y = value - this.height / 2; },
 
-	set center( value ) { this.centerx = value[0]; this.centery = value[1] },
-	set topLeft( value ) { this.left = value[0]; this.top = value[1] },
-	set topRight( value ) { this.right = value[0]; this.top = value[1] },
-	set bottomLeft( value ) { this.left = value[0]; this.bottom = value[1] },
-	set bottomRight( value ) { this.right = value[0]; this.bottom = value[1] },
+	// Basically, you can put any Object with x or y value e.g. Game.Vector2
+	// or an array e.g. [123, 284]
+	set center( value ) {
+		this.centerx = value.x || value[0];
+		this.centery = value.y || value[1];
+	},
+	set topLeft( value ) {
+		this.left = value.x || value[0];
+		this.top = value.y || value[1];
+	},
+	set topRight( value ) {
+		this.right = value.x || value[0];
+		this.top = value.y || value[1];
+	},
+	set bottomLeft( value ) {
+		this.left = value.x || value[0];
+		this.bottom = value.y || value[1];
+	},
+	set bottomRight( value ) {
+		this.right = value.x || value[0];
+		this.bottom = value.y || value[1];
+	},
 
-	set size( value ) { this.width = value[0]; this.height = value[1] },
+	set size( value ) {
+		this.width = value.width || value[0];
+		this.height = value.height || value[1];
+	},
 
 	/**
 	 * Set this box with another box's property
@@ -163,6 +189,7 @@ Game.Box.prototype = {
 	set: function( box ) {
 		this.topLeft = box.topLeft;
 		this.size = box.size;
+		return this;
 	},
 
 	/**
@@ -201,7 +228,85 @@ Game.Box.prototype = {
 	}
 };
 
-//TODO: Maybe define Point, or Vector, which could hold x and y values and use it in Box
+/*
+ * Vector2 Object Constructor
+ * It holds position or vector, either one
+ * @function Game.Vector2
+ * @params x {Number, Game.Vector2} X value, vector to copy
+ * @params y {Number, undefined} Y value
+ */
+Game.Vector2 = function( x, y ) {
+	if (x instanceof Game.Vector2 ) {
+		this.set( x );
+	} else {
+		this.x = x;
+		this.y = y;
+	}
+}
+
+Game.Vector2.prototype = {
+	/**
+	 * Operations, since JavaScript doesn't have operation overloading
+	 * add: Returns the sum of the two vectors
+	 * sub: subtract - Returns the difference between the two vectors
+	 * mul: multiply - Returns the component-wise multiplication of the vectors
+	 * div: divide - Returns the component-wise division of the vectors
+	 */
+	add: function( other ) {
+		return new Game.Vector2( this.x + other.x, this.y + other.y );
+	},
+	sub: function( other ) {
+		return new Game.Vector2( this.x - other.x, this.y - other.y );
+	},
+	mul: function( other ) {
+		return new Game.Vector2( this.x * other.x, this.y * other.y );
+	},
+	div: function( other ) {
+		return new Game.Vector2( this.x / other.x, this.y / other.y );
+	},
+
+	get length() { return Math.sqrt( this.x * this.x + this.y * this.y ); },
+	get angle() { return Math.atan2( this.y, this.x ); },
+
+	/*
+	 * Set this vector with other vector's property
+	 */
+	set: function( other ) {
+		this.x = other.x;
+		this.y = other.y;
+		return this;
+	}
+
+	/*
+	 * Returns a copy of this vector
+	 */
+	copy: function() {
+		return new Game.Vector2( this.x, this.y );
+	}
+
+	// Returns the vector with all components multiplied by the scalar parameter
+	// You would use reciprocal if you are dividing
+	scale: function( scale ) {
+		return new Game.Vector2( this.x * scale, this.y * scale );
+	},
+
+	// Returns the dot product between the two vectors
+	dot: function( other ) {
+		return this.x * other.x + this.y * other.y;
+	},
+
+	// Returns a vector pointing on the same direction, but with a length of 1
+	unit: function() {
+		return this.scale( 1 / this.length );
+	},
+
+	// Rotates the vector by the specified angle
+	rotate: function( angle ) {
+		this.x = this.x * cos( angle ) – this.y * sin( angle );
+		this.y = this.x * sin( angle ) + this.y * cos( angle );
+		return this;
+	}
+}
 
 /**
  * Asset object constructor
