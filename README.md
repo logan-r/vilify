@@ -1,7 +1,9 @@
 Vilify
 ======
 
-You are a mad scientist, who has just completed a doomsday device! In 24 hours the device will erupt, destroying the world! Unfortunately, those pesky Super Heroes have discovered your evil plan, and now they are invading your lab! (Why can't they just mind their own business for once! All you are trying to do is only destroying the world!) Now you must build electronic defense towers, mix poisonous potions, and raise the dead! Protect your lab!
+You are a mad scientist whose dream is to destroy the world. After many years of work, your doomsday device is almost ready -- and the end is set for tomorrow.
+Unfortunately, your stupid cronie, who you fired yesterday (he spilled your explosion potion, setting your plans back at least a week), let it slip that the end is coming.
+Now Super Heroes from around the world are heading to your base with one goal -- to stop you for good. (Why can't they mind their own business? You're only trying to destroy the world!) Now it's your turn. It's time to send those heroes back where they came from!
 
 ## Developer Guidelines:
 
