@@ -49,7 +49,7 @@ Game.Map.prototype = {
 		while ( path_q.length != 0 ) {
 			tmpPath = path_q.splice( 0, 1 )[0];
 			lastTile = tmpPath[ tmpPath.length - 1];
-			if ( lastTile.x == endTile.x && lastTile.y == endTile.y ) {
+			if ( lastTile.x === endTile.x && lastTile.y === endTile.y ) {
 				for ( i = 0; i < tmpPath.length; i++ ) {
 					tmpPath[i].x = tmpPath[i].x * 64 + 32;
 					tmpPath[i].y = tmpPath[i].y * 64 + 32;
@@ -62,12 +62,12 @@ Game.Map.prototype = {
 				if ( adjTile.x < 0 || adjTile.x > 9 || adjTile.y < 0 || adjTile.y > 9 ) {
 					continue;
 				}
-				else if ( this.layout[adjTile.y][adjTile.x] == settings.tiles.UNWALKABLE ) {
+				else if ( this.layout[adjTile.y][adjTile.x] === settings.tiles.UNWALKABLE ) {
 					continue;
 				}
 				alreadyInPath = false;
 				for ( j = 0; j < tmpPath.length; j++ ) {
-					if ( adjTile.x == tmpPath[j].x  && adjTile.y == tmpPath[j].y ) {
+					if ( adjTile.x === tmpPath[j].x  && adjTile.y === tmpPath[j].y ) {
 						alreadyInPath = true;
 					}
 				}
@@ -85,11 +85,9 @@ Game.Map.prototype = {
 	 * Draws the map on the canvas
 	 */
 	draw: function() {
-		var tileSprite = Game.assets["Tile Spritesheet"].elem,
-			row = 0,
-			col;
-		for ( ; row < this.layout.length; row++ ) {
-			for ( col = 0; col < this.layout[row].length; col++ ) {
+		var tileSprite = Game.assets["Tile Spritesheet"].elem;
+		for ( var row = 0; row < this.layout.length; row++ ) {
+			for ( var col = 0; col < this.layout[row].length; col++ ) {
 				// Get tile type
 				var spriteData;
 				switch ( this.layout[row][col] ) {
@@ -130,7 +128,7 @@ Game.Map.prototype = {
 Game.Tower = function( name, dimension ) {
 	// TODO: Define some basic attributes that all towers can inherit
 
-	if ( settings.objectData.towers[name] == undefined )
+	if ( settings.objectData.towers[name] === undefined )
 		throw "Tower: Invalid name: " + name;
 
 	Game.Entity.call( this, ["towers", name], dimension, Game.assets["Tower Spritesheet"].elem, settings.towerData.frames[settings.objectData.towers[name].image].frame );
@@ -150,7 +148,7 @@ Game.Tower.prototype.update = function() {
 Game.Monster = function( name, dimension ) {
 	// TODO: Define some basic attributes that all monsters can inherit
 
-	if ( settings.objectData.monsters[name] == undefined )
+	if ( settings.objectData.monsters[name] === undefined )
 		throw "Monster: Invalid name: " + name;
 
 	Game.Entity.call( this, ["monsters", name], dimension );
@@ -165,7 +163,7 @@ Game.Monster.prototype = new Game.Entity();
 Game.Potion = function( name ) {
 	// TODO: Define some basic attributes that all potions can inherit
 
-	if ( settings.objectData.potions[name] == undefined )
+	if ( settings.objectData.potions[name] === undefined )
 		throw "Potion: Invalid name: " + name;
 
 	Game.Entity.call( this, ["potions",name] );
@@ -179,7 +177,7 @@ Game.Potion.prototype = new Game.Entity();
  * @param path - an array of points that the hero walk through e.g. [{x: 64, y: 64}, {x: 128, y: 128}]
  */
 Game.Hero = function( name, dimension, path ) {
-	if ( settings.objectData.heroes[name] == undefined )
+	if ( settings.objectData.heroes[name] === undefined )
 		throw "Hero: Invalid name: " + name;
 	
 	Game.Entity.call( this, ["heroes", name], dimension, undefined/*Game.assets["Hero Spritesheet"].elem*/, {}/*settings.heroData.frames[settings.objectData.heroes[name].image].frame*/ );
@@ -212,7 +210,7 @@ Game.Hero.prototype.update = function() {
 		}
 		
 		// Check to see if hero has reached nextPoint
-		if ( this.x == nextPoint.x && this.y == nextPoint.y ) {
+		if ( this.x === nextPoint.x && this.y === nextPoint.y ) {
 			this.path.splice( 0, 1 ); // Remove nextPoint from path
 		}
 	}
@@ -224,7 +222,7 @@ Game.Hero.prototype.update = function() {
 Game.Material = function( name, dimension ) {
 	// TODO: Define some basic attributes that all towers can inherit
 
-	if ( settings.objectData.materials[name] == undefined )
+	if ( settings.objectData.materials[name] === undefined )
 		throw "Material: Invalid name: " + name;
 
 	Game.Entity.call( this, ["materials", name], dimension, Game.assets["Material Spritesheet"].elem, settings.materialData.frames[settings.objectData.materials[name].image].frame );
