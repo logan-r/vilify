@@ -9,7 +9,7 @@ var Game = window.Game;
 Game.name = "Vilify";
 Game.version = "1.0.0";
 
-TODO
+// TODO
 
 // After the game's working
 // var windowResize = function() {

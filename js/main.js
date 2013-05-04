@@ -4,7 +4,7 @@
 
 (function( window ) {
 
-TODO
+// TODO
 
 })( window );
 
