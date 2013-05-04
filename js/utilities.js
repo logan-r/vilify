@@ -74,9 +74,11 @@ window._ = {
 			}
 		}
 
-		for ( item in child ) {
-			if ( child.hasOwnProperty( item ) ) {
-				obj[item] = child[item];
+		if ( child ) {
+			for ( item in child ) {
+				if ( child.hasOwnProperty( item ) ) {
+					obj[item] = child[item];
+				}
 			}
 		}
 		
