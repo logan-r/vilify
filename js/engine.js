@@ -44,6 +44,12 @@ var Game = window.Game = {
 	killList: [],
 
 	/**
+	 * True of the game is running and false if not.
+	 * @bool Game.alive
+	 */
+	alive: false,
+
+	/**
 	 * State-based game
 	 * addState takes a String, or an Array of strings as argument.
 	 * The string should be camelCase.
@@ -276,6 +282,27 @@ var Game = window.Game = {
 			this.y = this.x * Math.sin( angle ) + this.y * Math.cos( angle );
 			return this;
 		}
+	},
+
+	/**
+	 * Starts the engine
+	 * @function Game.start
+	 */
+	start: function() {
+		if ( !this.alive ) {
+			this.settings.startTime = new Date().getTime();
+			setInterval( this.tick, 1000 / ( this.settings.fps || 30 ) );
+			this.alive = true;
+		}
+	},
+
+	/**
+	 * Stops the engine
+	 * @function Game.stop
+	 */
+	stop: function() {
+		clearInterval( this.tick );
+		this.alive = false;
 	}
 }
 
