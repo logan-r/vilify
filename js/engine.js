@@ -16,13 +16,17 @@ var Game = window.Game = {
 	 * game needs.
 	 * @object Game.settings
 	 *   @prop fps {Number} Frames per second
-	 *   @prop startTime {Number} The start time in milliseconds of the game.
-	 *   @prop time {Number} The elapsed time in milliseconds since the game started
+	 *   @prop startTime {Number} The start time in milliseconds of the game
+	 *   @prop time {Number} The time in milliseconds that can be used in various ways
+	 *   @prop canvas {CanvasElement} The main canvas
+	 *   @prop ctx {Canvas2DContext} The canvas 2D context
 	 */
 	settings: {
 		fps: 30,
 		startTime: 0,
-		time: 0
+		time: 0,
+		canvas: null,
+		ctx: null
 	},
 
 	/**
@@ -44,34 +48,83 @@ var Game = window.Game = {
 	killList: [],
 
 	/**
-	 * True of the game is running and false if not.
+	 * If the game engine is running and false if not.
 	 * @bool Game.alive
 	 */
 	alive: false,
 
 	/**
-	 * State-based game
-	 * addState takes a String, or an Array of strings as argument.
-	 * The string should be camelCase.
+	 * If the game engine is initialized or not
 	 */
-	states: { _count: 0 },
+	initialized: false,
+
+	/**
+	 * State-based game
+	 * addState takes a String, and a callback.
+	 * Callback will be used in update and draw function.
+	 * Callback is an object that has two methods: update and draw
+	 * update should take one parameter: delta (time elapsed between update calls)
+	 * draw should take one parameter: ctx (canvas 2D context)
+	 */
+	states: {},
 	state: null,
-	addState: function( state ) {
-		if ( state instanceof Array ) {
-			for ( var i = 0; i < state.length; i++ ) {
-				this._addState( state[i] );
-			}
+	addState: function( name, callback ) {
+		// Checks if there's already state with the name
+		if ( states[ name ] === undefined || states[ name ] === null) {
+			states[ name ] = callback;
 		} else {
-			this._addState( state );
+			throw "State already added: " + name;
 		}
 	},
-	_addState: function( state ) {
-		if ( states.hasOwnProperty( state ) ) {
-			throw 'this state has been already added: ' + state;
-		} else {
-			states[state] = states._count;
-			states._count++;
+
+	/**
+	 * Starts the engine
+	 * @function Game.start
+	 */
+	start: function() {
+		if ( !this.initialized ) {
+			throw "Game engine not initialized";
 		}
+		if ( !this.alive ) {
+			this.settings.startTime = Date.now();
+			this.settings.time = this.settings.startTime;
+			setInterval( this.tick, 1000 / ( this.settings.fps || 30 ) );
+			this.alive = true;
+		}
+	},
+
+	/**
+	 * Initialization of the game engine
+	 */
+	init: function( canvas ) {
+		if ( !canvas ) { // quick and dirty way to check if it is null or undefined
+			throw "Init function requires 'canvas' parameter";
+		}
+		this.settings.canvas = canvas;
+		this.settings.ctx = canvas.getContext( "2d" );
+		if ( !this.settings.ctx ) {
+			throw "Could not get canvas 2D context";
+		}
+		this.initialized = true;
+	},
+
+	/**
+	 * Stops the engine
+	 * @function Game.stop
+	 */
+	stop: function() {
+		clearInterval( this.tick );
+		this.alive = false;
+	},
+
+	update: function() {
+		var now = Date.now();
+		this.state.update( now - this.settings.time ); // delta
+		this.settings.time = now;
+	},
+
+	draw: function() {
+		this.state.draw( this.settings.ctx );
 	},
 
 	/**
@@ -282,27 +335,6 @@ var Game = window.Game = {
 			this.y = this.x * Math.sin( angle ) + this.y * Math.cos( angle );
 			return this;
 		}
-	},
-
-	/**
-	 * Starts the engine
-	 * @function Game.start
-	 */
-	start: function() {
-		if ( !this.alive ) {
-			this.settings.startTime = new Date().getTime();
-			setInterval( this.tick, 1000 / ( this.settings.fps || 30 ) );
-			this.alive = true;
-		}
-	},
-
-	/**
-	 * Stops the engine
-	 * @function Game.stop
-	 */
-	stop: function() {
-		clearInterval( this.tick );
-		this.alive = false;
 	}
 }
 
