@@ -117,12 +117,28 @@ var Game = window.Game = {
 		this.alive = false;
 	},
 
+	/**
+	 * Function to call each frame
+	 */
+	tick: function() {
+		this.update();
+		this.draw();
+	},
+
+	/**
+	 * Updates the game state. Should not be overridden.
+	 * Override state's update function instead.
+	 */
 	update: function() {
 		var now = Date.now();
 		this.state.update( now - this.settings.time ); // delta
 		this.settings.time = now;
 	},
 
+	/* Draws the current game state to the canvas.
+	 * Should not be overridden.
+	 * Override state's draw function instead.
+	 */
 	draw: function() {
 		this.state.draw( this.settings.ctx );
 	},
