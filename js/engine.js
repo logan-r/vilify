@@ -31,25 +31,21 @@ var Game = window.Game = {
 
 	/**
 	 * Holds Game assets
-	 * @object Game.assets
 	 */
 	assets: {},
 
 	/**
 	 * Holds game entities
-	 * @array Game.entities
 	 */
 	entities: [],
 	
 	/**
 	 * Holds the game entities that will be destroyed this update
-	 * @array Game.entities
 	 */
 	killList: [],
 
 	/**
 	 * If the game engine is running and false if not.
-	 * @bool Game.alive
 	 */
 	alive: false,
 
@@ -78,8 +74,7 @@ var Game = window.Game = {
 	},
 
 	/**
-	 * Starts the engine
-	 * @function Game.start
+	 * Starts the game engine
 	 */
 	start: function() {
 		if ( !this.initialized ) {
@@ -109,8 +104,7 @@ var Game = window.Game = {
 	},
 
 	/**
-	 * Stops the engine
-	 * @function Game.stop
+	 * Stops the game enegine
 	 */
 	stop: function() {
 		clearInterval( this.tick );
