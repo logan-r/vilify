@@ -242,7 +242,35 @@ var Game = window.Game = {
 				}
 			}
 		}
+	},
 
+	/**
+	 * Object for handling input event
+	 */
+	inputManager: {
+		init: function() {
+			this.offset = { x: 0, y: 0 }; //TODO Find offset
+
+			// And array of events
+			this.events = [];
+
+			var that = this;
+
+			_.bind(this.settings.canvas, "click", function( e ) {
+				return that.handleClick( e );
+			} );
+		},
+
+		handleClick: function( e ) {
+			var event = {
+				x: e.pageX - this.offset.x,
+				y: e.pageY - this.offset.y
+			};
+
+			this.events.push( event );
+
+			return false;
+		}
 	},
 
 	/**
