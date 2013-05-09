@@ -96,6 +96,8 @@ if ( !Object.getPrototypeOf ) {
 	};
 }
 
+window.make = _.make
+
 /**
  * Extra math functions (not already in Math object)
  */

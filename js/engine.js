@@ -30,11 +30,6 @@ var Game = window.Game = {
 	},
 
 	/**
-	 * Holds Game assets
-	 */
-	assets: {},
-
-	/**
 	 * Holds game entities
 	 */
 	entities: [],
@@ -45,48 +40,9 @@ var Game = window.Game = {
 	killList: [],
 
 	/**
-	 * If the game engine is running and false if not.
-	 */
-	alive: false,
-
-	/**
 	 * If the game engine is initialized or not
 	 */
 	initialized: false,
-
-	/**
-	 * State-based game
-	 * addState takes a String, and a callback.
-	 * Callback will be used in update and draw function.
-	 * Callback is an object that has two methods: update and draw
-	 * update should take one parameter: delta (time elapsed between update calls)
-	 * draw should take one parameter: ctx (canvas 2D context)
-	 */
-	states: {},
-	state: null,
-	addState: function( name, callback ) {
-		// Checks if there's already state with the name
-		if ( states[ name ] === undefined || states[ name ] === null) {
-			states[ name ] = callback;
-		} else {
-			throw "State already added: " + name;
-		}
-	},
-
-	/**
-	 * Starts the game engine
-	 */
-	start: function() {
-		if ( !this.initialized ) {
-			throw "Game engine not initialized";
-		}
-		if ( !this.alive ) {
-			this.settings.startTime = Date.now();
-			this.settings.time = this.settings.startTime;
-			setInterval( this.tick, 1000 / ( this.settings.fps || 30 ) );
-			this.alive = true;
-		}
-	},
 
 	/**
 	 * Initialization of the game engine
@@ -101,6 +57,45 @@ var Game = window.Game = {
 			throw "Could not get canvas 2D context";
 		}
 		this.initialized = true;
+	},
+
+	/**
+	 * State-based game
+	 * addState takes a String, and a callback.
+	 * Callback will be used in update and draw function.
+	 * Callback is an object that has two methods: update and draw
+	 * update should take one parameter: delta (time elapsed between update calls)
+	 * draw should take one parameter: ctx (canvas 2D context)
+	 */
+	states: {},
+	state: null,
+	addState: function( name, callback ) {
+		// Checks if there's already state with the name
+		if ( states[name] === undefined || states[ name ] === null ) {
+			states[name] = callback;
+		} else {
+			throw "State already added: " + name;
+		}
+	},
+
+	/**
+	 * If the game engine is running and false if not.
+	 */
+	alive: false,
+
+	/**
+	 * Starts the game engine
+	 */
+	start: function() {
+		if ( !this.initialized ) {
+			throw "Game engine not initialized";
+		}
+		if ( !this.alive ) {
+			this.settings.startTime = Date.now();
+			this.settings.time = this.settings.startTime;
+			setInterval( this.tick, 1000 / ( this.settings.fps || 30 ) );
+			this.alive = true;
+		}
 	},
 
 	/**
@@ -129,12 +124,125 @@ var Game = window.Game = {
 		this.settings.time = now;
 	},
 
-	/* Draws the current game state to the canvas.
+	/**
+	 * Draws the current game state to the canvas.
 	 * Should not be overridden.
 	 * Override state's draw function instead.
 	 */
 	draw: function() {
 		this.state.draw( this.settings.ctx );
+	},
+
+	/**
+	 * Asset object
+	 * Holds necessary information about an asset
+	 * callback is called when the asset has loaded
+	 */
+	Asset: {
+		init: function( type, src, callback ) {
+			this.type = type;
+			this.src = src;
+			if ( callback ) {
+				this.callback = callback;
+			}
+		}
+	},
+
+	/**
+	 * Object for holding and loading assets
+	 * It is a singleton.
+	 */
+	assetManager: {
+		/**
+		 * Holds Game assets
+		 */
+		assets: {},
+
+		/**
+		 * asset types
+		 * users can add custom asset types.
+		 * callback should have one parameter: asset
+		 * for convenient purposes.
+		 */
+		assetType: {
+			image: function( asset, callback ) {
+				var img = new Image();
+				img.onload = function() {
+					callback( asset );
+				};
+				img.src = asset.src;
+				asset.content = img;
+			},
+			audio: function( asset, callback ) {
+				var audio = document.createElement( "audio" );
+				audio.onload = function() {
+					callback( asset );
+				};
+				audio.src = asset.src;
+				asset.content = audio;
+			},
+			json: function( asset, callback ) {
+				_.ajax( asset.src, null, function( msg ) {
+					asset.content = JSON.parse( msg );
+					if ( callback ) {
+						callback( asset );
+					}
+				});
+			}
+		},
+
+		/**
+		 * number assets
+		 */
+		assetCount: 0,
+		loadedCount: 0,
+
+		/**
+		 * Adds an asset
+		 */
+		add: function( name, asset ) {
+			this.assets[name] = asset;
+			this.assetCount++;
+		},
+
+		/**
+		 * Gets an asset
+		 */
+		get: function( name ) {
+			return this.assets[name];
+		},
+
+		/**
+		 * Checks if all assets in asset manager have been loaded
+		 */
+		get loaded() { return this.assetCount === this.loadedCount },
+
+		/**
+		 * Loads all assets currently in the asset manager
+		 */
+		load: function( onAllLoad, onEachLoad ) {
+			this.callback = onAllLoad;
+
+			var that = this;
+
+			for ( var i in this.assets ) {
+				if ( this.assets.hasOwnProperty( i ) ) {
+					if ( !this.assetType.hasOwnProperty( i.type ) ) {
+						throw "The asset type is not added: " + i.type;
+					}
+					this.assetType[i.type]( i, function( asset ) {
+						that.loadedCount++;
+						if ( onEachLoad ) {
+							onEachLoad();
+						}
+						if ( that.loaded && that.callback ) {
+							that.callback();
+						}
+					} );
+				}
+			}
+		}
+
 	},
 
 	/**
@@ -147,19 +255,18 @@ var Game = window.Game = {
 	 */
 	Box: {
 		init: function( x, y, width, height ) {
-			if ( x instanceof window.Physics.Box ) {
+			if ( x.hasOwnProperty( "x" ) && x.hasOwnProperty( "y" ) &&
+				x.hasOwnProperty( "width" ) && x.hasOwnProperty( "height" ) ) {
 				this.set( x );
+			} else if ( x.hasOwnProperty( "x" ) && x.hasOwnProperty( "y" ) ) {
+				this.topLeft = x;
+				this.width = y;
+				this.height = width;
 			} else {
-				if ( x instanceof window.Physics.Vector2 ) {
-					this.topLeft = x;
-					this.width = y;
-					this.height = width;
-				} else {
-					this.x = x || 0;
-					this.y = y || 0;
-					this.width = width || 0;
-					this.height = height || 0;
-				}
+				this.x = x || 0;
+				this.y = y || 0;
+				this.width = width || 0;
+				this.height = height || 0;
 			}
 			return this;
 		},
@@ -175,11 +282,11 @@ var Game = window.Game = {
 		get centerx() { return this.x + this.width / 2; },
 		get centery() { return this.y + this.height / 2; },
 
-		get center() { return _.make( Vector2 ).init( this.centerx, this.centery ); },
-		get topLeft() { return _.make( Vector2 ).init( this.left, this.top ); },
-		get topRight() { return _.make( Vector2 ).init( this.right, this.top ); },
-		get bottomLeft() { return _.make( Vector2 ).init( this.left, this.bottom ); },
-		get bottomRight() { return _.make( Vector2 ).init( this.right, this.bottom ); },
+		get center() { return make( Game.Vector2 ).init( this.centerx, this.centery ); },
+		get topLeft() { return make( Game.Vector2 ).init( this.left, this.top ); },
+		get topRight() { return make( Game.Vector2 ).init( this.right, this.top ); },
+		get bottomLeft() { return make( Game.Vector2 ).init( this.left, this.bottom ); },
+		get bottomRight() { return make( Game.Vector2 ).init( this.right, this.bottom ); },
 
 		get size() { return { width: this.width, height: this.height }; },
 
@@ -191,7 +298,7 @@ var Game = window.Game = {
 		set centerx( value ) { this.x = value - this.width / 2; },
 		set centery( value ) { this.y = value - this.height / 2; },
 
-		// Basically, you can put any Object with x or y value e.g. window.Physics.Vector2
+		// Basically, you can put any Object with x or y value e.g. Game.Vector2
 		// or an array e.g. [123, 284]
 		set center( value ) {
 			this.centerx = value.x || value[0];
@@ -221,28 +328,23 @@ var Game = window.Game = {
 
 		/**
 		 * Set this box with another box's property
-		 * @function window.Physics.Box.prototype.set
-		 * @params box {window.Physics.Box}
 		 */
 		set: function( box ) {
-			this.topLeft = box.topLeft;
-			this.size = box.size;
+			// This works because of the setters of topLeft and size
+			this.topLeft = box;
+			this.size = box;
 			return this;
 		},
 
 		/**
 		 * Returns a copy
-		 * @function window.Physics.Box.prototype.copy
-		 * @returns {window.Physics.Box}
 		 */
 		copy: function() {
-			return _.make( Box ).init( this.x, this.y, this.width, this.height );
+			return make( Game.Box ).init( this.x, this.y, this.width, this.height );
 		},
 
 		/**
 		 * Basic collision with other Box
-		 * @function window.Physics.Box.prototype.collideWith
-		 * @param box {Box}
 		 */
 		collideWith: function( box ) {
 			return !(
@@ -254,11 +356,7 @@ var Game = window.Game = {
 		},
 
 		/**
-		 * Collision with a point
-		 * @function window.Physics.Box.prototype.isPointInside
-		 * @param x {Number} X value of the point
-		 * @param y {Number} Y value of the point
-		 * @returns {BOOL}
+		 * Check collision with a point
 		 */
 		isPointInside: function( x, y ) {
 			return this.left < x && x < this.right &&
@@ -292,16 +390,16 @@ var Game = window.Game = {
 		 * div: divide - Returns the component-wise division of the vectors
 		 */
 		add: function( other ) {
-			return _.make( Vector2 ).init( this.x + other.x, this.y + other.y );
+			return make( Vector2 ).init( this.x + other.x, this.y + other.y );
 		},
 		sub: function( other ) {
-			return _.make( Vector2 ).init( this.x - other.x, this.y - other.y );
+			return make( Vector2 ).init( this.x - other.x, this.y - other.y );
 		},
 		mul: function( other ) {
-			return _.make( Vector2 ).init( this.x * other.x, this.y * other.y );
+			return make( Vector2 ).init( this.x * other.x, this.y * other.y );
 		},
 		div: function( other ) {
-			return _.make( Vector2 ).init( this.x / other.x, this.y / other.y );
+			return make( Vector2 ).init( this.x / other.x, this.y / other.y );
 		},
 
 		get length() { return Math.sqrt( this.x * this.x + this.y * this.y ); },
@@ -320,13 +418,13 @@ var Game = window.Game = {
 		 * Returns a copy of this vector
 		 */
 		copy: function() {
-			return _.make( Vector2 ).init( this.x, this.y );
+			return make( Vector2 ).init( this.x, this.y );
 		},
 
 		// Returns the vector with all components multiplied by the scalar parameter
 		// You would use reciprocal if you are dividing
 		scale: function( scale ) {
-			return _.make( Vector2 ).init( this.x * scale, this.y * scale );
+			return make( Vector2 ).init( this.x * scale, this.y * scale );
 		},
 
 		// Returns the dot product between the two vectors
