@@ -274,6 +274,64 @@ var Game = window.Game = {
 	},
 
 	/**
+	 * Abstract class for representing an entity in the game.
+	 */
+	Entity: {
+		entityInit: function( bound, img ) {
+			// ensures that this.bound is Game.Box
+			this.bound = make( Game.Box ).init( bound );
+			this.img = img;
+			this.angle = 0;
+		},
+
+		/**
+		 * Updates the entity
+		 */
+		update: function( delta ) {
+
+		},
+
+		/**
+		 * Draws the entity to the canvas
+		 */
+		draw: function( ctx ) {
+			if ( this.img ) {
+				ctx.save();
+				
+				ctx.translate( this.bound.x, this.bound.y );
+				
+				// Rotate the image
+				if ( this.angle ) {
+					ctx.rotate( this.angle );
+				}
+				
+				// Draw the image
+				// ctx.drawImage( this.img, this.spriteData.x, this.spriteData.y, this.spriteData.w, this.spriteData.h, -this.width / 2, -this.height / 2, this.width, this.height );
+				this.img.drawAt( ctx, this.bound );
+				
+				ctx.restore();
+			} else {
+				// Set color
+				ctx.fillStyle = "black";			
+				
+				ctx.save();						
+				
+				ctx.translate( this.bound.x, this.bound.y );
+				
+				// Rotate the image
+				if ( this.angle ) {
+					ctx.rotate( this.angle );
+				}
+				
+				// Draw the image
+				ctx.fillRect( -this.bound.width / 2, -this.bound.height / 2, this.bound.height, this.bound.width );
+				
+				ctx.restore();
+			}
+		}
+	},
+
+	/**
 	 * Box object constructor. Box object will define most of dimensions.
 	 * @function Box
 	 * @param x {Number, Vector2, Box} X value of top left corner, vector representing top left corner, Box to copy
