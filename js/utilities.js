@@ -88,16 +88,17 @@ window._ = {
 	},
 
 	/*
-	 * This deeply extends objects.
+	 * This deeply copies properties of src to dest.
 	 * Use it when you don't need prototype chain.
-	 * This doesn't create new object.
+	 * Beware that this function doesn't create new object.
+	 * Instead it adds properties to dest
 	 */
-	deepExtend: function(src, dest) {
+	deepCopy: function(dest, src) {
 		for ( var item in src ) {
 			if ( src[item] && src[item].constructor &&
 				src[item].constructor === Object ) {
 				dest[item] = dest[item] || {};
-				arguments.callee( src[item], dest[item] );
+				arguments.callee( dest[item], src[item] );
 			} else {
 				dest[item] = src[item];
 			}
