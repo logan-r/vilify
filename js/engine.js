@@ -496,7 +496,8 @@ var Game = window.Game = {
 			return make( Vector2 ).init( this.x / other.x, this.y / other.y );
 		},
 
-		get length() { return Math.sqrt( this.x * this.x + this.y * this.y ); },
+		get squaredLength() { return this.x * this.x + this.y * this.y; },
+		get length() { return Math.sqrt( this.squaredLength ); },
 		get angle() { return Math.atan2( this.y, this.x ); },
 
 		/*
