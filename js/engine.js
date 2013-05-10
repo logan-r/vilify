@@ -152,7 +152,7 @@ var Game = window.Game = {
 	 * Object for holding and loading assets
 	 * It is a singleton.
 	 */
-	assetManager: {
+	AssetManager: {
 		/**
 		 * Holds Game assets
 		 */
@@ -247,7 +247,7 @@ var Game = window.Game = {
 	/**
 	 * Object for handling input event
 	 */
-	inputManager: {
+	InputManager: {
 		init: function() {
 			this.offset = { x: 0, y: 0 }; //TODO Find offset
 
@@ -283,10 +283,9 @@ var Game = window.Game = {
 	 */
 	Box: {
 		init: function( x, y, width, height ) {
-			if ( x.hasOwnProperty( "x" ) && x.hasOwnProperty( "y" ) &&
-				x.hasOwnProperty( "width" ) && x.hasOwnProperty( "height" ) ) {
+			if ( this.isBox( x ) ) {
 				this.set( x );
-			} else if ( x.hasOwnProperty( "x" ) && x.hasOwnProperty( "y" ) ) {
+			} else if ( Game.Vector2.isVector2( x ) ) {
 				this.topLeft = x;
 				this.width = y;
 				this.height = width;
@@ -389,6 +388,15 @@ var Game = window.Game = {
 		isPointInside: function( x, y ) {
 			return this.left < x && x < this.right &&
 				this.top < y && y < this.top;
+		},
+
+		/**
+		 * Check if it is a box
+		 * meaning has x, y, width, height
+		 */
+		isBox: function( box ) {
+			return Game.Vector2.isVector2( box ) &&
+				box.hasOwnProperty( "width" ) && box.hasOwnProperty( "height" );
 		}
 	},
 
@@ -470,6 +478,14 @@ var Game = window.Game = {
 			this.x = this.x * Math.cos( angle ) - this.y * Math.sin( angle );
 			this.y = this.x * Math.sin( angle ) + this.y * Math.cos( angle );
 			return this;
+		},
+
+		/**
+		 * Check if it is a vector2 or not
+		 * meaning if it has x and y
+		 */
+		isVector2: function( vec ) {
+			return vec.hasOwnProperty( "x" ) && vec.hasOwnProperty( "y" );
 		}
 	}
 }
