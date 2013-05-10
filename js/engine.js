@@ -248,11 +248,13 @@ var Game = window.Game = {
 	 * Object for handling input event
 	 */
 	InputManager: {
+
+		// Default object
+		offset: { x: 0, y: 0 },
+		events: [],
+
 		init: function() {
 			this.offset = { x: 0, y: 0 }; //TODO Find offset
-
-			// And array of events
-			this.events = [];
 
 			var that = this;
 
@@ -277,11 +279,17 @@ var Game = window.Game = {
 	 * Abstract class for representing an entity in the game.
 	 */
 	Entity: {
+
+		// Default properties
+		// Dummy object in place of Game.Gox
+		bound: { x: 0, y: 0, width: 0, height: 0 },
+		img: null,
+		angle: 0,
+
 		entityInit: function( bound, img ) {
 			// ensures that this.bound is Game.Box
 			this.bound = _.make( Game.Box ).init( bound );
 			this.img = img;
-			this.angle = 0;
 		},
 
 		/**
@@ -340,13 +348,20 @@ var Game = window.Game = {
 	 * @param height {Number, undefined, undefined} Height
 	 */
 	Box: {
+
+		// Default properties
+		x: 0,
+		y: 0,
+		width: 0,
+		height: 0,
+
 		init: function( x, y, width, height ) {
 			if ( this.isBox( x ) ) {
 				this.set( x );
 			} else if ( Game.Vector2.isVector2( x ) ) {
 				this.topLeft = x;
-				this.width = y;
-				this.height = width;
+				this.width = y || 0;
+				this.height = width || 0;
 			} else {
 				this.x = x || 0;
 				this.y = y || 0;
@@ -466,6 +481,11 @@ var Game = window.Game = {
 	 * @params y {Number, undefined} Y value
 	 */
 	Vector2: {
+
+		// Default properties
+		x: 0,
+		y: 0,
+
 		init: function( x, y ) {
 			if ( x.hasOwnProperty( "x" ) && x.hasOwnProperty( "y" ) ) {
 				this.set( x );
