@@ -52,7 +52,8 @@ window._ = {
 		elem.addEventListener( type, fn, false );
 	},
 
-	make: function( parent, child ) {
+	// This one is used for making objects out of "blueprint"
+	make: function( parent ) {
 		// if no `parent` provided, make a substitute delegate ancestor
 		// with default object
 		// well, it shouldn't be called without `parent` anyway.
@@ -62,7 +63,7 @@ window._ = {
 		var obj = Object.create( parent );
 		
 		// impart a `__proto__` if one doesn't exist on this object
-		if ( !( "__proto__" in obj ) || this.__proto_needed__ ) {
+		if ( !( "__proto__" in obj ) || _.make.__proto_needed__ ) {
 			// try to use ES5 if possible
 			if ( Object.defineProperty ) {
 				Object.defineProperty( obj, "__proto__", {
@@ -73,17 +74,34 @@ window._ = {
 				obj.__proto__ = parent || null;
 			}
 		}
-
-		if ( child ) {
-			for ( item in child ) {
-				if ( child.hasOwnProperty( item ) ) {
-					obj[item] = child[item];
-				}
-			}
-		}
 		
 		return obj;
+	},
 
+	/*
+	 * This one is used for "subclassing"
+	 */
+	extend: function( parent, child ) {
+		var obj = _.make( parent );
+		if ( !child ) throw "_.extend: No child!";
+		return _.deepExtend( child, obj );
+	},
+
+	/*
+	 * This deeply extends objects.
+	 * Use it when you don't need prototype chain.
+	 */
+	deepExtend: function(src, dest) {
+		for ( var item in src ) {
+			if ( src[item] && src[item].constructor &&
+				src[item].constructor === Object ) {
+				dest[item] = dest[item] || {};
+				arguments.callee( src[item], dest[item] );
+			} else {
+				dest[item] = src[item];
+			}
+		}
+		return dest;
 	}
 };
 
