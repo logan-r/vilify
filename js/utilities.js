@@ -90,6 +90,7 @@ window._ = {
 	/*
 	 * This deeply extends objects.
 	 * Use it when you don't need prototype chain.
+	 * This doesn't create new object.
 	 */
 	deepExtend: function(src, dest) {
 		for ( var item in src ) {
