@@ -279,7 +279,7 @@ var Game = window.Game = {
 	Entity: {
 		entityInit: function( bound, img ) {
 			// ensures that this.bound is Game.Box
-			this.bound = make( Game.Box ).init( bound );
+			this.bound = _.make( Game.Box ).init( bound );
 			this.img = img;
 			this.angle = 0;
 		},
@@ -367,11 +367,11 @@ var Game = window.Game = {
 		get centerx() { return this.x + this.width / 2; },
 		get centery() { return this.y + this.height / 2; },
 
-		get center() { return make( Game.Vector2 ).init( this.centerx, this.centery ); },
-		get topLeft() { return make( Game.Vector2 ).init( this.left, this.top ); },
-		get topRight() { return make( Game.Vector2 ).init( this.right, this.top ); },
-		get bottomLeft() { return make( Game.Vector2 ).init( this.left, this.bottom ); },
-		get bottomRight() { return make( Game.Vector2 ).init( this.right, this.bottom ); },
+		get center() { return _.make( Game.Vector2 ).init( this.centerx, this.centery ); },
+		get topLeft() { return _.make( Game.Vector2 ).init( this.left, this.top ); },
+		get topRight() { return _.make( Game.Vector2 ).init( this.right, this.top ); },
+		get bottomLeft() { return _.make( Game.Vector2 ).init( this.left, this.bottom ); },
+		get bottomRight() { return _.make( Game.Vector2 ).init( this.right, this.bottom ); },
 
 		get size() { return { width: this.width, height: this.height }; },
 
@@ -425,7 +425,7 @@ var Game = window.Game = {
 		 * Returns a copy
 		 */
 		copy: function() {
-			return make( Game.Box ).init( this.x, this.y, this.width, this.height );
+			return _.make( Game.Box ).init( this.x, this.y, this.width, this.height );
 		},
 
 		/**
@@ -484,16 +484,16 @@ var Game = window.Game = {
 		 * div: divide - Returns the component-wise division of the vectors
 		 */
 		add: function( other ) {
-			return make( Vector2 ).init( this.x + other.x, this.y + other.y );
+			return _.make( Vector2 ).init( this.x + other.x, this.y + other.y );
 		},
 		sub: function( other ) {
-			return make( Vector2 ).init( this.x - other.x, this.y - other.y );
+			return _.make( Vector2 ).init( this.x - other.x, this.y - other.y );
 		},
 		mul: function( other ) {
-			return make( Vector2 ).init( this.x * other.x, this.y * other.y );
+			return _.make( Vector2 ).init( this.x * other.x, this.y * other.y );
 		},
 		div: function( other ) {
-			return make( Vector2 ).init( this.x / other.x, this.y / other.y );
+			return _.make( Vector2 ).init( this.x / other.x, this.y / other.y );
 		},
 
 		get squaredLength() { return this.x * this.x + this.y * this.y; },
@@ -513,13 +513,13 @@ var Game = window.Game = {
 		 * Returns a copy of this vector
 		 */
 		copy: function() {
-			return make( Vector2 ).init( this.x, this.y );
+			return _.make( Vector2 ).init( this.x, this.y );
 		},
 
 		// Returns the vector with all components multiplied by the scalar parameter
 		// You would use reciprocal if you are dividing
 		scale: function( scale ) {
-			return make( Vector2 ).init( this.x * scale, this.y * scale );
+			return _.make( Vector2 ).init( this.x * scale, this.y * scale );
 		},
 
 		// Returns the dot product between the two vectors
