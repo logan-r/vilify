@@ -6,8 +6,17 @@
 
 var Game = window.Game;
 
-Game.name = "Vilify";
-Game.version = "1.0.0";
+_deepCopy( Game, {
+
+	name: "Vilify",
+	version: "1.0.0",
+
+	settings: {
+		fps: 30,
+		map: null,
+		sidebar: null
+	}
+} );
 
 // TODO
 
