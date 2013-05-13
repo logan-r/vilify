@@ -84,7 +84,7 @@ window._ = {
 	extend: function( parent, child ) {
 		var obj = _.make( parent );
 		if ( !child ) throw "_.extend: No child!";
-		return _.deepExtend( child, obj );
+		return _.deepExtend( obj, child );
 	},
 
 	/*
