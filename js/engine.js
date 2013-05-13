@@ -57,7 +57,13 @@ var Game = window.Game = {
 		if ( !this.settings.ctx ) {
 			throw "Could not get canvas 2D context";
 		}
-		this.settings.canvasOffset; // TODO: Find the offset
+
+		var canvasBound = canvas.getBoundingClientRect();
+		this.settings.canvasOffset = {
+			x: canvasBound.left,
+			y: canvasBound.top
+		};
+
 		this.InputManager.init();
 		this.initialized = true;
 	},
@@ -266,8 +272,8 @@ var Game = window.Game = {
 
 		handleClick: function( e ) {
 			var event = {
-				x: e.pageX - Game.canvasOffset.x,
-				y: e.pageY - Game.canvasOffset.y
+				x: e.pageX - Game.settings.canvasOffset.x,
+				y: e.pageY - Game.settings.canvasOffset.y
 			};
 
 			this.events.push( event );
