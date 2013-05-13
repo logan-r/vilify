@@ -6,7 +6,7 @@
 
 var Game = window.Game;
 
-_deepCopy( Game, {
+_.deepCopy( Game, {
 
 	name: "Vilify",
 	version: "1.0.0",
