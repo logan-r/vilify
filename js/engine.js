@@ -26,7 +26,8 @@ var Game = window.Game = {
 		startTime: 0,
 		time: 0,
 		canvas: null,
-		ctx: null
+		ctx: null,
+		canvasOffset: { x: 0, y: 0 }
 	},
 
 	/**
@@ -56,6 +57,8 @@ var Game = window.Game = {
 		if ( !this.settings.ctx ) {
 			throw "Could not get canvas 2D context";
 		}
+		this.settings.canvasOffset; // TODO: Find the offset
+		this.InputManager.init();
 		this.initialized = true;
 	},
 
@@ -246,16 +249,14 @@ var Game = window.Game = {
 
 	/**
 	 * Object for handling input event
+	 * Singleton
 	 */
 	InputManager: {
 
-		// Default object
-		offset: { x: 0, y: 0 },
+		// Default properties
 		events: [],
 
 		init: function() {
-			this.offset = { x: 0, y: 0 }; //TODO Find offset
-
 			var that = this;
 
 			_.bind(this.settings.canvas, "click", function( e ) {
@@ -265,8 +266,8 @@ var Game = window.Game = {
 
 		handleClick: function( e ) {
 			var event = {
-				x: e.pageX - this.offset.x,
-				y: e.pageY - this.offset.y
+				x: e.pageX - Game.canvasOffset.x,
+				y: e.pageY - Game.canvasOffset.y
 			};
 
 			this.events.push( event );
@@ -276,20 +277,22 @@ var Game = window.Game = {
 	},
 
 	/**
-	 * Abstract class for representing an entity in the game.
+	 * Abstract object for representing an entity in the game.
 	 */
 	Entity: {
 
 		// Default properties
-		// Dummy object in place of Game.Gox
+		// Dummy object in place of Game.Box
 		bound: { x: 0, y: 0, width: 0, height: 0 },
 		img: null,
 		angle: 0,
 
+		// Didn't say init because init would get overriden by "subclasses"
 		entityInit: function( bound, img ) {
 			// ensures that this.bound is Game.Box
 			this.bound = _.make( Game.Box ).init( bound );
 			this.img = img;
+			this.angle = 0;
 		},
 
 		/**
@@ -336,6 +339,114 @@ var Game = window.Game = {
 				
 				ctx.restore();
 			}
+		}
+	},
+
+	/**
+	 * tile stub for 2D tile map
+	 * It really is a stub, so please override this
+	 */
+	Tile: {
+
+		/**
+		 *Default properties
+		 * Row and column for representing the index of the map,
+		 * and x and y for representing pixel values
+		 */
+		row: 0,
+		col: 0,
+
+		init: function( row, col, map, img ) {
+			this.row = row;
+			this.col = col;
+			var bound = _.deepCopy( map.toCoords( row, col ), { width: map.tileLength, height: map.tileLength } );
+			this.entityInit( bound, img );
+		}
+	},
+
+	/**
+	 * 2D tile map
+	 */
+	TileMap: {
+
+		/**
+		 * Default properties
+		 * mapOffset: offset from the canvasOffset. Shows where the top left of the map is
+		 * layout: 2D Array with numbers that corressponds with Tile.tiles
+		 * tileLength: The pixel value of each tile length
+		 * width, height: How much tiles in width and height of the map
+		 * tileLayout: 2D Array that has Tile objects instead of numbers from layout
+		 */
+		mapOffset: { x: 0, y: 0 },
+		layout: [],
+		tileLength: 0,
+		rows: 0,
+		cols: 0,
+		tileLayout: [],
+
+		init: function( layout, tileLength ) {
+
+			this.layout = layout;
+			this.tileLength = tileLength;
+			
+			this.rows = layout.length;
+			this.cols = layout[0].length; // Assuming it's not a zig-zagged 2D Array
+			this.tileLayout = [];
+			for ( var row = 0; row < this.rows; row++ ) {
+				this.tileLayout.push( [] );
+			}
+
+			this.convertLayout();
+		},
+
+		/**
+		 * For converting from layout to tileLayout
+		 * Override this if you want a custom Tile object.
+		 */
+		convertLayout: function() {
+			for ( var row = 0; row < this.rows; row++ ) {
+				for ( var col = 0; col < this.cols; col++ ) {
+					this.tileLayout[row][col] = _.make( Game.Tile ).init( row, col, this );
+				}
+			}
+		},
+
+		draw: function( ctx ) {
+			this.forEach( function( tile ) {
+				tile.draw( ctx );
+			} );
+		},
+
+		/**
+		 * Iterate each tiles and do something
+		 * fn takes a parameter: tile.
+		 */
+		forEach: function( fn ) {
+			for ( var row = 0; row < this.rows; row++ ) {
+				for ( var col = 0; col < this.cols; col++ ) {
+					fn( this.tileLayout[row][col] );
+				}
+			}
+		},
+
+		/**
+		 * Converting coordinates to map index
+		 */
+		toMapIndex: function( x, y ) {
+			var row = Math.floor( ( y - this.mapOffset.y ) / this.tileLength );
+			var col = Math.floor( ( x - this.mapOffset.x ) / this.tileLength );
+
+			return { row: row, col: col };
+		},
+
+		/**
+		 * Converting map index to coordinates
+		 */
+		toCoords: function( row, col ) {
+			var y = this.mapOffset.y + row * this.tileLength;
+			var x = this.mapOffset.x + col * this.tileLength;
+
+			return { x: x, y: y };
 		}
 	},
 
@@ -568,6 +679,8 @@ var Game = window.Game = {
 		}
 	}
 }
+
+Game.Tile = _.extend( Game.Entity, Game.Tile );
 
 // TODO
 
