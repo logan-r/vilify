@@ -1,65 +1,76 @@
 {
-    "_comments": ["for a list of effects and what they do see https://github.com/Logi0/vilify/wiki/Effects",
-                "purpose tower ideas and tower stats at https://github.com/Logi0/vilify/wiki/Tower-Ideas"],
+    "_comments": ["for a list of effects and what they do see https://github.com/Logi0/vilify/wiki/Effects","range is in blocks, rate is in shots per minute",
+                "links are outdated","cost is in energy","purpose tower ideas and tower stats at https://github.com/Logi0/vilify/wiki/Tower-Ideas"],
     "towers": {
         "Basic Tower": {
             "damage": 1,
-            "range": 1,
-            "rate": 1,
+            "range": 2,
+            "rate": 2,
+			"cost": 200,
             "image": "basic_tower.png"
         },
         "Laser Tower": {
-            "damage": 1,
-            "range": 1,
-            "rate": 1,
+            "damage": 2,
+            "range": 2,
+            "rate": 2,
+			"cost": 300,
             "image": "ray_tower.png"
         },
         "Dust Tower": {
-	    "damage": 1,
-	    "range": 1,
-	    "rate": 1,
-	    "image": "dust_tower.png",
-	    "effects": {
-		"corrosion": 1
-	    }
+			"damage": 1,
+			"range": 1,
+			"rate": 3,
+			"cost": 250,
+			"image": "dust_tower.png",
+			"effects": {
+				"corrosion": 1
+			}
         },
         "Ice Tower": {
-            "damage": 1,
-            "range": 1,
+            "damage": 0,
+            "range": 2,
             "rate": 1,
-            "image": "ice_tower.png"
+			"cost": 300,
+            "image": "ice_tower.png",
+			"effects": {
+				"freeze": 2
+			}
         },
         "Flame Tower": {
-            "damage": 1,
-            "range": 1,
-            "rate": 1,
+            "damage": 2,
+            "range": 2,
+            "rate": 2,
+			"cost": 350,
             "image": "flame_tower.png",
             "effects": {
-                
+                "burn": 1
             }
         },
         "Poison Tower": {
             "damage": 1,
             "range": 1,
             "rate": 1,
+			"cost": 350,
             "image": "poison_tower.png",
             "effects": {
                 "posion": 1
             }
         },
         "Lightning Tower": {
-            "damage": 1,
-            "range": 1,
-            "rate": 1,
+            "damage": 2,
+            "range": 3,
+            "rate": 2,
+			"cost": 400,
             "image": "lightning_tower.png",
             "effects": {
-                
+                "shock": 1
             }
         },
         "Curse Tower": {
-            "damage": 1,
-            "range": 1,
+            "damage": 2,
+            "range": 2,
             "rate": 1,
+			"cost": 450,
             "image": "curse_tower.png",
             "effects": {
                 "slow": 1,
