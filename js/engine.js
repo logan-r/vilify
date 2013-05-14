@@ -150,6 +150,12 @@ var Game = window.Game = {
 	 * callback is called when the asset has loaded
 	 */
 	Asset: {
+
+		// Default properties
+		type: null,
+		src: "",
+		callback: function( asset ) {},
+
 		init: function( type, src, callback ) {
 			this.type = type;
 			this.src = src;
@@ -246,6 +252,9 @@ var Game = window.Game = {
 						if ( onEachLoad ) {
 							onEachLoad();
 						}
+
+						asset.callback( asset );
+
 						if ( that.loaded && that.callback ) {
 							that.callback();
 						}
@@ -267,7 +276,7 @@ var Game = window.Game = {
 		init: function() {
 			var that = this;
 
-			_.bind(this.settings.canvas, "click", function( e ) {
+			_.bind( Game.settings.canvas, "click", function( e ) {
 				return that.handleClick( e );
 			} );
 		},
@@ -325,8 +334,9 @@ var Game = window.Game = {
 				}
 				
 				// Draw the image
-				// ctx.drawImage( this.img, this.spriteData.x, this.spriteData.y, this.spriteData.w, this.spriteData.h, -this.width / 2, -this.height / 2, this.width, this.height );
-				this.img.drawAt( ctx, this.bound );
+				var translatedBound = this.bound.copy();
+				translatedBound.center = [0, 0];
+				this.img.drawAt( ctx, translatedBound );
 				
 				ctx.restore();
 			} else {
