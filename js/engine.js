@@ -48,6 +48,11 @@ var Game = window.Game = {
 	killList: [],
 
 	/**
+	 * Holds total energy
+	 */
+	energy: 500,
+
+	/**
 	 * True of the game is running and false if not.
 	 * @bool Game.active
 	 */
