@@ -66,6 +66,8 @@ var Game = window.Game = {
 
 		this.InputManager.init();
 		this.initialized = true;
+
+		return this;
 	},
 
 	/**

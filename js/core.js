@@ -15,6 +15,19 @@ _.deepCopy( Game, {
 		fps: 30,
 		map: null,
 		sidebar: null
+	},
+
+	Tile: {
+
+		/**
+		 * The tiles of Vilify
+		 */
+		tiles: {
+			WALKABLE: { id: 0, name: "WALKABLE" },
+			UNWALKABLE: { id: 1, name: "UNWALKABLE" },
+			START: { id: 2, name: "START" },
+			END: { id: 3, name: "END" }
+		}
 	}
 } );
 
