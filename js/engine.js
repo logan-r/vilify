@@ -475,9 +475,9 @@ var Game = window.Game = {
 		height: 0,
 
 		init: function( x, y, width, height ) {
-			if ( this.isBox( x ) ) {
+			if ( this.canBeBox( x ) ) {
 				this.set( x );
-			} else if ( Game.Vector2.isVector2( x ) ) {
+			} else if ( Game.Vector2.canBeVector2( x ) ) {
 				this.topLeft = x;
 				this.width = y || 0;
 				this.height = width || 0;
@@ -583,10 +583,10 @@ var Game = window.Game = {
 		},
 
 		/**
-		 * Check if it is a box
+		 * Check if it can be a box
 		 * meaning has x, y, width, height
 		 */
-		isBox: function( box ) {
+		canBeBox: function( box ) {
 			return Game.Vector2.isVector2( box ) &&
 				box.hasOwnProperty( "width" ) && box.hasOwnProperty( "height" );
 		}
@@ -606,7 +606,7 @@ var Game = window.Game = {
 		y: 0,
 
 		init: function( x, y ) {
-			if ( x.hasOwnProperty( "x" ) && x.hasOwnProperty( "y" ) ) {
+			if ( this.canBeVector2( x ) ) {
 				this.set( x );
 			} else {
 				this.x = x || 0;
@@ -679,10 +679,10 @@ var Game = window.Game = {
 		},
 
 		/**
-		 * Check if it is a vector2 or not
+		 * Check if it can be a vector2 or not
 		 * meaning if it has x and y
 		 */
-		isVector2: function( vec ) {
+		canBeVector2: function( vec ) {
 			return vec.hasOwnProperty( "x" ) && vec.hasOwnProperty( "y" );
 		}
 	}
