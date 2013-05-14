@@ -49,6 +49,7 @@ var Game = window.Game = {
 
 	/**
 	 * Holds total energy
+	 * starts at 500 (subject to change)
 	 */
 	energy: 500,
 
