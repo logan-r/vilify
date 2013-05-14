@@ -59,6 +59,11 @@ hr {
 	margin-top: 5px;
 }
 
+#energy {
+	margin-left: 40px;
+	margin-top: -15px;
+}
+
 #sidebar {
 	background: black url( '../images/sidebar.png' );
 	color: white;
@@ -82,7 +87,7 @@ hr {
 	height: 128px;
 	box-shadow: 0 0 15px rgba( 255, 255, 255, .2 );
 	border: 1px solid rgba( 255, 255, 255, .2 );
-	margin: 10px auto;
+	margin: 7px auto;
 	background-size: 100%;
 	background-repeat: no-repeat;
 }
