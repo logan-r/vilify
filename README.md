@@ -9,7 +9,7 @@ You are a mad scientist whose dream is to destroy the world. After many years of
 Before you do anything else you should [read the game rules](https://github.com/Logi0/vilify/wiki/Game-Rules). This will show you what we are trying to develop. Also you should check it regularly for any updates.
 
 ### Coding Style Guidelines
-[Coding Style Guidelines](https://github.com/Logi0/vilify/wiki/Coding-Style-Guidelines)
+[Coding Style Guidelines](https://github.com/HTML5-Games/vilify/wiki/Coding-Style-Guidelines)
 
 ### Tutorials
 1. [Codecademy JavaScript Track](http://www.codecademy.com/tracks/javascript)
