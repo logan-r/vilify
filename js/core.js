@@ -83,10 +83,10 @@ _.deepCopy( Game, {
 
 		sprites: {},
 
-		add: function( imgSrc, jsonSrc ) {
+		add: function( name ) {
 
-			imgSrc = Game.settings.imgRoot + imgSrc;
-			jsonSrc = Game.settings.imgRoot + jsonSrc;
+			var imgSrc = Game.settings.imgRoot + name + ".png";
+			var jsonSrc = Game.settings.imgRoot + name + ".json";
 
 			var that = this;
 
