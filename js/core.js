@@ -43,7 +43,7 @@ _.deepCopy( Game, {
 			this.row = row;
 			this.col = col;
 			var bound = _.make( Game.Box ).init( map.toCoords( row, col ), map.tileLength, map.tileLength );
-			this.entityInit( Game.SpriteHelper.get( this.id.img ), bound );
+			this.entityInit( Game.SpriteManager.get( this.id.img ), bound );
 		}
 	},
 
@@ -62,6 +62,8 @@ _.deepCopy( Game, {
 		init: function( img, sx, sy, sw, sh ) {
 			this.img = img;
 			this.s = _.make( Game.Box ).init( sx, sy, sw, sh );
+
+			return this;
 		},
 
 		drawAt: function( ctx, dx, dy, dw, dh ) {
@@ -70,18 +72,21 @@ _.deepCopy( Game, {
 			// In case if the width and height are not specified
 			d.w = d.w || this.s.w;
 			d.h = d.h || this.s.h;
-			ctx.drawImage( img, this.s.x, this.s.y, this.s.w, this.s.h, dx, dy, d.w, d.h )
+			ctx.drawImage( this.img, this.s.x, this.s.y, this.s.w, this.s.h, dx, dy, d.w, d.h )
 		}
 	},
 
 	/**
 	 * Make sprites out of data and image
 	 */
-	SpriteHelper: {
+	SpriteManager: {
 
 		sprites: {},
 
 		add: function( imgSrc, jsonSrc ) {
+
+			imgSrc = Game.settings.imgRoot + imgSrc;
+			jsonSrc = Game.settings.imgRoot + jsonSrc;
 
 			var that = this;
 
@@ -91,28 +96,28 @@ _.deepCopy( Game, {
 			}
 
 			// Add asset to asset manager
-			var imgAsset = _.make( Game.Asset ).init(
+			Game.AssetManager.add( imgSrc, _.make( Game.Asset ).init(
 				Game.AssetManager.assetType.image,
 				imgSrc,
 				function( asset ) {
 					spriteSheet.img = asset.content;
 					that.parse( spriteSheet );
 				}
-			);
+			) );
 
-			var jsonAsset = _.make( Game.Asset ).init(
+			Game.AssetManager.add( jsonSrc, _.make( Game.Asset ).init(
 				Game.AssetManager.assetType.json,
 				jsonSrc,
 				function( asset ) {
 					spriteSheet.data = asset.content;
 					that.parse( spriteSheet );
 				}
-			);
+			) );
 		},
 
 		get: function( name ) {
 			return this.sprites[name];
-		}
+		},
 
 		parse: function( ss ) {
 			if ( ss.img && ss.data ) {

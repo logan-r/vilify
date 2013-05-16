@@ -89,7 +89,7 @@ window._ = {
 		}
 		child.__proto__ = parent;
 		return child;
-	}
+	},
 
 	/*
 	 * This deeply copies properties of src to dest.

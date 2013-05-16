@@ -60,8 +60,8 @@ var Game = window.Game = {
 
 		var canvasBound = canvas.getBoundingClientRect();
 		this.settings.canvasOffset = _.make( Game.Vector2 ).init(
-			x: canvasBound.left,
-			y: canvasBound.top
+			canvasBound.left,
+			canvasBound.top
 		);
 
 		this.InputManager.init();
@@ -162,6 +162,8 @@ var Game = window.Game = {
 			if ( callback ) {
 				this.callback = callback;
 			}
+
+			return this;
 		}
 	},
 
@@ -244,10 +246,7 @@ var Game = window.Game = {
 
 			for ( var i in this.assets ) {
 				if ( this.assets.hasOwnProperty( i ) ) {
-					if ( !this.assetType.hasOwnProperty( i.type ) ) {
-						throw "The asset type is not added: " + i.type;
-					}
-					this.assetType[i.type]( i, function( asset ) {
+					this.assets[i].type( this.assets[i], function( asset ) {
 						that.loadedCount++;
 						if ( onEachLoad ) {
 							onEachLoad();
