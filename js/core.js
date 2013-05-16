@@ -14,19 +14,36 @@ _.deepCopy( Game, {
 	settings: {
 		fps: 30,
 		map: null,
-		sidebar: null
+		sidebar: null,
+		imgRoot: "images/",
+		gameDataRoot: "game_data/"
 	},
 
 	Tile: {
+
+		// Default property
+		id: null,
 
 		/**
 		 * The tiles of Vilify
 		 */
 		tiles: {
-			WALKABLE: { id: 0, name: "WALKABLE" },
-			UNWALKABLE: { id: 1, name: "UNWALKABLE" },
-			START: { id: 2, name: "START" },
-			END: { id: 3, name: "END" }
+			WALKABLE: { id: 0, name: "WALKABLE", img: "walkable.png" },
+			UNWALKABLE: { id: 1, name: "UNWALKABLE", img: "unwalkable.png" },
+			START: { id: 2, name: "START", img: "start.png" },
+			END: { id: 3, name: "END", img: "end.png" },
+			0: this.WALKABLE,
+			1: this.UNWALKABLE,
+			2: this.START,
+			3: this.END
+		},
+
+		init: function( id, row, col, map ) {
+			this.id = this.tiles[id];
+			this.row = row;
+			this.col = col;
+			var bound = _.make( Game.Box ).init( map.toCoords( row, col ), map.tileLength, map.tileLength );
+			this.entityInit( Game.SpriteHelper.get( this.id.img ), bound );
 		}
 	},
 
@@ -64,7 +81,7 @@ _.deepCopy( Game, {
 
 		sprites: {},
 
-		addSprites: function( imgSrc, jsonSrc ) {
+		add: function( imgSrc, jsonSrc ) {
 
 			var that = this;
 
@@ -92,6 +109,10 @@ _.deepCopy( Game, {
 				}
 			);
 		},
+
+		get: function( name ) {
+			return this.sprites[name];
+		}
 
 		parse: function( ss ) {
 			if ( ss.img && ss.data ) {
