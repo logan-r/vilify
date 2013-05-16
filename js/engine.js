@@ -697,7 +697,7 @@ var Game = window.Game = {
 	}
 }
 
-Game.Tile = _.extend( Game.Entity, Game.Tile );
+_.extend( Game.Tile, Game.Entity );
 
 // TODO
 
