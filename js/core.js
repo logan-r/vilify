@@ -37,41 +37,23 @@ _.deepCopy( Game, {
 
 		/**
 		 * Default properties
-		 * s-: source property
+		 * s: source box
 		 */
 		img: null,
-		sx: 0,
-		sy: 0,
-		sWidth: 0,
-		sHeight: 0,
+		s: null,
 
-		init: function( img, sx, sy, sWidth, sHeight ) {
+		init: function( img, sx, sy, sw, sh ) {
 			this.img = img;
-			if ( Game.Box.canBeBox( sx ) ) {
-				this.xy = sx.y;
-				this.sWidth = sx.width;
-				this.sHeight = sx.height;
-				this.sx = sx.x;
-			} else {
-				this.sx = sx;
-				this.sy = sy;
-				this.sWidth = sWidth;
-				this.sHeight = sHeight;
-			}
+			this.s = _.make( Game.Box ).init( sx, sy, sw, sh );
 		},
 
-		drawAt: function( ctx, dx, dy, dWidth, dHeight ) {
-			if ( Game.Box.canBeBox( dx ) ) {
-				dy = dx.y;
-				dWidth = dx.width;
-				dHeight = dx.height;
-				dx = dx.x;
-			}
+		drawAt: function( ctx, dx, dy, dw, dh ) {
+			var d = _.make( Game.Box ).init( dx, dy, dw, dh );
 
 			// In case if the width and height are not specified
-			dWidth = dWidth || sWidth;
-			dHeight = dHeight || sHeight;
-			ctx.drawImage( img, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight )
+			d.w = d.w || this.s.w;
+			d.h = d.h || this.s.h;
+			ctx.drawImage( img, this.s.x, this.s.y, this.s.w, this.s.h, dx, dy, d.w, d.h )
 		}
 	},
 

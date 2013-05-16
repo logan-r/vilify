@@ -59,10 +59,10 @@ var Game = window.Game = {
 		}
 
 		var canvasBound = canvas.getBoundingClientRect();
-		this.settings.canvasOffset = {
+		this.settings.canvasOffset = _.make( Game.Vector2 ).init(
 			x: canvasBound.left,
 			y: canvasBound.top
-		};
+		);
 
 		this.InputManager.init();
 		this.initialized = true;
@@ -300,14 +300,14 @@ var Game = window.Game = {
 
 		// Default properties
 		// Dummy object in place of Game.Box
-		bound: { x: 0, y: 0, width: 0, height: 0 },
+		bound: { x: 0, y: 0, w: 0, h: 0 },
 		img: null,
 		angle: 0,
 
 		// Didn't say init because init would get overriden by "subclasses"
-		entityInit: function( bound, img ) {
+		entityInit: function( img, x, y, w, h ) {
 			// ensures that this.bound is Game.Box
-			this.bound = _.make( Game.Box ).init( bound );
+			this.bound = _.make( Game.Box ).init( x, y, w, h );
 			this.img = img;
 			this.angle = 0;
 		},
@@ -353,7 +353,7 @@ var Game = window.Game = {
 				}
 				
 				// Draw the image
-				ctx.fillRect( -this.bound.width / 2, -this.bound.height / 2, this.bound.height, this.bound.width );
+				ctx.fillRect( -this.bound.w / 2, -this.bound.h / 2, this.bound.h, this.bound.w );
 				
 				ctx.restore();
 			}
@@ -377,8 +377,8 @@ var Game = window.Game = {
 		init: function( row, col, map, img ) {
 			this.row = row;
 			this.col = col;
-			var bound = _.deepCopy( map.toCoords( row, col ), { width: map.tileLength, height: map.tileLength } );
-			this.entityInit( bound, img );
+			var bound = _.make( Game.Box ).init( map.toCoords( row, col ), map.tileLength, map.tileLength );
+			this.entityInit( img, bound );
 		}
 	},
 
@@ -392,7 +392,6 @@ var Game = window.Game = {
 		 * mapOffset: offset from the canvasOffset. Shows where the top left of the map is
 		 * layout: 2D Array with numbers that corressponds with Tile.tiles
 		 * tileLength: The pixel value of each tile length
-		 * width, height: How much tiles in width and height of the map
 		 * tileLayout: 2D Array that has Tile objects instead of numbers from layout
 		 */
 		mapOffset: { x: 0, y: 0 },
@@ -464,7 +463,7 @@ var Game = window.Game = {
 			var y = this.mapOffset.y + row * this.tileLength;
 			var x = this.mapOffset.x + col * this.tileLength;
 
-			return { x: x, y: y };
+			return _.make( Game.Vector2 ).init( x, y );
 		}
 	},
 
@@ -473,29 +472,29 @@ var Game = window.Game = {
 	 * @function Box
 	 * @param x {Number, Vector2, Box} X value of top left corner, vector representing top left corner, Box to copy
 	 * @param y {Number, Number, undefined} Y value of top left corner, width
-	 * @param width {Number, Number, undefined} Width, height
-	 * @param height {Number, undefined, undefined} Height
+	 * @param w {Number, Number, undefined} Width, height
+	 * @param h {Number, undefined, undefined} Height
 	 */
 	Box: {
 
 		// Default properties
 		x: 0,
 		y: 0,
-		width: 0,
-		height: 0,
+		w: 0,
+		h: 0,
 
-		init: function( x, y, width, height ) {
+		init: function( x, y, w, h ) {
 			if ( this.canBeBox( x ) ) {
 				this.set( x );
 			} else if ( Game.Vector2.canBeVector2( x ) ) {
 				this.topLeft = x;
-				this.width = y || 0;
-				this.height = width || 0;
+				this.w = y || 0;
+				this.h = w || 0;
 			} else {
 				this.x = x || 0;
 				this.y = y || 0;
-				this.width = width || 0;
-				this.height = height || 0;
+				this.w = w || 0;
+				this.h = h || 0;
 			}
 			return this;
 		},
@@ -505,11 +504,11 @@ var Game = window.Game = {
 		 */
 		get left() { return this.x; },
 		get top() { return this.y; },
-		get right() { return this.x + this.width; },
-		get bottom() { return this.y + this.height; },
+		get right() { return this.x + this.w; },
+		get bottom() { return this.y + this.h; },
 
-		get centerx() { return this.x + this.width / 2; },
-		get centery() { return this.y + this.height / 2; },
+		get centerx() { return this.x + this.w / 2; },
+		get centery() { return this.y + this.h / 2; },
 
 		get center() { return _.make( Game.Vector2 ).init( this.centerx, this.centery ); },
 		get topLeft() { return _.make( Game.Vector2 ).init( this.left, this.top ); },
@@ -517,42 +516,42 @@ var Game = window.Game = {
 		get bottomLeft() { return _.make( Game.Vector2 ).init( this.left, this.bottom ); },
 		get bottomRight() { return _.make( Game.Vector2 ).init( this.right, this.bottom ); },
 
-		get size() { return { width: this.width, height: this.height }; },
+		get size() { return { w: this.w, h: this.h }; },
 
 		set left( value ) { this.x = value; },
 		set top( value ) { this.y = value; },
-		set right( value ) { this.x = value - this.width; },
-		set bottom( value ) { this.y = value - this.height; },
+		set right( value ) { this.x = value - this.w; },
+		set bottom( value ) { this.y = value - this.h; },
 
-		set centerx( value ) { this.x = value - this.width / 2; },
-		set centery( value ) { this.y = value - this.height / 2; },
+		set centerx( value ) { this.x = value - this.w / 2; },
+		set centery( value ) { this.y = value - this.h / 2; },
 
 		// Basically, you can put any Object with x or y value e.g. Game.Vector2
 		// or an array e.g. [123, 284]
 		set center( value ) {
-			this.centerx = value.x || value[0];
-			this.centery = value.y || value[1];
+			this.centerx = value.x || value[0] || 0;
+			this.centery = value.y || value[1] || 0;
 		},
 		set topLeft( value ) {
-			this.left = value.x || value[0];
-			this.top = value.y || value[1];
+			this.left = value.x || value[0] || 0;
+			this.top = value.y || value[1] || 0;
 		},
 		set topRight( value ) {
-			this.right = value.x || value[0];
-			this.top = value.y || value[1];
+			this.right = value.x || value[0] || 0;
+			this.top = value.y || value[1] || 0;
 		},
 		set bottomLeft( value ) {
-			this.left = value.x || value[0];
-			this.bottom = value.y || value[1];
+			this.left = value.x || value[0] || 0;
+			this.bottom = value.y || value[1] || 0;
 		},
 		set bottomRight( value ) {
-			this.right = value.x || value[0];
-			this.bottom = value.y || value[1];
+			this.right = value.x || value[0] || 0;
+			this.bottom = value.y || value[1] || 0;
 		},
 
 		set size( value ) {
-			this.width = value.width || value[0];
-			this.height = value.height || value[1];
+			this.w = value.w || value[0] || 0;
+			this.h = value.h || value[1] || 0;
 		},
 
 		/**
@@ -569,7 +568,7 @@ var Game = window.Game = {
 		 * Returns a copy
 		 */
 		copy: function() {
-			return _.make( Game.Box ).init( this.x, this.y, this.width, this.height );
+			return _.make( Game.Box ).init( this.x, this.y, this.w, this.h );
 		},
 
 		/**
@@ -594,11 +593,11 @@ var Game = window.Game = {
 
 		/**
 		 * Check if it can be a box
-		 * meaning has x, y, width, height
+		 * meaning has x, y, w, h
 		 */
 		canBeBox: function( box ) {
-			return Game.Vector2.isVector2( box ) &&
-				box.hasOwnProperty( "width" ) && box.hasOwnProperty( "height" );
+			return Game.Vector2.canBeVector2( box ) &&
+				box.hasOwnProperty( "w" ) && box.hasOwnProperty( "h" );
 		}
 	},
 
@@ -653,8 +652,8 @@ var Game = window.Game = {
 		 * Set this vector with other vector's property
 		 */
 		set: function( other ) {
-			this.x = other.x;
-			this.y = other.y;
+			this.x = other.x || 0;
+			this.y = other.y || 0;
 			return this;
 		},
 
