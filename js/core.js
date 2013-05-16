@@ -76,46 +76,20 @@ _.deepCopy( Game, {
 	},
 
 	/**
-	 * SpriteSheet object
-	 */
-	SpriteSheet: {
-
-		// Default properties
-		img: null,
-		data: null,
-		parsed: false,
-		sprites: {},
-
-		parse: function() {
-			for ( var property in this.data.frames ) {
-				if ( this.data.frames.hasOwnProperty( property ) ) {
-					this.sprites[property] = _.make( Game.Sprite ).init(
-						this.img,
-						this.data.frames[property].frame
-					);
-				}
-			}
-		}
-	},
-
-	/**
 	 * Make sprites out of data and image
 	 */
 	SpriteHelper: {
 
-		spriteSheets: {},
 		sprites: {},
 
-		addSpriteSheet: function( name, imgSrc, jsonSrc ) {
-
-			if ( this.spriteSheets[name] ) {
-				throw "SpriteHelper: SpriteSheet with this name already exists";
-			}
+		addSprites: function( imgSrc, jsonSrc ) {
 
 			var that = this;
 
-			var spriteSheet = _.make( Game.SpriteSheet );
-			this.spriteSheets[name] = spriteSheet;
+			var spriteSheet = {
+				img: null,
+				data: null,
+			}
 
 			// Add asset to asset manager
 			var imgAsset = _.make( Game.Asset ).init(
@@ -123,7 +97,7 @@ _.deepCopy( Game, {
 				imgSrc,
 				function( asset ) {
 					spriteSheet.img = asset.content;
-					spriteSheet.parse();
+					that.parse( spriteSheet );
 				}
 			);
 
@@ -132,9 +106,22 @@ _.deepCopy( Game, {
 				jsonSrc,
 				function( asset ) {
 					spriteSheet.data = asset.content;
-					spriteSheet.parse();
+					that.parse( spriteSheet );
 				}
 			);
+		},
+
+		parse: function( ss ) {
+			if ( ss.img && ss.data ) {
+				for ( var property in ss.data.frames ) {
+					if ( ss.data.frames.hasOwnProperty( property ) ) {
+						this.sprites[property] = _.make( Game.Sprite ).init(
+							ss.img,
+							ss.data.frames[property].frame
+						);
+					}
+				}
+			}
 		}
 	}
 } );
