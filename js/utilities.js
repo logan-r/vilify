@@ -144,11 +144,4 @@ window.MathEx = {
 	}
 };
 
-/**
- * Physics functions
- */
-window.Physics = {
-
-};
-
 })( window );

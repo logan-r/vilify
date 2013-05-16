@@ -134,8 +134,6 @@ _.deepCopy( Game, {
 	}
 } );
 
-// TODO
-
 // After the game's working
 // var windowResize = function() {
 // 	var w = window.innerWidth - 3,

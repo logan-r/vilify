@@ -82,12 +82,20 @@ var Game = window.Game = {
 	state: null,
 	addState: function( name, callback ) {
 		// Checks if there's already state with the name
-		if ( states[name] === undefined || states[ name ] === null ) {
-			states[name] = callback;
+		if ( this.states[name] === undefined || this.states[ name ] === null ) {
+			this.states[name] = callback;
 		} else {
 			throw "State already added: " + name;
 		}
 	},
+
+	changeState: function( name ) {
+		if ( !this.states[name] ) {
+			throw "State doesn't exist: " + name;
+		}
+
+		this.state = this.states[name];
+	}
 
 	/**
 	 * If the game engine is running and false if not.
@@ -697,7 +705,5 @@ var Game = window.Game = {
 }
 
 _.extend( Game.Tile, Game.Entity );
-
-// TODO
 
 })( window );
