@@ -12,7 +12,6 @@ _.deepCopy( Game, {
 	version: "1.0.0",
 
 	settings: {
-		fps: 30,
 		map: null,
 		sidebar: null,
 		imgRoot: "images/",
