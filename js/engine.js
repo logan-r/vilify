@@ -22,7 +22,7 @@ var Game = window.Game = {
 	 *   @prop ctx {Canvas2DContext} The canvas 2D context
 	 */
 	settings: {
-		fps: 30,
+		fps: 0,
 		startTime: 0,
 		time: 0,
 		canvas: null,
@@ -48,15 +48,18 @@ var Game = window.Game = {
 	/**
 	 * Initialization of the game engine
 	 */
-	init: function( canvas ) {
+	init: function( canvas, fps ) {
 		if ( !canvas ) { // quick and dirty way to check if it is null or undefined
 			throw "Init function requires 'canvas' parameter";
 		}
 		this.settings.canvas = canvas;
 		this.settings.ctx = canvas.getContext( "2d" );
+		
 		if ( !this.settings.ctx ) {
 			throw "Could not get canvas 2D context";
 		}
+		
+		this.settings.fps = fps;
 
 		var canvasBound = canvas.getBoundingClientRect();
 		this.settings.canvasOffset = _.make( Game.Vector2 ).init(
