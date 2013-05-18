@@ -17,25 +17,25 @@ Game.SpriteManager.add( "materials" );
 
 // Loading Screen
 // TODO: Implement loading
-Game.addState( "loading", {
+Game.StateManager.add( "loading", {
 	update: function( delta ) {},
 	draw: function( ctx ) {}
-} );
+}, true );
 
 // TODO: Implement main menu
-Game.addState( "mainmenu", {
+Game.StateManager.add( "mainmenu", {
 	update: function( delta ) {},
 	draw: function( ctx ) {}
 } );
 
 // TODO: Implement game screen
-Game.addState( "game", {
+Game.StateManager.add( "game", {
 	update: function( delta ) {},
 	draw: function( ctx ) {}
-} );
+}, true /* For testing purposes */);
 
 // TODO: Implement pause
-Game.addState( "pause", {
+Game.StateManager.add( "pause", {
 	update: function( delta ) {},
 	draw: function( ctx ) {}
 } );

@@ -78,24 +78,29 @@ var Game = window.Game = {
 	 * update should take one parameter: delta (time elapsed between update calls)
 	 * draw should take one parameter: ctx (canvas 2D context)
 	 */
-	states: {},
-	state: null,
-	addState: function( name, callback ) {
-		// Checks if there's already state with the name
-		if ( this.states[name] === undefined || this.states[ name ] === null ) {
-			this.states[name] = callback;
-		} else {
-			throw "State already added: " + name;
+	StateManager: {
+		states: {},
+		state: null,
+		add: function( name, callback, first ) {
+			// Checks if there's already state with the name
+			if ( this.states[name] === undefined || this.states[ name ] === null ) {
+				this.states[name] = callback;
+				if ( first ) {
+					this.state = callback;
+				}
+			} else {
+				throw "State already added: " + name;
+			}
+		},
+
+		change: function( name ) {
+			if ( !this.states[name] ) {
+				throw "State doesn't exist: " + name;
+			}
+
+			this.state = this.states[name];
 		}
 	},
-
-	changeState: function( name ) {
-		if ( !this.states[name] ) {
-			throw "State doesn't exist: " + name;
-		}
-
-		this.state = this.states[name];
-	}
 
 	/**
 	 * If the game engine is running and false if not.
@@ -139,7 +144,7 @@ var Game = window.Game = {
 	 */
 	update: function() {
 		var now = Date.now();
-		this.state.update( now - this.settings.time ); // delta
+		this.StateManager.state.update( now - this.settings.time ); // delta
 		this.settings.time = now;
 	},
 
@@ -149,7 +154,7 @@ var Game = window.Game = {
 	 * Override state's draw function instead.
 	 */
 	draw: function() {
-		this.state.draw( this.settings.ctx );
+		this.StateManager.state.draw( this.settings.ctx );
 	},
 
 	/**
