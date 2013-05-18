@@ -4,7 +4,7 @@
 
 (function( window ) {
 
-var Game = window.Game.init( document.getElementById( "canvas" ) );
+var Game = window.Game.init( document.getElementById( "canvas" ), 39 );
 var settings = Game.settings;
 var canvas = settings.canvas;
 var ctx = settings.ctx;
