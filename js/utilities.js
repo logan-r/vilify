@@ -79,12 +79,16 @@ window._ = {
 	},
 
 	/*
-	 * This one is used for "subclassing"
+	 * This one is used for "subclassing" or assigning prototype
+	 * In other word, creating prototype chain without changing any property
+	 * It is unnecessary and inefficient to create another object.
 	 */
-	extend: function( parent, child ) {
-		var obj = _.make( parent );
-		if ( !child ) throw "_.extend: No child!";
-		return _.deepCopy( obj, child );
+	extend: function( child, parent ) {
+		if ( !child || !parent) {
+			throw "_.extend: Argument error";
+		}
+		child.__proto__ = parent;
+		return child;
 	},
 
 	/*
@@ -93,7 +97,7 @@ window._ = {
 	 * Beware that this function doesn't create new object.
 	 * Instead it adds properties to dest
 	 */
-	deepCopy: function(dest, src) {
+	deepCopy: function( dest, src ) {
 		for ( var item in src ) {
 			if ( src[item] && src[item].constructor &&
 				src[item].constructor === Object ) {
@@ -138,13 +142,6 @@ window.MathEx = {
 	toDeg: function( radian ) {
 		return radian * 180 / Math.PI;
 	}
-};
-
-/**
- * Physics functions
- */
-window.Physics = {
-
 };
 
 })( window );
