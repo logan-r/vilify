@@ -137,8 +137,8 @@ var Game = window.Game = {
 	 * Function to call each frame
 	 */
 	tick: function() {
-		this.update();
-		this.draw();
+		Game.update();
+		Game.draw();
 	},
 
 	/**
