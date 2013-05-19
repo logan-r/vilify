@@ -47,4 +47,7 @@ Game.StateManager.add( "pause", {
 	draw: function( ctx ) {}
 } );
 
+Game.StateManager.change( "loading" );
+Game.start();
+
 })( window );
