@@ -4,7 +4,7 @@
 
 (function( window ) {
 
-var Game = window.Game.init( document.getElementById( "canvas" ), 39 );
+var Game = window.Game.init( document.getElementById( "canvas" ), 30 );
 var settings = Game.settings;
 var canvas = settings.canvas;
 var ctx = settings.ctx;
@@ -16,14 +16,21 @@ Game.SpriteManager.add( "materials" );
 // Game.SpriteManager.add( "monsters" );
 
 // Loading Screen
-// TODO: Implement loading
+var startedLoading = false;
 Game.StateManager.add( "loading", {
-	update: function( delta ) {},
+	update: function( delta ) {
+		if ( !startedLoading ) {
+			startedLoading = true;
+			Game.AssetManager.load( function() {
+				Game.StateManager.change( "main_menu" );
+			}, function(){} );
+		}
+	},
 	draw: function( ctx ) {}
 }, true );
 
 // TODO: Implement main menu
-Game.StateManager.add( "mainmenu", {
+Game.StateManager.add( "main_menu", {
 	update: function( delta ) {},
 	draw: function( ctx ) {}
 } );
