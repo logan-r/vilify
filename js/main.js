@@ -22,11 +22,23 @@ Game.StateManager.add( "loading", {
 		if ( !startedLoading ) {
 			startedLoading = true;
 			Game.AssetManager.load( function() {
-				Game.StateManager.change( "main_menu" );
+				//Game.StateManager.change( "main_menu" );
 			}, function(){} );
 		}
 	},
-	draw: function( ctx ) {}
+	draw: function( ctx ) {
+		// Draw background
+		ctx.fillStyle = "#000";
+		ctx.fillRect( 0, 0, canvas.width, canvas.height );
+		
+		// Draw loading bar
+		ctx.lineWidth = "5";
+		ctx.strokeStyle = "#2DB42A";
+		ctx.fillStyle = "#2DB42A";
+		ctx.strokeRect(canvas.width / 2 - 300 / 2 - 10, canvas.height / 2 - 50 / 2 - 10, 300 + 10, 50 + 10);
+		ctx.stroke();
+		ctx.fillRect(canvas.width / 2 - 300 / 2 - 10 / 2, canvas.height / 2 - 50 / 2 - 10 / 2, 300 * Game.AssetManager.loadedCount / Game.AssetManager.assetCount, 50 );
+	}
 }, true );
 
 // TODO: Implement main menu
