@@ -19,10 +19,13 @@ Game.SpriteManager.add( "materials" );
 var startedLoading = false;
 Game.StateManager.add( "loading", {
 	update: function( delta ) {
-		if ( !startedLoading ) {
+		if ( !startedLoading ) { // Don't start multiple loading processes
 			startedLoading = true;
 			Game.AssetManager.load( function() {
-				//Game.StateManager.change( "main_menu" );
+				Game.StateManager.state.update();
+				window.setTimeout( function() {
+					Game.StateManager.change("main_menu");
+				}, 500 );
 			}, function(){} );
 		}
 	},
@@ -44,7 +47,11 @@ Game.StateManager.add( "loading", {
 // TODO: Implement main menu
 Game.StateManager.add( "main_menu", {
 	update: function( delta ) {},
-	draw: function( ctx ) {}
+	draw: function( ctx ) {
+		// Draw background
+		ctx.fillStyle = "#000";
+		ctx.fillRect( 0, 0, canvas.width, canvas.height );
+	}
 } );
 
 // TODO: Implement game screen
