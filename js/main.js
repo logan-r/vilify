@@ -1,4 +1,4 @@
-/**
+/*!
  * Vilify main.js file
  */
 
