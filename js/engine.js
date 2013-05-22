@@ -481,6 +481,31 @@ var Game = window.Game = {
 			return _.make( Game.Vector2 ).init( x, y );
 		}
 	},
+	
+	/**
+	 * Font  object constructor
+	 */
+	Font: {
+		/**
+		 * size: {Integer} Height of the font
+		 * family: {String} Font name (e.g. 'Arial' or 'Times New Roman')
+		 */
+		size: 0,
+		family: 0,
+		
+		init: function( size, family ) {
+			this.size = size;
+			this.family = family;
+		},
+		
+		/**
+		 * Converts font to string
+		 * Usage: `ctx.font = [FontObject].toString();`
+		 */
+		toString: function() {
+			return this.size.toString + " " + this.family;
+		}
+	},
 
 	/**
 	 * Box object constructor. Box object will define most of dimensions.
