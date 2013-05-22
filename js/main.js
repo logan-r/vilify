@@ -14,6 +14,11 @@ Game.SpriteManager.add( "tiles" );
 Game.SpriteManager.add( "towers" );
 Game.SpriteManager.add( "materials" );
 // Game.SpriteManager.add( "monsters" );
+Game.AssetManager.add( "logo.png", _.make( Game.Asset ).init(
+	Game.AssetManager.assetType.image,
+	"images/logo.png",
+	function() {}
+) );
 
 // Loading Screen
 var startedLoading = false;
@@ -51,6 +56,19 @@ Game.StateManager.add( "main_menu", {
 		// Draw background
 		ctx.fillStyle = "#000";
 		ctx.fillRect( 0, 0, canvas.width, canvas.height );
+		
+		// Draw logo
+		ctx.drawImage( Game.AssetManager.assets["logo.png"].content, canvas.width / 2 - Game.AssetManager.assets["logo.png"].content.width / 2, 20 );
+		
+		// Setup font
+		ctx.font = "32px Finger Paint";
+		ctx.fillStyle = "#2DB42A";
+		
+		// Draw options
+		options = ["New Game"];
+		for ( var i = 0; i < options.length; i++ ) {
+			ctx.fillText( options[i], canvas.width / 2 - ctx.measureText( options[i] ).width / 2, 70 + 20 + 32 * ( i + 1 ) );
+		}
 	}
 } );
 
