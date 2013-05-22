@@ -19,10 +19,11 @@ Before you do anything else you should [read the game rules](https://github.com/
 5. [Udacity HTML5 Game Development](https://www.udacity.com/course/cs255)
 
 ### TODO
-1. Implement `InputManager` (thinking of "registering" entity to `InputManager`, so it knows who to pass event to).
-2. Make bunch of Game objects (including: `Tower`, `Monster`, `Potion`, `Hero`, `DoomsdayDevice`).
-3. Maybe separate AI object?
-4. Implement `SpriteManager.addImage` exculsively for images. (I, zento, don't like those finicky `ctx.drawImage`).
-5. Implement basic gameplay screen.
-6. Implement `Sidebar` object.
+1. ~~Make `Button` object that extends `Entity` (It's technically an entity anyway).~~
+2. Implement `InputManager` (thinking of "registering" entity to `InputManager`, so it knows who to pass event to).
+3. Make bunch of Game objects (including: `Tower`, `Monster`, `Potion`, `Hero`, `DoomsdayDevice`).
+4. Maybe separate AI object?
+5. Implement `SpriteManager.addImage` exculsively for images. (I, zento, don't like those finicky `ctx.drawImage`).
+6. Implement basic gameplay screen.
+7. Implement `Sidebar` object.
 7. Cross out (don't delete) each item when you are done. More to come.
