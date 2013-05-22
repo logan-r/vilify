@@ -374,6 +374,56 @@ var Game = window.Game = {
 			}
 		}
 	},
+	
+	/**
+	 * A clickable entity for game UIs
+	 */
+	Button: {
+		text: null,
+		font: null,
+		text_color: null,
+		bg_color: null,
+		
+		/**
+		 * Initalize button
+		 * text: {String} The button's text
+		 * font: {Game.Font} The font used
+		 * x & y: {Integer} & {Integer} x and y location of the button
+		 * padding_x: {Integer} Padding on the x axis of the button
+		 * padding_y: {Integer} Padding on the y axis of the button
+		 * text_color: {String} Color of the text
+		 * bg_color: {String} Color of the background
+		 */
+		init: function( text, font, x, y, padding_x, padding_y, text_color, bg_color ) {
+			this.text = text;
+			this.font = font;
+			this.text_color = text_color;
+			this.bg_color = bg_color;
+			var bound = _.make( Game.Box ).init( _.make( Game.Vector2 ).init( x, y ), font.measureText( text ) + padding_x * 2, font.size + padding_y * 2 );
+			this.entityInit( null, bound );
+			return this;
+		},
+		
+		/**
+		 * Draws the button to the canvas
+		 */
+		draw: function( ctx ) {
+			ctx.save();						
+							
+			ctx.translate( this.bound.x, this.bound.y );
+			
+			// Rotate the button
+			if ( this.angle ) {
+				ctx.rotate( this.angle );
+			}
+			
+			// Draw the button's background
+			ctx.fillStyle = this.bg_color;
+			ctx.fillRect( -this.bound.w / 2, -this.bound.h / 2, this.bound.h, this.bound.w );
+			
+			ctx.restore();
+		}
+	},
 
 	/**
 	 * tile stub for 2D tile map
@@ -496,6 +546,16 @@ var Game = window.Game = {
 		init: function( size, family ) {
 			this.size = size;
 			this.family = family;
+			return this;
+		},
+		
+		/**
+		 * Measure the width of a string
+		 * text: {String} text to measure
+		 */
+		measureText: function( text ) {
+			Game.settings.ctx.font = this.toString();
+			return Game.settings.ctx.measureText( text ).width;
 		},
 		
 		/**
@@ -737,6 +797,7 @@ var Game = window.Game = {
 	}
 }
 
+_.extend( Game.Button, Game.Entity );
 _.extend( Game.Tile, Game.Entity );
 
 })( window );
