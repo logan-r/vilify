@@ -424,7 +424,7 @@ var Game = window.Game = {
 			// Draw the button's text
 			ctx.fillStyle = this.text_color;
 			ctx.font = this.font.toString();
-			ctx.fillText( this.text, this.bound.x + this.padding_x, this.bound.y + this.padding_y )
+			ctx.fillText( this.text, -this.font.measureText( this.text ) / 2, this.font.size / 3 )
 			
 			ctx.restore();
 		}
