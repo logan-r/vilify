@@ -24,5 +24,6 @@ Before you do anything else you should [read the game rules](https://github.com/
 3. Make bunch of Game objects (including: `Tower`, `Monster`, `Potion`, `Hero`, `DoomsdayDevice`).
 4. Maybe separate AI object?
 5. Implement `SpriteManager.addImage` exculsively for images. (I, zento, don't like those finicky `ctx.drawImage`).
-6. Implement basic gameplay screen
+6. Implement basic gameplay screen.
+7. Implement `Sidebar` object.
 7. Cross out (don't delete) each item when you are done. More to come.
