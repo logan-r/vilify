@@ -19,6 +19,8 @@ Game.AssetManager.add( "logo.png", _.make( Game.Asset ).init(
 	"images/logo.png",
 	function() {}
 ) );
+main_font = _.make( Game.Font ).init( 32, "Happy Monkey" );
+button = _.make( Game.Button ).init( "New Game", main_font, 300, 300, 20, 20, "#2DB42A", "#222" );
 
 // Loading Screen
 var startedLoading = false;
@@ -59,16 +61,8 @@ Game.StateManager.add( "main_menu", {
 
 		// Draw logo
 		ctx.drawImage( Game.AssetManager.assets["logo.png"].content, canvas.width / 2 - Game.AssetManager.assets["logo.png"].content.width / 2, 20 );
-
-		// Setup font
-		ctx.font = "32px Finger Paint";
-		ctx.fillStyle = "#2DB42A";
-
-		// Draw options
-		options = ["New Game"];
-		for ( var i = 0; i < options.length; i++ ) {
-			ctx.fillText( options[i], canvas.width / 2 - ctx.measureText( options[i] ).width / 2, 70 + 20 + 32 * ( i + 1 ) );
-		}
+		
+		button.draw( ctx );
 	}
 } );
 
