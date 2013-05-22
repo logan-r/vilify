@@ -368,7 +368,7 @@ var Game = window.Game = {
 				}
 				
 				// Draw the image
-				ctx.fillRect( -this.bound.w / 2, -this.bound.h / 2, this.bound.h, this.bound.w );
+				ctx.fillRect( -this.bound.w / 2, -this.bound.h / 2, this.bound.w, this.bound.h );
 				
 				ctx.restore();
 			}
@@ -408,7 +408,7 @@ var Game = window.Game = {
 		 * Draws the button to the canvas
 		 */
 		draw: function( ctx ) {
-			ctx.save();						
+			ctx.save();
 							
 			ctx.translate( this.bound.x, this.bound.y );
 			
@@ -419,7 +419,12 @@ var Game = window.Game = {
 			
 			// Draw the button's background
 			ctx.fillStyle = this.bg_color;
-			ctx.fillRect( -this.bound.w / 2, -this.bound.h / 2, this.bound.h, this.bound.w );
+			ctx.fillRect( -this.bound.w / 2, -this.bound.h / 2, this.bound.w, this.bound.h );
+			
+			// Draw the button's text
+			ctx.fillStyle = this.text_color;
+			ctx.font = this.font.toString();
+			ctx.fillText( this.text, this.bound.x + this.padding_x, this.bound.y + this.padding_y )
 			
 			ctx.restore();
 		}
@@ -554,8 +559,10 @@ var Game = window.Game = {
 		 * text: {String} text to measure
 		 */
 		measureText: function( text ) {
+			fontTMP = Game.settings.ctx.font;
 			Game.settings.ctx.font = this.toString();
 			return Game.settings.ctx.measureText( text ).width;
+			Game.settings.ctx.font = fontTMP;
 		},
 		
 		/**
@@ -563,7 +570,7 @@ var Game = window.Game = {
 		 * Usage: `ctx.font = [FontObject].toString();`
 		 */
 		toString: function() {
-			return this.size.toString + " " + this.family;
+			return this.size.toString() + "px " + this.family;
 		}
 	},
 
