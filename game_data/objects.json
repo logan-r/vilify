@@ -67,19 +67,19 @@
 	},
 	"monsters": {
 		"Zombie": {
-			"durability": 1,
+			"health": 1,
 			"damage": 1,
 			"range": 1,
 			"rate": 1
 		},
 		"Abomination": {
-			"durability": 1,
+			"health": 1,
 			"damage": 1,
 			"range": 1,
 			"rate": 1
 		},
 		"RoboGuard": {
-			"durability": 1,
+			"health": 1,
 			"damage": 1,
 			"range": 1,
 			"rate": 1,
@@ -88,7 +88,7 @@
 			}
 		},
 		"Yeti": {
-			"durability": 1,
+			"health": 1,
 			"damage": 1,
 			"range": 1,
 			"rate": 1,
@@ -98,7 +98,7 @@
 		},
 		"Shifter": {
 			"_comments": ["A 4D guard, can attack heroes with out destroying armor first"],
-			"durability": 1,
+			"health": 1,
 			"damage": 1,
 			"range": 1,
 			"rate": 1,
@@ -107,7 +107,7 @@
 			}
 		},
 		"Alien": {
-			"durability": 1,
+			"health": 1,
 			"damage": 1,
 			"range": 1,
 			"rate": 1,
@@ -117,7 +117,7 @@
 		},
 		"Mummy": {
 			"_comments": ["Kind of like curse tower"],
-			"durability": 1,
+			"health": 1,
 			"damage": 1,
 			"range": 1,
 			"rate": 1,
@@ -127,7 +127,7 @@
 		},
 		"Talos": {
 			"_comments": ["Huge robot"],
-			"durability": 1,
+			"health": 1,
 			"damage": 1,
 			"range": 1,
 			"rate": 1,
@@ -183,10 +183,10 @@
 		}
 	},
 	"heroes": {
-		"_comments":["armor is extra life due to some sort of thing the hero has. For example a Sidekick's durability is 10. The durability of the helmet is 2. One has to destroy the helmet before (s)he can defeat the hero.",
+		"_comments":["armor is extra life due to some sort of thing the hero has. For example a Sidekick's health is 10. The armor of the helmet is 2. One has to destroy the helmet before (s)he can defeat the hero.",
 			"Speed is in tiles per seconds"],
 		"Sidekick": {
-			"durability": 1,
+			"health": 1,
 			"damage": 1,
 			"range": 1,
 			"rate": 1,
@@ -201,7 +201,7 @@
 			}
 		},
 		"Waterborg": {
-			"durability": 1,
+			"health": 1,
 			"armor": 1,
 			"damage": 1,
 			"range": 1,
@@ -209,7 +209,7 @@
 			"speed": 1
 		},
 		"Falcon": {
-			"durability": 1,
+			"health": 1,
 			"armor": 1,
 			"damage": 1,
 			"range": 1,
@@ -217,7 +217,7 @@
 			"speed": 1
 		},
 		"Inferno Man": {
-			"durability": 1,
+			"health": 1,
 			"armor": 1,
 			"damage": 1,
 			"range": 1,
@@ -225,7 +225,7 @@
 			"speed": 1
 		},
 		"Chomefly": {
-			"durability": 1,
+			"health": 1,
 			"armor": 1,
 			"damage": 1,
 			"range": 1,
@@ -233,16 +233,14 @@
 			"speed": 1
 		},
 		"Spynes": {
-			"durability": 1,
-			"extra durability": 1,
+			"health": 1,
 			"damage": 1,
 			"range": 1,
 			"rate": 1,
 			"speed": 1
 		},
 		"Boss": {
-			"durability": 902,
-			"extra durability": 100,
+			"health": 902,
 			"damage": 20,
 			"range": 5,
 			"rate": 3,
@@ -250,14 +248,14 @@
 		},
 		"Tryptech industries mass cargo transporter mkII": {
 			"_comments": ["For lack of a better name, it's now more betterer!"],
-			"durability": 10,
+			"health": 10,
 			"damage": 0,
 			"range": 0,
 			"rate": 1,
 			"speed": 0.8
 		},
 		"The Tank": {
-			"durability": 1000,
+			"health": 1000,
 			"damage": 20,
 			"range": 10,
 			"rate": 0.05,
