@@ -1,299 +1,294 @@
 {
-    "_comments": ["for a list of effects and what they do see https://github.com/Logi0/vilify/wiki/Effects",
-                "purpose tower ideas and tower stats at https://github.com/Logi0/vilify/wiki/Tower-Ideas"],
-    "towers": {
-        "Basic Tower": {
-            "damage": 1,
-            "range": 1,
-            "rate": 1,
-            "image": "basic_tower.png"
-        },
-        "Laser Tower": {
-            "damage": 1,
-            "range": 1,
-            "rate": 1,
-            "image": "ray_tower.png"
-        },
-        "Dust Tower": {
-	    "damage": 1,
-	    "range": 1,
-	    "rate": 1,
-	    "image": "dust_tower.png",
-	    "effects": {
-		"corrosion": 1
-	    }
-        },
-        "Ice Tower": {
-            "damage": 1,
-            "range": 1,
-            "rate": 1,
-            "image": "ice_tower.png"
-        },
-        "Flame Tower": {
-            "damage": 1,
-            "range": 1,
-            "rate": 1,
-            "image": "flame_tower.png",
-            "effects": {
-                
-            }
-        },
-        "Poison Tower": {
-            "damage": 1,
-            "range": 1,
-            "rate": 1,
-            "image": "poison_tower.png",
-            "effects": {
-                "posion": 1
-            }
-        },
-        "Lightning Tower": {
-            "damage": 1,
-            "range": 1,
-            "rate": 1,
-            "image": "lightning_tower.png",
-            "effects": {
-                
-            }
-        },
-        "Curse Tower": {
-            "damage": 1,
-            "range": 1,
-            "rate": 1,
-            "image": "curse_tower.png",
-            "effects": {
-                "slow": 1,
-                "weaken": 1
-            }
-        }
-    },
-    "monsters": {
-        "Zombie": {
-            "durability": 1,
-            "damage": 1,
-            "range": 1,
-            "rate": 1
-        },
-        "Abomination": {
-            "durability": 1,
-            "damage": 1,
-            "range": 1,
-            "rate": 1
-        },
-        "RoboGuard": {
-            "durability": 1,
-            "damage": 1,
-            "range": 1,
-            "rate": 1,
-            "effects": {
-            	"lightning": 1
-            }
-        },
-        "Yeti": {
-            "durability": 1,
-            "damage": 1,
-            "range": 1,
-            "rate": 1,
-            "effects": {
-            	"freeze": 1
-            }
-        },
-        "Shifter": {
-            "_comments": ["A 4D guard, can attack heroes with out destroying armor first"],
-            "durability": 1,
-            "damage": 1,
-            "range": 1,
-            "rate": 1,
-            "effects": {
-            	"Avoid Armor": true
-            }
-        },
-        "Alien": {
-            "durability": 1,
-            "damage": 1,
-            "range": 1,
-            "rate": 1,
-            "effects": {
-            	"poison": 1
-            }
-        },
-        "Mummy": {
-            "_comments": ["Kind of like curse tower"],
-            "durability": 1,
-            "damage": 1,
-            "range": 1,
-            "rate": 1,
-            "effects": {
-            	"cures": 1
-            }
-        },
-        "Talos": {
-            "_comments": ["Huge robot"],
-            "durability": 1,
-            "damage": 1,
-            "range": 1,
-            "rate": 1,
-            "effects": {
-            	"fire": 1
-            }
-        }
-    },
-    "potions": {
-        "Pain Potion": {
-            "damage": 1,
-            "area": 1
-        },
-        "Deadly Concoction": {
-            "damage": 1,
-            "area": 1
-        },
-        "Rust Serum": {
-            "damage": 1,
-            "area": 1
-        },
-        "Cursed Water": {
-            "damage": 1,
-            "area": 1,
-            "effects": {
-                "weaken": 25
-            }
-        },
-        "Gravity Potion": {
-            "damage": 1,
-            "area": 1,
-            "effects": {
-                
-            }
-        },
-        "Poisonous Mixture": {
-            "damage": 1,
-            "area": 1,
-            "effects": {
-                
-            }
-        },
-        "Ice Serum": {
-            "damage": 1,
-            "area": 1,
-            "effects": {
-                "freeze": 30
-            }
-        },
-        "Explosive Mixture": {
-            "damage": 1,
-            "area": 1,
-            "effects": {
-                
-            }
-        }
-    },
-    "heroes": {
-        "_comments":["armor is extra life due to some sort of thing the hero has. For example a Sidekick's durability is 10. The durability of the helmet is 2. One has to destroy the helmet before (s)he can defeat the hero.",
-                    "Speed is in tiles per seconds"],
-        "Sidekick": {
-            "durability": 1,
-            "damage": 1,
-            "range": 1,
-            "rate": 1,
-            "speed": 2,
-            "upgrades": {
-                "helmet": {
-                    "armor": 1
-                },
-                "metal suit": {
-                    "armor": 1
-                }
-            }
-        },
-        "Waterborg": {
-            "durability": 1,
-            "armor": 1,
-            "damage": 1,
-            "range": 1,
-            "rate": 1,
-            "speed": 1
-        },
-        "Falcon": {
-            "durability": 1,
-            "armor": 1,
-            "damage": 1,
-            "range": 1,
-            "rate": 1,
-            "speed": 1
-        },
-        "Inferno Man": {
-            "durability": 1,
-            "armor": 1,
-            "damage": 1,
-            "range": 1,
-            "rate": 1,
-            "speed": 1
-        },
-        "Chomefly": {
-            "durability": 1,
-            "armor": 1,
-            "damage": 1,
-            "range": 1,
-            "rate": 1,
-            "speed": 1
-        },
-        "Spynes": {
-            "durability": 1,
-            "extra durability": 1,
-            "damage": 1,
-            "range": 1,
-            "rate": 1,
-            "speed": 1
-        },
-        "Boss": {
-            "durability": 902,
-            "extra durability": 100,
-            "damage": 20,
-            "range": 5,
-            "rate": 3,
-            "speed": 0.75
-        },
-        "Tryptech industries mass cargo transporter mkII": {
-            "_comments": ["For lack of a better name, it's now more betterer!"],
-            "durability": 10,
-            "damage": 0,
-            "range": 0,
-            "rate": 1,
-            "speed": 0.8
-        },
-        "The Tank": {
-            "durability": 1000,
-            "damage": 20,
-            "range": 10,
-            "rate": 0.05,
-            "speed": 0.25
-        }
-    },
-    "materials": {
-        "Scrap Metal": {
-            "type": "electronic",
-            "value": 1,
-            "image": "scrap_metal.png"
-        },
-        "Wires": {
-            "type": "electronic",
-            "value": 2,
-            "image": "battery.png"
-        },
-        "Battery": {
-            "type": "electronic",
-            "value": 3,
-            "image": "battery.png"
-        },
-        "Microchip": {
-            "type": "electronic",
-            "value": 4,
-            "image": "microchip.png"
-        },
-        "Quantum Computer": {
-            "type": "electronic",
-            "value": 5,
-            "image": "quantum_computer.png"
-        }
-    }
+	"_comments": ["for a list of effects and what they do see https://github.com/Logi0/vilify/wiki/Effects",
+		"purpose tower ideas and tower stats at https://github.com/Logi0/vilify/wiki/Tower-Ideas"],
+	"towers": {
+		"Basic Tower": {
+			"damage": 1,
+			"range": 1,
+			"rate": 1,
+			"image": "basic_tower.png"
+		},
+		"Laser Tower": {
+			"damage": 1,
+			"range": 1,
+			"rate": 1,
+			"image": "ray_tower.png"
+		},
+		"Dust Tower": {
+			"damage": 1,
+			"range": 1,
+			"rate": 1,
+			"image": "dust_tower.png",
+			"effects": {
+				"corrosion": 1
+			}
+		},
+		"Ice Tower": {
+			"damage": 1,
+			"range": 1,
+			"rate": 1,
+			"image": "ice_tower.png"
+		},
+		"Flame Tower": {
+			"damage": 1,
+			"range": 1,
+			"rate": 1,
+			"image": "flame_tower.png",
+			"effects": {
+			}
+		},
+		"Poison Tower": {
+			"damage": 1,
+			"range": 1,
+			"rate": 1,
+			"image": "poison_tower.png",
+			"effects": {
+				"posion": 1
+			}
+		},
+		"Lightning Tower": {
+			"damage": 1,
+			"range": 1,
+			"rate": 1,
+			"image": "lightning_tower.png",
+			"effects": {
+			}
+		},
+		"Curse Tower": {
+			"damage": 1,
+			"range": 1,
+			"rate": 1,
+			"image": "curse_tower.png",
+			"effects": {
+				"slow": 1,
+				"weaken": 1
+			}
+		}
+	},
+	"monsters": {
+		"Zombie": {
+			"durability": 1,
+			"damage": 1,
+			"range": 1,
+			"rate": 1
+		},
+		"Abomination": {
+			"durability": 1,
+			"damage": 1,
+			"range": 1,
+			"rate": 1
+		},
+		"RoboGuard": {
+			"durability": 1,
+			"damage": 1,
+			"range": 1,
+			"rate": 1,
+			"effects": {
+				"lightning": 1
+			}
+		},
+		"Yeti": {
+			"durability": 1,
+			"damage": 1,
+			"range": 1,
+			"rate": 1,
+			"effects": {
+				"freeze": 1
+			}
+		},
+		"Shifter": {
+			"_comments": ["A 4D guard, can attack heroes with out destroying armor first"],
+			"durability": 1,
+			"damage": 1,
+			"range": 1,
+			"rate": 1,
+			"effects": {
+				"Avoid Armor": true
+			}
+		},
+		"Alien": {
+			"durability": 1,
+			"damage": 1,
+			"range": 1,
+			"rate": 1,
+			"effects": {
+				"poison": 1
+			}
+		},
+		"Mummy": {
+			"_comments": ["Kind of like curse tower"],
+			"durability": 1,
+			"damage": 1,
+			"range": 1,
+			"rate": 1,
+			"effects": {
+				"cures": 1
+			}
+		},
+		"Talos": {
+			"_comments": ["Huge robot"],
+			"durability": 1,
+			"damage": 1,
+			"range": 1,
+			"rate": 1,
+			"effects": {
+				"fire": 1
+			}
+		}
+	},
+	"potions": {
+		"Pain Potion": {
+			"damage": 1,
+			"area": 1
+		},
+		"Deadly Concoction": {
+			"damage": 1,
+			"area": 1
+		},
+		"Rust Serum": {
+			"damage": 1,
+			"area": 1
+		},
+		"Cursed Water": {
+			"damage": 1,
+			"area": 1,
+			"effects": {
+				"weaken": 25
+			}
+		},
+		"Gravity Potion": {
+			"damage": 1,
+			"area": 1,
+			"effects": {
+			}
+		},
+		"Poisonous Mixture": {
+			"damage": 1,
+			"area": 1,
+			"effects": {
+			}
+		},
+		"Ice Serum": {
+			"damage": 1,
+			"area": 1,
+			"effects": {
+				"freeze": 30
+			}
+		},
+		"Explosive Mixture": {
+			"damage": 1,
+			"area": 1,
+			"effects": {
+			}
+		}
+	},
+	"heroes": {
+		"_comments":["armor is extra life due to some sort of thing the hero has. For example a Sidekick's durability is 10. The durability of the helmet is 2. One has to destroy the helmet before (s)he can defeat the hero.",
+			"Speed is in tiles per seconds"],
+		"Sidekick": {
+			"durability": 1,
+			"damage": 1,
+			"range": 1,
+			"rate": 1,
+			"speed": 2,
+			"upgrades": {
+				"helmet": {
+					"armor": 1
+				},
+				"metal suit": {
+					"armor": 1
+				}
+			}
+		},
+		"Waterborg": {
+			"durability": 1,
+			"armor": 1,
+			"damage": 1,
+			"range": 1,
+			"rate": 1,
+			"speed": 1
+		},
+		"Falcon": {
+			"durability": 1,
+			"armor": 1,
+			"damage": 1,
+			"range": 1,
+			"rate": 1,
+			"speed": 1
+		},
+		"Inferno Man": {
+			"durability": 1,
+			"armor": 1,
+			"damage": 1,
+			"range": 1,
+			"rate": 1,
+			"speed": 1
+		},
+		"Chomefly": {
+			"durability": 1,
+			"armor": 1,
+			"damage": 1,
+			"range": 1,
+			"rate": 1,
+			"speed": 1
+		},
+		"Spynes": {
+			"durability": 1,
+			"extra durability": 1,
+			"damage": 1,
+			"range": 1,
+			"rate": 1,
+			"speed": 1
+		},
+		"Boss": {
+			"durability": 902,
+			"extra durability": 100,
+			"damage": 20,
+			"range": 5,
+			"rate": 3,
+			"speed": 0.75
+		},
+		"Tryptech industries mass cargo transporter mkII": {
+			"_comments": ["For lack of a better name, it's now more betterer!"],
+			"durability": 10,
+			"damage": 0,
+			"range": 0,
+			"rate": 1,
+			"speed": 0.8
+		},
+		"The Tank": {
+			"durability": 1000,
+			"damage": 20,
+			"range": 10,
+			"rate": 0.05,
+			"speed": 0.25
+		}
+	},
+	"materials": {
+		"Scrap Metal": {
+			"type": "electronic",
+			"value": 1,
+			"image": "scrap_metal.png"
+		},
+		"Wires": {
+			"type": "electronic",
+			"value": 2,
+			"image": "battery.png"
+		},
+		"Battery": {
+			"type": "electronic",
+			"value": 3,
+			"image": "battery.png"
+		},
+		"Microchip": {
+			"type": "electronic",
+			"value": 4,
+			"image": "microchip.png"
+		},
+		"Quantum Computer": {
+			"type": "electronic",
+			"value": 5,
+			"image": "quantum_computer.png"
+		}
+	}
 }
