@@ -130,8 +130,40 @@ _.deepCopy( Game, {
 				}
 			}
 		}
+	},
+
+	/**
+	 * Tower object
+	 * Override calculateAOE to make it have Area of Effect
+	 */
+	Tower: {
+	},
+
+	/**
+	 * Creature object, represents Hero and Monster because they are almost the same
+	 * TODO: Better name?
+	 */
+	Creature: {
+	},
+
+	/**
+	 * Potion object
+	 * TODO: Implement it
+	 */
+	Potion: {
+	},
+
+	/**
+	 * Doomsday device object
+	 */
+	DoomsdayDevice: {
 	}
 } );
+
+_.extend( Game.Tower, Game.Entity );
+_.extend( Game.Creature, Game.Entity );
+_.extend( Game.Potion, Game.Entity );
+_.extend( Game.DoomsdayDevice, Game.Entity );
 
 // After the game's working
 // var windowResize = function() {
