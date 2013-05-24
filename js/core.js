@@ -150,12 +150,12 @@ _.deepCopy( Game, {
 		 * Takes a name of tower and sets damage, range, and rate accordingly
 		 * tile should be part of map and is UNWALKABLE
 		 */
-		init: function( name, tile, x, y, width, height ) {
+		init: function( name, tile, x, y, w, height ) {
 			this.damage = this.data[name].damage;
 			this.range = this.data[name].range;
 			this.rate = this.data[name].rate;
 
-			this.entityInit( Game.SpriteManager.get( this.data[name].image ), x, y, width, height );
+			this.entityInit( Game.SpriteManager.get( this.data[name].image ), x, y, w, height );
 		}
 	},
 
@@ -165,7 +165,29 @@ _.deepCopy( Game, {
 	 */
 	Creature: {
 
-		data: {}
+		data: {},
+
+		// Default properties
+		health: 0,
+		damage: 0,
+		range: 0,
+		rate: 0,
+		speed: 0,
+
+		/**
+		 * Takes a type and name of the creature and sets health, damage, range, rate, and speed accordingly
+		 */
+		init: function( type, name, x, y, w, height ) {
+			this.health = this.data[name].health;
+			this.damage = this.data[name].damage;
+			this.range = this.data[name].range;
+			this.rate = this.data[name].rate;
+			this.speed = this.data[name].speed;
+
+			this.entityInit( Game.SpriteManager.get( this.data[name].image ), x, y, w, h );
+
+			return this;
+		}
 	},
 
 	/**
