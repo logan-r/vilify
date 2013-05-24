@@ -70,13 +70,15 @@
 			"health": 1,
 			"damage": 1,
 			"range": 1,
-			"rate": 1
+			"rate": 1,
+			"speed": 1
 		},
 		"Abomination": {
 			"health": 1,
 			"damage": 1,
 			"range": 1,
-			"rate": 1
+			"rate": 1,
+			"speed": 1
 		},
 		"RoboGuard": {
 			"health": 1,
@@ -85,7 +87,8 @@
 			"rate": 1,
 			"effects": {
 				"lightning": 1
-			}
+			},
+			"speed": 1
 		},
 		"Yeti": {
 			"health": 1,
@@ -94,7 +97,8 @@
 			"rate": 1,
 			"effects": {
 				"freeze": 1
-			}
+			},
+			"speed": 1
 		},
 		"Shifter": {
 			"_comments": ["A 4D guard, can attack heroes with out destroying armor first"],
@@ -104,7 +108,8 @@
 			"rate": 1,
 			"effects": {
 				"Avoid Armor": true
-			}
+			},
+			"speed": 1
 		},
 		"Alien": {
 			"health": 1,
@@ -113,7 +118,8 @@
 			"rate": 1,
 			"effects": {
 				"poison": 1
-			}
+			},
+			"speed": 1
 		},
 		"Mummy": {
 			"_comments": ["Kind of like curse tower"],
@@ -123,7 +129,8 @@
 			"rate": 1,
 			"effects": {
 				"cures": 1
-			}
+			},
+			"speed": 1
 		},
 		"Talos": {
 			"_comments": ["Huge robot"],
@@ -133,7 +140,8 @@
 			"rate": 1,
 			"effects": {
 				"fire": 1
-			}
+			},
+			"speed": 1
 		}
 	},
 	"potions": {
@@ -202,7 +210,6 @@
 		},
 		"Waterborg": {
 			"health": 1,
-			"armor": 1,
 			"damage": 1,
 			"range": 1,
 			"rate": 1,
@@ -210,7 +217,6 @@
 		},
 		"Falcon": {
 			"health": 1,
-			"armor": 1,
 			"damage": 1,
 			"range": 1,
 			"rate": 1,
@@ -218,7 +224,6 @@
 		},
 		"Inferno Man": {
 			"health": 1,
-			"armor": 1,
 			"damage": 1,
 			"range": 1,
 			"rate": 1,
@@ -226,7 +231,6 @@
 		},
 		"Chomefly": {
 			"health": 1,
-			"armor": 1,
 			"damage": 1,
 			"range": 1,
 			"rate": 1,
