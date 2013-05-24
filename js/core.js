@@ -15,7 +15,8 @@ _.deepCopy( Game, {
 		map: null,
 		sidebar: null,
 		imgRoot: "images/",
-		gameDataRoot: "game_data/"
+		gameDataRoot: "game_data/",
+		data: null
 	},
 
 	Tile: {
@@ -137,6 +138,25 @@ _.deepCopy( Game, {
 	 * Override calculateAOE to make it have Area of Effect
 	 */
 	Tower: {
+
+		data: {},
+
+		// Default properties
+		damage: 0,
+		range: 0,
+		rate: 0,
+
+		/**
+		 * Takes a name of tower and sets damage, range, and rate accordingly
+		 * tile should be part of map and is UNWALKABLE
+		 */
+		init: function( name, tile, x, y, width, height ) {
+			this.damage = this.data[name].damage;
+			this.range = this.data[name].range;
+			this.rate = this.data[name].rate;
+
+			this.entityInit( Game.SpriteManager.get( this.data[name].image ), x, y, width, height );
+		}
 	},
 
 	/**
@@ -144,6 +164,8 @@ _.deepCopy( Game, {
 	 * TODO: Better name?
 	 */
 	Creature: {
+
+		data: {}
 	},
 
 	/**
@@ -151,14 +173,30 @@ _.deepCopy( Game, {
 	 * TODO: Implement it
 	 */
 	Potion: {
+
+		data: {}
 	},
 
 	/**
 	 * Doomsday device object
 	 */
 	DoomsdayDevice: {
+
+		data: {}
 	}
 } );
+
+Game.AssetManager.add( "objects", _.make( Game.Asset ).init(
+	Game.AssetManager.assetType.json,
+	Game.settings.gameDataRoot + "objects.json",
+	function( asset ) {
+		var data = Game.settings.data = asset.content;
+		Game.Tower.data = data.towers;
+		Game.Creature.data.heroes = data.heroes;
+		Game.Creature.data.monsters = data.monsters;
+		Game.Potion.data = data.potions;
+	}
+) );
 
 _.extend( Game.Tower, Game.Entity );
 _.extend( Game.Creature, Game.Entity );
