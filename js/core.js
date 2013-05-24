@@ -44,6 +44,7 @@ _.deepCopy( Game, {
 			this.col = col;
 			var bound = _.make( Game.Box ).init( map.toCoords( row, col ), map.tileLength, map.tileLength );
 			this.entityInit( Game.SpriteManager.get( this.id.img ), bound );
+			return this;
 		}
 	},
 
@@ -156,6 +157,8 @@ _.deepCopy( Game, {
 			this.rate = this.data[name].rate;
 
 			this.entityInit( Game.SpriteManager.get( this.data[name].image ), x, y, w, height );
+
+			return this;
 		}
 	},
 
