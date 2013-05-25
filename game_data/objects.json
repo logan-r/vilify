@@ -1,6 +1,6 @@
 {
 	"_comments": ["for a list of effects and what they do see https://github.com/Logi0/vilify/wiki/Effects",
-		"purpose tower ideas and tower stats at https://github.com/Logi0/vilify/wiki/Tower-Ideas"
+		"purpose tower ideas and tower stats at https://github.com/Logi0/vilify/wiki/Tower-Ideas",
 		"FOR FUTURE TOWER DESIGNERS: each tower damage/range/rate is proportionate to 10 points of damage done to the hero or its armour, so 1=10 points."
 		],
 	"towers": {
