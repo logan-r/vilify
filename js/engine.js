@@ -298,13 +298,29 @@ var Game = window.Game = {
 
 		handleClick: function( e ) {
 			var event = {
+				type: "click",
 				x: e.pageX - Game.settings.canvasOffset.x,
 				y: e.pageY - Game.settings.canvasOffset.y
 			};
 
 			this.events.push( event );
-
 			return false;
+		},
+		
+		unload: function() {
+			// Loop through events
+			for ( var i = 0; i < this.events.length; i++ ) {
+				e = this.events[i];
+				if ( e.type == "click" ) {
+					for ( var j = Game.entities.length - 1; j >= 0; j-- ) {
+						console.log(Game.entities[j].bound)
+						alert( [Game.entities[j].bound.left(),  Game.entities[j].bound.right(), e.x] );
+					}
+				}
+			}
+			
+			// Clear events
+			this.events = [];
 		}
 	},
 
@@ -372,6 +388,10 @@ var Game = window.Game = {
 				
 				ctx.restore();
 			}
+		},
+		
+		clicked: function() {
+			alert( "" );
 		}
 	},
 	
@@ -399,8 +419,7 @@ var Game = window.Game = {
 			this.font = font;
 			this.text_color = text_color;
 			this.bg_color = bg_color;
-			var bound = _.make( Game.Box ).init( _.make( Game.Vector2 ).init( x, y ), font.measureText( text ) + padding_x * 2, font.size + padding_y * 2 );
-			this.entityInit( null, bound );
+			this.entityInit( null, x, y, font.measureText( text ) + padding_x * 2, font.size + padding_y * 2 );
 			return this;
 		},
 		
