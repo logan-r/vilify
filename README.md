@@ -27,3 +27,4 @@ Before you do anything else you should [read the game rules](https://github.com/
 6. Implement basic gameplay screen.
 7. Implement `Sidebar` object.
 7. Cross out (don't delete) each item when you are done. More to come.
+8. Finish the stats for the monsters, heroes, towers and potions.
