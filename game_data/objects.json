@@ -29,7 +29,7 @@
 			"damage": 0.5,
 			"range": 10,
 			"rate": 0.5,
-			"image": "ice_tower.png"
+			"image": "ice_tower.png",
 			"effects":{
 				"Stun": 1
 			}
