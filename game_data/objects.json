@@ -31,7 +31,7 @@
 			"rate": 0.5,
 			"image": "ice_tower.png",
 			"effects":{
-				"Stun": 1
+				"freeze": 1
 			}
 		},
 		"Flame Tower": {
@@ -39,7 +39,8 @@
 			"range": 10,
 			"rate": 7.5,
 			"image": "flame_tower.png",
-			"effects": {
+			"modifiers": {
+				"armor": 0.75
 			}
 		},
 		"Poison Tower": {
@@ -57,6 +58,10 @@
 			"rate": 0.5,
 			"image": "lightning_tower.png",
 			"effects": {
+				"chain": 1
+			},
+			"modifiers": {
+				"flying": 1.5
 			}
 		},
 		"Curse Tower": {
@@ -65,8 +70,8 @@
 			"rate": 5,
 			"image": "curse_tower.png",
 			"effects": {
-				"slow": 1,
-				"weaken": 1
+				"curse": 1,
+				"posion": 1
 			}
 		}
 	},
@@ -112,7 +117,7 @@
 			"range": 1,
 			"rate": 1,
 			"effects": {
-				"Avoid Armor": true
+				"avoid armor": true
 			},
 			"speed": 1
 		},
@@ -133,7 +138,7 @@
 			"range": 1,
 			"rate": 1,
 			"effects": {
-				"cures": 1
+				"curse": 1
 			},
 			"speed": 1
 		},
@@ -144,7 +149,6 @@
 			"range": 1,
 			"rate": 1,
 			"effects": {
-				"fire": 1
 			},
 			"speed": 1
 		}
@@ -166,7 +170,7 @@
 			"damage": 1,
 			"area": 1,
 			"effects": {
-				"weaken": 25
+				"curse": 1
 			}
 		},
 		"Gravity Potion": {
@@ -185,7 +189,7 @@
 			"damage": 1,
 			"area": 1,
 			"effects": {
-				"freeze": 30
+				"freeze": 1
 			}
 		},
 		"Explosive Mixture": {
