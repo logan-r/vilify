@@ -8,6 +8,7 @@ var Game = window.Game.init( document.getElementById( "canvas" ), 30 );
 var settings = Game.settings;
 var canvas = settings.canvas;
 var ctx = settings.ctx;
+Game.InputManager.init();
 
 // Fetch data
 Game.SpriteManager.add( "tiles" );
@@ -20,7 +21,7 @@ Game.AssetManager.add( "logo.png", _.make( Game.Asset ).init(
 	function() {}
 ) );
 main_font = _.make( Game.Font ).init( 32, "Happy Monkey" );
-button = _.make( Game.Button ).init( "New Game", main_font, 300, 300, 20, 20, "#2DB42A", "#222" );
+Game.entities.push(_.make( Game.Button ).init( "New Game", main_font, 300, 300, 20, 20, "#2DB42A", "#222" ));
 
 // Loading Screen
 var startedLoading = false;
@@ -53,7 +54,9 @@ Game.StateManager.add( "loading", {
 
 // TODO: Implement main menu
 Game.StateManager.add( "main_menu", {
-	update: function( delta ) {},
+	update: function( delta ) {
+		Game.InputManager.unload();
+	},
 	draw: function( ctx ) {
 		// Draw background
 		ctx.fillStyle = "#000";
@@ -62,7 +65,9 @@ Game.StateManager.add( "main_menu", {
 		// Draw logo
 		ctx.drawImage( Game.AssetManager.assets["logo.png"].content, canvas.width / 2 - Game.AssetManager.assets["logo.png"].content.width / 2, 20 );
 		
-		button.draw( ctx );
+		for ( var i = 0; i < Game.entities.length; i++ ) {
+			Game.entities[i].draw( ctx );
+		}
 	}
 } );
 
