@@ -313,8 +313,7 @@ var Game = window.Game = {
 				e = this.events[i];
 				if ( e.type == "click" ) {
 					for ( var j = Game.entities.length - 1; j >= 0; j-- ) {
-						console.log(Game.entities[j].bound)
-						alert( [Game.entities[j].bound.left(),  Game.entities[j].bound.right(), e.x] );
+						alert(Game.entities[j].bound.isPointInside( e.x, e.y ))
 					}
 				}
 			}
@@ -376,7 +375,7 @@ var Game = window.Game = {
 				
 				ctx.save();						
 				
-				ctx.translate( this.bound.x, this.bound.y );
+				ctx.translate( this.bound.centerx, this.bound.centery );
 				
 				// Rotate the image
 				if ( this.angle ) {
@@ -390,7 +389,7 @@ var Game = window.Game = {
 			}
 		},
 		
-		clicked: function() {
+		click: function() {
 			alert( "" );
 		}
 	},
@@ -429,7 +428,7 @@ var Game = window.Game = {
 		draw: function( ctx ) {
 			ctx.save();
 							
-			ctx.translate( this.bound.x, this.bound.y );
+			ctx.translate( this.bound.centerx, this.bound.centery );
 			
 			// Rotate the button
 			if ( this.angle ) {
@@ -714,7 +713,7 @@ var Game = window.Game = {
 		 */
 		isPointInside: function( x, y ) {
 			return this.left < x && x < this.right &&
-				this.top < y && y < this.top;
+				this.top < y && y < this.bottom;
 		},
 
 		/**
