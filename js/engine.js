@@ -147,7 +147,20 @@ var Game = window.Game = {
 	 */
 	update: function() {
 		var now = Date.now();
-		this.StateManager.state.update( now - this.settings.time ); // delta
+		var delta = now - this.settings.time;
+		
+		updateNorm = this.StateManager.state.update( delta );
+		
+		if ( updateNorm ) {
+			for ( var i = 0; i < this.entities.length; i++ ) {
+				this.entities[i].update( delta );
+			}
+			
+			if ( this.InputManager.initialized ) {
+				this.InputManager.unload();
+			}
+		}
+		
 		this.settings.time = now;
 	},
 
@@ -157,7 +170,13 @@ var Game = window.Game = {
 	 * Override state's draw function instead.
 	 */
 	draw: function() {
-		this.StateManager.state.draw( this.settings.ctx );
+		drawNorm = this.StateManager.state.draw( this.settings.ctx );
+		
+		if ( drawNorm ) {
+			for ( var i = 0; i < this.entities.length; i++ ) {
+				this.entities[i].draw( this.settings.ctx );
+			}
+		}
 	},
 
 	/**
@@ -287,6 +306,7 @@ var Game = window.Game = {
 
 		// Default properties
 		events: [],
+		initalized: false,
 
 		init: function() {
 			var that = this;
@@ -294,6 +314,8 @@ var Game = window.Game = {
 			_.bind( Game.settings.canvas, "click", function( e ) {
 				return that.handleClick( e );
 			} );
+			
+			this.initalized = true;
 		},
 
 		handleClick: function( e ) {
@@ -390,7 +412,7 @@ var Game = window.Game = {
 		},
 		
 		click: function() {
-			alert( "" );
+			
 		}
 	},
 	
