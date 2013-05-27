@@ -22,9 +22,9 @@ Game.AssetManager.add( "logo.png", _.make( Game.Asset ).init(
 
 mainFont = _.make( Game.Font ).init( 32, "Happy Monkey" );
 var newGameButton = _.make( Game.Button ).init( "New Game", mainFont, 300, 300, 20, 20, "#2DB42A", "#222" );
-newGameButton.click = funtion() {
+newGameButton.click = function() {
 	Game.StateManager.change( "game" );
-}
+};
 Game.entities.push( newGameButton );
 
 // Loading Screen
