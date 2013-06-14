@@ -63,6 +63,7 @@ Game.StateManager.add( "loading", {
 // TODO: Implement main menu
 Game.StateManager.add( "main_menu", {
 	update: function( delta ) {
+		Game.InputManager.unload();
 		return true;
 	},
 	draw: function( ctx ) {
@@ -79,7 +80,11 @@ Game.StateManager.add( "main_menu", {
 
 // TODO: Implement game screen
 Game.StateManager.add( "game", {
-	update: function( delta ) {},
+	update: function( delta ) {
+		// Draw background
+		ctx.fillStyle = "#000";
+		ctx.fillRect( 0, 0, canvas.width, canvas.height );
+	},
 	draw: function( ctx ) {}
 } );
 
