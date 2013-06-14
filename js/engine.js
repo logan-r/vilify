@@ -156,9 +156,7 @@ var Game = window.Game = {
 				this.entities[i].update( delta );
 			}
 			
-			if ( this.InputManager.initialized ) {
-				this.InputManager.unload();
-			}
+			this.InputManager.unload();
 		}
 		
 		this.settings.time = now;
