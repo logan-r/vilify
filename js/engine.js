@@ -335,7 +335,7 @@ var Game = window.Game = {
 				e = this.events[i];
 				if ( e.type == "click" ) {
 					for ( var j = Game.entities.length - 1; j >= 0; j-- ) {
-						alert(Game.entities[j].bound.isPointInside( e.x, e.y ))
+						Game.entities[j].click();
 					}
 				}
 			}
