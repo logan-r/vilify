@@ -63,7 +63,6 @@ Game.StateManager.add( "loading", {
 // TODO: Implement main menu
 Game.StateManager.add( "main_menu", {
 	update: function( delta ) {
-		Game.InputManager.unload();
 		return true;
 	},
 	draw: function( ctx ) {
