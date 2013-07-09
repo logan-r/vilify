@@ -199,7 +199,11 @@ _.deepCopy( Game, {
 	 */
 	Potion: {
 
-		data: {}
+		data: {
+			
+			this.damage = high; /** not sure if we are using numbers yet */
+			
+		}
 	},
 
 	/**
