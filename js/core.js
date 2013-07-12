@@ -195,14 +195,15 @@ _.deepCopy( Game, {
 
 	/**
 	 * Potion object
-	 * TODO: Implement it
 	 */
 	Potion: {
 
-		data: {
-			
-			this.damage = high; /** not sure if we are using numbers yet */
-			
+		data: {},
+		
+		init: function( name ) {
+			this.damage = this.data[name].damage;
+			this.area = this.data[name].area;
+			return this;
 		}
 	},
 
