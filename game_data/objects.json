@@ -300,6 +300,10 @@
 			"type": "electronic",
 			"value": 5,
 			"image": "quantum_computer.png"
+	        
+	        "adims": "electronic"
+	        "value": 6
+	        "image":"game"
 		}
 	}
 }
