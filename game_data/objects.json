@@ -1,7 +1,8 @@
 {
 	"_comments": ["for a list of effects and what they do see https://github.com/Logi0/vilify/wiki/Effects",
 		"purpose tower ideas and tower stats at https://github.com/Logi0/vilify/wiki/Tower-Ideas",
-		"FOR FUTURE TOWER DESIGNERS: each tower damage/range/rate is proportionate to 10 points of damage done to the hero or its armour, so 1=10 points."
+		"FOR FUTURE TOWER DESIGNERS: each tower damage/range/rate is proportionate to 10 points of"
+		"damage done to the hero or its armour, so 1=10 points."
 		],
 	"towers": {
 		"Basic Tower": {
@@ -200,7 +201,9 @@
 		}
 	},
 	"heroes": {
-		"_comments":["armor is extra life due to some sort of thing the hero has. For example a Sidekick's health is 10. The armor of the helmet is 2. One has to destroy the helmet before (s)he can defeat the hero.",
+		"_comments":["armor is extra life due to some sort of thing the hero has.
+		"For example a Sidekick's health is 10. The armor of the helmet is 2.
+		"One has to destroy the helmet before (s)he can defeat the hero.",
 			"Speed is in tiles per seconds"],
 		"Sidekick": {
 			"health": 1,
@@ -259,8 +262,8 @@
 			"rate": 3,
 			"speed": 0.75
 		},
-		"Tryptech industries mass cargo transporter mkII": {
-			"_comments": ["For lack of a better name, it's now more betterer!"],
+		"Mass personnel transporter mkII": {
+			"_comments": ["Releases 4-8 heroes upon destruction"],
 			"health": 10,
 			"damage": 0,
 			"range": 0,
