@@ -1,7 +1,7 @@
 {
 	"_comments": ["for a list of effects and what they do see https://github.com/Logi0/vilify/wiki/Effects",
 		"purpose tower ideas and tower stats at https://github.com/Logi0/vilify/wiki/Tower-Ideas",
-		"FOR FUTURE TOWER DESIGNERS: each tower damage/range/rate is proportionate to 10 points of"
+		"FOR FUTURE TOWER DESIGNERS: each tower damage/range/rate is proportionate to 10 points of",
 		"damage done to the hero or its armour, so 1=10 points."
 		],
 	"towers": {
@@ -201,8 +201,8 @@
 		}
 	},
 	"heroes": {
-		"_comments":["armor is extra life due to some sort of thing the hero has.
-		"For example a Sidekick's health is 10. The armor of the helmet is 2.
+		"_comments":["armor is extra life due to some sort of thing the hero has.",
+		"For example a Sidekick's health is 10. The armor of the helmet is 2.",
 		"One has to destroy the helmet before (s)he can defeat the hero.",
 			"Speed is in tiles per seconds"],
 		"Sidekick": {
