@@ -87,13 +87,23 @@
 				ground.graphics.beginFill("#111").drawRect(0, 630, 960, 10);
 				Game.stage.addChild(ground);
 
-				// Create tower spaces
+				// Create towers
 				for (i = 0; i < 6; i++) {
 					tower = new Tower(100+152*i);
 					Game.stage.addChild(tower);
 				}
+
+				// Create a hero
+				hero = new Hero();
+				Game.stage.addChild(hero);
+				HEROES.push(hero);
 			},
-			function(event) {}
+			function(event) {
+				// Tick heroes
+				for (i = 0; i < HEROES.length; i++) {
+					HEROES[i].tick(event);
+				}
+			}
 		)
 	}
 
