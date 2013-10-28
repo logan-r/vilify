@@ -32,7 +32,8 @@ hr {
 	border: 1px solid #000;
 	margin: 15px auto;
 	overflow: hidden;
-	width: 840px;
+	height: 640px;
+	width: 960px;
 	user-select: none;
 	-webkit-user-select: none;
 	-moz-user-select: none;
