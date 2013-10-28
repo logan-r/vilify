@@ -16,7 +16,7 @@
 		queue: null,
 		data: null,
 		fps: 60,
-		scene: new Scene(function(){}, function(event){}),
+		scene: null,
 
 		/**
 		 * Load all the assets
@@ -68,22 +68,36 @@
 	 * A scene to be displayed upon the canvas
 	 * e.g. Loading screen, High score screen, Game screen
 	 */
-	 function Scene (init, tick) {
+	function Scene(init, tick) {
 		this.init = init; // The function that is called to initialize the scene
 		this.tick = tick; // The function that is called ever time the game updates, should take one parameter "event"
 	}
 
+	window.Scene = Scene;
+
 	var SCENES = window.SCENES = {
 		"loading": new Scene(
+			function() {},
+			function(event) {}
+		),
+		"game": new Scene(
 			function() {
-				Game.stage.addChild(new createjs.Shape()).setTransform(100,100).graphics.f("red").dc(0,0,50);
+				// Create ground
+				var ground = new createjs.Shape();
+				ground.graphics.beginFill("#111").drawRect(0, 630, 960, 10);
+				Game.stage.addChild(ground);
+
+				// Create tower spaces
+				for (i = 0; i < 6; i++) {
+					tower = new Tower(100+152*i);
+					Game.stage.addChild(tower);
+				}
 			},
-			function(event) {
-			}
+			function(event) {}
 		)
 	}
 
-	Game.init("canvas", SCENES["loading"]);
+	Game.init("canvas", SCENES["game"]);
 	Game.load();
 
 })(window);
