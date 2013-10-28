@@ -32,8 +32,8 @@ hr {
 	border: 1px solid #000;
 	margin: 15px auto;
 	overflow: hidden;
-	height: 640px;
-	width: 960px;
+	height: 320px;
+	width: 480px;
 	user-select: none;
 	-webkit-user-select: none;
 	-moz-user-select: none;
@@ -42,4 +42,9 @@ hr {
 	-webkit-touch-callout: none;
 	-webkit-user-drag: none;
 	line-height: 0px;
+}
+
+canvas {
+	height: 320px;
+	width: 480px;
 }
