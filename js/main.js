@@ -86,9 +86,8 @@
 		"game": new Scene(
 			function() {
 				// Create ground
-				var ground = new createjs.Shape();
-				ground.graphics.beginFill("#111").drawRect(0, 630, 960, 10);
-				Game.stage.addChild(ground);
+				var GROUND = new Ground();
+				Game.stage.addChild(GROUND);
 
 				// Create towers
 				for (i = 0; i < 6; i++) {
@@ -96,6 +95,10 @@
 					Game.stage.addChild(tower);
 					TOWERS.push(tower);
 				}
+
+				// Create graveyard
+				GRAVEYARD = new Graveyard();
+				Game.stage.addChild(GRAVEYARD);
 
 				// Create cannon
 				CANNON = new Cannon();
