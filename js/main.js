@@ -94,6 +94,7 @@
 				for (i = 0; i < 6; i++) {
 					tower = new Tower(100+152*i);
 					Game.stage.addChild(tower);
+					TOWERS.push(tower);
 				}
 
 				// Create a hero
@@ -105,6 +106,22 @@
 				// Tick heroes
 				for (i = 0; i < HEROES.length; i++) {
 					HEROES[i].tick(event);
+				}
+
+				// Tick projectiles
+				for (i = 0; i < PROJECTILES.length; i++) {
+					PROJECTILES[i].tick(event);
+					for (j = 0; j < HEROES.length; j++) {
+						if (Physics.collides(HEROES[j].getBox(), PROJECTILES[i].getBox())) {
+							PROJECTILES[i].kill();
+							HEROES[j].damage(1);
+						}
+					}
+				}
+
+				// Tick towers
+				for (i = 0; i < TOWERS.length; i++) {
+					TOWERS[i].tick(event);
 				}
 			}
 		)
