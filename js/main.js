@@ -97,6 +97,10 @@
 					TOWERS.push(tower);
 				}
 
+				// Create cannon
+				CANNON = new Cannon();
+				Game.stage.addChild(CANNON);
+
 				// Create a hero
 				hero = new Hero("Sidekick");
 				Game.stage.addChild(hero);
