@@ -19,19 +19,26 @@
 
 		// Hero data
 		this.type = type;
-		this.speed = GAME_DATA["heroes"][this.type]["speed"];
 		this.flying = GAME_DATA["heroes"][this.type]["flying"];
 		this.health = GAME_DATA["heroes"][this.type]["health"];
 
 		// Calculate hero starting y value
 		var y = 530;
+		var Vy = 0;
 		if (this.flying) {
 			y = MathEx.randInt(120, 420);
+			Vy = this.flying["velocity"];
+			this.flyingHeight = this.flying["height"];
 		}
 
 		// Hero position
 		this.x = -70;
 		this.y = y;
+
+		// Hero velocity
+		this.Vx = GAME_DATA["heroes"][this.type]["speed"];
+		this.Vy = Vy;
+		this.starty = this.y;
 
 		// Hero image
 		var image = new createjs.Shape();
@@ -40,7 +47,16 @@
 
 		// Update function
 		this.tick = function(event) {
-			this.x += event.delta/1000*this.speed;
+			// Move
+			this.x += event.delta/1000 * this.Vx;
+
+			// Fly
+			if (this.flying) {
+				this.y += event.delta/1000 * this.Vy;
+				if (this.y > this.starty + this.flyingHeight || this.y < this.starty - this.flyingHeight) {
+					this.Vy = -1 * this.Vy;
+				}
+			}
 		}
 
 		// Damage the hero
