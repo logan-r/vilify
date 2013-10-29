@@ -5,7 +5,10 @@ GAME_DATA = window.GAME_DATA = {
 		"Sidekick": {
 			"health": 2,
 			"speed": 80,
-			"flying": true
+			"flying": {
+				"velocity": 40,
+				"height": 30
+			}
 		}
 	}
 }
