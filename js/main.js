@@ -22,13 +22,16 @@
 		 * Load all the assets
 		 */
 		load: function() {
-			Game.queue = new createjs.LoadQueue();
+			Game.queue = new createjs.LoadQueue(false);
 
 			Game.queue.on("fileload", function(e) {
 				Game.data = e.result;
 			}, null, true);
+			Game.queue.on("complete", function(e) {
+				Game.init("canvas", SCENES["game"]);
+			}, null, true)
+
 			// TODO: Use SpriteSheet
-			//Game.queue.loadFile("objects.json", true, "game_data/");
 			Game.queue.loadManifest(["basic_tower.png", "curse_tower.png", "dust_tower.png", "flame_tower.png", "ice_tower.png", "poison_tower.png", "poison_tower.png", "ray_tower.png"], true, "images/towers/");
 			Game.queue.loadManifest(["end.png", "start.png", "unwalkable.png", "walkable.png"], true, "images/tiles/");
 			Game.queue.loadManifest(["battery.png", "circuit_board.png", "microchip.png", "quantum_computer.png", "scrap_metal.png"], true, "images/materials/");
@@ -94,7 +97,7 @@
 				}
 
 				// Create a hero
-				hero = new Hero();
+				hero = new Hero("Sidekick");
 				Game.stage.addChild(hero);
 				HEROES.push(hero);
 			},
@@ -107,7 +110,6 @@
 		)
 	}
 
-	Game.init("canvas", SCENES["game"]);
 	Game.load();
 
 })(window);
