@@ -62,9 +62,9 @@
 		// Bullet data
 		this.x = x;
 		this.y = y;
-		this.Vx = 3;
-		this.Vy = 3;
-		this.Ay = .3;
+		this.Vx = 50;
+		this.Vy = 300;
+		this.Ay = 150;
 
 		// Bullet image
 		var image = new createjs.Shape();
@@ -73,9 +73,9 @@
 
 		// Update function
 		this.tick = function(event) {
-			this.x += this.Vx;
-			this.y += parseInt(this.Vy);
-			this.Vy += this.Ay;
+			this.x += event.delta/1000 * this.Vx;
+			this.y += event.delta/1000 * parseInt(this.Vy);
+			this.Vy += event.delta/1000 * this.Ay;
 			if (this.x < 0 || this.x > 960 || this.y < 0 || this.y > 640) {
 				this.kill();
 			}
