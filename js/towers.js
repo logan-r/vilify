@@ -7,36 +7,53 @@
 	 * Tower object
 	 * Store all the data associated with one tower
 	 */
-	var Tower = function(x) {
-		this.initialize(x);
+	var Tower = function(type, x) {
+		this.initialize(type, x);
 	}
 
 	var p = Tower.prototype = new createjs.Container();
 	Tower.prototype.Container_initialize = p.initialize;
 
-	Tower.prototype.initialize = function(x) {
+	Tower.prototype.initialize = function(type, x) {
 		this.Container_initialize();
 
 		// Tower data
-		this.type = null;
+		this.type = type;
+		if (this.type != null) {
+			this.damage = GAME_DATA["towers"][this.type]["damage"];
+			this.projectileTimer = Game.fps * 1;  // Timeout between projectiles
+		}
+
+		// Tower position
 		this.x = x;
-		this.projectileTimer = Game.fps * 1;  // Timeout between projectiles
 
 		// Tower image
+		var color;
+		switch (this.type) {
+			case "Bullet":
+				color = "#d0d0d0";
+				break;
+			case null:
+			default:
+				color = "#eee";
+				break;
+		}
 		var image = new createjs.Shape();
-		image.graphics.beginFill("#e0e0e0").drawCircle(0, 0, 50);
+		image.graphics.beginFill(color).drawCircle(0, 0, 50);
 		this.addChild(image);
 
 		this.tick = function(event) {
-			// Fire projectile
-			this.projectileTimer -= event.delta/1000 * 100; // Countdown towards next projectile
-			if (this.projectileTimer < 0) { // Is it time to fire projectile yet?
-				this.projectileTimer = Game.fps * 1;
+			if (type != null) {
+				// Fire projectile
+				this.projectileTimer -= event.delta/1000 * 100; // Countdown towards next projectile
+				if (this.projectileTimer < 0) { // Is it time to fire projectile yet?
+					this.projectileTimer = Game.fps * 1;
 
-				// Fire bullet
-				bullet = new Bullet(this.x-5, 40);
-				Game.stage.addChild(bullet);
-				PROJECTILES.push(bullet);
+					// Fire bullet
+					bullet = new Bullet(this.x-5, 40, this.damage);
+					Game.stage.addChild(bullet);
+					PROJECTILES.push(bullet);
+				}
 			}
 		}
 	}
@@ -49,17 +66,18 @@
 	 * Bullet object
 	 * An object for the bullets that a tower fires
 	 */
-	var Bullet = function(x, y) {
-		this.initialize(x, y);
+	var Bullet = function(x, y, damage) {
+		this.initialize(x, y, damage);
 	}
 
 	var p = Bullet.prototype = new createjs.Container();
 	Bullet.prototype.Container_initialize = p.initialize;
 
-	Bullet.prototype.initialize = function(x, y) {
+	Bullet.prototype.initialize = function(x, y, damage) {
 		this.Container_initialize();
 
 		// Bullet data
+		this.damage = damage;
 		this.x = x;
 		this.y = y;
 		this.Vx = 50;
