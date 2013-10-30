@@ -42,6 +42,7 @@
 				this.x = this.goal[0];
 				this.y = this.goal[1];
 				this.inList = true;
+				ItemsList.reachedPosition(this);
 			}
 		}
 	}
@@ -50,17 +51,29 @@
 	window.ITEMS = ITEMS = []; // List of all active items
 
 	ItemsList = {
+		startx: 900,
 		nexty: 95,
+		starty: 95,
 		spacing: 40,
 		items: 0,
 		bookNextPosition: function() {
 			if (this.items < 9) {
 				this.items++;
-				nextPosition = [900, this.nexty];
+				nextPosition = [this.startx, this.nexty];
 				this.nexty += this.spacing;
 				return nextPosition;
 			}
-			else return [0, 0]; // temporary
+			else return [900, this.starty + this.spacing * 9]; // temporary
+		},
+		reachedPosition: function(item) {
+			if (item.goal[1] == this.starty + this.spacing * 9) {
+				Game.stage.removeChild(item);
+
+				// Create extra list icon
+				var image = new createjs.Shape();
+				image.graphics.beginFill("#96C4ff").drawRect(this.startx, this.starty + this.spacing * 9, 30, 30);
+				Game.stage.addChild(image);
+			}
 		}
 	}
 })(window);
