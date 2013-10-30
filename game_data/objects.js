@@ -3,12 +3,14 @@
 GAME_DATA = window.GAME_DATA = {
 	"heroes": {
 		"Sidekick": {
-			"health": 2,
+			"health": 10,
 			"speed": 80,
-			"flying": {
-				"velocity": 40,
-				"height": 30
-			}
+			"flying": false
+		}
+	},
+	"towers": {
+		"Bullet": {
+			"damage": 5
 		}
 	}
 }
