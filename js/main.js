@@ -104,6 +104,13 @@
 				CANNON = new Cannon();
 				Game.stage.addChild(CANNON);
 
+				// Create an item
+				for (i = 0; i < 20; i++) {
+					item = new Item(MathEx.randInt(0, 600), MathEx.randInt(0, 600));
+					Game.stage.addChild(item);
+					ITEMS.push(item);
+				}
+
 				// Create a hero
 				hero = new Hero("Sidekick");
 				Game.stage.addChild(hero);
@@ -129,6 +136,11 @@
 				// Tick towers
 				for (i = 0; i < TOWERS.length; i++) {
 					TOWERS[i].tick(event);
+				}
+
+				// Tick items
+				for (i = 0; i < ITEMS.length; i++) {
+					ITEMS[i].tick(event);
 				}
 			}
 		)
