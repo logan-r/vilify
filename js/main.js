@@ -91,7 +91,7 @@
 
 				// Create towers
 				for (i = 0; i < 6; i++) {
-					tower = new Tower(100+152*i);
+					tower = new Tower([null, "Bullet"][MathEx.randInt(0,1)], 100+152*i);
 					Game.stage.addChild(tower);
 					TOWERS.push(tower);
 				}
@@ -105,7 +105,7 @@
 				Game.stage.addChild(CANNON);
 
 				// Create an item
-				for (i = 0; i < 20; i++) {
+				for (i = 0; i < 15; i++) {
 					item = new Item(MathEx.randInt(0, 600), MathEx.randInt(0, 600));
 					Game.stage.addChild(item);
 					ITEMS.push(item);
@@ -122,20 +122,31 @@
 					HEROES[i].tick(event);
 				}
 
+				// Tick towers
+				for (i = 0; i < TOWERS.length; i++) {
+					TOWERS[i].tick(event);
+				}
+
 				// Tick projectiles
 				for (i = 0; i < PROJECTILES.length; i++) {
 					PROJECTILES[i].tick(event);
 					for (j = 0; j < HEROES.length; j++) {
 						if (Physics.collides(HEROES[j].getBox(), PROJECTILES[i].getBox())) {
 							PROJECTILES[i].kill();
-							HEROES[j].damage(1);
+							HEROES[j].damage(PROJECTILES[i].damage);
 						}
 					}
 				}
 
-				// Tick towers
-				for (i = 0; i < TOWERS.length; i++) {
-					TOWERS[i].tick(event);
+				// Tick monsters
+				for (i = 0; i < MONSTERS.length; i++) {
+					MONSTERS[i].tick(event);
+					for (j = 0; j < HEROES.length; j++) {
+						if (Physics.collides(HEROES[j].getBox(), MONSTERS[i].getBox())) {
+							hero.inCombat = MONSTERS[i];
+							monster.inCombat = HEROES[j];
+						}
+					}
 				}
 
 				// Tick items
