@@ -29,8 +29,8 @@
 
 		this.tick = function(event) {
 			// Fire projectile
-			this.projectileTimer--; // Countdown towards next projectile
-			if (this.projectileTimer == 0) { // Is it time to fire projectile yet?
+			this.projectileTimer -= event.delta/1000 * 100; // Countdown towards next projectile
+			if (this.projectileTimer < 0) { // Is it time to fire projectile yet?
 				this.projectileTimer = Game.fps * 1;
 
 				// Fire bullet
