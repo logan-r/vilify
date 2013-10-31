@@ -18,31 +18,50 @@
 		this.Container_initialize();
 
 		// Item data
-		this.inList = false;
+
+		// Item state
+		// FREE: item is out of lists and needs to be added
+		// LISTED: item is in list
+		// DRAGGING: item is being dragged by the player
+		this.state = "FREE";
 
 		// Item position
 		this.x = x;
 		this.y = y;
 
-		this.goal = ItemsList.bookNextPosition();
-		this.Vx = 300;
-		this.Vy = (this.goal[1] - this.y) / (this.goal[0] - this.x) * 300;
+		this.goal = ItemsList.book();
+		this.Vx = 1000;
+		this.Vy = (this.goal[1] - this.y) / (this.goal[0] - this.x) * 1000;
 
 		// Item image
 		var image = new createjs.Shape();
 		image.graphics.beginFill("#2483ff").drawRect(0, 0, 30, 30);
 		this.addChild(image);
 
+		// Add events
+		image.addEventListener("pressmove", function(event) {
+			event.target.parent.state = "DRAGGED";
+			event.target.parent.x = event.stageX;
+			event.target.parent.y = event.stageY;
+		});
+		image.addEventListener("pressup", function(event) {
+			event.target.parent.Vx = 1000;
+			event.target.parent.Vy = (event.target.parent.goal[1] - event.target.parent.y) / (event.target.parent.goal[0] - event.target.parent.x) * 1000;
+			event.target.parent.state = "FREE";
+		});
+
 		this.tick = function(event) {
-			if (!this.inList) {
-				this.x += event.delta/1000 * this.Vx;
-				this.y += event.delta/1000 * this.Vy;
-			}
-			if (this.x > this.goal[0]) {
-				this.x = this.goal[0];
-				this.y = this.goal[1];
-				this.inList = true;
-				ItemsList.reachedPosition(this);
+			switch (this.state) {
+				case "FREE":
+					this.x += event.delta/1000 * this.Vx;
+					this.y += event.delta/1000 * this.Vy;
+					if (this.x > this.goal[0]) {
+						this.x = this.goal[0];
+						this.y = this.goal[1];
+						this.inList = "LISTED";
+						//ItemsList.reachedPosition(this);
+					}
+					break;
 			}
 		}
 	}
@@ -51,29 +70,16 @@
 	window.ITEMS = ITEMS = []; // List of all active items
 
 	ItemsList = {
-		startx: 900,
-		nexty: 95,
-		starty: 95,
-		spacing: 40,
-		items: 0,
-		bookNextPosition: function() {
-			if (this.items < 9) {
-				this.items++;
-				nextPosition = [this.startx, this.nexty];
-				this.nexty += this.spacing;
-				return nextPosition;
+		items: [],
+		openPositions: [90, 130, 170, 210, 250, 290, 330, 370, 410],
+		book: function() {
+			if (this.openPositions.length > 0) {
+				y = this.openPositions[0];
+				this.openPositions.splice(0, 1);
+				return [900, y];
 			}
-			else return [900, this.starty + this.spacing * 9]; // temporary
-		},
-		reachedPosition: function(item) {
-			if (item.goal[1] == this.starty + this.spacing * 9) {
-				Game.stage.removeChild(item);
-
-				// Create extra list icon
-				var image = new createjs.Shape();
-				image.graphics.beginFill("#96C4ff").drawRect(this.startx, this.starty + this.spacing * 9, 30, 30);
-				Game.stage.addChild(image);
-			}
+			return [900, 450];
 		}
 	}
+	window.ItemsList = ItemsList; // For debug only; To be removed
 })(window);
