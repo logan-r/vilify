@@ -42,8 +42,9 @@
 		image.graphics.beginFill(color).drawCircle(0, 0, 50);
 		this.addChild(image);
 
+		// Update tower
 		this.tick = function(event) {
-			if (type != null) {
+			if (this.type != null) {
 				// Fire projectile
 				this.projectileTimer -= event.delta/1000 * 100; // Countdown towards next projectile
 				if (this.projectileTimer < 0) { // Is it time to fire projectile yet?
@@ -55,6 +56,34 @@
 					PROJECTILES.push(bullet);
 				}
 			}
+		}
+
+		// Upgrade tower
+		this.upgrade = function(type) {
+			// Update tower data
+			this.type = type;
+			this.damage = GAME_DATA["towers"][this.type]["damage"];
+			this.projectileTimer = Game.fps * 1;  // Timeout between projectiles
+
+			// Update tower image
+			this.removeAllChildren(); // Clear old image
+			var color;
+			switch (this.type) {
+				case "Bullet":
+					color = "#d0d0d0";
+					break;
+				default:
+					color = "#eee";
+					break;
+			}
+			var image = new createjs.Shape();
+			image.graphics.beginFill(color).drawCircle(0, 0, 50);
+			this.addChild(image);
+		}
+
+		// Get bounding box
+		this.getBox = function() {
+			return {left: this.x, top: 0, width: 100, height: 50};
 		}
 	}
 
