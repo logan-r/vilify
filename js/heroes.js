@@ -19,8 +19,8 @@
 
 		// Hero data
 		this.type = type;
-		this.flying = GAME_DATA["heroes"][this.type]["flying"];
-		this.health = GAME_DATA["heroes"][this.type]["health"];
+		this.flying = Game.DATA["heroes"][this.type]["flying"];
+		this.health = Game.DATA["heroes"][this.type]["health"];
 
 		// Calculate hero starting y value
 		var y = 530;
@@ -36,7 +36,7 @@
 		this.y = y;
 
 		// Hero velocity
-		this.Vx = GAME_DATA["heroes"][this.type]["speed"];
+		this.Vx = Game.DATA["heroes"][this.type]["speed"];
 		this.Vy = Vy;
 		this.starty = this.y;
 

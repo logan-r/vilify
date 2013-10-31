@@ -22,15 +22,20 @@
 		 * Load all the assets
 		 */
 		load: function() {
-			Game.queue = new createjs.LoadQueue(false);
+			Game.queue = new createjs.LoadQueue();
 
+			// Load Game data
 			Game.queue.on("fileload", function(e) {
-				Game.data = e.result;
-			}, null, true);
+				if (e.item.id === "objects.json") {
+					Game.DATA = e.result;
+					Game.queue.off("fileload", arguments.callee);
+				}
+			});
 			Game.queue.on("complete", function(e) {
 				Game.init("canvas", SCENES["game"]);
-			}, null, true)
+			}, null, true);
 
+			Game.queue.loadFile("objects.json", true, "game_data/");
 			// TODO: Use SpriteSheet
 			Game.queue.loadManifest(["basic_tower.png", "curse_tower.png", "dust_tower.png", "flame_tower.png", "ice_tower.png", "poison_tower.png", "poison_tower.png", "ray_tower.png"], true, "images/towers/");
 			Game.queue.loadManifest(["end.png", "start.png", "unwalkable.png", "walkable.png"], true, "images/tiles/");

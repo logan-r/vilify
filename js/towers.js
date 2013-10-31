@@ -20,7 +20,7 @@
 		// Tower data
 		this.type = type;
 		if (this.type != null) {
-			this.damage = GAME_DATA["towers"][this.type]["damage"];
+			this.damage = Game.DATA["towers"][this.type]["damage"];
 			this.projectileTimer = Game.fps * 1;  // Timeout between projectiles
 		}
 
@@ -62,7 +62,7 @@
 		this.upgrade = function(type) {
 			// Update tower data
 			this.type = type;
-			this.damage = GAME_DATA["towers"][this.type]["damage"];
+			this.damage = Game.DATA["towers"][this.type]["damage"];
 			this.projectileTimer = Game.fps * 1;  // Timeout between projectiles
 
 			// Update tower image
