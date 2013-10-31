@@ -91,7 +91,7 @@
 
 				// Create towers
 				for (i = 0; i < 6; i++) {
-					tower = new Tower([null, "Bullet"][MathEx.randInt(0,1)], 100+152*i);
+					tower = new Tower(null, 100+152*i);
 					Game.stage.addChild(tower);
 					TOWERS.push(tower);
 				}
@@ -104,14 +104,14 @@
 				CANNON = new Cannon();
 				Game.stage.addChild(CANNON);
 
-				// Create an item
-				for (i = 0; i < 15; i++) {
+				// Create items
+				for (i = 0; i < 14; i++) {
 					item = new Item(MathEx.randInt(0, 600), MathEx.randInt(0, 600));
 					Game.stage.addChild(item);
 					ITEMS.push(item);
 				}
 
-				// Create a hero
+				// Create hero
 				hero = new Hero("Sidekick");
 				Game.stage.addChild(hero);
 				HEROES.push(hero);
