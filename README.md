@@ -18,7 +18,3 @@ Before you do anything else you should [read the game rules](https://github.com/
 4. [Canvas Tutorial](https://developer.mozilla.org/en-US/docs/HTML/Canvas/Tutorial?redirectlocale=en-US&redirectslug=Canvas_tutorial)
 5. [Udacity HTML5 Game Development](https://www.udacity.com/course/cs255)
 
-### TODO
-1. Separate AI object and AOE (for calculating Area of Effect)
-2. Implement `Sidebar` object.
-3. Finish the stats for the monsters, heroes, towers and potions.
