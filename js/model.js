@@ -451,8 +451,12 @@
 			return [900, 450];
 		},
 		free: function(y) {
+			bankedItemMoved = false;
 			for (i = 0; i < ITEMS.length; i++) {
-				if (ITEMS[i].y > y) {
+				if (ITEMS[i].y > y && (!bankedItemMoved || !ITEMS[i].y >= 450)) {
+					if (ITEMS[i].y >= 450) {
+						bankedItemMoved = true;
+					}
 					ITEMS[i].state = "REORDER";
 					ITEMS[i].Vx = 0;
 					ITEMS[i].Vy = -1000;
