@@ -347,17 +347,18 @@
 	 * Item object
 	 * An item that can be used to build or upgrad towers, monsters and potions
 	 */
-	var Item = function(x, y) {
-		this.initialize(x, y);
+	var Item = function(type, x, y) {
+		this.initialize(type, x, y);
 	}
 
 	var p = Item.prototype = new createjs.Container();
 	Item.prototype.Container_initialize = p.initialize;
 
-	Item.prototype.initialize = function(x, y) {
+	Item.prototype.initialize = function(type, x, y) {
 		this.Container_initialize();
 
 		// Item data
+		this.type = type;
 
 		// Item state
 		// FREE: item is out of lists and needs to be added
@@ -375,8 +376,16 @@
 		this.Vy = (this.goal[1] - this.y) / (this.goal[0] - this.x) * 1000;
 
 		// Item image
+		var color;
+		if (this.type == "tech") {
+			color = "#999";
+		} else if (this.type == "chemical") {
+			color = "#2483ff";
+		} else if (this.type == "alien") {
+			color = "#61289e";
+		}
 		var image = new createjs.Shape();
-		image.graphics.beginFill("#2483ff").drawRect(0, 0, 30, 30);
+		image.graphics.beginFill(color).drawRect(0, 0, 30, 30);
 		this.addChild(image);
 
 		// Add events
