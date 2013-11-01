@@ -111,7 +111,7 @@
 
 				// Create items
 				for (i = 0; i < 14; i++) {
-					item = new Item(MathEx.randInt(0, 600), MathEx.randInt(0, 600));
+					item = new Item(["tech","chemical","alien"][MathEx.randInt(0,2)], MathEx.randInt(0, 600), MathEx.randInt(0, 600));
 					Game.stage.addChild(item);
 					ITEMS.push(item);
 				}
