@@ -363,6 +363,7 @@
 		// FREE: item is out of lists and needs to be added
 		// LISTED: item is in list
 		// DRAGGING: item is being dragged by the player
+		// REORDER: item is being reorder in the list
 		this.state = "FREE";
 
 		// Item position
@@ -389,8 +390,9 @@
 			for (i = 0; i < TOWERS.length; i++) {
 				if (Physics.collides(TOWERS[i].getBox(), event.target.parent.getBox())) {
 					used = true;
-					event.target.parent.kill();
 					TOWERS[i].upgrade("Bullet");
+					ItemsList.free(event.target.parent.goal[1]);
+					event.target.parent.kill();
 				}
 			}
 			if (!used) {
@@ -405,8 +407,16 @@
 				case "FREE":
 					this.x += event.delta/1000 * this.Vx;
 					this.y += event.delta/1000 * this.Vy;
-					if (this.x > this.goal[0]) {
-						this.inList = "LISTED";
+					if (this.x >= this.goal[0]) {
+						this.state = "LISTED";
+						this.x = this.goal[0];
+						this.y = this.goal[1];
+					}
+					break;
+				case "REORDER":
+					this.y += event.delta/1000 * this.Vy;
+					if (this.y <= this.goal[1]) {
+						this.state = "LISTED";
 						this.x = this.goal[0];
 						this.y = this.goal[1];
 					}
@@ -431,7 +441,6 @@
 	window.ITEMS = ITEMS = []; // List of all active items
 
 	ItemsList = {
-		items: [],
 		openPositions: [90, 130, 170, 210, 250, 290, 330, 370, 410],
 		book: function() {
 			if (this.openPositions.length > 0) {
@@ -440,6 +449,16 @@
 				return [900, y];
 			}
 			return [900, 450];
+		},
+		free: function(y) {
+			for (i = 0; i < ITEMS.length; i++) {
+				if (ITEMS[i].y > y) {
+					ITEMS[i].state = "REORDER";
+					ITEMS[i].Vx = 0;
+					ITEMS[i].Vy = -1000;
+					ITEMS[i].goal[1] = ITEMS[i].y - 40;
+				}
+			}
 		}
 	}
 	window.ItemsList = ItemsList; // For debug only; To be removed
