@@ -13,6 +13,11 @@
 		"name": "Slime tower",
 		"damage": 1,
 		"image": "#79ab8b"
+	},
+	"CA": {
+		"name": "Curse tower",
+		"damage": 1,
+		"image": "#331d4a"
 	}
 },
 "heroes": {
