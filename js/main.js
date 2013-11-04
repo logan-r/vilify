@@ -570,14 +570,15 @@
 				if (Physics.collides(Game.TOWERS[i].getBox(), event.target.parent.getBox())) {
 					used = true;
 					Game.TOWERS[i].upgrade("Bullet");
-					ItemsList.free(event.target.parent.goal[1]);
-					event.target.parent.kill();
 				}
 			}
 			if (!used) {
 				event.target.parent.state = "FREE";
 				event.target.parent.Vx = 1000;
 				event.target.parent.Vy = (event.target.parent.goal[1] - event.target.parent.y) / (event.target.parent.goal[0] - event.target.parent.x) * 1000;
+			} else {
+				ItemsList.free(event.target.parent.goal[1]);
+				event.target.parent.kill();
 			}
 		});
 
@@ -628,15 +629,15 @@
 		},
 		free: function(y) {
 			bankedItemMoved = false;
-			for (i = 0; i < ITEMS.length; i++) {
-				if (ITEMS[i].y > y && (!bankedItemMoved || !ITEMS[i].y >= 450)) {
-					if (ITEMS[i].y >= 450) {
+			for (i = 0; i < Game.ITEMS.length; i++) {
+				if (Game.ITEMS[i].y > y && (!bankedItemMoved || !Game.ITEMS[i].y >= 450)) {
+					if (Game.ITEMS[i].y >= 450) {
 						bankedItemMoved = true;
 					}
-					ITEMS[i].state = "REORDER";
-					ITEMS[i].Vx = 0;
-					ITEMS[i].Vy = -1000;
-					ITEMS[i].goal[1] = ITEMS[i].y - 40;
+					Game.ITEMS[i].state = "REORDER";
+					Game.ITEMS[i].Vx = 0;
+					Game.ITEMS[i].Vy = -1000;
+					Game.ITEMS[i].goal[1] = Game.ITEMS[i].y - 40;
 				}
 			}
 		}
