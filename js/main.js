@@ -395,13 +395,19 @@
 	Graveyard.prototype.initialize = function() {
 		this.Container_initialize();
 
-		// Monster data
-		this.type = null;
+		// Graveyard position
+		this.x = 700;
+		this.y = 620;
 
-		// Monster image
+		// Graveyard image
 		var image = new createjs.Shape();
-		image.graphics.beginFill("#d61500").drawRect(700, 620, 120, 20);
+		image.graphics.beginFill("#d61500").drawRect(0, 0, 120, 20);
 		this.addChild(image);
+
+		// Get bounding box
+		this.getBox = function() {
+			return {left: this.x, top: this.y, width: 120, height: 20};
+		}
 	}
 
 
@@ -565,20 +571,34 @@
 			event.target.parent.y = event.stageY;
 		});
 		image.addEventListener("pressup", function(event) {
+			// Check if item collides with thing to be built or upgraded
 			used = false;
-			for (i = 0; i < Game.TOWERS.length; i++) {
-				if (Physics.collides(Game.TOWERS[i].getBox(), event.target.parent.getBox())) {
-					used = true;
-					Game.TOWERS[i].upgrade("Bullet");
+			if (Physics.collides(Game.GRAVEYARD.getBox(), event.target.parent.getBox())) { // Build monster?
+				used = true;
+
+				// Create monster
+				monster = new Monster();
+				Game.stage.addChild(monster);
+				Game.MONSTERS.push(monster);
+			}
+			else {
+				for (i = 0; i < Game.TOWERS.length; i++) { // Build/upgrade tower?
+					if (Physics.collides(Game.TOWERS[i].getBox(), event.target.parent.getBox())) {
+						used = true;
+						Game.TOWERS[i].upgrade("Bullet");
+					}
 				}
 			}
-			if (!used) {
+
+			if (!used) { // If it wasn't used, then send it back to list
 				event.target.parent.state = "FREE";
 				event.target.parent.Vx = 1000;
 				event.target.parent.Vy = (event.target.parent.goal[1] - event.target.parent.y) / (event.target.parent.goal[0] - event.target.parent.x) * 1000;
-			} else {
-				ItemsList.free(event.target.parent.goal[1]);
+			} else { // If it was used kill it and reorder list
+				y = event.target.parent.goal[1];
 				event.target.parent.kill();
+				ItemsList.free(y);
+
 			}
 		});
 
