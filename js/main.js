@@ -104,75 +104,75 @@
 
 	Game.SCENES["game"]  = new Scene(
 		function() {
-		// Create ground
-		Game.GROUND = new Ground();
-		Game.stage.addChild(Game.GROUND);
+			// Create ground
+			Game.GROUND = new Ground();
+			Game.stage.addChild(Game.GROUND);
 
-		// Create towers
-		for (i = 0; i < 6; i++) {
-			tower = new Tower(null, 100+152*i);
-			Game.stage.addChild(tower);
-			Game.TOWERS.push(tower);
-		}
+			// Create towers
+			for (i = 0; i < 6; i++) {
+				tower = new Tower(null, 100+152*i);
+				Game.stage.addChild(tower);
+				Game.TOWERS.push(tower);
+			}
 
-		// Create graveyard
-		Game.GRAVEYARD = new Graveyard();
-		Game.stage.addChild(Game.GRAVEYARD);
+			// Create graveyard
+			Game.GRAVEYARD = new Graveyard();
+			Game.stage.addChild(Game.GRAVEYARD);
 
-		// Create cannon
-		Game.CANNON = new Cannon();
-		Game.stage.addChild(Game.CANNON);
+			// Create cannon
+			Game.CANNON = new Cannon();
+			Game.stage.addChild(Game.CANNON);
 
-		// Create items
-		for (i = 0; i < 14; i++) {
-			item = new Item(["tech","chemical","alien"][MathEx.randInt(0,2)], MathEx.randInt(0, 600), MathEx.randInt(0, 600));
-			Game.stage.addChild(item);
-			Game.ITEMS.push(item);
-		}
+			// Create items
+			for (i = 0; i < 14; i++) {
+				item = new Item(["tech","chemical","alien"][MathEx.randInt(0,2)], MathEx.randInt(0, 600), MathEx.randInt(0, 600));
+				Game.stage.addChild(item);
+				Game.ITEMS.push(item);
+			}
 
-		// Create hero
-		hero = new Hero("Sidekick");
-		Game.stage.addChild(hero);
-		Game.HEROES.push(hero);
-	},
-	function(event) {
-		// Tick heroes
-		for (i = 0; i < Game.HEROES.length; i++) {
-			Game.HEROES[i].tick(event);
-		}
+			// Create hero
+			hero = new Hero("Sidekick");
+			Game.stage.addChild(hero);
+			Game.HEROES.push(hero);
+		},
+		function(event) {
+			// Tick heroes
+			for (i = 0; i < Game.HEROES.length; i++) {
+				Game.HEROES[i].tick(event);
+			}
 
-		// Tick towers
-		for (i = 0; i < Game.TOWERS.length; i++) {
-			Game.TOWERS[i].tick(event);
-		}
+			// Tick towers
+			for (i = 0; i < Game.TOWERS.length; i++) {
+				Game.TOWERS[i].tick(event);
+			}
 
-		// Tick projectiles
-		for (i = 0; i < Game.PROJECTILES.length; i++) {
-			Game.PROJECTILES[i].tick(event);
-			for (j = 0; j < Game.HEROES.length; j++) {
-				if (Physics.collides(Game.HEROES[j].getBox(), Game.PROJECTILES[i].getBox())) {
-					Game.PROJECTILES[i].kill();
-					Game.HEROES[j].damage(Game.PROJECTILES[i].damage);
+			// Tick projectiles
+			for (i = 0; i < Game.PROJECTILES.length; i++) {
+				Game.PROJECTILES[i].tick(event);
+				for (j = 0; j < Game.HEROES.length; j++) {
+					if (Physics.collides(Game.HEROES[j].getBox(), Game.PROJECTILES[i].getBox())) {
+						Game.PROJECTILES[i].kill();
+						Game.HEROES[j].damage(Game.PROJECTILES[i].damage);
+					}
 				}
 			}
-		}
 
-		// Tick monsters
-		for (i = 0; i < Game.MONSTERS.length; i++) {
-			Game.MONSTERS[i].tick(event);
-			for (j = 0; j < Game.HEROES.length; j++) {
-				if (Physics.collides(Game.HEROES[j].getBox(), Game.MONSTERS[i].getBox())) {
-					hero.inCombat = Game.MONSTERS[i];
-					monster.inCombat = Game.HEROES[j];
+			// Tick monsters
+			for (i = 0; i < Game.MONSTERS.length; i++) {
+				Game.MONSTERS[i].tick(event);
+				for (j = 0; j < Game.HEROES.length; j++) {
+					if (Physics.collides(Game.HEROES[j].getBox(), Game.MONSTERS[i].getBox())) {
+						hero.inCombat = Game.MONSTERS[i];
+						monster.inCombat = Game.HEROES[j];
+					}
 				}
 			}
-		}
 
-		// Tick items
-		for (i = 0; i < Game.ITEMS.length; i++) {
-			Game.ITEMS[i].tick(event);
+			// Tick items
+			for (i = 0; i < Game.ITEMS.length; i++) {
+				Game.ITEMS[i].tick(event);
+			}
 		}
-	}
 	);
 
 
@@ -237,6 +237,7 @@
 				this.type = type;
 			} else {
 				this.type += type;
+				this.type = Strings.sortCode(this.type);
 			}
 			this.damage = Game.DATA["towers"][this.type]["damage"];
 			this.projectileTimer = Game.fps * 1;  // Timeout between projectiles
