@@ -1,6 +1,18 @@
 "towers": {
-	"Bullet": {
-		"damage": 1
+	"T": {
+		"name": "Bullet tower",
+		"damage": 1,
+		"image": "#d0d0d0"
+	},
+	"C": {
+		"name": "Dust tower",
+		"damage": 1,
+		"image": "#f5db89"
+	},
+	"A": {
+		"name": "Slime tower",
+		"damage": 1,
+		"image": "#79ab8b"
 	}
 },
 "heroes": {
