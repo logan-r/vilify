@@ -195,6 +195,7 @@
 		// Tower data
 		this.type = type;
 		if (this.type != null) {
+			this.name = Game.DATA["towers"][this.type]["name"];
 			this.damage = Game.DATA["towers"][this.type]["damage"];
 			this.projectileTimer = Game.fps * 1;  // Timeout between projectiles
 		}
@@ -204,14 +205,10 @@
 
 		// Tower image
 		var color;
-		switch (this.type) {
-			case "Bullet":
-				color = "#d0d0d0";
-				break;
-			case null:
-			default:
-				color = "#eee";
-				break;
+		if (this.type == null) {
+			color = "#eee";
+		} else {
+			color = Game.DATA["towers"][this.type]["image"];
 		}
 		var image = new createjs.Shape();
 		image.graphics.beginFill(color).drawCircle(0, 0, 50);
@@ -236,20 +233,21 @@
 		// Upgrade tower
 		this.upgrade = function(type) {
 			// Update tower data
-			this.type = type;
+			if (this.type == null) {
+				this.type = type;
+			} else {
+				this.type += type;
+			}
 			this.damage = Game.DATA["towers"][this.type]["damage"];
 			this.projectileTimer = Game.fps * 1;  // Timeout between projectiles
 
 			// Update tower image
 			this.removeAllChildren(); // Clear old image
 			var color;
-			switch (this.type) {
-				case "Bullet":
-					color = "#d0d0d0";
-					break;
-				default:
-					color = "#eee";
-					break;
+			if (this.type == null) {
+				color = "#eee";
+			} else {
+				color = Game.DATA["towers"][this.type]["image"];
 			}
 			var image = new createjs.Shape();
 			image.graphics.beginFill(color).drawCircle(0, 0, 50);
@@ -573,20 +571,10 @@
 		image.addEventListener("pressup", function(event) {
 			// Check if item collides with thing to be built or upgraded
 			used = false;
-			if (Physics.collides(Game.GRAVEYARD.getBox(), event.target.parent.getBox())) { // Build monster?
-				used = true;
-
-				// Create monster
-				monster = new Monster();
-				Game.stage.addChild(monster);
-				Game.MONSTERS.push(monster);
-			}
-			else {
-				for (i = 0; i < Game.TOWERS.length; i++) { // Build/upgrade tower?
-					if (Physics.collides(Game.TOWERS[i].getBox(), event.target.parent.getBox())) {
-						used = true;
-						Game.TOWERS[i].upgrade("Bullet");
-					}
+			for (i = 0; i < Game.TOWERS.length; i++) { // Build/upgrade tower?
+				if (Physics.collides(Game.TOWERS[i].getBox(), event.target.parent.getBox())) {
+					used = true;
+					Game.TOWERS[i].upgrade(event.target.parent.smallString());
 				}
 			}
 
@@ -622,6 +610,13 @@
 					}
 					break;
 			}
+		}
+
+		// Get string form
+		this.smallString = function() {
+			if (this.type == "tech") return "T";
+			else if (this.type == "chemical") return "C";
+			else if (this.type == "alien") return "A";
 		}
 
 		// Get bounding box
