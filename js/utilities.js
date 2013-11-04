@@ -40,4 +40,17 @@ window.Physics = {
 	}
 }
 
+window.Strings = {
+	/**
+	 * Takes a tower/monster code and adds a new item to the correct location
+	 */
+	sortCode:  function(code) {
+		codeList = code.split("");
+		codeList.sort();
+		codeList.reverse();
+		code = codeList.join("");
+		return code;
+	}
+}
+
 })(window);
