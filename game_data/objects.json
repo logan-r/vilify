@@ -26,7 +26,15 @@
 			"name": "Robot",
 			"health": 100,
 			"speed": 120,
-			"flying": true
+			"flying": false,
+			"image": "#d0d0d0"
+		},
+		"TA": {
+			"name": "UFO",
+			"health": 100,
+			"speed": 120,
+			"flying": true,
+			"image": "#8daab5"
 		}
 	},
 	"heroes": {
