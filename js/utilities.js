@@ -39,15 +39,27 @@ window.Physics = {
 }
 
 /**
- * Takes a string and sorts it alphabetically and then reverses it
- * e.g. "ACB" becomes "CBA"
+ * Takes a string and sorts the letters
+ * fn can be 1) function to sort, or 2) boolean
+ * to indicate reverse or not
  */
-String.reverseSort =  function(string) {
-	stringList = string.split("");
-	stringList.sort();
-	stringList.reverse();
-	string = stringList.join("");
-	return string;
+window.String.prototype.sort =  function(fn) {
+	var a = this.split("");
+	if (typeof(fn) === "boolean" && fn) {
+		// Reversed
+		a.sort(function(x, y) {
+			if (x < y) {
+				return 1;
+			} else if (x > y) {
+				return -1;
+			}
+			return 0;
+		});
+	} else {
+		a.sort(fn);
+	}
+
+	return a.join("");
 }
 
 })(window);
