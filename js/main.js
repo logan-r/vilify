@@ -365,12 +365,19 @@
 			if (!this.inCombat) {
 				// Move
 				this.x -= event.delta/1000 * this.Vx;
+				
+				// Check to see if monster has reached goal
+				if (this.goal[0] > this.x && this.Vx > 0) {
+				    this.Vx = 0;
+				} else if (this.goal[0] < this.x && this.Vx < 0) {
+				    this.Vx = 0;
+				}
 			}
 		}
 
 		// Add events
 		image.addEventListener("pressup", function(event) {
-			event.target.parent.goal[0] = event.stageX;
+			event.target.parent.goal[0] = event.stageX - 70/2; // 70 - 2 is the width of the monster over 2, so that the center is used as the reference point
 			if (event.target.parent.goal[0] < event.target.parent.x) {
 				event.target.parent.Vx = event.target.parent.speed;
 			}
