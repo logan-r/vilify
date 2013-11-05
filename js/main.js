@@ -131,9 +131,9 @@
 			}
 
 			// Create hero
-			hero = new Hero("Sidekick");
+			/*hero = new Hero("Sidekick");
 			Game.stage.addChild(hero);
-			Game.HEROES.push(hero);
+			Game.HEROES.push(hero);*/
 		},
 		function(event) {
 			// Tick heroes
@@ -335,10 +335,12 @@
 		this.type = null;
 		this.health = 100;
 		this.inCombat = false;
+		this.speed = 100;
 
 		// Monster position
-		this.x = 480;
+		this.x = 725;
 		this.y = 530;
+		this.goal = [this.x, this.y];
 
 		// Monster velocity
 		this.Vx = 0;
@@ -355,6 +357,17 @@
 				this.x -= event.delta/1000 * this.Vx;
 			}
 		}
+
+		// Add events
+		image.addEventListener("pressup", function(event) {
+			event.target.parent.goal[0] = event.stageX;
+			if (event.target.parent.goal[0] < event.target.parent.x) {
+				event.target.parent.Vx = event.target.parent.speed;
+			}
+			else if (event.target.parent.goal[0] > event.target.parent.x) {
+				event.target.parent.Vx = event.target.parent.speed * -1;
+			}
+		});
 
 		// Damage the monster
 		this.damage = function(amount) {
