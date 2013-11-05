@@ -369,10 +369,9 @@
 				this.x += event.delta/1000 * this.Vx;
 				
 				// Check to see if monster has reached goal
-				if (this.goal[0] > this.x && this.Vx < 0) {
+				if ((this.goal[0] > this.x && this.Vx < 0) || (this.goal[0] < this.x && this.Vx > 0)) {
 				    this.Vx = 0;
-				} else if (this.goal[0] < this.x && this.Vx > 0) {
-				    this.Vx = 0;
+				    this.x = this.goal[0];
 				}
 				
 				if (this.flying) {
@@ -380,10 +379,9 @@
 				    this.y += event.delta/1000 * this.Vy;
 				    
 				    // Check to see if monster has reached goal
-    				if (this.goal[1] > this.y && this.Vy < 0) {
-    				    this.Vy = 0;
-    				} else if (this.goal[1] < this.y && this.Vy > 0) {
+    				if ((this.goal[1] > this.y && this.Vy < 0) || (this.goal[1] < this.y && this.Vy > 0)) {
 				        this.Vy = 0;
+				        this.y = this.goal[1];
 				    }
 				}
 			}
@@ -403,6 +401,9 @@
 			// Flying
     		if (event.target.parent.flying) {
     			event.target.parent.goal[1] = event.stageY - 100/2; // 100 - 2 is the height of the monster over 2
+    			if (event.target.parent.goal[1] > 630 - 100 /* monster height */) { // Don't let monster go below ground
+    			    event.target.parent.goal[1] = 630 - 100 /* monster height */;
+    			}
     			ratio = (event.target.parent.goal[1] - event.target.parent.y) / (event.target.parent.goal[0] - event.target.parent.x);
     			if (ratio < 0) {
     			    ratio = ratio * -1;
