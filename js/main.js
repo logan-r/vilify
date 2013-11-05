@@ -129,11 +129,6 @@
 				Game.stage.addChild(item);
 				Game.ITEMS.push(item);
 			}
-
-			// Create hero
-			/*hero = new Hero("Sidekick");
-			Game.stage.addChild(hero);
-			Game.HEROES.push(hero);*/
 		},
 		function(event) {
 			// Tick heroes
@@ -271,6 +266,7 @@
 		}
 	}
 
+	// TODO: Projectile superclass
 
 	/**
 	 * Bullet object
@@ -358,8 +354,14 @@
 		this.Vy = 0;
 
 		// Monster image
+		var color;
+		if (this.type == null) {
+			color = "#eee";
+		} else {
+			color = Game.DATA["monsters"][this.type]["image"];
+		}
 		var image = new createjs.Shape();
-		image.graphics.beginFill("#d61500").drawRect(0, 0, 70, 100);
+		image.graphics.beginFill(color).drawRect(0, 0, 70, 100);
 		this.addChild(image);
 
 		// Update function
@@ -367,17 +369,17 @@
 			if (!this.inCombat) {
 				// Move
 				this.x += event.delta/1000 * this.Vx;
-				
+
 				// Check to see if monster has reached goal
 				if ((this.goal[0] > this.x && this.Vx < 0) || (this.goal[0] < this.x && this.Vx > 0)) {
 				    this.Vx = 0;
 				    this.x = this.goal[0];
 				}
-				
+
 				if (this.flying) {
 				    // Fly
 				    this.y += event.delta/1000 * this.Vy;
-				    
+
 				    // Check to see if monster has reached goal
     				if ((this.goal[1] > this.y && this.Vy < 0) || (this.goal[1] < this.y && this.Vy > 0)) {
 				        this.Vy = 0;
@@ -387,8 +389,8 @@
 			}
 		}
 
-		// Add events
-		image.addEventListener("pressup", function(event) {
+		// event handlers
+		var handlePressUp = function(event) {
 		    // Ground based movement
 			event.target.parent.goal[0] = event.stageX - 70/2; // 70 - 2 is the width of the monster over 2, so that the center is used as the reference point
 			if (event.target.parent.goal[0] < 0) { // Don't let monster go off screen
@@ -402,7 +404,7 @@
 			else if (event.target.parent.goal[0] > event.target.parent.x) {
 				event.target.parent.Vx = event.target.parent.speed;
 			}
-			
+
 			// Flying
     		if (event.target.parent.flying) {
     			event.target.parent.goal[1] = event.stageY - 100/2; // 100 - 2 is the height of the monster over 2
@@ -420,7 +422,43 @@
     				event.target.parent.Vy = ratio * event.target.parent.speed;
     			}
     		}
-		});
+		}
+		image.addEventListener("pressup", handlePressUp);
+
+		// Upgrade monster
+		this.upgrade = function(type) {
+			var newType;
+			// Update monster data
+			if (this.type == null) {
+				newType = type;
+			} else {
+				newType = (this.type + type).sort(true);
+			}
+
+			if (!Game.DATA["monsters"][newType]) {
+				// Check if the monster truly exists
+				return false;
+			}
+
+			this.type = newType;
+			this.health = Game.DATA["monsters"][this.type]["health"];
+			this.speed = Game.DATA["monsters"][this.type]["speed"];
+			this.flying = Game.DATA["monsters"][this.type]["flying"];
+
+			// Update monster image
+			this.removeAllChildren(); // Clear old image
+			var color;
+			if (this.type == null) {
+				color = "#eee";
+			} else {
+				color = Game.DATA["monsters"][this.type]["image"];
+			}
+			var image = new createjs.Shape();
+			image.graphics.beginFill(color).drawRect(0, 0, 70, 100);
+			image.addEventListener("pressup", handlePressUp);
+			this.addChild(image);
+			return true;
+		}
 
 		// Damage the monster
 		this.damage = function(amount) {
@@ -641,15 +679,24 @@
 			for (i = 0; i < Game.TOWERS.length; i++) { // Build/upgrade tower?
 				if (Physics.collides(Game.TOWERS[i].getBox(), event.target.parent.getBox())) {
 					used = Game.TOWERS[i].upgrade(event.target.parent.smallString());
+					break;
 				}
 			}
-			if (Physics.collides(Game.GRAVEYARD.getBox(), event.target.parent.getBox())) { // Build monster?
+			if (!used && Physics.collides(Game.GRAVEYARD.getBox(), event.target.parent.getBox())) { // Build monster?
 				used = true;
 
 				// Create monster
 				monster = new Monster("T");
 				Game.stage.addChild(monster);
 				Game.MONSTERS.push(monster);
+			}
+			if (!used) { // Can upgrade monster?
+				for (i = 0; i < Game.MONSTERS.length; i++) {
+					if (Physics.collides(Game.MONSTERS[i].getBox(), event.target.parent.getBox())) {
+						used = Game.MONSTERS[i].upgrade(event.target.parent.smallString());
+						break;
+					}
+				}
 			}
 
 			if (!used) { // If it wasn't used, then send it back to list
