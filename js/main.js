@@ -237,7 +237,7 @@
 				this.type = type;
 			} else {
 				this.type += type;
-				this.type = Strings.sortCode(this.type);
+				this.type = String.reverseSort(this.type);
 			}
 			this.damage = Game.DATA["towers"][this.type]["damage"];
 			this.projectileTimer = Game.fps * 1;  // Timeout between projectiles
@@ -577,6 +577,14 @@
 					used = true;
 					Game.TOWERS[i].upgrade(event.target.parent.smallString());
 				}
+			}
+			if (Physics.collides(Game.GRAVEYARD.getBox(), event.target.parent.getBox())) { // Build monster?
+				used = true;
+
+				// Create monster
+				monster = new Monster();
+				Game.stage.addChild(monster);
+				Game.MONSTERS.push(monster);
 			}
 
 			if (!used) { // If it wasn't used, then send it back to list
