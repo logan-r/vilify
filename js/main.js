@@ -686,7 +686,7 @@
 				used = true;
 
 				// Create monster
-				monster = new Monster("T");
+				monster = new Monster(event.target.parent.smallString());
 				Game.stage.addChild(monster);
 				Game.MONSTERS.push(monster);
 			}
