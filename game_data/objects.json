@@ -21,6 +21,14 @@
 			"image": "#331d4a"
 		}
 	},
+	"monsters": {
+		"T": {
+			"name": "Robot",
+			"health": 100,
+			"speed": 120,
+			"flying": true
+		}
+	},
 	"heroes": {
 		"Sidekick": {
 			"health": 1,
