@@ -237,7 +237,7 @@
 				this.type = type;
 			} else {
 				this.type += type;
-				this.type = String.reverseSort(this.type);
+				this.type = this.type.sort(true);
 			}
 			this.damage = Game.DATA["towers"][this.type]["damage"];
 			this.projectileTimer = Game.fps * 1;  // Timeout between projectiles
