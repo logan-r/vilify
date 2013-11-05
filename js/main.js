@@ -346,6 +346,7 @@
 		this.health = 100;
 		this.inCombat = false;
 		this.speed = 100;
+		this.flying = true;
 
 		// Monster position
 		this.x = 725;
@@ -354,6 +355,7 @@
 
 		// Monster velocity
 		this.Vx = 0;
+		this.Vy = 0;
 
 		// Monster image
 		var image = new createjs.Shape();
@@ -364,26 +366,54 @@
 		this.tick = function(event) {
 			if (!this.inCombat) {
 				// Move
-				this.x -= event.delta/1000 * this.Vx;
+				this.x += event.delta/1000 * this.Vx;
 				
 				// Check to see if monster has reached goal
-				if (this.goal[0] > this.x && this.Vx > 0) {
+				if (this.goal[0] > this.x && this.Vx < 0) {
 				    this.Vx = 0;
-				} else if (this.goal[0] < this.x && this.Vx < 0) {
+				} else if (this.goal[0] < this.x && this.Vx > 0) {
 				    this.Vx = 0;
+				}
+				
+				if (this.flying) {
+				    // Fly
+				    this.y += event.delta/1000 * this.Vy;
+				    
+				    // Check to see if monster has reached goal
+    				if (this.goal[1] > this.y && this.Vy < 0) {
+    				    this.Vy = 0;
+    				} else if (this.goal[1] < this.y && this.Vy > 0) {
+				        this.Vy = 0;
+				    }
 				}
 			}
 		}
 
 		// Add events
 		image.addEventListener("pressup", function(event) {
+		    // Ground based movement
 			event.target.parent.goal[0] = event.stageX - 70/2; // 70 - 2 is the width of the monster over 2, so that the center is used as the reference point
 			if (event.target.parent.goal[0] < event.target.parent.x) {
-				event.target.parent.Vx = event.target.parent.speed;
-			}
-			else if (event.target.parent.goal[0] > event.target.parent.x) {
 				event.target.parent.Vx = event.target.parent.speed * -1;
 			}
+			else if (event.target.parent.goal[0] > event.target.parent.x) {
+				event.target.parent.Vx = event.target.parent.speed;
+			}
+			
+			// Flying
+    		if (event.target.parent.flying) {
+    			event.target.parent.goal[1] = event.stageY - 100/2; // 100 - 2 is the height of the monster over 2
+    			ratio = (event.target.parent.goal[1] - event.target.parent.y) / (event.target.parent.goal[0] - event.target.parent.x);
+    			if (ratio < 0) {
+    			    ratio = ratio * -1;
+    			}
+    			if (event.target.parent.goal[1] < event.target.parent.y) {
+    				event.target.parent.Vy = ratio * event.target.parent.speed * -1;
+    			}
+    			else if (event.target.parent.goal[1] > event.target.parent.x) {
+    				event.target.parent.Vy = ratio * event.target.parent.speed;
+    			}
+    		}
 		});
 
 		// Damage the monster
