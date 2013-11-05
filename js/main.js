@@ -329,8 +329,8 @@
 	 * Monster object
 	 * Store all the data associated with one monster
 	 */
-	function Monster() {
-		this.initialize();
+	function Monster(type) {
+		this.initialize(type);
 	}
 
 	Game.Monster = Monster;
@@ -338,15 +338,15 @@
 	var p = Monster.prototype = new createjs.Container();
 	Monster.prototype.Container_initialize = p.initialize;
 
-	Monster.prototype.initialize = function() {
+	Monster.prototype.initialize = function(type) {
 		this.Container_initialize();
 
 		// Monster data
-		this.type = null;
-		this.health = 100;
+		this.type = type;
+		this.health = Game.DATA["monsters"][this.type]["health"];
+		this.speed = Game.DATA["monsters"][this.type]["speed"];
+		this.flying = Game.DATA["monsters"][this.type]["flying"];
 		this.inCombat = false;
-		this.speed = 100;
-		this.flying = true;
 
 		// Monster position
 		this.x = 725;
@@ -647,7 +647,7 @@
 				used = true;
 
 				// Create monster
-				monster = new Monster();
+				monster = new Monster("T");
 				Game.stage.addChild(monster);
 				Game.MONSTERS.push(monster);
 			}
