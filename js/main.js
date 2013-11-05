@@ -410,7 +410,7 @@
     			if (event.target.parent.goal[1] < event.target.parent.y) {
     				event.target.parent.Vy = ratio * event.target.parent.speed * -1;
     			}
-    			else if (event.target.parent.goal[1] > event.target.parent.x) {
+    			else if (event.target.parent.goal[1] > event.target.parent.y) {
     				event.target.parent.Vy = ratio * event.target.parent.speed;
     			}
     		}
