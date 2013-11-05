@@ -232,13 +232,21 @@
 
 		// Upgrade tower
 		this.upgrade = function(type) {
+
+			var newType;
 			// Update tower data
 			if (this.type == null) {
-				this.type = type;
+				newType = type;
 			} else {
-				this.type += type;
-				this.type = this.type.sort(true);
+				newType = (this.type + type).sort(true);
 			}
+
+			if (!Game.DATA["towers"][newType]) {
+				// Check if the tower truly exists
+				return false;
+			}
+
+			this.type = newType;
 			this.damage = Game.DATA["towers"][this.type]["damage"];
 			this.projectileTimer = Game.fps * 1;  // Timeout between projectiles
 
@@ -253,6 +261,8 @@
 			var image = new createjs.Shape();
 			image.graphics.beginFill(color).drawCircle(0, 0, 50);
 			this.addChild(image);
+
+			return true;
 		}
 
 		// Get bounding box
@@ -587,8 +597,7 @@
 			used = false;
 			for (i = 0; i < Game.TOWERS.length; i++) { // Build/upgrade tower?
 				if (Physics.collides(Game.TOWERS[i].getBox(), event.target.parent.getBox())) {
-					used = true;
-					Game.TOWERS[i].upgrade(event.target.parent.smallString());
+					used = Game.TOWERS[i].upgrade(event.target.parent.smallString());
 				}
 			}
 			if (Physics.collides(Game.GRAVEYARD.getBox(), event.target.parent.getBox())) { // Build monster?
