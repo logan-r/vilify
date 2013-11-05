@@ -29,8 +29,6 @@ window.Physics = {
 	 * Boxs are objects with left, top, width, and height values
 	 */
 	collides: function(box1, box2) {
-		//alert(box1.left + ", " + box1.top + ", " + (box1.left + box1.width) + ", " + (box1.top + box1.height))
-		//alert(box2.left + ", " + box2.top + ", " + (box2.left + box2.width) + ", " + (box2.top + box2.height))
 		return !(
 			box1.top + box1.height < box2.top ||
 			box1.top > box2.top + box2.height ||
@@ -40,17 +38,16 @@ window.Physics = {
 	}
 }
 
-window.Strings = {
-	/**
-	 * Takes a tower/monster code and adds a new item to the correct location
-	 */
-	sortCode:  function(code) {
-		codeList = code.split("");
-		codeList.sort();
-		codeList.reverse();
-		code = codeList.join("");
-		return code;
-	}
+/**
+ * Takes a string and sorts it alphabetically and then reverses it
+ * e.g. "ACB" becomes "CBA"
+ */
+String.reverseSort =  function(string) {
+	stringList = string.split("");
+	stringList.sort();
+	stringList.reverse();
+	string = stringList.join("");
+	return string;
 }
 
 })(window);
