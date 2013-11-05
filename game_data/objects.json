@@ -29,6 +29,20 @@
 			"flying": false,
 			"image": "#d0d0d0"
 		},
+		"C": {
+			"name": "Zombie",
+			"health": 1,
+			"speed": 40,
+			"flying": false,
+			"image": "#45362b"
+		},
+		"A": {
+			"name": "Alien bug",
+			"health": 1,
+			"speed": 400,
+			"flying": false,
+			"image": "#bacc89"
+		},
 		"TA": {
 			"name": "UFO",
 			"health": 100,
