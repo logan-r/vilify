@@ -391,6 +391,11 @@
 		image.addEventListener("pressup", function(event) {
 		    // Ground based movement
 			event.target.parent.goal[0] = event.stageX - 70/2; // 70 - 2 is the width of the monster over 2, so that the center is used as the reference point
+			if (event.target.parent.goal[0] < 0) { // Don't let monster go off screen
+			    event.target.parent.goal[0] = 0;
+			} else if (event.target.parent.goal[0] > 960 - 70 /* monster width */) {
+			    event.target.parent.goal[0] = 960 - 70;
+			}
 			if (event.target.parent.goal[0] < event.target.parent.x) {
 				event.target.parent.Vx = event.target.parent.speed * -1;
 			}
