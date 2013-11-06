@@ -266,7 +266,17 @@
 		}
 	}
 
-	// TODO: Projectile superclass
+	function Projectile() {
+			this.initialize();
+	}
+	Game.Projectile = Projectile;
+
+	var p = Projectile.prototype = new createjs.Container();
+	Projectile.prototype.Container_initialize = p.initialize;
+
+	Projectile.prototype.initialize = function() {
+		this.Container_initialize();
+	}
 
 	/**
 	 * Bullet object
@@ -278,11 +288,11 @@
 
 	Game.Bullet = Bullet;
 
-	var p = Bullet.prototype = new createjs.Container();
-	Bullet.prototype.Container_initialize = p.initialize;
+	var p = Bullet.prototype = new Projectile();
+	Bullet.prototype.Projectile_initialize = p.initialize;
 
 	Bullet.prototype.initialize = function(x, y, damage) {
-		this.Container_initialize();
+		this.Projectile_initialize();
 
 		// Bullet data
 		this.damage = damage;
