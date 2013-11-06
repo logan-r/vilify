@@ -373,7 +373,7 @@
 
 		// Cloud image
 		var image = new createjs.Shape();
-		image.graphics.beginFill("rgba(224, 218, 148)").drawRect(0, 0, 120, 70);
+		image.graphics.beginFill("rgb(224, 218, 148)").drawRect(0, 0, 120, 70);
 		this.addChild(image);
 
 		// Update function
