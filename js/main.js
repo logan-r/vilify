@@ -192,7 +192,7 @@
 		if (this.type != null) {
 			this.name = Game.DATA["towers"][this.type]["name"];
 			this.damage = Game.DATA["towers"][this.type]["damage"];
-			this.projectileTimer = Game.fps * 1;  // Timeout between projectiles
+			this.projectileTimer = Game.fps * 4;  // Timeout between projectiles
 		}
 
 		// Tower position
@@ -215,10 +215,10 @@
 				// Fire projectile
 				this.projectileTimer -= event.delta/1000 * 100; // Countdown towards next projectile
 				if (this.projectileTimer < 0) { // Is it time to fire projectile yet?
-					this.projectileTimer = Game.fps * 1;
+					this.projectileTimer = Game.fps * 4;
 
 					// Fire bullet
-					bullet = new Bullet(this.x-5, 40, this.damage);
+					bullet = new Cloud(this.x, 45, this.damage);
 					Game.stage.addChild(bullet);
 					Game.PROJECTILES.push(bullet);
 				}
@@ -266,8 +266,9 @@
 		}
 	}
 
+
 	function Projectile() {
-			this.initialize();
+		this.initialize();
 	}
 	Game.Projectile = Projectile;
 
@@ -277,6 +278,7 @@
 	Projectile.prototype.initialize = function() {
 		this.Container_initialize();
 	}
+
 
 	/**
 	 * Bullet object
@@ -296,7 +298,7 @@
 
 		// Bullet data
 		this.damage = damage;
-		this.x = x;
+		this.x = x - 5;
 		this.y = y;
 		this.Vx = 50;
 		this.Vy = 300;
@@ -330,6 +332,58 @@
 		}
 	}
 
+    
+    /**
+	 * Beam object
+	 * An object for the bullets that a tower fires
+	 */
+	function Cloud(x, y) {
+		this.initialize(x, y);
+	}
+
+	Game.Cloud = Cloud;
+
+	var p = Cloud.prototype = new Projectile();
+	Cloud.prototype.Projectile_initialize = p.initialize;
+
+	Cloud.prototype.initialize = function(x, y) {
+		this.Projectile_initialize();
+		
+		// Cloud position
+		this.x = x - 60;
+		this.y = y;
+		this.Vx = 0;
+		this.Vy = 100;
+		this.Ay = 30;
+
+		// Cloud image
+		var image = new createjs.Shape();
+		image.graphics.beginFill("rgba(224, 218, 148, 100)").drawRect(0, 0, 120, 70);
+		this.addChild(image);
+
+		// Update function
+		this.tick = function(event) {
+			this.x += event.delta/1000 * this.Vx;
+			this.y += event.delta/1000 * parseInt(this.Vy);
+			this.Vy += event.delta/1000 * this.Ay;
+			if (this.x < 0 || this.x > 960 || this.y < 0 || this.y > 640) {
+				this.kill();
+			}
+		}
+
+		// Get box of bullet
+		this.getBox = function() {
+			return {left: this.x, top: this.y, width: 120, height: 70}
+		}
+
+		// Remove object
+		this.kill = function() {
+			Game.PROJECTILES.splice(Game.PROJECTILES.indexOf(this), 1);
+			this.removeAllChildren();
+			Game.stage.removeChild(this);
+		}
+	}
+	
 
 	/**
 	 * Monster object
