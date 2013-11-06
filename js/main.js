@@ -191,8 +191,8 @@
 		this.type = type;
 		if (this.type != null) {
 			this.name = Game.DATA["towers"][this.type]["name"];
-			this.damage = Game.DATA["towers"][this.type]["damage"];
-			this.projectileTimer = Game.fps * 4;  // Timeout between projectiles
+			this.rate = Game.DATA["towers"][this.type]["rate"];
+			this.projectileTimer = Game.fps * this.rate;  // Timeout between projectiles
 		}
 
 		// Tower position
@@ -215,19 +215,30 @@
 				// Fire projectile
 				this.projectileTimer -= event.delta/1000 * 100; // Countdown towards next projectile
 				if (this.projectileTimer < 0) { // Is it time to fire projectile yet?
-					this.projectileTimer = Game.fps * 4;
-
-					// Fire bullet
-					bullet = new Cloud(this.x, 45, this.damage);
-					Game.stage.addChild(bullet);
-					Game.PROJECTILES.push(bullet);
+					// Reset timer
+					this.projectileTimer = Game.fps * this.rate;
+                    
+                    // Pick attack to use
+					var attack = this.attacks[MathEx.randInt(0, this.attacks.length - 1)]; //TODO: weight attacks
+                    
+					// Execute attack
+					var projectile;
+					switch (attack.type) {
+					    case "bullet":
+        					projectile = new Bullet(this.x, 45, attack.damge);
+        					break;
+        				case "cloud":
+        				    projectile = new Cloud(this.x, 45);
+        					break;
+        		    }
+        		    Game.stage.addChild(projectile);
+        			Game.PROJECTILES.push(projectile);
 				}
 			}
 		}
 
 		// Upgrade tower
 		this.upgrade = function(type) {
-
 			var newType;
 			// Update tower data
 			if (this.type == null) {
@@ -242,8 +253,9 @@
 			}
 
 			this.type = newType;
-			this.damage = Game.DATA["towers"][this.type]["damage"];
-			this.projectileTimer = Game.fps * 1;  // Timeout between projectiles
+			this.rate = Game.DATA["towers"][this.type]["rate"];
+			this.attacks = Game.DATA["towers"][this.type]["attacks"];
+			this.projectileTimer = Game.fps * this.rate;  // Timeout between projectiles
 
 			// Update tower image
 			this.removeAllChildren(); // Clear old image
@@ -266,7 +278,10 @@
 		}
 	}
 
-
+    /**
+	 * Projectile object
+	 * A superclass object for every projectile that the towers and cannon fire
+	 */
 	function Projectile() {
 		this.initialize();
 	}
@@ -358,7 +373,7 @@
 
 		// Cloud image
 		var image = new createjs.Shape();
-		image.graphics.beginFill("rgba(224, 218, 148, 100)").drawRect(0, 0, 120, 70);
+		image.graphics.beginFill("rgba(224, 218, 148)").drawRect(0, 0, 120, 70);
 		this.addChild(image);
 
 		// Update function
