@@ -6,7 +6,7 @@ You are a mad scientist whose dream is to destroy the world. After many years of
 ## Collaboration Guidelines:
 
 ### Game Rules:
-Before you do anything else you should [read the game rules](https://github.com/Logi0/vilify/wiki/Game-Rules). This will show you what we are trying to develop. Also you should check it regularly for any updates.
+Before you do anything else you should [read the game rules](https://github.com/HTML5-Games/vilify/wiki/Game-Rules). This will show you what we are trying to develop. Also you should check it regularly for any updates.
 
 ### Coding Style Guidelines
 Also make sure to take a quick look at the [Coding Style Guidelines](https://github.com/HTML5-Games/vilify/wiki/Coding-Style-Guidelines)!
