@@ -30,6 +30,7 @@
 		PROJECTILES: [],
 		HEROES: [],
 		MONSTERS: [],
+		EFFECTS: {},
 
 		/**
 		 * Load all the assets
@@ -210,10 +211,10 @@
 				if (this.projectileTimer < 0) { // Is it time to fire projectile yet?
 					// Reset timer
 					this.projectileTimer = Game.fps * this.rate;
-                    
+
                     // Pick attack to use
 					var attack = this.attacks[MathEx.randInt(0, this.attacks.length - 1)]; //TODO: weight attacks
-                    
+
 					// Execute attack
 					var projectile;
 					switch (attack.type) {
@@ -285,7 +286,7 @@
 
 	Projectile.prototype.initialize = function() {
 		this.Container_initialize();
-		
+
 		// Projectile location
 		this.x = 0;
 		this.y = 0;
@@ -293,7 +294,7 @@
 		this.Vy = 0;
 		this.Ax = 0;
 		this.Ay = 0;
-		
+
 		/**
 		 * Does projectile collide with box?
 		 */
@@ -301,7 +302,7 @@
 		     // Overide me
 		     return false;
 		}
-		
+
 		// Remove object
 		this.kill = function() {
 			Game.PROJECTILES.splice(Game.PROJECTILES.indexOf(this), 1);
@@ -354,7 +355,7 @@
 		this.getBox = function() {
 			return {left: this.x, top: this.y, width: 10, height: 10}
 		}
-		
+
 		/**
 		 * Does projectile collide with box?
 		 */
@@ -363,7 +364,7 @@
 		}
 	}
 
-    
+
     /**
 	 * Beam object
 	 * An object for the bullets that a tower fires
@@ -379,7 +380,7 @@
 
 	Cloud.prototype.initialize = function(x, y) {
 		this.Projectile_initialize();
-		
+
 		// Cloud position
 		this.x = x - 60;
 		this.y = y;
@@ -405,7 +406,7 @@
 		this.getBox = function() {
 			return {left: this.x, top: this.y, width: 120, height: 70}
 		}
-		
+
 		/**
 		 * Does projectile collide with box?
 		 */
@@ -413,7 +414,7 @@
 		     return Physics.collides(this.getBox(), box);
 		}
 	}
-	
+
 
 	/**
 	 * Monster object
@@ -483,8 +484,23 @@
 			}
 		}
 
+		var handlePressDown = function(event) {
+			Game.EFFECTS["monsterMove"] = {image: null};
+		}
+
+		var handlePressMove = function(event) {
+			Game.stage.removeChild(Game.EFFECTS["monsterMove"].image);
+			effect = new createjs.Shape();
+			effect.graphics.moveTo(event.target.parent.x + 70 / 2 /* width over 2 */, event.target.parent.y + 100 / 2 /* height over 2 */).setStrokeStyle(20, "round").beginStroke("argb(50, 0, 0, 0)").lineTo(event.stageX, event.stageY).endStroke();
+			Game.EFFECTS["monsterMove"].image = effect;
+			Game.stage.addChild(effect);
+		}
+
 		// event handlers
 		var handlePressUp = function(event) {
+			// Clear move effect
+			Game.stage.removeChild(Game.EFFECTS["monsterMove"].image);
+
 		    // Ground based movement
 			event.target.parent.goal[0] = event.stageX - 70/2; // 70 - 2 is the width of the monster over 2, so that the center is used as the reference point
 			if (event.target.parent.goal[0] < 0) { // Don't let monster go off screen
@@ -517,6 +533,8 @@
     			}
     		}
 		}
+		image.addEventListener("mousedown", handlePressDown);
+		image.addEventListener("pressmove", handlePressMove);
 		image.addEventListener("pressup", handlePressUp);
 
 		// Upgrade monster
