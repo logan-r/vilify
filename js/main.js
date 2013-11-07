@@ -49,13 +49,6 @@
 			}, null, true);
 
 			Game.queue.loadFile("objects.json", true, "game_data/");
-			// TODO: Use SpriteSheet
-			Game.queue.loadManifest(["basic_tower.png", "curse_tower.png", "dust_tower.png", "flame_tower.png", "ice_tower.png", "poison_tower.png", "poison_tower.png", "ray_tower.png"], true, "images/towers/");
-			Game.queue.loadManifest(["end.png", "start.png", "unwalkable.png", "walkable.png"], true, "images/tiles/");
-			Game.queue.loadManifest(["battery.png", "circuit_board.png", "microchip.png", "quantum_computer.png", "scrap_metal.png"], true, "images/materials/");
-			Game.queue.loadManifest(["talos.png"], true, "images/monsters/");
-			Game.queue.loadManifest(["basic_potion.png", "basic2_potion.png", "curse_potion.png", "dust_potion.png", "flame_potion.png", "ice_potion.png", "lightning_potion.png", "poison_potion.png"], true, "images/potions/");
-			Game.queue.loadManifest(["attack.png"], true, "images/attacks/");
 		},
 
 		/**
