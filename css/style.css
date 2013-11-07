@@ -32,8 +32,8 @@ hr {
 	border: 1px solid #000;
 	margin: 15px auto;
 	overflow: hidden;
-	height: 320px;
-	width: 480px;
+	height: 640px;
+	width: 960px;
 	user-select: none;
 	-webkit-user-select: none;
 	-moz-user-select: none;
@@ -45,6 +45,6 @@ hr {
 }
 
 canvas {
-	height: 320px;
-	width: 480px;
+	height: 640px;
+	width: 960px;
 }
