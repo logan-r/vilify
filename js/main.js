@@ -489,9 +489,22 @@
 		}
 
 		var handlePressMove = function(event) {
+			// Remove old effect
 			Game.stage.removeChild(Game.EFFECTS["monsterMove"].image);
+
+			// Calculate new effect
+			var endY;
+			if (event.target.parent.flying) {
+				endY = event.stageY;
+			} else {
+				endY = event.target.parent.y + 100 / 2;
+			}
+
+			// Add new effect
 			effect = new createjs.Shape();
-			effect.graphics.moveTo(event.target.parent.x + 70 / 2 /* width over 2 */, event.target.parent.y + 100 / 2 /* height over 2 */).setStrokeStyle(20, "round").beginStroke("argb(50, 0, 0, 0)").lineTo(event.stageX, event.stageY).endStroke();
+			effect.graphics.moveTo(event.target.parent.x + 70 / 2 /* width over 2 */, event.target.parent.y + 100 / 2 /* height over 2 */);
+			effect.graphics.setStrokeStyle(20, "round").beginStroke("argb(50, 0, 0, 0)");
+			effect.graphics.lineTo(event.stageX, endY).endStroke();
 			Game.EFFECTS["monsterMove"].image = effect;
 			Game.stage.addChild(effect);
 		}
@@ -539,19 +552,20 @@
 
 		// Upgrade monster
 		this.upgrade = function(type) {
+			// Calculate new monster type
 			var newType;
-			// Update monster data
 			if (this.type == null) {
 				newType = type;
 			} else {
 				newType = (this.type + type).sort(true);
 			}
 
+			// Check if the monster truly exists
 			if (!Game.DATA["monsters"][newType]) {
-				// Check if the monster truly exists
 				return false;
 			}
 
+			// Update monster data
 			this.type = newType;
 			this.health = Game.DATA["monsters"][this.type]["health"];
 			this.speed = Game.DATA["monsters"][this.type]["speed"];
@@ -567,8 +581,13 @@
 			}
 			var image = new createjs.Shape();
 			image.graphics.beginFill(color).drawRect(0, 0, 70, 100);
-			image.addEventListener("pressup", handlePressUp);
 			this.addChild(image);
+
+			// Add event handlers
+			image.addEventListener("mousedown", handlePressDown);
+			image.addEventListener("pressmove", handlePressMove);
+			image.addEventListener("pressup", handlePressUp);
+
 			return true;
 		}
 
