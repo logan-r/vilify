@@ -440,8 +440,10 @@
 		this.inCombat = false;
 
 		// Monster position
-		this.x = 725;
-		this.y = 530;
+		this.width = 70;
+		this.height = 100;
+		this.x = Game.GRAVEYARD.x + Game.GRAVEYARD.width / 2 - this.width / 2;
+		this.y = Game.GROUND.y - this.height;
 		this.goal = [this.x, this.y];
 
 		// Monster velocity
@@ -456,7 +458,7 @@
 			color = Game.DATA["monsters"][this.type]["image"];
 		}
 		var image = new createjs.Shape();
-		image.graphics.beginFill(color).drawRect(0, 0, 70, 100);
+		image.graphics.beginFill(color).drawRect(0, 0, this.width, this.height);
 		this.addChild(image);
 
 		// Update function
@@ -497,13 +499,13 @@
 			if (event.target.parent.flying) {
 				endY = event.stageY;
 			} else {
-				endY = event.target.parent.y + 100 / 2;
+				endY = event.target.parent.y + event.target.parent.height / 2;
 			}
 
 			// Add new effect
 			effect = new createjs.Shape();
-			effect.graphics.moveTo(event.target.parent.x + 70 / 2 /* width over 2 */, event.target.parent.y + 100 / 2 /* height over 2 */);
-			effect.graphics.setStrokeStyle(20, "round").beginStroke("argb(50, 0, 0, 0)");
+			effect.graphics.moveTo(event.target.parent.x + event.target.parent.width / 2, event.target.parent.y + event.target.parent.height / 2);
+			effect.graphics.setStrokeStyle(20, "round").beginStroke("rgba(0, 0, 0, 0.2)");
 			effect.graphics.lineTo(event.stageX, endY).endStroke();
 			Game.EFFECTS["monsterMove"].image = effect;
 			Game.stage.addChild(effect);
@@ -515,11 +517,11 @@
 			Game.stage.removeChild(Game.EFFECTS["monsterMove"].image);
 
 		    // Ground based movement
-			event.target.parent.goal[0] = event.stageX - 70/2; // 70 - 2 is the width of the monster over 2, so that the center is used as the reference point
+			event.target.parent.goal[0] = event.stageX - event.target.parent.width / 2;
 			if (event.target.parent.goal[0] < 0) { // Don't let monster go off screen
 			    event.target.parent.goal[0] = 0;
-			} else if (event.target.parent.goal[0] > 960 - 70 /* monster width */) {
-			    event.target.parent.goal[0] = 960 - 70;
+			} else if (event.target.parent.goal[0] > 960 - event.target.parent.width) {
+			    event.target.parent.goal[0] = 960 - event.target.parent.width;
 			}
 			if (event.target.parent.goal[0] < event.target.parent.x) {
 				event.target.parent.Vx = event.target.parent.speed * -1;
@@ -530,9 +532,9 @@
 
 			// Flying
     		if (event.target.parent.flying) {
-    			event.target.parent.goal[1] = event.stageY - 100/2; // 100 - 2 is the height of the monster over 2
-    			if (event.target.parent.goal[1] > 630 - 100 /* monster height */) { // Don't let monster go below ground
-    			    event.target.parent.goal[1] = 630 - 100 /* monster height */;
+    			event.target.parent.goal[1] = event.stageY - event.target.parent.height / 2;
+    			if (event.target.parent.goal[1] > Game.GROUND.y - event.target.parent.height) { // Don't let monster go below ground
+    			    event.target.parent.goal[1] = Game.GROUND.y - event.target.parent.height;
     			}
     			ratio = (event.target.parent.goal[1] - event.target.parent.y) / (event.target.parent.goal[0] - event.target.parent.x);
     			if (ratio < 0) {
@@ -601,7 +603,7 @@
 
 		// Get bounding box
 		this.getBox = function() {
-			return {left: this.x, top: this.y, width: 70, height: 100};
+			return {left: this.x, top: this.y, width: this.width, height: this.height};
 		}
 
 		// Remove object
@@ -630,17 +632,19 @@
 		this.Container_initialize();
 
 		// Graveyard position
+		this.width = 120;
+		this.height = 20;
 		this.x = 700;
-		this.y = 620;
+		this.y = Game.GROUND.y - this.height;
 
 		// Graveyard image
 		var image = new createjs.Shape();
-		image.graphics.beginFill("#d61500").drawRect(0, 0, 120, 20);
+		image.graphics.beginFill("#d61500").drawRect(0, 0, this.width, this.height);
 		this.addChild(image);
 
 		// Get bounding box
 		this.getBox = function() {
-			return {left: this.x, top: this.y, width: 120, height: 20};
+			return {left: this.x, top: this.y, width: this.width, height: this.height};
 		}
 	}
 
@@ -661,9 +665,15 @@
 	Cannon.prototype.initialize = function() {
 		this.Container_initialize();
 
+		// Cannon position
+		this.width = 120;
+		this.height = 100;
+		this.x = 835;
+		this.y = Game.GROUND.y - this.height;
+
 		// Cannon image
 		var image = new createjs.Shape();
-		image.graphics.beginFill("#111").drawRect(835, 535, 120, 100);
+		image.graphics.beginFill("#111").drawRect(0, 0, this.width, this.height);
 		this.addChild(image);
 	}
 
@@ -885,14 +895,14 @@
 	}
 
 	ItemsList = {
-		openPositions: [90, 130, 170, 210, 250, 290, 330, 370, 410],
+		openPositions: [90, 130, 170, 210, 250, 290, 330, 370],
 		book: function() {
 			if (this.openPositions.length > 0) {
 				y = this.openPositions[0];
 				this.openPositions.splice(0, 1);
 				return [900, y];
 			}
-			return [900, 450];
+			return [900, 410];
 		},
 		free: function(y) {
 			bankedItemMoved = false;
@@ -929,12 +939,15 @@
 	Ground.prototype.initialize = function() {
 		this.Container_initialize();
 
-		// Cannon image
+		// Ground position
+		this.x = 0;
+		this.y = 630;
+
+		// Ground image
 		var image = new createjs.Shape();
-		image.graphics.beginFill("#111").drawRect(0, 630, 960, 10);
+		image.graphics.beginFill("#111").drawRect(0, 0, 960, 10);
 		this.addChild(image);
 	}
-
 
 	Game.load();
 
