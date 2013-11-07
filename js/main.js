@@ -145,7 +145,7 @@
 			for (i = 0; i < Game.PROJECTILES.length; i++) {
 				Game.PROJECTILES[i].tick(event);
 				for (j = 0; j < Game.HEROES.length; j++) {
-					if (Physics.collides(Game.HEROES[j].getBox(), Game.PROJECTILES[i].getBox())) {
+					if (Game.PROJECTILES[i].collides(Game.HEROES[j].getBox())) {
 						Game.PROJECTILES[i].kill();
 						Game.HEROES[j].damage(Game.PROJECTILES[i].damage);
 					}
@@ -292,6 +292,29 @@
 
 	Projectile.prototype.initialize = function() {
 		this.Container_initialize();
+		
+		// Projectile location
+		this.x = 0;
+		this.y = 0;
+		this.Vx = 0;
+		this.Vy = 0;
+		this.Ax = 0;
+		this.Ay = 0;
+		
+		/**
+		 * Does projectile collide with box?
+		 */
+		this.collides = function(box) {
+		     // Overide me
+		     return false;
+		}
+		
+		// Remove object
+		this.kill = function() {
+			Game.PROJECTILES.splice(Game.PROJECTILES.indexOf(this), 1);
+			this.removeAllChildren();
+			Game.stage.removeChild(this);
+		}
 	}
 
 
@@ -338,12 +361,12 @@
 		this.getBox = function() {
 			return {left: this.x, top: this.y, width: 10, height: 10}
 		}
-
-		// Remove object
-		this.kill = function() {
-			Game.PROJECTILES.splice(Game.PROJECTILES.indexOf(this), 1);
-			this.removeAllChildren();
-			Game.stage.removeChild(this);
+		
+		/**
+		 * Does projectile collide with box?
+		 */
+		this.collides = function(box) {
+		     return Physics.collides(this.getBox(), box);
 		}
 	}
 
@@ -367,7 +390,6 @@
 		// Cloud position
 		this.x = x - 60;
 		this.y = y;
-		this.Vx = 0;
 		this.Vy = 100;
 		this.Ay = 30;
 
@@ -390,12 +412,12 @@
 		this.getBox = function() {
 			return {left: this.x, top: this.y, width: 120, height: 70}
 		}
-
-		// Remove object
-		this.kill = function() {
-			Game.PROJECTILES.splice(Game.PROJECTILES.indexOf(this), 1);
-			this.removeAllChildren();
-			Game.stage.removeChild(this);
+		
+		/**
+		 * Does projectile collide with box?
+		 */
+		this.collides = function(box) {
+		     return Physics.collides(this.getBox(), box);
 		}
 	}
 	
