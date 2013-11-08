@@ -651,7 +651,7 @@
     			// TODO: Don't let the monster go to high
 
     			// Calculate x movement to y movement ratio
-    			ratio = Math.abs(event.target.parent.goal[1] - event.target.parent.y) / (event.target.parent.goal[0] - event.target.parent.x);
+    			ratio = Math.abs((event.target.parent.goal[1] - event.target.parent.y) / (event.target.parent.goal[0] - event.target.parent.x));
 
 				// Set monster's new y velocity
     			if (event.target.parent.goal[1] < event.target.parent.y) {
