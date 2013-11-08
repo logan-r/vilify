@@ -248,8 +248,8 @@
 
 		/**
 		 * Upgrade the tower to a higher level
-		 * type: string the type of Item the tower was upgraded with
-		 * Returns true if upgrade was successful, other returs false
+		 * type: the type of Item the tower was upgraded with
+		 * Returns true if upgrade was successful, other returns false
 		 */
 		this.upgrade = function(type) {
 			// Update tower type
@@ -479,7 +479,7 @@
 
 	/**
 	 * Monster object
-	 * Store all the data associated with one monster
+	 * A monster that the mad scientist has created to protected his lab
 	 */
 	function Monster(type) {
 		this.initialize(type);
@@ -493,25 +493,32 @@
 	Monster.prototype.initialize = function(type) {
 		this.Container_initialize();
 
-		// Monster data
-		this.type = type;
-		this.health = Game.DATA["monsters"][this.type]["health"];
-		this.speed = Game.DATA["monsters"][this.type]["speed"];
-		this.flying = Game.DATA["monsters"][this.type]["flying"];
-		this.inCombat = false;
-
-		// Monster position
+		// Set Monster's size
 		this.width = 70;
 		this.height = 100;
+
+		// Set Monster's position
 		this.x = Game.GRAVEYARD.x + Game.GRAVEYARD.width / 2 - this.width / 2;
 		this.y = Game.GROUND.y - this.height;
-		this.goal = [this.x, this.y];
 
 		// Monster velocity
 		this.Vx = 0;
 		this.Vy = 0;
 
-		// Monster image
+		// Set Monster's data
+		this.type = type;
+		this.health = Game.DATA["monsters"][this.type]["health"];
+		this.speed = Game.DATA["monsters"][this.type]["speed"];
+		this.flying = Game.DATA["monsters"][this.type]["flying"];
+		this.goal = [this.x, this.y];
+
+		// Monster's state
+		// IDLE: Waiting for orders
+		// MOVING: Moving to goal
+		// COMBAT: In combat with hero
+		this.state = "IDLE";
+
+		// Get Monster's image
 		var color;
 		if (this.type == null) {
 			color = "#eee";
@@ -520,42 +527,65 @@
 		}
 		var image = new createjs.Shape();
 		image.graphics.beginFill(color).drawRect(0, 0, this.width, this.height);
-		this.addChild(image);
+		this.addChild(image); // Display image
 
-		// Update function
+		/**
+		 * Update the monster
+		 */
 		this.tick = function(event) {
-			if (!this.inCombat) {
-				// Move
-				this.x += event.delta/1000 * this.Vx;
+			switch (this.state) { // What state is the monster in
+				case "MOVING": // Move monster
+					// Is it a flying monster?
+					if (this.flying) {
+						// Move on the y-axis
+						this.y += event.delta/1000 * this.Vy;
 
-				// Check to see if monster has reached goal
-				if ((this.goal[0] > this.x && this.Vx < 0) || (this.goal[0] < this.x && this.Vx > 0)) {
-				    this.Vx = 0;
-				    this.x = this.goal[0];
-				}
+						// Has the monster reached it's goal?
+						if ((this.goal[1] > this.y && this.Vy < 0) || (this.goal[1] < this.y && this.Vy > 0)) {
 
-				if (this.flying) {
-				    // Fly
-				    this.y += event.delta/1000 * this.Vy;
+						}
+					}
 
-				    // Check to see if monster has reached goal
-    				if ((this.goal[1] > this.y && this.Vy < 0) || (this.goal[1] < this.y && this.Vy > 0)) {
-				        this.Vy = 0;
-				        this.y = this.goal[1];
-				    }
-				}
+					// Move on x-axis
+					this.x += event.delta/1000 * this.Vx;
+
+					// Has the monster reached it's goal?
+					if ((this.goal[0] > this.x && this.Vx < 0) || (this.goal[0] < this.x && this.Vx > 0)) {
+						// Then stop the monster
+						this.Vx = 0;
+						this.Vy = 0;
+
+						// And make sure it is exactly on it's goal
+						this.x = this.goal[0];
+						this.y = this.goal[1];
+
+						// Change status
+						this.status == "IDLE";
+					}
+					break;
+				case "IDLE":
+				default:
+					break;
 			}
 		}
 
+
+		/**
+		 * Handle click
+		 */
 		var handlePressDown = function(event) {
+			// Reset monsterMove effect
 			Game.EFFECTS["monsterMove"] = {image: null};
 		}
 
+		/**
+		 * Handle drag
+		 */
 		var handlePressMove = function(event) {
-			// Remove old effect
+			// Remove old monsterMove effect
 			Game.stage.removeChild(Game.EFFECTS["monsterMove"].image);
 
-			// Calculate new effect
+			// Calculate new monsterMove effect
 			var endY;
 			if (event.target.parent.flying) {
 				endY = event.stageY;
@@ -563,27 +593,33 @@
 				endY = event.target.parent.y + event.target.parent.height / 2;
 			}
 
-			// Add new effect
+			// Add new monsterMove effect
 			effect = new createjs.Shape();
 			effect.graphics.moveTo(event.target.parent.x + event.target.parent.width / 2, event.target.parent.y + event.target.parent.height / 2);
 			effect.graphics.setStrokeStyle(20, "round").beginStroke("rgba(0, 0, 0, 0.2)");
 			effect.graphics.lineTo(event.stageX, endY).endStroke();
 			Game.EFFECTS["monsterMove"].image = effect;
-			Game.stage.addChild(effect);
+			Game.stage.addChild(effect); // Display effect
 		}
 
-		// event handlers
+		/**
+		 * Handle release
+		 */
 		var handlePressUp = function(event) {
-			// Clear move effect
-			Game.stage.removeChild(Game.EFFECTS["monsterMove"].image);
+			// Update monster status
+			event.target.parent.state = "MOVING";
 
-		    // Ground based movement
+		    // Set new goal
 			event.target.parent.goal[0] = event.stageX - event.target.parent.width / 2;
-			if (event.target.parent.goal[0] < 0) { // Don't let monster go off screen
+
+			// Don't let the monster go off screen
+			if (event.target.parent.goal[0] < 0) {
 			    event.target.parent.goal[0] = 0;
 			} else if (event.target.parent.goal[0] > 960 - event.target.parent.width) {
 			    event.target.parent.goal[0] = 960 - event.target.parent.width;
 			}
+
+			// Set monster's new x velocity
 			if (event.target.parent.goal[0] < event.target.parent.x) {
 				event.target.parent.Vx = event.target.parent.speed * -1;
 			}
@@ -591,16 +627,22 @@
 				event.target.parent.Vx = event.target.parent.speed;
 			}
 
-			// Flying
+			// Is it a flying monster?
     		if (event.target.parent.flying) {
+				// Set new goal
     			event.target.parent.goal[1] = event.stageY - event.target.parent.height / 2;
-    			if (event.target.parent.goal[1] > Game.GROUND.y - event.target.parent.height) { // Don't let monster go below ground
+
+    			// Don't let monster go below ground
+    			if (event.target.parent.goal[1] > Game.GROUND.y - event.target.parent.height) {
     			    event.target.parent.goal[1] = Game.GROUND.y - event.target.parent.height;
     			}
-    			ratio = (event.target.parent.goal[1] - event.target.parent.y) / (event.target.parent.goal[0] - event.target.parent.x);
-    			if (ratio < 0) {
-    			    ratio = ratio * -1;
-    			}
+
+    			// TODO: Don't let the monster go to high
+
+    			// Calculate x movement to y movement ratio
+    			ratio = Math.abs(event.target.parent.goal[1] - event.target.parent.y) / (event.target.parent.goal[0] - event.target.parent.x);
+
+				// Set monster's new y velocity
     			if (event.target.parent.goal[1] < event.target.parent.y) {
     				event.target.parent.Vy = ratio * event.target.parent.speed * -1;
     			}
@@ -608,12 +650,21 @@
     				event.target.parent.Vy = ratio * event.target.parent.speed;
     			}
     		}
+
+    		// Clear monsterMove effect
+			Game.stage.removeChild(Game.EFFECTS["monsterMove"].image);
 		}
+
+		// Add event handlers
 		image.addEventListener("mousedown", handlePressDown);
 		image.addEventListener("pressmove", handlePressMove);
 		image.addEventListener("pressup", handlePressUp);
 
-		// Upgrade monster
+		/**
+		 * Upgrade the monster to a higher level
+		 * type: the type of Item the monster was upgraded with
+		 * Returns true if upgrade was successful, other returns false
+		 */
 		this.upgrade = function(type) {
 			// Calculate new monster type
 			var newType;
@@ -623,19 +674,21 @@
 				newType = (this.type + type).sort(true);
 			}
 
-			// Check if the monster truly exists
+			// Does monster type exist?
 			if (!Game.DATA["monsters"][newType]) {
 				return false;
 			}
 
-			// Update monster data
+			// Update monster's data
 			this.type = newType;
 			this.health = Game.DATA["monsters"][this.type]["health"];
 			this.speed = Game.DATA["monsters"][this.type]["speed"];
 			this.flying = Game.DATA["monsters"][this.type]["flying"];
 
-			// Update monster image
-			this.removeAllChildren(); // Clear old image
+			// Remove old monster image
+			this.removeAllChildren();
+
+			// Set new monster image
 			var color;
 			if (this.type == null) {
 				color = "#eee";
@@ -644,7 +697,7 @@
 			}
 			var image = new createjs.Shape();
 			image.graphics.beginFill(color).drawRect(0, 0, 70, 100);
-			this.addChild(image);
+			this.addChild(image); // Display new image
 
 			// Add event handlers
 			image.addEventListener("mousedown", handlePressDown);
@@ -654,20 +707,31 @@
 			return true;
 		}
 
-		// Damage the monster
+		/**
+		 * Deal damage to the monster
+		 * damage: amount of damage to be dealt
+		 */
 		this.damage = function(amount) {
+			// Subtract damage from health
 			this.health -= amount;
+
+			// Does monster have zero or less health?
 			if (this.health <= 0) {
+				// Then the monster DIES!!!
 				this.kill();
 			}
 		}
 
-		// Get bounding box
+		/**
+		 * Returns the monster's bounding box
+		 */
 		this.getBox = function() {
 			return {left: this.x, top: this.y, width: this.width, height: this.height};
 		}
 
-		// Remove object
+		/**
+		 * Destroy the monster and all references to it
+		 */
 		this.kill = function() {
 			Game.MONSTERS.splice(Game.MONSTERS.indexOf(this), 1);
 			this.removeAllChildren();
@@ -692,20 +756,33 @@
 	Graveyard.prototype.initialize = function() {
 		this.Container_initialize();
 
-		// Graveyard position
+		// Graveyard's size
 		this.width = 120;
 		this.height = 20;
+
+		// Graveyard's position
 		this.x = 700;
 		this.y = Game.GROUND.y - this.height;
 
-		// Graveyard image
+		// Graveyard's image
 		var image = new createjs.Shape();
 		image.graphics.beginFill("#d61500").drawRect(0, 0, this.width, this.height);
 		this.addChild(image);
 
-		// Get bounding box
+		/**
+		 * Returns the graveyard's bounding box
+		 */
 		this.getBox = function() {
 			return {left: this.x, top: this.y, width: this.width, height: this.height};
+		}
+
+		/**
+		 * Destroy the graveyard and all references to it
+		 */
+		this.kill = function() {
+			Game.GRAVEYARD = null;
+			this.removeAllChildren();
+			Game.stage.removeChild(this);
 		}
 	}
 
