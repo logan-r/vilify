@@ -191,7 +191,7 @@
 	Tower.prototype.initialize = function(type, x) {
 		this.Container_initialize();
 
-		// Tower data
+		// Set Tower's data
 		this.type = type;
 		if (this.type != null) {
 			this.name = Game.DATA["towers"][this.type]["name"];
@@ -200,11 +200,13 @@
 			this.projectileTimer = Game.fps * this.rate;  // Timeout between projectiles
 		}
 
-		// Tower position
+		// Set Tower's size
 		this.radius = 50;
+
+		// Set Tower's position
 		this.x = x;
 
-		// Tower image
+		// Create Tower's image
 		var color;
 		if (this.type == null) {
 			color = "#eee";
@@ -232,10 +234,10 @@
 					var projectile;
 					switch (attack.type) {
 					    case "bullet":
-        					projectile = new Bullet(this.x, this.radius - 5, attack.damge);
+        					projectile = new Bullet(attack.damge, this.x, this.radius);
         					break;
         				case "cloud":
-        				    projectile = new Cloud(this.x, this.radius - 5);
+        				    projectile = new Cloud(this.x, this.radius);
         					break;
 					}
         			Game.PROJECTILES.push(projectile);
@@ -244,7 +246,11 @@
 			}
 		}
 
-		// Upgrade tower
+		/**
+		 * Upgrade the tower to a higher level
+		 * type: string the type of Item the tower was upgraded with
+		 * Returns true if upgrade was successful, other returs false
+		 */
 		this.upgrade = function(type) {
 			// Update tower type
 			var newType;
@@ -279,10 +285,12 @@
 			image.graphics.beginFill(color).drawCircle(0, 0, this.radius);
 			this.addChild(image); // Display new image
 
-			return true;
+			return true; // Success!!!
 		}
 
-		// Get bounding box
+		/**
+		 * Get the tower's bounding box
+		 */
 		this.getBox = function() {
 			return {left: this.x, top: 0, width: this.radius * 2, height: this.radius};
 		}
@@ -303,13 +311,28 @@
 	Projectile.prototype.initialize = function() {
 		this.Container_initialize();
 
-		// Projectile location
+		// Set Projectile's size
+		this.width = 0;
+		this.height = 0;
+
+		// Set Projectile's location
 		this.x = 0;
 		this.y = 0;
+
+		// Set Projectile's velocity
 		this.Vx = 0;
 		this.Vy = 0;
+
+		// Set Projectile's acceleration
 		this.Ax = 0;
 		this.Ay = 0;
+
+		/**
+		 * Get the bounding box of the projectile
+		 */
+		this.getBox = function() {
+			return {left: this.x, top: this.y, width: this.width, height: this.height}
+		}
 
 		/**
 		 * Does projectile collide with box?
@@ -319,7 +342,9 @@
 		     return false;
 		}
 
-		// Remove object
+		/**
+		 * Remove the projectile and all references to it
+		 */
 		this.kill = function() {
 			Game.PROJECTILES.splice(Game.PROJECTILES.indexOf(this), 1);
 			this.removeAllChildren();
@@ -332,8 +357,8 @@
 	 * Bullet object
 	 * An object for the bullets that a tower fires
 	 */
-	function Bullet(x, y, damage) {
-		this.initialize(x, y, damage);
+	function Bullet(damage, x, y) {
+		this.initialize(damage, x, y);
 	}
 
 	Game.Bullet = Bullet;
@@ -341,39 +366,51 @@
 	var p = Bullet.prototype = new Projectile();
 	Bullet.prototype.Projectile_initialize = p.initialize;
 
-	Bullet.prototype.initialize = function(x, y, damage) {
+	Bullet.prototype.initialize = function(damage, x, y) {
 		this.Projectile_initialize();
 
-		// Bullet data
+		// Set Bullet's data
 		this.damage = damage;
-		this.x = x - 5;
-		this.y = y;
+
+		// Set Bullet's size
+		this.width = 10;
+		this.height = 10;
+
+		// Set Bullet's position
+		this.x = x - this.width / 2;
+		this.y = y - this.height / 2;
+
+		// Set Bullet's velocity
 		this.Vx = 50;
 		this.Vy = 300;
+
+		// Set Bullet's acceleration
 		this.Ay = 150;
 
-		// Bullet image
+		// Create Bullet's image
 		var image = new createjs.Shape();
-		image.graphics.beginFill("#444").drawRect(0, 0, 10, 10);
+		image.graphics.beginFill("#444").drawRect(0, 0, this.width, this.height);
 		this.addChild(image);
 
-		// Update function
+		/**
+		 * Update the bullet
+		 */
 		this.tick = function(event) {
-			this.x += event.delta/1000 * this.Vx;
-			this.y += event.delta/1000 * parseInt(this.Vy);
-			this.Vy += event.delta/1000 * this.Ay;
-			if (this.x < 0 || this.x > 960 || this.y < 0 || this.y > 640) {
+			// Update bullet's position by it's velocity
+			this.x += event.delta / 1000 * this.Vx;
+			this.y += event.delta / 1000 * this.Vy;
+
+			// Update bullet's velocity by it's acceleration
+			this.Vy += event.delta / 1000 * this.Ay;
+
+			// Remove bullet if it goes off the screen
+			if (this.x < -1 * this.width || this.x > 960 || this.y < -1 * this.height || this.y > 640) {
 				this.kill();
 			}
 		}
 
-		// Get box of bullet
-		this.getBox = function() {
-			return {left: this.x, top: this.y, width: 10, height: 10}
-		}
-
 		/**
-		 * Does projectile collide with box?
+		 * Does bullet collide with box?
 		 */
 		this.collides = function(box) {
 		     return Physics.collides(this.getBox(), box);
@@ -397,23 +434,38 @@
 	Cloud.prototype.initialize = function(x, y) {
 		this.Projectile_initialize();
 
-		// Cloud position
-		this.x = x - 60;
-		this.y = y;
+		// Set Cloud's size
+		this.width = 120;
+		this.height = 70;
+
+		// Set Cloud's position
+		this.x = x - this.width / 2;
+		this.y = y - this.height / 2;
+
+		// Set Cloud's velocity
 		this.Vy = 100;
+
+		// Set Cloud's acceleration
 		this.Ay = 30;
 
-		// Cloud image
+		// Get Cloud's image
 		var image = new createjs.Shape();
-		image.graphics.beginFill("rgb(224, 218, 148)").drawRect(0, 0, 120, 70);
+		image.graphics.beginFill("rgb(224, 218, 148)").drawRect(0, 0, this.width, this.height);
 		this.addChild(image);
 
-		// Update function
+		/**
+		 * Update the cloud
+		 */
 		this.tick = function(event) {
-			this.x += event.delta/1000 * this.Vx;
-			this.y += event.delta/1000 * parseInt(this.Vy);
-			this.Vy += event.delta/1000 * this.Ay;
-			if (this.x < 0 || this.x > 960 || this.y < 0 || this.y > 640) {
+			// Update bullet's position by it's velocity
+			this.x += event.delta / 1000 * this.Vx;
+			this.y += event.delta / 1000 * this.Vy;
+
+			// Update bullet's velocity by it's acceleration
+			this.Vy += event.delta / 1000 * this.Ay;
+
+			// Remove bullet if it goes off the screen
+			if (this.x < -1 * this.width || this.x > 960 || this.y < -1 * this.height || this.y > 640) {
 				this.kill();
 			}
 		}
@@ -421,13 +473,6 @@
 		// Get box of bullet
 		this.getBox = function() {
 			return {left: this.x, top: this.y, width: 120, height: 70}
-		}
-
-		/**
-		 * Does projectile collide with box?
-		 */
-		this.collides = function(box) {
-		     return Physics.collides(this.getBox(), box);
 		}
 	}
 
