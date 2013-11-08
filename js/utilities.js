@@ -20,7 +20,7 @@ window.MathEx = {
 	 */
 	toDeg: function(radian) {
 		return radian * 180 / Math.PI;
-	}
+	},
 	/**
 	 * Gets the distance between 2 points
 	 */
