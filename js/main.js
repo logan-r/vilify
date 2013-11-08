@@ -30,6 +30,7 @@
 		PROJECTILES: [],
 		HEROES: [],
 		MONSTERS: [],
+		EFFECTS: {},
 
 		/**
 		 * Load all the assets
@@ -210,10 +211,10 @@
 				if (this.projectileTimer < 0) { // Is it time to fire projectile yet?
 					// Reset timer
 					this.projectileTimer = Game.fps * this.rate;
-                    
+
                     // Pick attack to use
 					var attack = this.attacks[MathEx.randInt(0, this.attacks.length - 1)]; //TODO: weight attacks
-                    
+
 					// Execute attack
 					var projectile;
 					switch (attack.type) {
@@ -285,7 +286,7 @@
 
 	Projectile.prototype.initialize = function() {
 		this.Container_initialize();
-		
+
 		// Projectile location
 		this.x = 0;
 		this.y = 0;
@@ -293,7 +294,7 @@
 		this.Vy = 0;
 		this.Ax = 0;
 		this.Ay = 0;
-		
+
 		/**
 		 * Does projectile collide with box?
 		 */
@@ -301,7 +302,7 @@
 		     // Overide me
 		     return false;
 		}
-		
+
 		// Remove object
 		this.kill = function() {
 			Game.PROJECTILES.splice(Game.PROJECTILES.indexOf(this), 1);
@@ -354,7 +355,7 @@
 		this.getBox = function() {
 			return {left: this.x, top: this.y, width: 10, height: 10}
 		}
-		
+
 		/**
 		 * Does projectile collide with box?
 		 */
@@ -363,7 +364,7 @@
 		}
 	}
 
-    
+
     /**
 	 * Beam object
 	 * An object for the bullets that a tower fires
@@ -379,7 +380,7 @@
 
 	Cloud.prototype.initialize = function(x, y) {
 		this.Projectile_initialize();
-		
+
 		// Cloud position
 		this.x = x - 60;
 		this.y = y;
@@ -405,7 +406,7 @@
 		this.getBox = function() {
 			return {left: this.x, top: this.y, width: 120, height: 70}
 		}
-		
+
 		/**
 		 * Does projectile collide with box?
 		 */
@@ -413,7 +414,7 @@
 		     return Physics.collides(this.getBox(), box);
 		}
 	}
-	
+
 
 	/**
 	 * Monster object
@@ -439,8 +440,10 @@
 		this.inCombat = false;
 
 		// Monster position
-		this.x = 725;
-		this.y = 530;
+		this.width = 70;
+		this.height = 100;
+		this.x = Game.GRAVEYARD.x + Game.GRAVEYARD.width / 2 - this.width / 2;
+		this.y = Game.GROUND.y - this.height;
 		this.goal = [this.x, this.y];
 
 		// Monster velocity
@@ -455,7 +458,7 @@
 			color = Game.DATA["monsters"][this.type]["image"];
 		}
 		var image = new createjs.Shape();
-		image.graphics.beginFill(color).drawRect(0, 0, 70, 100);
+		image.graphics.beginFill(color).drawRect(0, 0, this.width, this.height);
 		this.addChild(image);
 
 		// Update function
@@ -483,14 +486,42 @@
 			}
 		}
 
+		var handlePressDown = function(event) {
+			Game.EFFECTS["monsterMove"] = {image: null};
+		}
+
+		var handlePressMove = function(event) {
+			// Remove old effect
+			Game.stage.removeChild(Game.EFFECTS["monsterMove"].image);
+
+			// Calculate new effect
+			var endY;
+			if (event.target.parent.flying) {
+				endY = event.stageY;
+			} else {
+				endY = event.target.parent.y + event.target.parent.height / 2;
+			}
+
+			// Add new effect
+			effect = new createjs.Shape();
+			effect.graphics.moveTo(event.target.parent.x + event.target.parent.width / 2, event.target.parent.y + event.target.parent.height / 2);
+			effect.graphics.setStrokeStyle(20, "round").beginStroke("rgba(0, 0, 0, 0.2)");
+			effect.graphics.lineTo(event.stageX, endY).endStroke();
+			Game.EFFECTS["monsterMove"].image = effect;
+			Game.stage.addChild(effect);
+		}
+
 		// event handlers
 		var handlePressUp = function(event) {
+			// Clear move effect
+			Game.stage.removeChild(Game.EFFECTS["monsterMove"].image);
+
 		    // Ground based movement
-			event.target.parent.goal[0] = event.stageX - 70/2; // 70 - 2 is the width of the monster over 2, so that the center is used as the reference point
+			event.target.parent.goal[0] = event.stageX - event.target.parent.width / 2;
 			if (event.target.parent.goal[0] < 0) { // Don't let monster go off screen
 			    event.target.parent.goal[0] = 0;
-			} else if (event.target.parent.goal[0] > 960 - 70 /* monster width */) {
-			    event.target.parent.goal[0] = 960 - 70;
+			} else if (event.target.parent.goal[0] > 960 - event.target.parent.width) {
+			    event.target.parent.goal[0] = 960 - event.target.parent.width;
 			}
 			if (event.target.parent.goal[0] < event.target.parent.x) {
 				event.target.parent.Vx = event.target.parent.speed * -1;
@@ -501,9 +532,9 @@
 
 			// Flying
     		if (event.target.parent.flying) {
-    			event.target.parent.goal[1] = event.stageY - 100/2; // 100 - 2 is the height of the monster over 2
-    			if (event.target.parent.goal[1] > 630 - 100 /* monster height */) { // Don't let monster go below ground
-    			    event.target.parent.goal[1] = 630 - 100 /* monster height */;
+    			event.target.parent.goal[1] = event.stageY - event.target.parent.height / 2;
+    			if (event.target.parent.goal[1] > Game.GROUND.y - event.target.parent.height) { // Don't let monster go below ground
+    			    event.target.parent.goal[1] = Game.GROUND.y - event.target.parent.height;
     			}
     			ratio = (event.target.parent.goal[1] - event.target.parent.y) / (event.target.parent.goal[0] - event.target.parent.x);
     			if (ratio < 0) {
@@ -517,23 +548,26 @@
     			}
     		}
 		}
+		image.addEventListener("mousedown", handlePressDown);
+		image.addEventListener("pressmove", handlePressMove);
 		image.addEventListener("pressup", handlePressUp);
 
 		// Upgrade monster
 		this.upgrade = function(type) {
+			// Calculate new monster type
 			var newType;
-			// Update monster data
 			if (this.type == null) {
 				newType = type;
 			} else {
 				newType = (this.type + type).sort(true);
 			}
 
+			// Check if the monster truly exists
 			if (!Game.DATA["monsters"][newType]) {
-				// Check if the monster truly exists
 				return false;
 			}
 
+			// Update monster data
 			this.type = newType;
 			this.health = Game.DATA["monsters"][this.type]["health"];
 			this.speed = Game.DATA["monsters"][this.type]["speed"];
@@ -549,8 +583,13 @@
 			}
 			var image = new createjs.Shape();
 			image.graphics.beginFill(color).drawRect(0, 0, 70, 100);
-			image.addEventListener("pressup", handlePressUp);
 			this.addChild(image);
+
+			// Add event handlers
+			image.addEventListener("mousedown", handlePressDown);
+			image.addEventListener("pressmove", handlePressMove);
+			image.addEventListener("pressup", handlePressUp);
+
 			return true;
 		}
 
@@ -564,7 +603,7 @@
 
 		// Get bounding box
 		this.getBox = function() {
-			return {left: this.x, top: this.y, width: 70, height: 100};
+			return {left: this.x, top: this.y, width: this.width, height: this.height};
 		}
 
 		// Remove object
@@ -593,17 +632,19 @@
 		this.Container_initialize();
 
 		// Graveyard position
+		this.width = 120;
+		this.height = 20;
 		this.x = 700;
-		this.y = 620;
+		this.y = Game.GROUND.y - this.height;
 
 		// Graveyard image
 		var image = new createjs.Shape();
-		image.graphics.beginFill("#d61500").drawRect(0, 0, 120, 20);
+		image.graphics.beginFill("#d61500").drawRect(0, 0, this.width, this.height);
 		this.addChild(image);
 
 		// Get bounding box
 		this.getBox = function() {
-			return {left: this.x, top: this.y, width: 120, height: 20};
+			return {left: this.x, top: this.y, width: this.width, height: this.height};
 		}
 	}
 
@@ -624,9 +665,15 @@
 	Cannon.prototype.initialize = function() {
 		this.Container_initialize();
 
+		// Cannon position
+		this.width = 120;
+		this.height = 100;
+		this.x = 835;
+		this.y = Game.GROUND.y - this.height;
+
 		// Cannon image
 		var image = new createjs.Shape();
-		image.graphics.beginFill("#111").drawRect(835, 535, 120, 100);
+		image.graphics.beginFill("#111").drawRect(0, 0, this.width, this.height);
 		this.addChild(image);
 	}
 
@@ -848,14 +895,14 @@
 	}
 
 	ItemsList = {
-		openPositions: [90, 130, 170, 210, 250, 290, 330, 370, 410],
+		openPositions: [90, 130, 170, 210, 250, 290, 330, 370],
 		book: function() {
 			if (this.openPositions.length > 0) {
 				y = this.openPositions[0];
 				this.openPositions.splice(0, 1);
 				return [900, y];
 			}
-			return [900, 450];
+			return [900, 410];
 		},
 		free: function(y) {
 			bankedItemMoved = false;
@@ -892,12 +939,15 @@
 	Ground.prototype.initialize = function() {
 		this.Container_initialize();
 
-		// Cannon image
+		// Ground position
+		this.x = 0;
+		this.y = 630;
+
+		// Ground image
 		var image = new createjs.Shape();
-		image.graphics.beginFill("#111").drawRect(0, 630, 960, 10);
+		image.graphics.beginFill("#111").drawRect(0, 0, 960, 10);
 		this.addChild(image);
 	}
-
 
 	Game.load();
 
