@@ -960,23 +960,28 @@
 	Item.prototype.initialize = function(type, x, y) {
 		this.Container_initialize();
 
-		// Item data
+		// Set item's data
 		this.type = type;
+		this.goal = ItemsList.book();
+
+		// Set item's size
+		this.width = 30;
+		this.height = 30;
+
+		// Set item's position
+		this.x = x;
+		this.y = y;
+
+		// Set item's velocity
+		this.Vx = 1000;
+		this.Vy = (this.goal[1] - this.y) / (this.goal[0] - this.x) * 1000;
 
 		// Item state
 		// FREE: item is out of lists and needs to be added
 		// LISTED: item is in list
 		// DRAGGING: item is being dragged by the player
-		// REORDER: item is being reorder in the list
+		// REORDER: item is being reordered in the list
 		this.state = "FREE";
-
-		// Item position
-		this.x = x;
-		this.y = y;
-
-		this.goal = ItemsList.book();
-		this.Vx = 1000;
-		this.Vy = (this.goal[1] - this.y) / (this.goal[0] - this.x) * 1000;
 
 		// Item image
 		var color;
@@ -988,34 +993,43 @@
 			color = "#61289e";
 		}
 		var image = new createjs.Shape();
-		image.graphics.beginFill(color).drawRect(0, 0, 30, 30);
-		this.addChild(image);
+		image.graphics.beginFill(color).drawRect(0, 0, this.width, this.height);
+		this.addChild(image); // Display item
 
-		// Add events
-		image.addEventListener("pressmove", function(event) {
+		var handlePressMove = function(event) {
+			// Update item's state
 			event.target.parent.state = "DRAGGED";
+
+			// Update item's position
 			event.target.parent.x = event.stageX;
 			event.target.parent.y = event.stageY;
-		});
-		image.addEventListener("pressup", function(event) {
-			// Check if item collides with thing to be built or upgraded
+		}
+
+		var handlePressUp = function(event) {
 			used = false;
-			for (i = 0; i < Game.TOWERS.length; i++) { // Build/upgrade tower?
+
+			// Does item collide with tower?
+			for (i = 0; i < Game.TOWERS.length; i++) {
+				 // Then attempt to build/upgraded that tower
 				if (Physics.collides(Game.TOWERS[i].getBox(), event.target.parent.getBox())) {
 					used = Game.TOWERS[i].upgrade(event.target.parent.smallString());
 					break;
 				}
 			}
-			if (!used && Physics.collides(Game.GRAVEYARD.getBox(), event.target.parent.getBox())) { // Build monster?
-				used = true;
 
-				// Create monster
+			// Does item collide with graveyard?
+			if (!used && Physics.collides(Game.GRAVEYARD.getBox(), event.target.parent.getBox())) {
+				// Build monster
 				monster = new Monster(event.target.parent.smallString());
 				Game.stage.addChild(monster);
 				Game.MONSTERS.push(monster);
-			}
-			if (!used) { // Can upgrade monster?
+
+				// Mark item as used
+				used = true;
+			} else {
+				// Does item collide with monster?
 				for (i = 0; i < Game.MONSTERS.length; i++) {
+					// Then attempt to upgrade monster
 					if (Physics.collides(Game.MONSTERS[i].getBox(), event.target.parent.getBox())) {
 						used = Game.MONSTERS[i].upgrade(event.target.parent.smallString());
 						break;
@@ -1023,33 +1037,57 @@
 				}
 			}
 
-			if (!used) { // If it wasn't used, then send it back to list
+			// Was the item used?
+			if (used) {
+				y = event.target.parent.goal[1];
+
+				// Remove item from game
+				event.target.parent.kill();
+
+				// Reorder ItemsList
+				ItemsList.free(y);
+			} else {
+				// Send item back to ItemsList
 				event.target.parent.state = "FREE";
 				event.target.parent.Vx = 1000;
 				event.target.parent.Vy = (event.target.parent.goal[1] - event.target.parent.y) / (event.target.parent.goal[0] - event.target.parent.x) * 1000;
-			} else { // If it was used kill it and reorder list
-				y = event.target.parent.goal[1];
-				event.target.parent.kill();
-				ItemsList.free(y);
-
 			}
-		});
+		}
 
+		// Add event handlers
+		image.addEventListener("pressmove", handlePressMove);
+		image.addEventListener("pressup", handlePressUp);
+
+		/**
+		 * Update item
+		 */
 		this.tick = function(event) {
 			switch (this.state) {
-				case "FREE":
-					this.x += event.delta/1000 * this.Vx;
-					this.y += event.delta/1000 * this.Vy;
+			 	case "FREE": // Go into ItemsList
+			 		// Move item
+					this.x += event.delta / 1000 * this.Vx;
+					this.y += event.delta / 1000 * this.Vy;
+
+					// Has item reached ItemsList?
 					if (this.x >= this.goal[0]) {
+						// Update item's state
 						this.state = "LISTED";
+
+						// Make sure item is exactly at goal
 						this.x = this.goal[0];
 						this.y = this.goal[1];
 					}
 					break;
-				case "REORDER":
+				case "REORDER": // Item is being reorder inside ItemsList
+					// Move
 					this.y += event.delta/1000 * this.Vy;
+
+					// Has item reached new position in ItemsList?
 					if (this.y <= this.goal[1]) {
+						// Update item's state
 						this.state = "LISTED";
+
+						// Make sure item is exactly at goal
 						this.x = this.goal[0];
 						this.y = this.goal[1];
 					}
@@ -1057,19 +1095,25 @@
 			}
 		}
 
-		// Get string form
+		/**
+		 * Get small string form of item
+		 */
 		this.smallString = function() {
 			if (this.type == "tech") return "T";
 			else if (this.type == "chemical") return "C";
 			else if (this.type == "alien") return "A";
 		}
 
-		// Get bounding box
+		/**
+		 * Gets item's bounding box
+		 */
 		this.getBox = function() {
-			return {left: this.x, top: this.y, width: 30, height: 30};
+			return {left: this.x, top: this.y, width: this.width, height: this.height};
 		}
 
-		// Remove item
+		/**
+		 * Remove item from game
+		 */
 		this.kill = function() {
 			Game.ITEMS.splice(Game.ITEMS.indexOf(this), 1);
 			this.removeAllChildren();
@@ -1090,8 +1134,8 @@
 		free: function(y) {
 			bankedItemMoved = false;
 			for (i = 0; i < Game.ITEMS.length; i++) {
-				if (Game.ITEMS[i].y > y && (!bankedItemMoved || !Game.ITEMS[i].y >= 450)) {
-					if (Game.ITEMS[i].y >= 450) {
+				if (Game.ITEMS[i].y > y && (!bankedItemMoved || !Game.ITEMS[i].y >= 410)) {
+					if (Game.ITEMS[i].y >= 410) {
 						bankedItemMoved = true;
 					}
 					Game.ITEMS[i].state = "REORDER";
