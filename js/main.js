@@ -150,7 +150,7 @@
 
 			// Create towers
 			for (i = 0; i < 5; i++) {
-				tower = new Tower(null, 120+200*i, Game.INFOBAR.height);
+				tower = new Tower(null, 100 + 200 * i, 0);
 				Game.TOWERS.push(tower);
 				Game.stage.addChild(tower); // Display towers on screen
 			}
@@ -1270,10 +1270,10 @@
 
 		// Set InfoBar's size
 		this.width = Game.size.width;
-		this.height = 0;
+		this.height = 80;
 
 		// Set InfoBar's position
-		this.x = 0;
+		this.x = 120+ 200 * 4 + 84;
 		this.y = 0;
 
 		// Draw InfoBar
@@ -1281,10 +1281,29 @@
 		image.graphics.beginFill("#fff").drawRect(0, 0, this.width, this.height);
 		this.addChild(image);
 
-		// Draw InfoBar's border
+		// Draw InfoBar's y-axis border
 		var image = new createjs.Shape();
-		image.graphics.beginFill("#111").drawRect(0, this.height - 1, this.width, 1);
+		image.graphics.beginFill("#111").drawRect(0, 0, 1, this.height);
 		this.addChild(image);
+
+		// Draw InfoBar's y-axis border
+		var image = new createjs.Shape();
+		image.graphics.beginFill("#111").drawRect(70, 0, 1, this.height);
+		this.addChild(image);
+
+		// Draw InfoBar's x-axis border
+		var image = new createjs.Shape();
+		image.graphics.beginFill("#111").drawRect(0, this.height, this.width, 1);
+		this.addChild(image);
+
+		//
+		var txt = new createjs.Text();
+		txt.font = "28px Fredoka One";
+		txt.color = "#000000";
+		txt.text = "Void tower";
+		txt.x = 80;
+		txt.y = 8;
+		this.addChild(txt);
 
 		/**
 		 * Gets InfoBar's bounding box
