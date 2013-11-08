@@ -27,6 +27,7 @@
 		GROUND: null,
 		CANNON: null,
 		GRAVEYARD: null,
+		ITEMSLIST: null,
 		INFOBAR: null,
 		ITEMS: [],
 		TOWERS: [],
@@ -86,8 +87,22 @@
 		 * Resize the canvas
 		 */
 		resize: function() {
-		    Game.stage.canvas.style.width = window.innerWidth + 'px';
-		    Game.stage.canvas.style.height = window.innerHeight + 'px';
+		    var gameWidth = window.innerWidth;
+			var gameHeight = window.innerHeight;
+			var scaleToFitX = gameWidth / 1280;
+			var scaleToFitY = gameHeight / 800;
+
+			var currentScreenRatio = gameWidth / gameHeight;
+			var optimalRatio = Math.min(scaleToFitX, scaleToFitY);
+
+			if (currentScreenRatio >= 1.77 && currentScreenRatio <= 1.79) {
+			    canvas.style.width = gameWidth + "px";
+			    canvas.style.height = gameHeight + "px";
+			}
+			else {
+			    canvas.style.width = 1280 * optimalRatio + "px";
+			    canvas.style.height = 800 * optimalRatio + "px";
+			}
 		},
 
 		/**
@@ -148,6 +163,9 @@
 			Game.CANNON = new Cannon();
 			Game.stage.addChild(Game.CANNON); // Display cannon on screen
 
+			// Create ItemsList
+			Game.ITEMSLIST.init(90, 40, 8, Game.size.width - 40 - 5);
+
 			// Create items
 			for (i = 0; i < 14; i++) {
 				// Select a random type of item
@@ -189,7 +207,7 @@
 				}
 			}
 			for (i = 0; i < kill.length; i++) {
-				kill[i].kill();
+					kill[i].kill();
 			}
 
 			// Update monsters
@@ -1161,7 +1179,7 @@
 	/**
 	 * Store the inventory of items not yet used by player
 	 */
-	ItemsList = {
+	Game.ITEMSLIST = ItemsList = {
 		// Data
 		openPositions: [], // Positions that are open in items list
 		bank: 0, // If no position are left in the list, extra item go to the bank
@@ -1232,7 +1250,6 @@
 			}
 		}
 	}
-	ItemsList.init(90, 40, 8, 900);
 
 
 	/**
