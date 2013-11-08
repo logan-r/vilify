@@ -850,22 +850,25 @@
 	Hero.prototype.initialize = function(type) {
 		this.Container_initialize();
 
-		// Hero data
+		// Set hero's data
 		this.type = type;
 		this.flying = Game.DATA["heroes"][this.type]["flying"];
 		this.health = Game.DATA["heroes"][this.type]["health"];
-		this.inCombat = false;
 
-		// Calculate hero starting y value
+		// Set hero's size
+		this.width = 70;
+		this.height = 100;
+
+		// Calculate hero's y position
 		var y = 530;
 		var Vy = 0;
 		if (this.flying) {
 			y = MathEx.randInt(120, 420);
-			Vy = this.flying["velocity"];
-			this.flyingHeight = this.flying["height"];
+			Vy = this.flying["velocity"]; // y velocity
+			this.flyingHeight = this.flying["height"]; // height difference from starting y that the hero goes to while flying
 		}
 
-		// Hero position
+		// Set hero's position
 		this.x = -70;
 		this.y = y;
 
@@ -874,41 +877,65 @@
 		this.Vy = Vy;
 		this.starty = this.y;
 
+		// Hero's state
+		// IDLE: Not doing anything
+		// MOVING: Moving towards target
+		// COMBAT: In combat with monster
+		this.state = "MOVING";
+
 		// Hero image
 		var image = new createjs.Shape();
-		image.graphics.beginFill("#54eb46").drawRect(0, 0, 70, 100);
+		image.graphics.beginFill("#54eb46").drawRect(0, 0, this.width, this.height);
 		this.addChild(image);
 
-		// Update function
+		/**
+		 * Update hero
+		 */
 		this.tick = function(event) {
-			if (!this.inCombat) {
-				// Move
-				this.x += event.delta/1000 * this.Vx;
+			switch (this.state) { // What state is the hero in?
+				case "MOVING": // Move hero
+					// Move on x-axis
+					this.x += event.delta / 1000 * this.Vx;
 
-				// Fly
-				if (this.flying) {
-					this.y += event.delta/1000 * this.Vy;
-					if (this.y > this.starty + this.flyingHeight || this.y < this.starty - this.flyingHeight) {
-						this.Vy = -1 * this.Vy;
+					// Fly
+					if (this.flying) {
+						this.y += event.delta / 1000 * this.Vy; // Move on y-axis
+						if (this.y > this.starty + this.flyingHeight || this.y < this.starty - this.flyingHeight) { // Oscillate flying
+							this.Vy = -1 * this.Vy;
+						}
 					}
-				}
+					break;
+				case "IDLE":
+				default:
+					break;
 			}
 		}
 
-		// Damage the hero
+		/**
+		 * Deal damage to the hero
+		 * damage: the amout of damage dealt
+		 */
 		this.damage = function(amount) {
+			// Subtract damage from heroes life
 			this.health -= amount;
+
+			// If the hero has less than 1 life
 			if (this.health <= 0) {
+				// then it dies
 				this.kill();
 			}
 		}
 
-		// Get bounding box
+		/**
+		 * Get the heroes bounding box
+		 */
 		this.getBox = function() {
-			return {left: this.x, top: this.y, width: 70, height: 100};
+			return {left: this.x, top: this.y, width: this.width, height: this.height};
 		}
 
-		// Remove object
+		/**
+		 * Remove object
+		 */
 		this.kill = function() {
 			Game.HEROES.splice(Game.HEROES.indexOf(this), 1);
 			this.removeAllChildren();
