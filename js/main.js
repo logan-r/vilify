@@ -27,6 +27,7 @@
 		GROUND: null,
 		CANNON: null,
 		GRAVEYARD: null,
+		INFOBAR: null,
 		ITEMS: [],
 		TOWERS: [],
 		PROJECTILES: [],
@@ -111,13 +112,16 @@
 
 	Game.SCENES["game"]  = new Scene(
 		function() {
+			// Create info bar
+			Game.INFOBAR = new InfoBar();
+
 			// Create ground
 			Game.GROUND = new Ground();
 			Game.stage.addChild(Game.GROUND); // Display ground on screen
 
 			// Create towers
 			for (i = 0; i < 6; i++) {
-				tower = new Tower(null, 100+152*i);
+				tower = new Tower(null, 100+152*i, Game.INFOBAR.height);
 				Game.TOWERS.push(tower);
 				Game.stage.addChild(tower); // Display towers on screen
 			}
@@ -143,6 +147,9 @@
 				Game.ITEMS.push(item);
 				Game.stage.addChild(item); // Display item on screen
 			}
+
+			// Display info bar
+			Game.stage.addChild(Game.INFOBAR);
 		},
 		function(event) {
 			// Update heroes
@@ -190,8 +197,8 @@
 	 * Tower object
 	 * Store all the data associated with one tower
 	 */
-	function Tower(type, x) {
-		this.initialize(type, x);
+	function Tower(type, x, y) {
+		this.initialize(type, x, y);
 	}
 
 	Game.Tower = Tower;
@@ -199,7 +206,7 @@
 	var p = Tower.prototype = new createjs.Container();
 	Tower.prototype.Container_initialize = p.initialize;
 
-	Tower.prototype.initialize = function(type, x) {
+	Tower.prototype.initialize = function(type, x, y) {
 		this.Container_initialize();
 
 		// Set Tower's data
@@ -216,6 +223,7 @@
 
 		// Set Tower's position
 		this.x = x;
+		this.y = y;
 
 		// Create Tower's image
 		var color;
@@ -245,10 +253,10 @@
 					var projectile;
 					switch (attack.type) {
 					    case "bullet":
-        					projectile = new Bullet(attack.damge, this.x, this.radius);
+        					projectile = new Bullet(attack.damge, this.x, this.y + this.radius);
         					break;
         				case "cloud":
-        				    projectile = new Cloud(this.x, this.radius);
+        				    projectile = new Cloud(this.x, this.y + this.radius);
         					break;
 					}
         			Game.PROJECTILES.push(projectile);
@@ -303,7 +311,7 @@
 		 * Get the tower's bounding box
 		 */
 		this.getBox = function() {
-			return {left: this.x, top: 0, width: this.radius * 2, height: this.radius};
+			return {left: this.x, top: this.y, width: this.radius * 2, height: this.radius};
 		}
 	}
 
@@ -1207,6 +1215,59 @@
 		}
 	}
 	ItemsList.init(90, 40, 8, 900);
+
+
+	/**
+	 * Info bar
+	 * Display information about select monster/hero/tower etc
+	 */
+	function InfoBar() {
+		this.initialize();
+	}
+
+	Game.InfoBar = InfoBar;
+
+	var p = InfoBar.prototype = new createjs.Container();
+	InfoBar.prototype.Container_initialize = p.initialize;
+
+	InfoBar.prototype.initialize = function() {
+		this.Container_initialize();
+
+		// Set InfoBar's size
+		this.width = Game.size.width;
+		this.height = 35;
+
+		// Set InfoBar's position
+		this.x = 0;
+		this.y = 0;
+
+		// Draw InfoBar
+		var image = new createjs.Shape();
+		image.graphics.beginFill("#fff").drawRect(0, 0, this.width, this.height);
+		this.addChild(image);
+
+		// Draw InfoBar's border
+		var image = new createjs.Shape();
+		image.graphics.beginFill("#111").drawRect(0, this.height - 1, this.width, 1);
+		this.addChild(image);
+
+		/**
+		 * Gets InfoBar's bounding box
+		 */
+		this.getBox = function() {
+			return {left: this.x, top: this.y, width: this.width, height: this.height};
+		}
+
+		/**
+		 * Destroy the InfoBar
+		 */
+		this.kill = function() {
+			Game.INFOBAR = null;
+			this.removeAllChildren();
+			Game.stage.removeChild(this);
+		}
+	}
+
 
 	/**
 	 * Ground
