@@ -789,7 +789,7 @@
 
 	/**
 	 * Cannon object
-	 * For the cannon the Mad Scientist fire potion from
+	 * The cannon from which the mad scientist fire potion at the heroes
 	 */
 	function Cannon() {
 		this.initialize();
@@ -803,16 +803,34 @@
 	Cannon.prototype.initialize = function() {
 		this.Container_initialize();
 
-		// Cannon position
+		// Cannon's size
 		this.width = 120;
 		this.height = 100;
+
+		// Cannon's position
 		this.x = 835;
 		this.y = Game.GROUND.y - this.height;
 
-		// Cannon image
+		// Cannon's image
 		var image = new createjs.Shape();
 		image.graphics.beginFill("#111").drawRect(0, 0, this.width, this.height);
 		this.addChild(image);
+
+		/**
+		 * Returns the cannon's bounding box
+		 */
+		this.getBox = function() {
+			return {left: this.x, top: this.y, width: this.width, height: this.height};
+		}
+
+		/**
+		 * Remove the cannon and all references to it
+		 */
+		this.kill = function() {
+			Game.CANNON = null;
+			this.removeAllChildren();
+			Game.stage.removeChild(this);
+		}
 	}
 
 
