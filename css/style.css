@@ -9,7 +9,7 @@
 }
 
 body {
-	font-family: 'Snowburst One', tahoma, arial;
+	font-family: 'Fredoka One', tahoma, arial;
 	font-size: 16px;
 }
 
@@ -28,12 +28,7 @@ hr {
 /* GAME
 -------------------------------------------------- */
 
-#container {
-	border: 1px solid #000;
-	margin: 15px auto;
-	overflow: hidden;
-	height: 640px;
-	width: 960px;
+canvas {
 	user-select: none;
 	-webkit-user-select: none;
 	-moz-user-select: none;
@@ -41,10 +36,5 @@ hr {
 	-o-user-select: none;
 	-webkit-touch-callout: none;
 	-webkit-user-drag: none;
-	line-height: 0px;
-}
-
-canvas {
-	height: 640px;
-	width: 960px;
+	position: fixed;
 }
