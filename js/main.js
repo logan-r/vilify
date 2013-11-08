@@ -62,6 +62,12 @@
 			// Get canvas
 			Game.stage = new createjs.Stage(canvasID);
 
+			// Fit canvas to window
+			Game.resize();
+
+			// Handle all resize events
+			window.addEventListener("resize", Game.resize, false);
+
 			// Set canvas size
 			Game.size = {
 				width: Game.stage.canvas.width,
@@ -74,6 +80,14 @@
 			// Start game loop
 			createjs.Ticker.setFPS(Game.fps);
 			createjs.Ticker.addEventListener("tick", Game.tick);
+		},
+
+		/**
+		 * Resize the canvas
+		 */
+		resize: function() {
+		    Game.stage.canvas.style.width = window.innerWidth + 'px';
+		    Game.stage.canvas.style.height = window.innerHeight + 'px';
 		},
 
 		/**
@@ -167,9 +181,9 @@
 				Game.PROJECTILES[i].tick(event);
 				for (j = 0; j < Game.HEROES.length; j++) { // Has a hero been hit by the projectile?
 					if (Game.PROJECTILES[i].collides(Game.HEROES[j].getBox())) {
-						// Deal damage to hero and kill projectile
-						Game.HEROES[j].damage(Game.PROJECTILES[i].damage);
+						// Deal damage to hero and kill protile
 						Game.PROJECTILES[i].kill();
+						Game.HEROES[j].damage(Game.PROJECTILES[i].damage);
 					}
 				}
 			}
@@ -1235,7 +1249,7 @@
 
 		// Set InfoBar's size
 		this.width = Game.size.width;
-		this.height = 35;
+		this.height = 0;
 
 		// Set InfoBar's position
 		this.x = 0;
