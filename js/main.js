@@ -11,12 +11,14 @@
 		 * stage: CreateJS's version of canvas+context
 		 * queue: CreateJS's resource loading mechanism
 		 * scene: the current scene being displayed
+		 * size: the width and height of the canvas
 		 */
 		stage: null,
 		queue: null,
 		data: null,
 		fps: 60,
 		scene: null,
+		size: null,
 
 		/**
 		 * variables to hold objects
@@ -100,64 +102,72 @@
 		function() {
 			// Create ground
 			Game.GROUND = new Ground();
-			Game.stage.addChild(Game.GROUND);
+			Game.stage.addChild(Game.GROUND); // Display ground on screen
 
 			// Create towers
 			for (i = 0; i < 6; i++) {
 				tower = new Tower(null, 100+152*i);
-				Game.stage.addChild(tower);
 				Game.TOWERS.push(tower);
+				Game.stage.addChild(tower); // Display towers on screen
 			}
 
 			// Create graveyard
 			Game.GRAVEYARD = new Graveyard();
-			Game.stage.addChild(Game.GRAVEYARD);
+			Game.stage.addChild(Game.GRAVEYARD); // Display graveyard on screen
 
 			// Create cannon
 			Game.CANNON = new Cannon();
-			Game.stage.addChild(Game.CANNON);
+			Game.stage.addChild(Game.CANNON); // Display cannon on screen
 
 			// Create items
 			for (i = 0; i < 14; i++) {
-				item = new Item(["tech","chemical","alien"][MathEx.randInt(0,2)], MathEx.randInt(0, 600), MathEx.randInt(0, 600));
-				Game.stage.addChild(item);
+				// Select a random type of item
+				type = ["tech","chemical","alien"][MathEx.randInt(0,2)];
+
+				// Pick a random location to spawn the item at
+				x = MathEx.randInt(0, 600);
+				y = MathEx.randInt(0, 600);
+
+				item = new Item(type, x, y);
 				Game.ITEMS.push(item);
+				Game.stage.addChild(item); // Display item on screen
 			}
 		},
 		function(event) {
-			// Tick heroes
+			// Update heroes
 			for (i = 0; i < Game.HEROES.length; i++) {
 				Game.HEROES[i].tick(event);
 			}
 
-			// Tick towers
+			// Update towers
 			for (i = 0; i < Game.TOWERS.length; i++) {
 				Game.TOWERS[i].tick(event);
 			}
 
-			// Tick projectiles
+			// Update projectiles
 			for (i = 0; i < Game.PROJECTILES.length; i++) {
 				Game.PROJECTILES[i].tick(event);
-				for (j = 0; j < Game.HEROES.length; j++) {
+				for (j = 0; j < Game.HEROES.length; j++) { // Has a hero been hit by the projectile?
 					if (Game.PROJECTILES[i].collides(Game.HEROES[j].getBox())) {
+						// Deal damage to hero and kill protile
 						Game.PROJECTILES[i].kill();
 						Game.HEROES[j].damage(Game.PROJECTILES[i].damage);
 					}
 				}
 			}
 
-			// Tick monsters
+			// Update monsters
 			for (i = 0; i < Game.MONSTERS.length; i++) {
 				Game.MONSTERS[i].tick(event);
-				for (j = 0; j < Game.HEROES.length; j++) {
-					if (Physics.collides(Game.HEROES[j].getBox(), Game.MONSTERS[i].getBox())) {
+				for (j = 0; j < Game.HEROES.length; j++) { // Does monster collide with a hero?
+					if (Physics.collides(Game.HEROES[j].getBox(), Game.MONSTERS[i].getBox())) { // Then start combat between them
 						hero.inCombat = Game.MONSTERS[i];
 						monster.inCombat = Game.HEROES[j];
 					}
 				}
 			}
 
-			// Tick items
+			// Update items
 			for (i = 0; i < Game.ITEMS.length; i++) {
 				Game.ITEMS[i].tick(event);
 			}
@@ -185,11 +195,13 @@
 		this.type = type;
 		if (this.type != null) {
 			this.name = Game.DATA["towers"][this.type]["name"];
-			this.rate = Game.DATA["towers"][this.type]["rate"];
+			this.attacks = Game.DATA["towers"][this.type]["attacks"]; // Attacks tower can exicute
+			this.rate = Game.DATA["towers"][this.type]["rate"]; // Rate at which the tower fires projectiles
 			this.projectileTimer = Game.fps * this.rate;  // Timeout between projectiles
 		}
 
 		// Tower position
+		this.radius = 50;
 		this.x = x;
 
 		// Tower image
@@ -200,59 +212,63 @@
 			color = Game.DATA["towers"][this.type]["image"];
 		}
 		var image = new createjs.Shape();
-		image.graphics.beginFill(color).drawCircle(0, 0, 50);
+		image.graphics.beginFill(color).drawCircle(0, 0, this.radius);
 		this.addChild(image);
 
 		// Update tower
 		this.tick = function(event) {
 			if (this.type != null) {
-				// Fire projectile
-				this.projectileTimer -= event.delta/1000 * 100; // Countdown towards next projectile
+				// Countdown towards next projectile
+				this.projectileTimer -= event.delta / 10;
+
 				if (this.projectileTimer < 0) { // Is it time to fire projectile yet?
 					// Reset timer
 					this.projectileTimer = Game.fps * this.rate;
 
                     // Pick attack to use
-					var attack = this.attacks[MathEx.randInt(0, this.attacks.length - 1)]; //TODO: weight attacks
+					var attack = this.attacks[MathEx.randInt(0, this.attacks.length - 1)]; // TODO: weight attacks
 
-					// Execute attack
+					// Fire projectile
 					var projectile;
 					switch (attack.type) {
 					    case "bullet":
-        					projectile = new Bullet(this.x, 45, attack.damge);
+        					projectile = new Bullet(this.x, this.radius - 5, attack.damge);
         					break;
         				case "cloud":
-        				    projectile = new Cloud(this.x, 45);
+        				    projectile = new Cloud(this.x, this.radius - 5);
         					break;
-        		    }
-        		    Game.stage.addChild(projectile);
+					}
         			Game.PROJECTILES.push(projectile);
+        			Game.stage.addChild(projectile); // Display projectile
 				}
 			}
 		}
 
 		// Upgrade tower
 		this.upgrade = function(type) {
+			// Update tower type
 			var newType;
-			// Update tower data
 			if (this.type == null) {
 				newType = type;
 			} else {
 				newType = (this.type + type).sort(true);
 			}
 
-			if (!Game.DATA["towers"][newType]) {
-				// Check if the tower truly exists
+			if (!Game.DATA["towers"][newType]) { // Does tower exist?
 				return false;
 			}
 
+			// Update tower data
 			this.type = newType;
+			this.name = Game.DATA["towers"][this.type]["name"];
 			this.rate = Game.DATA["towers"][this.type]["rate"];
 			this.attacks = Game.DATA["towers"][this.type]["attacks"];
 			this.projectileTimer = Game.fps * this.rate;  // Timeout between projectiles
 
-			// Update tower image
-			this.removeAllChildren(); // Clear old image
+			// Remove old tower image
+			this.removeAllChildren();
+
+			// Get new tower image
 			var color;
 			if (this.type == null) {
 				color = "#eee";
@@ -260,15 +276,15 @@
 				color = Game.DATA["towers"][this.type]["image"];
 			}
 			var image = new createjs.Shape();
-			image.graphics.beginFill(color).drawCircle(0, 0, 50);
-			this.addChild(image);
+			image.graphics.beginFill(color).drawCircle(0, 0, this.radius);
+			this.addChild(image); // Display new image
 
 			return true;
 		}
 
 		// Get bounding box
 		this.getBox = function() {
-			return {left: this.x, top: 0, width: 100, height: 50};
+			return {left: this.x, top: 0, width: this.radius * 2, height: this.radius};
 		}
 	}
 
@@ -940,12 +956,14 @@
 		this.Container_initialize();
 
 		// Ground position
+		this.width = 960;
+		this.height = 10;
 		this.x = 0;
 		this.y = 630;
 
 		// Ground image
 		var image = new createjs.Shape();
-		image.graphics.beginFill("#111").drawRect(0, 0, 960, 10);
+		image.graphics.beginFill("#111").drawRect(0, 0, this.width, this.height);
 		this.addChild(image);
 	}
 
