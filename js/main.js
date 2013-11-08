@@ -149,22 +149,22 @@
 			Game.stage.addChild(Game.GROUND); // Display ground on screen
 
 			// Create towers
-			for (i = 0; i < 6; i++) {
-				tower = new Tower(null, 100+152*i, Game.INFOBAR.height);
+			for (i = 0; i < 5; i++) {
+				tower = new Tower(null, 120+200*i, Game.INFOBAR.height);
 				Game.TOWERS.push(tower);
 				Game.stage.addChild(tower); // Display towers on screen
 			}
-
-			// Create graveyard
-			Game.GRAVEYARD = new Graveyard();
-			Game.stage.addChild(Game.GRAVEYARD); // Display graveyard on screen
 
 			// Create cannon
 			Game.CANNON = new Cannon();
 			Game.stage.addChild(Game.CANNON); // Display cannon on screen
 
+			// Create graveyard
+			Game.GRAVEYARD = new Graveyard();
+			Game.stage.addChild(Game.GRAVEYARD); // Display graveyard on screen
+
 			// Create ItemsList
-			Game.ITEMSLIST.init(90, 40, 8, Game.size.width - 40 - 5);
+			Game.ITEMSLIST.init(110, 50, 9, Game.size.width - 60);
 
 			// Create items
 			for (i = 0; i < 14; i++) {
@@ -255,7 +255,7 @@
 		}
 
 		// Set Tower's size
-		this.radius = 50;
+		this.radius = 64;
 
 		// Set Tower's position
 		this.x = x;
@@ -816,7 +816,7 @@
 		this.height = 20;
 
 		// Graveyard's position
-		this.x = 700;
+		this.x = Game.CANNON.x - this.width - 20;
 		this.y = Game.GROUND.y - this.height;
 
 		// Graveyard's image
@@ -1020,8 +1020,8 @@
 		this.goal = ItemsList.book();
 
 		// Set item's size
-		this.width = 30;
-		this.height = 30;
+		this.width = 40;
+		this.height = 40;
 
 		// Set item's position
 		this.x = x;
