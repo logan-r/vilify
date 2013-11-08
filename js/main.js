@@ -1121,34 +1121,81 @@
 		}
 	}
 
+	/**
+	 * Store the inventory of items not yet used by player
+	 */
 	ItemsList = {
-		openPositions: [90, 130, 170, 210, 250, 290, 330, 370],
+		// Data
+		openPositions: [], // Positions that are open in items list
+		bank: 0, // If no position are left in the list, extra item go to the bank
+		interval: 0, // space in between items
+		xPos: 0, // x position of the list
+
+		/**
+		 * Sets up ItemsList
+		 * start: starting y value for the list
+		 * interval: spacing in between items
+		 * len: number of items that can be stored before using the bank
+		 * xPos: x position of list
+		 */
+		init: function(start, interval, len, xPos) {
+			// Save data
+			this.interval = interval;
+			this.xPos = xPos;
+
+			// Calculate positions
+			pos = start;
+			for (i = 0; i < len; i++) {
+				// Add new position to list
+				this.openPositions.push(pos);
+
+				// Set next position
+				pos += interval;
+			}
+
+			// Set bank position
+			this.bank = pos;
+		},
+		/**
+		 * Books a position in the list for an item
+		 */
 		book: function() {
+			// Is there an open position?
 			if (this.openPositions.length > 0) {
+				// Return it and mark it as used
 				y = this.openPositions[0];
 				this.openPositions.splice(0, 1);
-				return [900, y];
+				return [this.xPos, y];
 			}
-			return [900, 410];
+			// Otherwise, put in bank
+			return [this.xPos, this.bank];
 		},
+		/**
+		 * Frees up a position and reorders the list
+		 * y: y value of freed position
+		 */
 		free: function(y) {
 			bankedItemMoved = false;
-			for (i = 0; i < Game.ITEMS.length; i++) {
-				if (Game.ITEMS[i].y > y && (!bankedItemMoved || !Game.ITEMS[i].y >= 410)) {
-					if (Game.ITEMS[i].y >= 410) {
+			for (i = 0; i < Game.ITEMS.length; i++) { // Reorder list
+				if (Game.ITEMS[i].y > y && (!bankedItemMoved || !Game.ITEMS[i].y >= this.bank)) { // Only move up the first item in the bank
+					if (Game.ITEMS[i].y >= this.bank) {
 						bankedItemMoved = true;
 					}
+
+					// Update item state
 					Game.ITEMS[i].state = "REORDER";
+
+					// Set new velocity
 					Game.ITEMS[i].Vx = 0;
 					Game.ITEMS[i].Vy = -1000;
-					Game.ITEMS[i].goal[1] = Game.ITEMS[i].y - 40;
+
+					// Set new goal
+					Game.ITEMS[i].goal[1] = Game.ITEMS[i].y - this.interval;
 				}
 			}
 		}
 	}
-
-	Game.ItemsList = ItemsList; // For debug only; To be removed
-
+	ItemsList.init(90, 40, 8, 900);
 
 	/**
 	 * Ground
