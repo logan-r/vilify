@@ -58,8 +58,19 @@
 		 * Initialize CreateJS and all the necessary stuffs
 		 */
 		init: function(canvasID, scene) {
+			// Get canvas
 			Game.stage = new createjs.Stage(canvasID);
+
+			// Set canvas size
+			Game.size = {
+				width: Game.stage.canvas.width,
+				height: Game.stage.canvas.height
+			};
+
+			// Go to first scene
 			Game.changeScene(scene);
+
+			// Start game loop
 			createjs.Ticker.setFPS(Game.fps);
 			createjs.Ticker.addEventListener("tick", Game.tick);
 		},
@@ -404,7 +415,7 @@
 			this.Vy += event.delta / 1000 * this.Ay;
 
 			// Remove bullet if it goes off the screen
-			if (this.x < -1 * this.width || this.x > 960 || this.y < -1 * this.height || this.y > 640) {
+			if (this.x < -1 * this.width || this.x > Game.size.width || this.y < -1 * this.height || this.y > Game.size.height) {
 				this.kill();
 			}
 		}
@@ -465,7 +476,7 @@
 			this.Vy += event.delta / 1000 * this.Ay;
 
 			// Remove bullet if it goes off the screen
-			if (this.x < -1 * this.width || this.x > 960 || this.y < -1 * this.height || this.y > 640) {
+			if (this.x < -1 * this.width || this.x > Game.size.width || this.y < -1 * this.height || this.y > Game.size.height) {
 				this.kill();
 			}
 		}
@@ -615,8 +626,8 @@
 			// Don't let the monster go off screen
 			if (event.target.parent.goal[0] < 0) {
 			    event.target.parent.goal[0] = 0;
-			} else if (event.target.parent.goal[0] > 960 - event.target.parent.width) {
-			    event.target.parent.goal[0] = 960 - event.target.parent.width;
+			} else if (event.target.parent.goal[0] > Game.size.width - event.target.parent.width) {
+			    event.target.parent.goal[0] = Game.size.width - event.target.parent.width;
 			}
 
 			// Set monster's new x velocity
@@ -696,7 +707,7 @@
 				color = Game.DATA["monsters"][this.type]["image"];
 			}
 			var image = new createjs.Shape();
-			image.graphics.beginFill(color).drawRect(0, 0, 70, 100);
+			image.graphics.beginFill(color).drawRect(0, 0, this.width, this.height);
 			this.addChild(image); // Display new image
 
 			// Add event handlers
@@ -808,7 +819,7 @@
 		this.height = 100;
 
 		// Cannon's position
-		this.x = 835;
+		this.x = Game.size.width - this.width - 5;
 		this.y = Game.GROUND.y - this.height;
 
 		// Cannon's image
@@ -1214,12 +1225,12 @@
 		this.Container_initialize();
 
 		// Ground size
-		this.width = 960;
+		this.width = Game.size.width;
 		this.height = 10;
 
 		// Ground position
 		this.x = 0;
-		this.y = 630;
+		this.y = Game.size.height - this.height;
 
 		// Ground image
 		var image = new createjs.Shape();
