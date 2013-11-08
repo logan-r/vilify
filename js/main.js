@@ -1213,9 +1213,11 @@
 	Ground.prototype.initialize = function() {
 		this.Container_initialize();
 
-		// Ground position
+		// Ground size
 		this.width = 960;
 		this.height = 10;
+
+		// Ground position
 		this.x = 0;
 		this.y = 630;
 
@@ -1223,6 +1225,22 @@
 		var image = new createjs.Shape();
 		image.graphics.beginFill("#111").drawRect(0, 0, this.width, this.height);
 		this.addChild(image);
+
+		/**
+		 * Gets ground's bounding box
+		 */
+		this.getBox = function() {
+			return {left: this.x, top: this.y, width: this.width, height: this.height};
+		}
+
+		/**
+		 * Destroy ground
+		 */
+		this.kill = function() {
+			Game.GROUND = null;
+			this.removeAllChildren();
+			Game.stage.removeChild(this);
+		}
 	}
 
 	Game.load();
