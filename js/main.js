@@ -167,9 +167,9 @@
 				Game.PROJECTILES[i].tick(event);
 				for (j = 0; j < Game.HEROES.length; j++) { // Has a hero been hit by the projectile?
 					if (Game.PROJECTILES[i].collides(Game.HEROES[j].getBox())) {
-						// Deal damage to hero and kill protile
-						Game.PROJECTILES[i].kill();
+						// Deal damage to hero and kill projectile
 						Game.HEROES[j].damage(Game.PROJECTILES[i].damage);
+						Game.PROJECTILES[i].kill();
 					}
 				}
 			}
