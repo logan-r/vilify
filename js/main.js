@@ -206,8 +206,8 @@
 					}
 				}
 			}
-			for (i = 0; i < kill.length; i++) {
-					Game.PROJECTILES[kill[i]].kill();
+			for (var i in kill) {
+					kill[i].kill();
 			}
 
 			// Update monsters
