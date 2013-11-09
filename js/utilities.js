@@ -49,7 +49,7 @@ window.Physics = {
  * fn can be 1) function to sort, or 2) boolean
  * to indicate reverse or not
  */
-window.String.prototype.sort =  function(fn) {
+window.String.prototype.sort = function(fn) {
 	var a = this.split("");
 	if (typeof(fn) === "boolean" && fn) {
 		// Reversed

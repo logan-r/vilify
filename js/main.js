@@ -169,13 +169,13 @@
 			// Create items
 			for (i = 0; i < 14; i++) {
 				// Select a random type of item
-				type = ["tech","chemical","alien"][MathEx.randInt(0,2)];
+				type = ["tech","chemical","alien"];
 
 				// Pick a random location to spawn the item at
 				x = MathEx.randInt(0, 600);
 				y = MathEx.randInt(0, 600);
 
-				item = new Item(type, x, y);
+				item = new Item(type[Math.randInt(0,2)], x, y);
 				Game.ITEMS.push(item);
 				Game.stage.addChild(item); // Display item on screen
 			}
