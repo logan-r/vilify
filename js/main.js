@@ -202,12 +202,12 @@
 					if (Game.PROJECTILES[i].collides(Game.HEROES[j].getBox())) {
 						// Deal damage to hero and kill projectile
 						Game.HEROES[j].damage(Game.PROJECTILES[i].damage);
-						kill.push({killee:Game.PROJECTILES[i],number:j});
+						kill.push(j);
 					}
 				}
 			}
 			for (i = 0; i < kill.length; i++) {
-					Game.PROJECTILES[kill[i].number].kill();
+					Game.PROJECTILES[kill[i]].kill();
 			}
 
 			// Update monsters
