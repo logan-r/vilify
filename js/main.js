@@ -202,11 +202,11 @@
 					if (Game.PROJECTILES[i].collides(Game.HEROES[j].getBox())) {
 						// Deal damage to hero and kill projectile
 						Game.HEROES[j].damage(Game.PROJECTILES[i].damage);
-						kill.push(j);
+						kill.push(Game.PROJECTILES[i]);
 					}
 				}
 			}
-			for (var i in kill) {
+			for (var i = 0; i < kill.length; i++) {
 					kill[i].kill();
 			}
 
