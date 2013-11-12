@@ -163,6 +163,11 @@
 			Game.GRAVEYARD = new Graveyard();
 			Game.stage.addChild(Game.GRAVEYARD); // Display graveyard on screen
 
+			// Create hero
+			var hero = new Hero("Sidekick");
+			Game.HEROES.push(hero);
+			Game.stage.addChild(hero);
+
 			// Create ItemsList
 			Game.ITEMSLIST.init(110, 50, 9, Game.size.width - 60);
 
@@ -966,7 +971,7 @@
 		this.height = 100;
 
 		// Calculate hero's y position
-		var y = 530;
+		var y = Game.GROUND.y - this.height;
 		var Vy = 0;
 		if (this.flying) {
 			y = MathEx.randInt(120, 420);
@@ -975,7 +980,7 @@
 		}
 
 		// Set hero's position
-		this.x = -70;
+		this.x = -1 * this.width;
 		this.y = y;
 
 		// Hero velocity
