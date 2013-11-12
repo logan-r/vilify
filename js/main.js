@@ -34,7 +34,7 @@
 		PROJECTILES: [],
 		HEROES: [],
 		MONSTERS: [],
-		EFFECTS: {},
+		FX: {},
 
 		/**
 		 * Load all the assets
@@ -630,17 +630,17 @@
 		 */
 		var handlePressDown = function(event) {
 			// Reset monsterMove effect
-			Game.EFFECTS["monsterMove"] = {image: null};
+			Game.FX["monsterMove"] = {image: null};
 		}
 
 		/**
 		 * Handle drag
 		 */
 		var handlePressMove = function(event) {
-			// Remove old monsterMove effect
-			Game.stage.removeChild(Game.EFFECTS["monsterMove"].image);
+			// Remove old monsterMove fx
+			Game.stage.removeChild(Game.FX["monsterMove"].image);
 
-			// Calculate new monsterMove effect
+			// Calculate new monsterMove fx
 			var endY;
 			if (event.target.parent.flying) {
 				endY = event.stageY;
@@ -648,13 +648,13 @@
 				endY = event.target.parent.y + event.target.parent.height / 2;
 			}
 
-			// Add new monsterMove effect
-			var effect = new createjs.Shape();
-			effect.graphics.moveTo(event.target.parent.x + event.target.parent.width / 2, event.target.parent.y + event.target.parent.height / 2);
-			effect.graphics.setStrokeStyle(20, "round").beginStroke("rgba(0, 0, 0, 0.2)");
-			effect.graphics.lineTo(event.stageX, endY).endStroke();
-			Game.EFFECTS["monsterMove"].image = effect;
-			Game.stage.addChild(effect); // Display effect
+			// Add new monsterMove fx
+			var fx = new createjs.Shape();
+			fx.graphics.moveTo(event.target.parent.x + event.target.parent.width / 2, event.target.parent.y + event.target.parent.height / 2);
+			fx.graphics.setStrokeStyle(20, "round").beginStroke("rgba(0, 0, 0, 0.2)");
+			fx.graphics.lineTo(event.stageX, endY).endStroke();
+			Game.FX["monsterMove"].image = fx;
+			Game.stage.addChild(fx); // Display effect
 		}
 
 		/**
@@ -706,8 +706,8 @@
     			}
     		}
 
-    		// Clear monsterMove effect
-			Game.stage.removeChild(Game.EFFECTS["monsterMove"].image);
+    		// Clear monsterMove fx
+			Game.stage.removeChild(Game.FX["monsterMove"].image);
 		}
 
 		// Add event handlers
