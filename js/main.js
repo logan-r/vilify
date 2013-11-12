@@ -239,7 +239,7 @@
 	Game.GameObject = GameObject;
 
 	var p = GameObject.prototype = new createjs.Container();
-	GameObject.prototype.Container_initialize = p.initialize();
+	GameObject.prototype.Container_initialize = p.initialize;
 
 	GameObject.prototype.initialize = function() {
 		this.Container_initialize();
@@ -600,11 +600,11 @@
 
 	Game.Monster = Monster;
 
-	var p = Monster.prototype = new createjs.Container();
-	Monster.prototype.Container_initialize = p.initialize;
+	var p = Monster.prototype = new GameObject();
+	Monster.prototype.GameObject_initialize = p.initialize;
 
 	Monster.prototype.initialize = function(type) {
-		this.Container_initialize();
+		this.GameObject_initialize();
 
 		// Set Monster's size
 		this.width = 70;
@@ -836,20 +836,13 @@
 		}
 
 		/**
-		 * Returns the monster's bounding box
-		 */
-		this.getBox = function() {
-			return {left: this.x, top: this.y, width: this.width, height: this.height};
-		}
-
-		/**
 		 * Destroy the monster and all references to it
-		 */
+
 		this.kill = function() {
 			Game.MONSTERS.splice(Game.MONSTERS.indexOf(this), 1);
 			this.removeAllChildren();
 			Game.stage.removeChild(this);
-		}
+		}*/
 	}
 
 
