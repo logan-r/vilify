@@ -228,6 +228,64 @@
 		}
 	);
 
+	/**
+	 * Game object
+	 * A basic object in the game
+	 */
+	function GameObject() {
+		this.initialize();
+	}
+
+	Game.GameObject = GameObject;
+
+	var p = GameObject.prototype = new createjs.Container();
+	GameObject.prototype.Container_initialize = p.initialize();
+
+	GameObject.prototype.initialize = function() {
+		this.Container_initialize();
+
+		// Size
+		this.width = 0;
+		this.height = 0;
+
+		// Location
+		this.x = 0;
+		this.y = 0;
+
+		// Velocity
+		this.Vx = 0;
+		this.Vy = 0;
+
+		// Acceleration
+		this.Ax = 0;
+		this.Ay = 0;
+
+		/**
+		 * Get the object's bounding box
+		 */
+		this.getBox = function() {
+			return {left: this.x, top: this.y, width: this.width, height: this.height}
+		}
+
+		/**
+		 * Remove the projectile and all references to it
+		 */
+		this.kill = function(PARENT) {
+			// Remove from parent object
+			if (PARENT.length == undefined) {
+				PARENT = null;
+			} else {
+				PARENT.splice(PARENT.indexOf(this), 1);
+			}
+
+			// Clear all images inside self
+			this.removeAllChildren();
+
+			// Stop displaying on stage
+			Game.stage.removeChild(this);
+		}
+	}
+
 
 	/**
 	 * Tower object
