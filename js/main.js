@@ -175,7 +175,7 @@
 				x = MathEx.randInt(0, 600);
 				y = MathEx.randInt(0, 600);
 
-				item = new Item(type[Math.randInt(0,2)], x, y);
+				item = new Item(type[MathEx.randInt(0,2)], x, y);
 				Game.ITEMS.push(item);
 				Game.stage.addChild(item); // Display item on screen
 			}
