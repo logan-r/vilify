@@ -149,8 +149,8 @@
 			Game.stage.addChild(Game.GROUND); // Display ground on screen
 
 			// Create towers
-			for (i = 0; i < 5; i++) {
-				tower = new Tower(null, 100 + 200 * i, 0);
+			for (var i = 0; i < 5; i++) {
+				var tower = new Tower(null, 100 + 200 * i, 0);
 				Game.TOWERS.push(tower);
 				Game.stage.addChild(tower); // Display towers on screen
 			}
@@ -167,15 +167,15 @@
 			Game.ITEMSLIST.init(110, 50, 9, Game.size.width - 60);
 
 			// Create items
-			for (i = 0; i < 14; i++) {
+			for (var i = 0; i < 14; i++) {
 				// Select a random type of item
-				type = ["tech","chemical","alien"];
+				var type = ["tech","chemical","alien"];
 
 				// Pick a random location to spawn the item at
-				x = MathEx.randInt(0, 600);
-				y = MathEx.randInt(0, 600);
+				var x = MathEx.randInt(0, 600);
+				var y = MathEx.randInt(0, 600);
 
-				item = new Item(type[MathEx.randInt(0,2)], x, y);
+				var item = new Item(type[MathEx.randInt(0,2)], x, y);
 				Game.ITEMS.push(item);
 				Game.stage.addChild(item); // Display item on screen
 			}
@@ -185,20 +185,20 @@
 		},
 		function(event) {
 			// Update heroes
-			for (i = 0; i < Game.HEROES.length; i++) {
+			for (var i = 0; i < Game.HEROES.length; i++) {
 				Game.HEROES[i].tick(event);
 			}
 
 			// Update towers
-			for (i = 0; i < Game.TOWERS.length; i++) {
+			for (var i = 0; i < Game.TOWERS.length; i++) {
 				Game.TOWERS[i].tick(event);
 			}
 
 			// Update projectiles
 			var kill = [];
-			for (i = 0; i < Game.PROJECTILES.length; i++) {
+			for (var i = 0; i < Game.PROJECTILES.length; i++) {
 				Game.PROJECTILES[i].tick(event);
-				for (j = 0; j < Game.HEROES.length; j++) { // Has a hero been hit by the projectile?
+				for (var j = 0; j < Game.HEROES.length; j++) { // Has a hero been hit by the projectile?
 					if (Game.PROJECTILES[i].collides(Game.HEROES[j].getBox())) {
 						// Deal damage to hero and kill projectile
 						Game.HEROES[j].damage(Game.PROJECTILES[i].damage);
@@ -211,9 +211,9 @@
 			}
 
 			// Update monsters
-			for (i = 0; i < Game.MONSTERS.length; i++) {
+			for (var i = 0; i < Game.MONSTERS.length; i++) {
 				Game.MONSTERS[i].tick(event);
-				for (j = 0; j < Game.HEROES.length; j++) { // Does monster collide with a hero?
+				for (var j = 0; j < Game.HEROES.length; j++) { // Does monster collide with a hero?
 					if (Physics.collides(Game.HEROES[j].getBox(), Game.MONSTERS[i].getBox())) { // Then start combat between them
 						hero.inCombat = Game.MONSTERS[i];
 						monster.inCombat = Game.HEROES[j];
@@ -222,7 +222,7 @@
 			}
 
 			// Update items
-			for (i = 0; i < Game.ITEMS.length; i++) {
+			for (var i = 0; i < Game.ITEMS.length; i++) {
 				Game.ITEMS[i].tick(event);
 			}
 		}
@@ -649,7 +649,7 @@
 			}
 
 			// Add new monsterMove effect
-			effect = new createjs.Shape();
+			var effect = new createjs.Shape();
 			effect.graphics.moveTo(event.target.parent.x + event.target.parent.width / 2, event.target.parent.y + event.target.parent.height / 2);
 			effect.graphics.setStrokeStyle(20, "round").beginStroke("rgba(0, 0, 0, 0.2)");
 			effect.graphics.lineTo(event.stageX, endY).endStroke();
@@ -695,7 +695,7 @@
     			// TODO: Don't let the monster go to high
 
     			// Calculate x movement to y movement ratio
-    			ratio = Math.abs((event.target.parent.goal[1] - event.target.parent.y) / (event.target.parent.goal[0] - event.target.parent.x));
+    			var ratio = Math.abs((event.target.parent.goal[1] - event.target.parent.y) / (event.target.parent.goal[0] - event.target.parent.x));
 
 				// Set monster's new y velocity
     			if (event.target.parent.goal[1] < event.target.parent.y) {
@@ -1061,10 +1061,10 @@
 		}
 
 		var handlePressUp = function(event) {
-			used = false;
+			var used = false;
 
 			// Does item collide with tower?
-			for (i = 0; i < Game.TOWERS.length; i++) {
+			for (var i = 0; i < Game.TOWERS.length; i++) {
 				 // Then attempt to build/upgraded that tower
 				if (Physics.collides(Game.TOWERS[i].getBox(), event.target.parent.getBox())) {
 					used = Game.TOWERS[i].upgrade(event.target.parent.smallString());
@@ -1083,7 +1083,7 @@
 				used = true;
 			} else {
 				// Does item collide with monster?
-				for (i = 0; i < Game.MONSTERS.length; i++) {
+				for (var i = 0; i < Game.MONSTERS.length; i++) {
 					// Then attempt to upgrade monster
 					if (Physics.collides(Game.MONSTERS[i].getBox(), event.target.parent.getBox())) {
 						used = Game.MONSTERS[i].upgrade(event.target.parent.smallString());
@@ -1094,7 +1094,7 @@
 
 			// Was the item used?
 			if (used) {
-				y = event.target.parent.goal[1];
+				var y = event.target.parent.goal[1];
 
 				// Remove item from game
 				event.target.parent.kill();
@@ -1199,8 +1199,8 @@
 			this.xPos = xPos;
 
 			// Calculate positions
-			pos = start;
-			for (i = 0; i < len; i++) {
+			var pos = start;
+			for (var i = 0; i < len; i++) {
 				// Add new position to list
 				this.openPositions.push(pos);
 
@@ -1218,7 +1218,7 @@
 			// Is there an open position?
 			if (this.openPositions.length > 0) {
 				// Return it and mark it as used
-				y = this.openPositions[0];
+				var y = this.openPositions[0];
 				this.openPositions.splice(0, 1);
 				return [this.xPos, y];
 			}
@@ -1230,8 +1230,8 @@
 		 * y: y value of freed position
 		 */
 		free: function(y) {
-			bankedItemMoved = false;
-			for (i = 0; i < Game.ITEMS.length; i++) { // Reorder list
+			var bankedItemMoved = false;
+			for (var i = 0; i < Game.ITEMS.length; i++) { // Reorder list
 				if (Game.ITEMS[i].y > y && (!bankedItemMoved || !Game.ITEMS[i].y >= this.bank)) { // Only move up the first item in the bank
 					if (Game.ITEMS[i].y >= this.bank) {
 						bankedItemMoved = true;
@@ -1282,17 +1282,17 @@
 		this.addChild(image);
 
 		// Draw InfoBar's y-axis border
-		var image = new createjs.Shape();
+		image = new createjs.Shape();
 		image.graphics.beginFill("#111").drawRect(0, 0, 1, this.height);
 		this.addChild(image);
 
 		// Draw InfoBar's y-axis border
-		var image = new createjs.Shape();
+		image = new createjs.Shape();
 		image.graphics.beginFill("#111").drawRect(70, 0, 1, this.height);
 		this.addChild(image);
 
 		// Draw InfoBar's x-axis border
-		var image = new createjs.Shape();
+		image = new createjs.Shape();
 		image.graphics.beginFill("#111").drawRect(0, this.height, this.width, 1);
 		this.addChild(image);
 
