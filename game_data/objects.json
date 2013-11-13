@@ -84,5 +84,13 @@
 			"speed": 100,
 			"flying": false
 		}
+	},
+	"effects": {
+		"freeze": {
+			"effects": {
+				"speed": 0
+			},
+			"image": "rgba(147, 217, 194, .5)"
+		}
 	}
 }
