@@ -947,12 +947,6 @@
 		this.type = type;
 		this.flying = Game.DATA["heroes"][this.type]["flying"];
 		this.health = Game.DATA["heroes"][this.type]["health"];
-		this.effects = [ // Active effects
-			{
-				type: "freeze",
-				countDown: Game.fps * 60 /* convert to minutes */ * 1 /* number of minutes */
-			}
-		];
 
 		// Set hero's size
 		this.width = 70;
@@ -1006,6 +1000,14 @@
 					break;
 			}
 		}
+
+		/**
+		 * Adds an effect to hero
+		 */
+		this.addEffect = function(type) {
+			var effect = new Effect(type, this);
+		}
+		this.addEffect("freeze");
 
 		/**
 		 * Deal damage to the hero
@@ -1276,6 +1278,24 @@
 				}
 			}
 		}
+	}
+
+	/**
+	 * Effect object
+	 * An effect that is applied to a hero or monster
+	 */
+	function Effect(type, parent) {
+		this.initialize(type, parent);
+	}
+
+	Game.Effect = Effect;
+
+	Effect.prototype.initialize = function(type, parent) {
+		this.type = type;
+
+		var image = new createjs.Shape();
+		image.graphics.beginFill("rgba(147, 217, 194, .5)").drawRect(-10, -10, parent.width + 20, parent.height + 20);
+		parent.addChild(image);
 	}
 
 
