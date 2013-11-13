@@ -947,6 +947,7 @@
 		this.type = type;
 		this.flying = Game.DATA["heroes"][this.type]["flying"];
 		this.health = Game.DATA["heroes"][this.type]["health"];
+		this.EFFECTS = []; // All active effects on hero
 
 		// Set hero's size
 		this.width = 70;
@@ -982,14 +983,17 @@
 		 * Update hero
 		 */
 		this.tick = function(event) {
+			// Get active effects on hero
+			var effects = this.getEffects();
+
 			switch (this.state) { // What state is the hero in?
 				case "MOVING": // Move hero
 					// Move on x-axis
-					this.x += event.delta / 1000 * this.Vx;
+					this.x += event.delta / 1000 * this.Vx * effects.speed;
 
 					// Fly
 					if (this.flying) {
-						this.y += event.delta / 1000 * this.Vy; // Move on y-axis
+						this.y += event.delta / 1000 * this.Vy * effects.speed; // Move on y-axis
 						if (this.y > this.starty + this.flyingHeight || this.y < this.starty - this.flyingHeight) { // Oscillate flying
 							this.Vy = -1 * this.Vy;
 						}
@@ -1006,8 +1010,24 @@
 		 */
 		this.addEffect = function(type) {
 			var effect = new Effect(type, this);
+			this.EFFECTS.push(effect);
 		}
 		this.addEffect("freeze");
+
+		/**
+		 * Get all of the active effects on a hero
+		 */
+		this.getEffects = function() {
+			var effects = {};
+			for (var i = 0; i < this.EFFECTS.length; i++) {
+				for (var effect in this.EFFECTS[0]["effects"]) {
+					effects[effect] = this.EFFECTS[0]["effects"][effect];
+				}
+			}
+			console.log(effects);
+			return effects;
+		}
+
 
 		/**
 		 * Deal damage to the hero
@@ -1292,9 +1312,10 @@
 
 	Effect.prototype.initialize = function(type, parent) {
 		this.type = type;
+		this.effects = Game.DATA["effects"][this.type].effects;
 
 		var image = new createjs.Shape();
-		image.graphics.beginFill("rgba(147, 217, 194, .5)").drawRect(-10, -10, parent.width + 20, parent.height + 20);
+		image.graphics.beginFill(Game.DATA["effects"][this.type].image).drawRect(-10, -10, parent.width + 20, parent.height + 20);
 		parent.addChild(image);
 	}
 
