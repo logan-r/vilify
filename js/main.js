@@ -619,10 +619,6 @@
 		this.x = Game.GRAVEYARD.x + Game.GRAVEYARD.width / 2 - this.width / 2;
 		this.y = Game.GROUND.y - this.height;
 
-		// Monster velocity
-		this.Vx = 0;
-		this.Vy = 0;
-
 		// Set Monster's data
 		this.type = type;
 		this.health = Game.DATA["monsters"][this.type]["health"];
@@ -842,12 +838,12 @@
 
 		/**
 		 * Destroy the monster and all references to it
-
+		 */
 		this.kill = function() {
 			Game.MONSTERS.splice(Game.MONSTERS.indexOf(this), 1);
 			this.removeAllChildren();
 			Game.stage.removeChild(this);
-		}*/
+		}
 	}
 
 
@@ -861,11 +857,11 @@
 
 	Game.Graveyard = Graveyard;
 
-	var p = Graveyard.prototype = new createjs.Container();
-	Graveyard.prototype.Container_initialize = p.initialize;
+	var p = Graveyard.prototype = new GameObject();
+	Graveyard.prototype.GameObject_initialize = p.initialize;
 
 	Graveyard.prototype.initialize = function() {
-		this.Container_initialize();
+		this.GameObject_initialize();
 
 		// Graveyard's size
 		this.width = 120;
@@ -879,13 +875,6 @@
 		var image = new createjs.Shape();
 		image.graphics.beginFill("#d61500").drawRect(0, 0, this.width, this.height);
 		this.addChild(image);
-
-		/**
-		 * Returns the graveyard's bounding box
-		 */
-		this.getBox = function() {
-			return {left: this.x, top: this.y, width: this.width, height: this.height};
-		}
 
 		/**
 		 * Destroy the graveyard and all references to it
@@ -908,11 +897,11 @@
 
 	Game.Cannon = Cannon;
 
-	var p = Cannon.prototype = new createjs.Container();
-	Cannon.prototype.Container_initialize = p.initialize;
+	var p = Cannon.prototype = new GameObject();
+	Cannon.prototype.GameObject_initialize = p.initialize;
 
 	Cannon.prototype.initialize = function() {
-		this.Container_initialize();
+		this.GameObject_initialize();
 
 		// Cannon's size
 		this.width = 120;
@@ -926,13 +915,6 @@
 		var image = new createjs.Shape();
 		image.graphics.beginFill("#111").drawRect(0, 0, this.width, this.height);
 		this.addChild(image);
-
-		/**
-		 * Returns the cannon's bounding box
-		 */
-		this.getBox = function() {
-			return {left: this.x, top: this.y, width: this.width, height: this.height};
-		}
 
 		/**
 		 * Remove the cannon and all references to it
@@ -955,38 +937,41 @@
 
 	Game.Hero = Hero;
 
-	var p = Hero.prototype = new createjs.Container();
-	Hero.prototype.Container_initialize = p.initialize;
+	var p = Hero.prototype = new GameObject();
+	Hero.prototype.GameObject_initialize = p.initialize;
 
 	Hero.prototype.initialize = function(type) {
-		this.Container_initialize();
+		this.GameObject_initialize();
 
 		// Set hero's data
 		this.type = type;
 		this.flying = Game.DATA["heroes"][this.type]["flying"];
 		this.health = Game.DATA["heroes"][this.type]["health"];
+		this.effects = [ // Active effects
+			{
+				type: "freeze",
+				countDown: Game.fps * 60 /* convert to minutes */ * 1 /* number of minutes */
+			}
+		];
 
 		// Set hero's size
 		this.width = 70;
 		this.height = 100;
 
-		// Calculate hero's y position
-		var y = Game.GROUND.y - this.height;
-		var Vy = 0;
-		if (this.flying) {
-			y = MathEx.randInt(120, 420);
-			Vy = this.flying["velocity"]; // y velocity
-			this.flyingHeight = this.flying["height"]; // height difference from starting y that the hero goes to while flying
-		}
-
 		// Set hero's position
-		this.x = -1 * this.width;
-		this.y = y;
+		this.x = -1 * this.width + 300;
+		this.y = Game.GROUND.y - this.height;
 
 		// Hero velocity
 		this.Vx = Game.DATA["heroes"][this.type]["speed"];
-		this.Vy = Vy;
 		this.starty = this.y;
+
+		// Set flying heroes position and velocity
+		if (this.flying) {
+			this.y = MathEx.randInt(120, 420);
+			this.Vy = this.flying["velocity"]; // y velocity
+			this.flyingHeight = this.flying["height"]; // height difference from starting y that the hero goes to while flying
+		}
 
 		// Hero's state
 		// IDLE: Not doing anything
@@ -1038,13 +1023,6 @@
 		}
 
 		/**
-		 * Get the heroes bounding box
-		 */
-		this.getBox = function() {
-			return {left: this.x, top: this.y, width: this.width, height: this.height};
-		}
-
-		/**
 		 * Remove object
 		 */
 		this.kill = function() {
@@ -1065,11 +1043,11 @@
 
 	Game.Item = Item;
 
-	var p = Item.prototype = new createjs.Container();
-	Item.prototype.Container_initialize = p.initialize;
+	var p = Item.prototype = new GameObject();
+	Item.prototype.GameObject_initialize = p.initialize;
 
 	Item.prototype.initialize = function(type, x, y) {
-		this.Container_initialize();
+		this.GameObject_initialize();
 
 		// Set item's data
 		this.type = type;
@@ -1213,13 +1191,6 @@
 			if (this.type == "tech") return "T";
 			else if (this.type == "chemical") return "C";
 			else if (this.type == "alien") return "A";
-		}
-
-		/**
-		 * Gets item's bounding box
-		 */
-		this.getBox = function() {
-			return {left: this.x, top: this.y, width: this.width, height: this.height};
 		}
 
 		/**
