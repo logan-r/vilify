@@ -1119,8 +1119,8 @@
 			event.target.parent.state = "DRAGGED";
 
 			// Update item's position
-			event.target.parent.x = event.stageX;
-			event.target.parent.y = event.stageY;
+			event.target.parent.x = event.stageX - event.target.parent.width / 2;
+			event.target.parent.y = event.stageY - event.target.parent.height / 2;
 		}
 
 		var handlePressUp = function(event) {
