@@ -220,8 +220,8 @@
 				Game.MONSTERS[i].tick(event);
 				for (var j = 0; j < Game.HEROES.length; j++) { // Does monster collide with a hero?
 					if (Physics.collides(Game.HEROES[j].getBox(), Game.MONSTERS[i].getBox())) { // Then start combat between them
-						hero.inCombat = Game.MONSTERS[i];
-						monster.inCombat = Game.HEROES[j];
+						Game.HEROES[j].inCombat = Game.MONSTERS[i];
+						Game.MONSTERS[i].inCombat = Game.HEROES[j];
 					}
 				}
 			}
