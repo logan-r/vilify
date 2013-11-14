@@ -754,14 +754,21 @@
     			// TODO: Don't let the monster go to high
 
     			// Calculate x movement to y movement ratio
-    			var ratio = Math.abs((event.target.parent.goal[1] - event.target.parent.y) / (event.target.parent.goal[0] - event.target.parent.x));
+				var ratio = Math.atan2(event.target.parent.goal[1] - event.target.parent.y, event.target.parent.goal[0] - event.target.parent.x);
+
+				if (event.target.parent.goal[0] < event.target.parent.x) {
+					event.target.parent.Vx = Math.cos(ratio) * event.target.parent.speed;
+				}
+				else if (event.target.parent.goal[0] > event.target.parent.x) {
+					event.target.parent.Vx = Math.cos(ratio) * event.target.parent.speed;
+				}
 
 				// Set monster's new y velocity
     			if (event.target.parent.goal[1] < event.target.parent.y) {
-    				event.target.parent.Vy = ratio * event.target.parent.speed * -1;
+    				event.target.parent.Vy = Math.sin(ratio) * event.target.parent.speed;
     			}
     			else if (event.target.parent.goal[1] > event.target.parent.y) {
-    				event.target.parent.Vy = ratio * event.target.parent.speed;
+    				event.target.parent.Vy = Math.sin(ratio) * event.target.parent.speed;
     			}
     		}
 
