@@ -351,15 +351,15 @@
 					// Fire projectile
 					var projectile;
 					switch (attack.type) {
-					    case "bullet":
-        					projectile = new Bullet(attack.damge, this.x, this.y + this.radius);
-        					break;
-        				case "cloud":
-        				    projectile = new Cloud(this.x, this.y + this.radius);
-        					break;
+						case "bullet":
+							projectile = new Bullet(attack.damge, this.x, this.y + this.radius);
+							break;
+						case "cloud":
+							projectile = new Cloud(this.x, this.y + this.radius);
+							break;
 					}
-        			Game.PROJECTILES.push(projectile);
-        			Game.stage.addChild(projectile); // Display projectile
+					Game.PROJECTILES.push(projectile);
+					Game.stage.addChild(projectile); // Display projectile
 				}
 			}
 		}
@@ -742,18 +742,18 @@
 			}
 
 			// Is it a flying monster?
-    		if (event.target.parent.flying) {
+			if (event.target.parent.flying) {
 				// Set new goal
-    			event.target.parent.goal[1] = event.stageY - event.target.parent.height / 2;
+				event.target.parent.goal[1] = event.stageY - event.target.parent.height / 2;
 
-    			// Don't let monster go below ground
-    			if (event.target.parent.goal[1] > Game.GROUND.y - event.target.parent.height) {
-    			    event.target.parent.goal[1] = Game.GROUND.y - event.target.parent.height;
-    			}
+				// Don't let monster go below ground
+				if (event.target.parent.goal[1] > Game.GROUND.y - event.target.parent.height) {
+					event.target.parent.goal[1] = Game.GROUND.y - event.target.parent.height;
+				}
 
-    			// TODO: Don't let the monster go to high
+				// TODO: Don't let the monster go to high
 
-    			// Calculate x movement to y movement ratio
+				// Calculate x movement to y movement ratio
 				var ratio = Math.atan2(event.target.parent.goal[1] - event.target.parent.y, event.target.parent.goal[0] - event.target.parent.x);
 
 				if (event.target.parent.goal[0] < event.target.parent.x) {
@@ -764,15 +764,15 @@
 				}
 
 				// Set monster's new y velocity
-    			if (event.target.parent.goal[1] < event.target.parent.y) {
-    				event.target.parent.Vy = Math.sin(ratio) * event.target.parent.speed;
-    			}
-    			else if (event.target.parent.goal[1] > event.target.parent.y) {
-    				event.target.parent.Vy = Math.sin(ratio) * event.target.parent.speed;
-    			}
-    		}
+				if (event.target.parent.goal[1] < event.target.parent.y) {
+					event.target.parent.Vy = Math.sin(ratio) * event.target.parent.speed;
+				}
+				else if (event.target.parent.goal[1] > event.target.parent.y) {
+					event.target.parent.Vy = Math.sin(ratio) * event.target.parent.speed;
+				}
+			}
 
-    		// Clear monsterMove fx
+			// Clear monsterMove fx
 			Game.stage.removeChild(Game.FX["monsterMove"].image);
 		}
 
