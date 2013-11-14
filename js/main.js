@@ -991,7 +991,7 @@
 		 */
 		this.tick = function(event) {
 			// Get active effects on hero
-			var effects = this.getEffects();
+			var effects = this.getEffects(event);
 
 			switch (this.state) { // What state is the hero in?
 				case "MOVING": // Move hero
@@ -1015,23 +1015,23 @@
 		/**
 		 * Adds an effect to hero
 		 */
-		this.addEffect = function(type) {
-			var effect = new Effect(type, this);
+		this.addEffect = function(type, duration) {
+			var effect = new Effect(type, duration, this);
 			this.EFFECTS.push(effect);
 		}
-		this.addEffect("freeze");
+		this.addEffect("freeze", 1);
 
 		/**
 		 * Get all of the active effects on a hero
 		 */
-		this.getEffects = function() {
-			var effects = {};
+		this.getEffects = function(event) {
+			var effects = {"speed": 1};
 			for (var i = 0; i < this.EFFECTS.length; i++) {
 				for (var effect in this.EFFECTS[0]["effects"]) {
 					effects[effect] = this.EFFECTS[0]["effects"][effect];
 				}
+				this.EFFECTS[0].tick(event); // tick effects
 			}
-			console.log(effects);
 			return effects;
 		}
 
@@ -1198,7 +1198,7 @@
 					break;
 				case "REORDER": // Item is being reorder inside ItemsList
 					// Move
-					this.y += event.delta/1000 * this.Vy;
+					this.y += event.delta / 1000 * this.Vy;
 
 					// Has item reached new position in ItemsList?
 					if (this.y <= this.goal[1]) {
@@ -1311,19 +1311,39 @@
 	 * Effect object
 	 * An effect that is applied to a hero or monster
 	 */
-	function Effect(type, parent) {
-		this.initialize(type, parent);
+	function Effect(type, duration, parent) {
+		this.initialize(type, duration, parent);
 	}
 
 	Game.Effect = Effect;
 
-	Effect.prototype.initialize = function(type, parent) {
+	Effect.prototype.initialize = function(type, duration, parent) {
 		this.type = type;
 		this.effects = Game.DATA["effects"][this.type].effects;
+		this.duration = duration;
 
 		var image = new createjs.Shape();
 		image.graphics.beginFill(Game.DATA["effects"][this.type].image).drawRect(-10, -10, parent.width + 20, parent.height + 20);
 		parent.addChild(image);
+
+		/**
+		 * Update Effect
+		 */
+		this.tick = function(event) {
+			this.duration -= event.delta / 1000;
+			if (this.duration <= 0) {
+				this.kill();
+			}
+		}
+
+		/**
+		 * Remove effect
+		 */
+		this.kill = function() {
+			parent.EFFECTS.splice(parent.EFFECTS.indexOf(this), 1);
+			parent.removeChild(image);
+
+		}
 	}
 
 
