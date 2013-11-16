@@ -93,12 +93,12 @@
 			var optimalRatio = Math.min(scaleToFitX, scaleToFitY);
 
 			if (currentScreenRatio >= 1.77 && currentScreenRatio <= 1.79) {
-			    canvas.style.width = gameWidth + "px";
-			    canvas.style.height = gameHeight + "px";
+				Game.stage.canvas.style.width = gameWidth + "px";
+				Game.stage.canvas.style.height = gameHeight + "px";
 			}
 			else {
-			    canvas.style.width = 1280 * optimalRatio + "px";
-			    canvas.style.height = 800 * optimalRatio + "px";
+				Game.stage.canvas.style.width = 1280 * optimalRatio + "px";
+				Game.stage.canvas.style.height = 800 * optimalRatio + "px";
 			}
 		},
 
