@@ -1167,8 +1167,10 @@
 			} else {
 				// Send item back to ItemsList
 				event.target.parent.state = "FREE";
-				event.target.parent.Vx = 1000;
-				event.target.parent.Vy = (event.target.parent.goal[1] - event.target.parent.y) / (event.target.parent.goal[0] - event.target.parent.x) * 1000;
+
+				var ratio = Math.atan2(event.target.parent.goal[1] - event.target.parent.y, event.target.parent.goal[0] - event.target.parent.x);
+				event.target.parent.Vx = 1000 * Math.cos(ratio);
+				event.target.parent.Vy = 1000 * Math.sin(ratio);
 			}
 		}
 
