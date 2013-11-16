@@ -40,19 +40,16 @@
 		 * Load all the assets
 		 */
 		load: function() {
-			Game.queue = new createjs.LoadQueue();
 
 			// Load Game data
-			Game.queue.on("fileload", function(e) {
-				if (e.item.id === "objects.json") {
-					Game.DATA = e.result;
+			Game.queue.on("fileload", function(event) {
+				if (event.item.id === "objects.json") {
+					Game.DATA = event.result;
 					Game.queue.off("fileload", arguments.callee);
 				}
 			});
-			Game.queue.on("complete", function(e) {
-				Game.init("canvas", Game.SCENES["game"]);
-			}, null, true);
 
+			Game.queue.loadFile("logo.png", true, "images/");
 			Game.queue.loadFile("objects.json", true, "game_data/");
 		},
 
@@ -62,6 +59,7 @@
 		init: function(canvasID, scene) {
 			// Get canvas
 			Game.stage = new createjs.Stage(canvasID);
+			Game.queue = new createjs.LoadQueue();
 
 			// Fit canvas to window
 			Game.resize();
@@ -117,6 +115,7 @@
 		 * Change the active scene
 		 */
 		changeScene: function(newScene) {
+			Game.stage.removeAllChildren();
 			newScene.init();
 			Game.scene = newScene;
 		}
@@ -135,7 +134,42 @@
 	Game.Scene = Scene;
 
 	Game.SCENES["loading"] = new Scene(
-		function() {},
+		function() {
+			Game.queue.on("progress", function(event) {
+
+				// Get the last added child
+				var loadingBar = Game.stage.getChildAt(Game.stage.children.length - 1);
+				var logo = Game.queue.getResult("logo.png");
+
+				// If logo is not loaded just return
+				if (!logo) {
+					return;
+				} else if (!loadingBar) {
+					// TODO: Get a better logo image resolution so that it doesn't need to be scaled
+					loadingBar = new createjs.Shape();
+					Game.stage.addChild(loadingBar);
+					loadingBar.set({
+						x: Game.size.width / 2 - logo.width,
+						y: Game.size.height / 2 - logo.height,
+						scaleX: 2,
+						scaleY: 2
+					});
+				}
+
+				/*
+				 * c = clear
+				 * ss = strokeStyle
+				 * bs = beginBitmapStroke
+				 * mt = moveTo
+				 * lt = lineTo
+				 */
+				loadingBar.graphics.c().ss(logo.height).bs(logo).mt(0, logo.height / 2).lt(logo.width * event.progress, logo.height / 2);
+			});
+
+			Game.queue.on("complete", function(event) {
+				Game.changeScene(Game.SCENES["game"]);
+			});
+		},
 		function(event) {}
 	);
 
@@ -1466,6 +1500,7 @@
 		}
 	}
 
+	Game.init("canvas", Game.SCENES["loading"]);
 	Game.load();
 
 })(window);
