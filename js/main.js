@@ -15,7 +15,6 @@
 		 */
 		stage: null,
 		queue: null,
-		data: null,
 		fps: 60,
 		scene: null,
 		size: null,
