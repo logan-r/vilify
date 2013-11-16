@@ -68,8 +68,8 @@
 
 			// Set canvas size
 			Game.size = {
-				width: Game.stage.canvas.width,
-				height: Game.stage.canvas.height
+				get width() { return Game.stage.canvas.width },
+				get height() { return Game.stage.canvas.height }
 			};
 
 			// Go to first scene
