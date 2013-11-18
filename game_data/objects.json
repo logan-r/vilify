@@ -35,6 +35,21 @@
 			],
 			"image": "#79ab8b"
 		},
+		"CC": {
+			"name": "Ice tower",
+			"rate": 1,
+			"attacks": [
+				{
+					"type": "bullet",
+					"damage": 0,
+					"effects": {
+						"freeze": 10
+					},
+					"chance": 100
+				}
+			],
+			"image": "#331d4a"
+		},
 		"CA": {
 			"name": "Curse tower",
 			"rate": 1,
