@@ -1068,10 +1068,11 @@
 		 * Adds an effect to hero
 		 */
 		this.addEffect = function(type, duration) {
-			var effect = new Effect(type, duration, this);
-			this.EFFECTS.push(effect);
+			if (!this.hasEffect(type)) {
+				var effect = new Effect(type, duration, this);
+				this.EFFECTS.push(effect);
+			}
 		}
-		this.addEffect("freeze", 1);
 
 		/**
 		 * Get all of the active effects on a hero
@@ -1085,6 +1086,18 @@
 				this.EFFECTS[0].tick(event); // tick effects
 			}
 			return effects;
+		}
+
+		/**
+		 * Does hero have a certain effect?
+		 */
+		this.hasEffect = function(type) {
+			for (var i = 0; i < this.EFFECTS.length; i++) {
+				if (this.EFFECTS[i].type == type) {
+					return true;
+				}
+			}
+			return false;
 		}
 
 
