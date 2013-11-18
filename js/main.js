@@ -384,7 +384,7 @@
 					var projectile;
 					switch (attack.type) {
 						case "bullet":
-							projectile = new Bullet(attack.damge, this.x, this.y + this.radius);
+							projectile = new Bullet(attack.damage, attack.effects, this.x, this.y + this.radius);
 							break;
 						case "cloud":
 							projectile = new Cloud(this.x, this.y + this.radius);
@@ -515,8 +515,8 @@
 	 * Bullet object
 	 * An object for the bullets that a tower fires
 	 */
-	function Bullet(damage, x, y) {
-		this.initialize(damage, x, y);
+	function Bullet(damage, effects, x, y) {
+		this.initialize(damage, effects, x, y);
 	}
 
 	Game.Bullet = Bullet;
@@ -524,11 +524,12 @@
 	var p = Bullet.prototype = new Projectile();
 	Bullet.prototype.Projectile_initialize = p.initialize;
 
-	Bullet.prototype.initialize = function(damage, x, y) {
+	Bullet.prototype.initialize = function(damage, effects, x, y) {
 		this.Projectile_initialize();
 
 		// Set Bullet's data
 		this.damage = damage;
+		this.effects = effects;
 
 		// Set Bullet's size
 		this.width = 10;
@@ -578,8 +579,11 @@
 		 * Bullet has hit hero, deal damage
 		 */
 		this.hit = function(hero) {
-			hero.damage(1);
-			//Game.KILL.push(this);
+			for (var effect in this.effects) {
+				hero.addEffect(effect, this.effects[effects]);
+			}
+			hero.damage(this.damage);
+			this.kill();
 		}
 	}
 
