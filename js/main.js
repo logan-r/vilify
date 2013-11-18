@@ -33,13 +33,13 @@
 		PROJECTILES: [],
 		HEROES: [],
 		MONSTERS: [],
+		KILL: [], // Dead objects to be removed from game
 		FX: {},
 
 		/**
 		 * Load all the assets
 		 */
 		load: function() {
-
 			// Load Game data
 			Game.queue.on("fileload", function(event) {
 				if (event.item.id === "objects.json") {
@@ -233,19 +233,13 @@
 			}
 
 			// Update projectiles
-			var kill = [];
 			for (var i = 0; i < Game.PROJECTILES.length; i++) {
 				Game.PROJECTILES[i].tick(event);
 				for (var j = 0; j < Game.HEROES.length; j++) { // Has a hero been hit by the projectile?
 					if (Game.PROJECTILES[i].collides(Game.HEROES[j].getBox())) {
-						// Deal damage to hero and kill projectile
-						Game.HEROES[j].damage(Game.PROJECTILES[i].damage);
-						kill.push(Game.PROJECTILES[i]);
+						Game.PROJECTILES[i].hit(Game.HEROES[j]);
 					}
 				}
-			}
-			for (var i = 0; i < kill.length; i++) {
-					kill[i].kill();
 			}
 
 			// Update monsters
@@ -262,6 +256,11 @@
 			// Update items
 			for (var i = 0; i < Game.ITEMS.length; i++) {
 				Game.ITEMS[i].tick(event);
+			}
+
+			// Remove all dead objects from game
+			for (var i = 0; i < Game.KILL.length; i++) {
+				Game.KILL[i].kill();
 			}
 		}
 	);
@@ -494,6 +493,14 @@
 		}
 
 		/**
+		 * Projectile has hit hero
+		 */
+		this.hit = function(hero) {
+			// Overide me
+			return false;
+		}
+
+		/**
 		 * Remove the projectile and all references to it
 		 */
 		this.kill = function() {
@@ -565,6 +572,14 @@
 		 */
 		this.collides = function(box) {
 		     return Physics.collides(this.getBox(), box);
+		}
+
+		/**
+		 * Bullet has hit hero, deal damage
+		 */
+		this.hit = function(hero) {
+			hero.damage(1);
+			//Game.KILL.push(this);
 		}
 	}
 
@@ -1266,6 +1281,7 @@
 			Game.stage.removeChild(this);
 		}
 	}
+
 
 	/**
 	 * Store the inventory of items not yet used by player
