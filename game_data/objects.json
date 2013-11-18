@@ -3,6 +3,7 @@
 		"T": {
 			"name": "Bullet tower",
 			"rate": 1,
+			"effects": {},
 			"attacks": [
 				{
 					"type": "bullet",
@@ -15,6 +16,7 @@
 		"C": {
 			"name": "Dust tower",
 			"rate": 3,
+			"effects": {},
 			"attacks": [
 				{
 					"type": "cloud",
@@ -26,6 +28,7 @@
 		"A": {
 			"name": "Slime tower",
 			"rate": 2,
+			"effects": {},
 			"attacks": [
 				{
 					"type": "bullet",
@@ -48,7 +51,7 @@
 					"chance": 100
 				}
 			],
-			"image": "#331d4a"
+			"image": "#afd9de"
 		},
 		"CA": {
 			"name": "Curse tower",
@@ -57,6 +60,7 @@
 				{
 					"type": "bullet",
 					"damage": 1,
+					"effects": {},
 					"chance": 100
 				}
 			],
