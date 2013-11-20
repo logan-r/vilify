@@ -21,8 +21,7 @@
 					"type": "cloud",
 					"chance": 100
 				}
-			],
-			"image": "#f5db89"
+			]
 		},
 		"A": {
 			"name": "Slime",
@@ -34,8 +33,7 @@
 					"damage": 1,
 					"chance": 100
 				}
-			],
-			"image": "#79ab8b"
+			]
 		},
 		"CC": {
 			"name": "Ice",
@@ -49,8 +47,7 @@
 					},
 					"chance": 100
 				}
-			],
-			"image": "#afd9de"
+			]
 		},
 		"CA": {
 			"name": "Curse",
@@ -62,8 +59,7 @@
 					"effects": {},
 					"chance": 100
 				}
-			],
-			"image": "#331d4a"
+			]
 		}
 	},
 	"monsters": {
