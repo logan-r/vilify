@@ -49,6 +49,9 @@
 			});
 
 			Game.queue.loadFile("logo.png", true, "images/");
+			Game.queue.loadFile("tech.png", true, "images/materials");
+			Game.queue.loadFile("chemical.png", true, "images/materials");
+			Game.queue.loadFile("alien.png", true, "images/materials");
 			Game.queue.loadFile("objects.json", true, "game_data/");
 		},
 
@@ -1167,16 +1170,8 @@
 		this.state = "FREE";
 
 		// Item image
-		var color;
-		if (this.type == "tech") {
-			color = "#999";
-		} else if (this.type == "chemical") {
-			color = "#2483ff";
-		} else if (this.type == "alien") {
-			color = "#61289e";
-		}
-		var image = new createjs.Shape();
-		image.graphics.beginFill(color).drawRect(0, 0, this.width, this.height);
+		var image;
+		var image = new createjs.Bitmap("images/materials/" + this.type + ".png");
 		this.addChild(image); // Display item
 
 		var handlePressMove = function(event) {
