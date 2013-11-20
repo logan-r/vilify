@@ -1,7 +1,7 @@
 {
 	"towers": {
 		"T": {
-			"name": "Bullet tower",
+			"name": "Bullet",
 			"rate": 1,
 			"effects": {},
 			"attacks": [
@@ -10,11 +10,10 @@
 					"damage": 1,
 					"chance": 100
 				}
-			],
-			"image": "#d0d0d0"
+			]
 		},
 		"C": {
-			"name": "Dust tower",
+			"name": "Dust",
 			"rate": 3,
 			"effects": {},
 			"attacks": [
@@ -26,7 +25,7 @@
 			"image": "#f5db89"
 		},
 		"A": {
-			"name": "Slime tower",
+			"name": "Slime",
 			"rate": 2,
 			"effects": {},
 			"attacks": [
@@ -39,7 +38,7 @@
 			"image": "#79ab8b"
 		},
 		"CC": {
-			"name": "Ice tower",
+			"name": "Ice",
 			"rate": 1,
 			"attacks": [
 				{
@@ -54,7 +53,7 @@
 			"image": "#afd9de"
 		},
 		"CA": {
-			"name": "Curse tower",
+			"name": "Curse",
 			"rate": 1,
 			"attacks": [
 				{
