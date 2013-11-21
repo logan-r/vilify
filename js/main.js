@@ -186,7 +186,7 @@
 
 			// Create towers
 			for (var i = 0; i < 5; i++) {
-				var tower = new Tower(null, 100 + 200 * i, 0);
+				var tower = new Tower(null, 36 + 200 * i, 0);
 				Game.TOWERS.push(tower);
 				Game.stage.addChild(tower); // Display towers on screen
 			}
@@ -345,6 +345,7 @@
 
 		// Set Tower's data
 		this.type = type;
+		this.name = "empty";
 		if (this.type != null) {
 			this.name = Game.DATA["towers"][this.type]["name"];
 			this.attacks = Game.DATA["towers"][this.type]["attacks"]; // Attacks tower can exicute
@@ -360,14 +361,7 @@
 		this.y = y;
 
 		// Create Tower's image
-		var color;
-		if (this.type == null) {
-			color = "#eee";
-		} else {
-			color = Game.DATA["towers"][this.type]["image"];
-		}
-		var image = new createjs.Shape();
-		image.graphics.beginFill(color).drawCircle(0, 0, this.radius);
+		var image = new createjs.Bitmap("images/towers/" + this.name.toLowerCase() + ".png");
 		this.addChild(image);
 
 		// Update tower
@@ -387,10 +381,10 @@
 					var projectile;
 					switch (attack.type) {
 						case "bullet":
-							projectile = new Bullet(attack.damage, attack.effects, this.x, this.y + this.radius);
+							projectile = new Bullet(attack.damage, attack.effects, this.x + this.radius, this.y + this.radius);
 							break;
 						case "cloud":
-							projectile = new Cloud(this.x, this.y + this.radius);
+							projectile = new Cloud(this.x + this.radius, this.y + this.radius);
 							break;
 					}
 					Game.PROJECTILES.push(projectile);
@@ -428,14 +422,7 @@
 			this.removeAllChildren();
 
 			// Get new tower image
-			var color;
-			if (this.type == null) {
-				color = "#eee";
-			} else {
-				color = Game.DATA["towers"][this.type]["image"];
-			}
-			var image = new createjs.Shape();
-			image.graphics.beginFill(color).drawCircle(0, 0, this.radius);
+			var image = new createjs.Bitmap("images/towers/" + this.name.toLowerCase() + ".png");
 			this.addChild(image); // Display new image
 
 			return true; // Success!!!
