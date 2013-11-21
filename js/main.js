@@ -49,10 +49,15 @@
 			});
 
 			Game.queue.loadFile("logo.png", true, "images/");
-			Game.queue.loadFile("tech.png", true, "images/materials");
-			Game.queue.loadFile("chemical.png", true, "images/materials");
-			Game.queue.loadFile("alien.png", true, "images/materials");
 			Game.queue.loadFile("objects.json", true, "game_data/");
+			var materials = ["tech.png", "chemical.png", "alien.png"].map(function(e) {
+				return "materials/" + e;
+			});
+			Game.queue.loadManifest(materials, true, "images/");
+			var towers = ["empty.png", "bullet.png", "curse.png", "dust.png", "ice.png", "slime.png"].map(function(e) {
+				return "towers/" + e;
+			});
+			Game.queue.loadManifest(towers, true, "images/");
 		},
 
 		/**
@@ -361,7 +366,7 @@
 		this.y = y;
 
 		// Create Tower's image
-		var image = new createjs.Bitmap("images/towers/" + this.name.toLowerCase() + ".png");
+		var image = new createjs.Bitmap(Game.queue.getResult("towers/" + this.name.toLowerCase() + ".png"));
 		this.addChild(image);
 
 		// Update tower
@@ -422,7 +427,7 @@
 			this.removeAllChildren();
 
 			// Get new tower image
-			var image = new createjs.Bitmap("images/towers/" + this.name.toLowerCase() + ".png");
+			var image = new createjs.Bitmap(Game.queue.getResult("towers/" + this.name.toLowerCase() + ".png"));
 			this.addChild(image); // Display new image
 
 			return true; // Success!!!
@@ -1157,8 +1162,7 @@
 		this.state = "FREE";
 
 		// Item image
-		var image;
-		var image = new createjs.Bitmap("images/materials/" + this.type + ".png");
+		var image = new createjs.Bitmap(Game.queue.getResult("materials/" + this.type + ".png"));
 		this.addChild(image); // Display item
 
 		var handlePressMove = function(event) {
