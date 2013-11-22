@@ -50,10 +50,10 @@
 
 			Game.queue.loadFile("logo.png", true, "images/");
 			Game.queue.loadFile("objects.json", true, "game_data/");
-			var materials = ["tech.png", "chemical.png", "alien.png"].map(function(e) {
-				return "materials/" + e;
+			var items = ["tech.png", "chemical.png", "alien.png"].map(function(e) {
+				return "items/" + e;
 			});
-			Game.queue.loadManifest(materials, true, "images/");
+			Game.queue.loadManifest(items, true, "images/");
 			var towers = ["empty.png", "bullet.png", "curse.png", "dust.png", "ice.png", "slime.png"].map(function(e) {
 				return "towers/" + e;
 			});
@@ -1162,7 +1162,7 @@
 		this.state = "FREE";
 
 		// Item image
-		var image = new createjs.Bitmap(Game.queue.getResult("materials/" + this.type + ".png"));
+		var image = new createjs.Bitmap(Game.queue.getResult("items/" + this.type + ".png"));
 		this.addChild(image); // Display item
 
 		var handlePressMove = function(event) {
