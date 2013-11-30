@@ -64,11 +64,11 @@
 	},
 	"monsters": {
 		"T": {
-			"name": "Robot",
+			"name": "UFO",
 			"health": 100,
 			"speed": 120,
-			"flying": false,
-			"image": "#d0d0d0"
+			"flying": true,
+			"image": "#8daab5"
 		},
 		"C": {
 			"name": "Zombie",
