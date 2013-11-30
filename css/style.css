@@ -37,4 +37,5 @@ canvas {
 	-webkit-touch-callout: none;
 	-webkit-user-drag: none;
 	position: fixed;
+	border-right: 1px solid #000;
 }
