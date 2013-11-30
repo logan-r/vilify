@@ -1388,19 +1388,18 @@
 
 	Game.InfoBar = InfoBar;
 
-	var p = InfoBar.prototype = new createjs.Container();
-	InfoBar.prototype.Container_initialize = p.initialize;
+	var p = InfoBar.prototype = new GameObject();
+	InfoBar.prototype.GameObject_initialize = p.initialize;
 
 	InfoBar.prototype.initialize = function() {
-		this.Container_initialize();
+		this.GameObject_initialize();
 
 		// Set InfoBar's size
 		this.width = Game.size.width;
 		this.height = 80;
 
 		// Set InfoBar's position
-		this.x = 120+ 200 * 4 + 84;
-		this.y = 0;
+		this.x = 120 + 200 * 4 + 84;
 
 		// Draw InfoBar
 		var image = new createjs.Shape();
@@ -1422,7 +1421,7 @@
 		image.graphics.beginFill("#111").drawRect(0, this.height, this.width, 1);
 		this.addChild(image);
 
-		//
+		// Draw text
 		var txt = new createjs.Text();
 		txt.font = "28px Fredoka One";
 		txt.color = "#000000";
@@ -1430,13 +1429,6 @@
 		txt.x = 80;
 		txt.y = 8;
 		this.addChild(txt);
-
-		/**
-		 * Gets InfoBar's bounding box
-		 */
-		this.getBox = function() {
-			return {left: this.x, top: this.y, width: this.width, height: this.height};
-		}
 
 		/**
 		 * Destroy the InfoBar
@@ -1459,31 +1451,23 @@
 
 	Game.Ground = Ground;
 
-	var p = Ground.prototype = new createjs.Container();
-	Ground.prototype.Container_initialize = p.initialize;
+	var p = Ground.prototype = new GameObject();
+	Ground.prototype.GameObject_initialize = p.initialize;
 
 	Ground.prototype.initialize = function() {
-		this.Container_initialize();
+		this.GameObject_initialize();
 
 		// Ground size
 		this.width = Game.size.width;
 		this.height = 10;
 
 		// Ground position
-		this.x = 0;
 		this.y = Game.size.height - this.height;
 
 		// Ground image
 		var image = new createjs.Shape();
 		image.graphics.beginFill("#111").drawRect(0, 0, this.width, this.height);
 		this.addChild(image);
-
-		/**
-		 * Gets ground's bounding box
-		 */
-		this.getBox = function() {
-			return {left: this.x, top: this.y, width: this.width, height: this.height};
-		}
 
 		/**
 		 * Destroy ground
