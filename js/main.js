@@ -92,7 +92,7 @@
 		 * Resize the canvas
 		 */
 		resize: function() {
-		    var gameWidth = window.innerWidth;
+            var gameWidth = window.innerWidth;
 			var gameHeight = window.innerHeight;
 			var scaleToFitX = gameWidth / 1280;
 			var scaleToFitY = gameHeight / 800;
@@ -126,7 +126,7 @@
 			newScene.init();
 			Game.scene = newScene;
 		}
-	}
+	};
 
 
 	/**
@@ -301,23 +301,19 @@
 		this.Vx = 0;
 		this.Vy = 0;
 
-		// Acceleration
-		this.Ax = 0;
-		this.Ay = 0;
-
 		/**
 		 * Get the object's bounding box
 		 */
 		this.getBox = function() {
-			return {left: this.x, top: this.y, width: this.width, height: this.height}
-		}
+			return {left: this.x, top: this.y, width: this.width, height: this.height};
+		};
 
 		/**
 		 * Remove the projectile and all references to it
 		 */
 		this.kill = function(PARENT) {
 			// Remove from parent object
-			if (PARENT.length == undefined) {
+			if (PARENT.length === undefined) {
 				PARENT = null;
 			} else {
 				PARENT.splice(PARENT.indexOf(this), 1);
@@ -328,8 +324,8 @@
 
 			// Stop displaying on stage
 			Game.stage.removeChild(this);
-		}
-	}
+		};
+	};
 
 
 	/**
@@ -351,7 +347,7 @@
 		// Set Tower's data
 		this.type = type;
 		this.name = "empty";
-		if (this.type != null) {
+		if (this.type !== null) {
 			this.name = Game.DATA["towers"][this.type]["name"];
 			this.attacks = Game.DATA["towers"][this.type]["attacks"]; // Attacks tower can exicute
 			this.rate = Game.DATA["towers"][this.type]["rate"]; // Rate at which the tower fires projectiles
@@ -371,7 +367,7 @@
 
 		// Update tower
 		this.tick = function(event) {
-			if (this.type != null) {
+			if (this.type !== null) {
 				// Countdown towards next projectile
 				this.projectileTimer -= event.delta / 10;
 
@@ -396,7 +392,7 @@
 					Game.stage.addChild(projectile); // Display projectile
 				}
 			}
-		}
+		};
 
 		/**
 		 * Upgrade the tower to a higher level
@@ -406,7 +402,7 @@
 		this.upgrade = function(type) {
 			// Update tower type
 			var newType;
-			if (this.type == null) {
+			if (this.type === null) {
 				newType = type;
 			} else {
 				newType = (this.type + type).sort(true);
@@ -431,15 +427,15 @@
 			this.addChild(image); // Display new image
 
 			return true; // Success!!!
-		}
+		};
 
 		/**
 		 * Get the tower's bounding box
 		 */
 		this.getBox = function() {
 			return {left: this.x, top: this.y, width: this.radius * 2, height: this.radius};
-		}
-	}
+		};
+	};
 
     /**
 	 * Projectile object
@@ -450,42 +446,23 @@
 	}
 	Game.Projectile = Projectile;
 
-	var p = Projectile.prototype = new createjs.Container();
-	Projectile.prototype.Container_initialize = p.initialize;
+	var p = Projectile.prototype = new GameObject();
+	Projectile.prototype.GameObject_initialize = p.initialize;
 
 	Projectile.prototype.initialize = function() {
-		this.Container_initialize();
-
-		// Set Projectile's size
-		this.width = 0;
-		this.height = 0;
-
-		// Set Projectile's location
-		this.x = 0;
-		this.y = 0;
-
-		// Set Projectile's velocity
-		this.Vx = 0;
-		this.Vy = 0;
+		this.GameObject_initialize();
 
 		// Set Projectile's acceleration
 		this.Ax = 0;
 		this.Ay = 0;
 
 		/**
-		 * Get the bounding box of the projectile
-		 */
-		this.getBox = function() {
-			return {left: this.x, top: this.y, width: this.width, height: this.height}
-		}
-
-		/**
 		 * Does projectile collide with box?
 		 */
 		this.collides = function(box) {
-		     // Overide me
-		     return false;
-		}
+            // Overide me
+            return false;
+		};
 
 		/**
 		 * Projectile has hit hero
@@ -493,7 +470,7 @@
 		this.hit = function(hero) {
 			// Overide me
 			return false;
-		}
+		};
 
 		/**
 		 * Remove the projectile and all references to it
@@ -502,8 +479,8 @@
 			Game.PROJECTILES.splice(Game.PROJECTILES.indexOf(this), 1);
 			this.removeAllChildren();
 			Game.stage.removeChild(this);
-		}
-	}
+		};
+	};
 
 
 	/**
@@ -561,14 +538,14 @@
 			if (this.x < -1 * this.width || this.x > Game.size.width || this.y < -1 * this.height || this.y > Game.size.height) {
 				this.kill();
 			}
-		}
+		};
 
 		/**
 		 * Does bullet collide with box?
 		 */
 		this.collides = function(box) {
 		     return Physics.collides(this.getBox(), box);
-		}
+		};
 
 		/**
 		 * Bullet has hit hero, deal damage
@@ -579,8 +556,8 @@
 			}
 			hero.damage(this.damage);
 			this.kill();
-		}
-	}
+		};
+	};
 
 
     /**
@@ -633,13 +610,13 @@
 			if (this.x < -1 * this.width || this.x > Game.size.width || this.y < -1 * this.height || this.y > Game.size.height) {
 				this.kill();
 			}
-		}
+		};
 
 		// Get box of bullet
 		this.getBox = function() {
-			return {left: this.x, top: this.y, width: 120, height: 70}
-		}
-	}
+			return {left: this.x, top: this.y, width: 120, height: 70};
+		};
+	};
 
 
 	/**
