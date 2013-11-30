@@ -58,6 +58,10 @@
 				return "towers/" + e;
 			});
 			Game.queue.loadManifest(towers, true, "images/");
+			var monsters = ["ufo.png"].map(function(e) {
+				return "monsters/" + e;
+			});
+			Game.queue.loadManifest(monsters, true, "images/");
 		},
 
 		/**
@@ -179,8 +183,39 @@
 		},
 		function(event) {}
 	);
+	
+	Game.SCENES["menu"] = new Scene(
+		function() {
+            // Create level description text
+			var description = new createjs.Text();
+            description.font = "36px Fredoka One";
+            description.color = "#000000";
+            description.text = "The Story Begins";
+            description.x = 80;
+            description.y = 36;
+            Game.stage.addChild(description);
+            
+            // Create level number text
+			var level = new createjs.Text();
+            level.font = "28px Fredoka One";
+            level.color = "#000000";
+            level.text = "level 1:";
+            level.x = 80 + description.getMeasuredWidth() - level.getMeasuredWidth();
+            level.y = 8;
+            Game.stage.addChild(level);
+            
+            // Create play level button
+            
+            // Create all levels button
+            
+            // Create sound button
+            
+            // Create credits button
+		},
+		function(event) {}
+	);
 
-	Game.SCENES["game"]  = new Scene(
+	Game.SCENES["game"] = new Scene(
 		function() {
 			// Create info bar
 			Game.INFOBAR = new InfoBar();
@@ -636,8 +671,8 @@
 		this.GameObject_initialize();
 
 		// Set Monster's size
-		this.width = 70;
-		this.height = 100;
+		this.width = 115;
+		this.height = 78;
 
 		// Set Monster's position
 		this.x = Game.GRAVEYARD.x + Game.GRAVEYARD.width / 2 - this.width / 2;
@@ -645,6 +680,7 @@
 
 		// Set Monster's data
 		this.type = type;
+		this.name = Game.DATA["monsters"][this.type]["name"];
 		this.health = Game.DATA["monsters"][this.type]["health"];
 		this.speed = Game.DATA["monsters"][this.type]["speed"];
 		this.flying = Game.DATA["monsters"][this.type]["flying"];
@@ -657,14 +693,7 @@
 		this.state = "IDLE";
 
 		// Get Monster's image
-		var color;
-		if (this.type == null) {
-			color = "#eee";
-		} else {
-			color = Game.DATA["monsters"][this.type]["image"];
-		}
-		var image = new createjs.Shape();
-		image.graphics.beginFill(color).drawRect(0, 0, this.width, this.height);
+		var image = new createjs.Bitmap(Game.queue.getResult("monsters/ufo.png"));
 		this.addChild(image); // Display image
 
 		/**
