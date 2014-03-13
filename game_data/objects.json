@@ -71,7 +71,7 @@
 			"image": "#8daab5",
 			"range": {
 			    "vertical": 0,
-			    "horizontal": 10
+			    "horizontal": 50
 			}
 		}
 	},
@@ -79,7 +79,11 @@
 		"Sidekick": {
 			"health": 1,
 			"speed": 100,
-			"flying": false
+			"flying": false,
+			"range": {
+			    "vertical": 0,
+			    "horizontal": 100
+			}
 		}
 	},
 	"effects": {

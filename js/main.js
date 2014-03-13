@@ -786,9 +786,9 @@
                     // Make monster collision box, extending the box by the monster's range
                     var monsterBox = {
                         "left": this.x - this.range.horizontal,
-                        "top": this.y - this.range.vertical,
-                        "width": this.width + this.range.horizontal,
-                        "height": this.height + this.range.vertical
+                        "top": this.y - this.range.verical,
+                        "width": this.width + this.range.horizontal * 2,
+                        "height": this.height + this.range.verical * 2
                     };
                     
                     // Get hero collision box
@@ -969,6 +969,7 @@
 			this.health = Game.DATA.monsters[this.type].health;
 			this.speed = Game.DATA.monsters[this.type].speed;
 			this.flying = Game.DATA.monsters[this.type].flying;
+			this.range = Game.DATA.monsters[this.type].range; // How far away the monster can attack a hero from
 
 			// Remove old monster image
 			this.removeAllChildren();
@@ -1023,6 +1024,8 @@
 		this.type = type;
 		this.flying = Game.DATA.heroes[this.type].flying;
 		this.health = Game.DATA.heroes[this.type].health;
+		this.target = null; // Monster hero is attacking
+		this.range = Game.DATA.heroes[this.type].range; // How far away the hero can attack a monster from
 
 		// Set hero's size
 		this.width = 70;
@@ -1060,6 +1063,30 @@
 		this.tick = function(event) {
 			// Get active effects on hero
 			var effects = this.getEffects(event);
+			
+			if (!this.target) { // Only look for a new target if hero doesn't currently have one
+                // Check if there are any monsters within attack range
+                // TODO: Optimize so that the hero doesn't just attack the first monster in range
+                for (var i = 0; i < Game.MONSTERS.length; i++) {
+                    // Make hero collision box, extending the box by the hero's range
+                    var heroBox = {
+                        "left": this.x - this.range.horizontal,
+                        "top": this.y - this.range.vertical,
+                        "width": this.width + this.range.horizontal * 2,
+                        "height": this.height + this.range.vertical * 2
+                    };
+                    
+                    // Get hero collision box
+                    var monsterBox = Game.MONSTERS[i].getBox();
+                    
+                    // Hero within range of monster's attack, set as monster's target
+                    if (Physics.collides(heroBox, monsterBox)) {
+                        this.target = Game.MONSTERS[i];
+                        this.state = "COMBAT";
+                        break;
+                    }
+                }
+            }
 
 			switch (this.state) { // What state is the hero in?
 				case "MOVING": // Move hero
@@ -1074,6 +1101,13 @@
 						}
 					}
 					break;
+				case "COMBAT":
+                    // If creature has no enemy, then exit combat state
+                    if (!this.target) {
+                        this.state = "MOVING"; // TODO: decide if state should be set to MOVE if monster not at goal
+                        break;
+                    }
+                    break;
 				case "IDLE":
                     break;
 				default:
