@@ -144,7 +144,7 @@
 
 	Game.Scene = Scene;
 
-	Game.SCENES["loading"] = new Scene(
+	Game.SCENES.loading = new Scene(
 		function() {
 			Game.queue.on("progress", function(event) {
 
@@ -178,13 +178,13 @@
 			});
 
 			Game.queue.on("complete", function(event) {
-				Game.changeScene(Game.SCENES["game"]);
+				Game.changeScene(Game.SCENES.game);
 			});
 		},
 		function(event) {}
 	);
 	
-	Game.SCENES["menu"] = new Scene(
+	Game.SCENES.menu = new Scene(
 		function() {
             // Create level description text
 			var description = new createjs.Text();
@@ -215,7 +215,7 @@
 		function(event) {}
 	);
 
-	Game.SCENES["game"] = new Scene(
+	Game.SCENES.game = new Scene(
 		function() {
 			// Create info bar
 			Game.INFOBAR = new InfoBar();
@@ -383,9 +383,9 @@
 		this.type = type;
 		this.name = "empty";
 		if (this.type !== null) {
-			this.name = Game.DATA["towers"][this.type]["name"];
-			this.attacks = Game.DATA["towers"][this.type]["attacks"]; // Attacks tower can exicute
-			this.rate = Game.DATA["towers"][this.type]["rate"]; // Rate at which the tower fires projectiles
+			this.name = Game.DATA.towers[this.type].name;
+			this.attacks = Game.DATA.towers[this.type].attacks; // Attacks tower can exicute
+			this.rate = Game.DATA.towers[this.type].rate; // Rate at which the tower fires projectiles
 			this.projectileTimer = Game.fps * this.rate;  // Timeout between projectiles
 		}
 
@@ -443,15 +443,15 @@
 				newType = (this.type + type).sort(true);
 			}
 
-			if (!Game.DATA["towers"][newType]) { // Does tower exist?
+			if (!Game.DATA.towers[newType]) { // Does tower exist?
 				return false;
 			}
 
 			// Update tower data
 			this.type = newType;
-			this.name = Game.DATA["towers"][this.type]["name"];
-			this.rate = Game.DATA["towers"][this.type]["rate"];
-			this.attacks = Game.DATA["towers"][this.type]["attacks"];
+			this.name = Game.DATA.towers[this.type].name;
+			this.rate = Game.DATA.towers[this.type].rate;
+			this.attacks = Game.DATA.towers[this.type].attacks;
 			this.projectileTimer = Game.fps * this.rate;  // Timeout between projectiles
 
 			// Remove old tower image
@@ -579,7 +579,7 @@
 		 * Does bullet collide with box?
 		 */
 		this.collides = function(box) {
-		     return Physics.collides(this.getBox(), box);
+            return Physics.collides(this.getBox(), box);
 		};
 
 		/**
@@ -680,11 +680,11 @@
 
 		// Set Monster's data
 		this.type = type;
-		this.name = Game.DATA["monsters"][this.type]["name"];
-		this.health = Game.DATA["monsters"][this.type]["health"];
-		this.speed = Game.DATA["monsters"][this.type]["speed"];
-		this.flying = Game.DATA["monsters"][this.type]["flying"];
-		this.range = Game.DATA["monsters"][this.type]["range"]; // How close a hero has to be for the monster to attack it
+		this.name = Game.DATA.monsters[this.type].name;
+		this.health = Game.DATA.monsters[this.type].health;
+		this.speed = Game.DATA.monsters[this.type].speed;
+		this.flying = Game.DATA.monsters[this.type].flying;
+		this.range = Game.DATA.monsters[this.type].range; // How close a hero has to be for the monster to attack it
 		
 		// Targets
 		this.goal = [this.x, this.y]; // Location that the monster wants to move to
@@ -714,7 +714,7 @@
                         "top": this.y - this.range.vertical,
                         "width": this.width + this.range.horizontal,
                         "height": this.height + this.range.vertical
-                    }
+                    };
                     
                     // Get hero collision box
                     var heroBox = Game.HEROES[i].getBox();
@@ -770,7 +770,7 @@
 				default:
 					break;
 			}
-		}
+		};
 
 
 		/**
@@ -778,15 +778,15 @@
 		 */
 		var handlePressDown = function(event) {
 			// Reset monsterMove effect
-			Game.FX["monsterMove"] = {image: null};
-		}
+			Game.FX.monsterMove = {image: null};
+		};
 
 		/**
 		 * Handle drag
 		 */
 		var handlePressMove = function(event) {
 			// Remove old monsterMove fx
-			Game.stage.removeChild(Game.FX["monsterMove"].image);
+			Game.stage.removeChild(Game.FX.monsterMove.image);
 
 			// Calculate new monsterMove fx
 			var endY;
@@ -801,9 +801,9 @@
 			fx.graphics.moveTo(event.target.parent.x + event.target.parent.width / 2, event.target.parent.y + event.target.parent.height / 2);
 			fx.graphics.setStrokeStyle(20, "round").beginStroke("rgba(0, 0, 0, 0.2)");
 			fx.graphics.lineTo(event.stageX, endY).endStroke();
-			Game.FX["monsterMove"].image = fx;
+			Game.FX.monsterMove.image = fx;
 			Game.stage.addChild(fx); // Display effect
-		}
+		};
 
 		/**
 		 * Handle release
@@ -812,14 +812,14 @@
 			// Update monster status
 			event.target.parent.state = "MOVING";
 
-		    // Set new goal
+            // Set new goal
 			event.target.parent.goal[0] = event.stageX - event.target.parent.width / 2;
 
 			// Don't let the monster go off screen
 			if (event.target.parent.goal[0] < 0) {
-			    event.target.parent.goal[0] = 0;
+                event.target.parent.goal[0] = 0;
 			} else if (event.target.parent.goal[0] > Game.size.width - event.target.parent.width) {
-			    event.target.parent.goal[0] = Game.size.width - event.target.parent.width;
+                event.target.parent.goal[0] = Game.size.width - event.target.parent.width;
 			}
 
 			// Set monster's new x velocity
@@ -862,8 +862,8 @@
 			}
 
 			// Clear monsterMove fx
-			Game.stage.removeChild(Game.FX["monsterMove"].image);
-		}
+			Game.stage.removeChild(Game.FX.monsterMove.image);
+		};
 
 		// Add event handlers
 		image.addEventListener("mousedown", handlePressDown);
@@ -878,32 +878,32 @@
 		this.upgrade = function(type) {
 			// Calculate new monster type
 			var newType;
-			if (this.type == null) {
+			if (!this.type) {
 				newType = type;
 			} else {
 				newType = (this.type + type).sort(true);
 			}
 
 			// Does monster type exist?
-			if (!Game.DATA["monsters"][newType]) {
+			if (!Game.DATA.monsters[newType]) {
 				return false;
 			}
 
 			// Update monster's data
 			this.type = newType;
-			this.health = Game.DATA["monsters"][this.type]["health"];
-			this.speed = Game.DATA["monsters"][this.type]["speed"];
-			this.flying = Game.DATA["monsters"][this.type]["flying"];
+			this.health = Game.DATA.monsters[this.type].health;
+			this.speed = Game.DATA.monsters[this.type].speed;
+			this.flying = Game.DATA.monsters[this.type].flying;
 
 			// Remove old monster image
 			this.removeAllChildren();
 
 			// Set new monster image
 			var color;
-			if (this.type == null) {
+			if (!this.type) {
 				color = "#eee";
 			} else {
-				color = Game.DATA["monsters"][this.type]["image"];
+				color = Game.DATA.monsters[this.type].image;
 			}
 			var image = new createjs.Shape();
 			image.graphics.beginFill(color).drawRect(0, 0, this.width, this.height);
@@ -915,7 +915,7 @@
 			image.addEventListener("pressup", handlePressUp);
 
 			return true;
-		}
+		};
 
 		/**
 		 * Deal damage to the monster
@@ -930,7 +930,7 @@
 				// Then the monster DIES!!!
 				this.kill();
 			}
-		}
+		};
 
 		/**
 		 * Destroy the monster and all references to it
@@ -939,8 +939,8 @@
 			Game.MONSTERS.splice(Game.MONSTERS.indexOf(this), 1);
 			this.removeAllChildren();
 			Game.stage.removeChild(this);
-		}
-	}
+		};
+	};
 
 
 	/**
@@ -979,8 +979,8 @@
 			Game.GRAVEYARD = null;
 			this.removeAllChildren();
 			Game.stage.removeChild(this);
-		}
-	}
+		};
+	};
 
 
 	/**
@@ -1019,8 +1019,8 @@
 			Game.CANNON = null;
 			this.removeAllChildren();
 			Game.stage.removeChild(this);
-		}
-	}
+		};
+	};
 
 
 	/**
@@ -1041,8 +1041,8 @@
 
 		// Set hero's data
 		this.type = type;
-		this.flying = Game.DATA["heroes"][this.type]["flying"];
-		this.health = Game.DATA["heroes"][this.type]["health"];
+		this.flying = Game.DATA.heroes[this.type].flying;
+		this.health = Game.DATA.heroes[this.type].health;
 		this.EFFECTS = []; // All active effects on hero
 
 		// Set hero's size
@@ -1054,14 +1054,14 @@
 		this.y = Game.GROUND.y - this.height;
 
 		// Hero velocity
-		this.Vx = Game.DATA["heroes"][this.type]["speed"];
+		this.Vx = Game.DATA.heroes[this.type].speed;
 		this.starty = this.y;
 
 		// Set flying heroes position and velocity
 		if (this.flying) {
 			this.y = MathEx.randInt(120, 420);
-			this.Vy = this.flying["velocity"]; // y velocity
-			this.flyingHeight = this.flying["height"]; // height difference from starting y that the hero goes to while flying
+			this.Vy = this.flying.velocity; // y velocity
+			this.flyingHeight = this.flying.height; // height difference from starting y that the hero goes to while flying
 		}
 
 		// Hero's state
@@ -1096,10 +1096,11 @@
 					}
 					break;
 				case "IDLE":
+                    break;
 				default:
 					break;
 			}
-		}
+		};
 
 		/**
 		 * Adds an effect to hero
@@ -1109,7 +1110,7 @@
 				var effect = new Effect(type, duration, this);
 				this.EFFECTS.push(effect);
 			}
-		}
+		};
 
 		/**
 		 * Get all of the active effects on a hero
@@ -1117,13 +1118,13 @@
 		this.getEffects = function(event) {
 			var effects = {"speed": 1};
 			for (var i = 0; i < this.EFFECTS.length; i++) {
-				for (var effect in this.EFFECTS[0]["effects"]) {
-					effects[effect] = this.EFFECTS[0]["effects"][effect];
+				for (var effect in this.EFFECTS[0].effects) {
+					effects[effect] = this.EFFECTS[0].effects[effect];
 				}
 				this.EFFECTS[0].tick(event); // tick effects
 			}
 			return effects;
-		}
+		};
 
 		/**
 		 * Does hero have a certain effect?
@@ -1135,7 +1136,7 @@
 				}
 			}
 			return false;
-		}
+		};
 
 
 		/**
@@ -1151,7 +1152,7 @@
 				// then it dies
 				this.kill();
 			}
-		}
+		};
 
 		/**
 		 * Remove object
@@ -1160,8 +1161,8 @@
 			Game.HEROES.splice(Game.HEROES.indexOf(this), 1);
 			this.removeAllChildren();
 			Game.stage.removeChild(this);
-		}
-	}
+		};
+	};
 
 
 	/**
@@ -1214,14 +1215,14 @@
 			// Update item's position
 			event.target.parent.x = event.stageX - event.target.parent.width / 2;
 			event.target.parent.y = event.stageY - event.target.parent.height / 2;
-		}
+		};
 
 		var handlePressUp = function(event) {
 			var used = false;
 
 			// Does item collide with tower?
 			for (var i = 0; i < Game.TOWERS.length; i++) {
-				 // Then attempt to build/upgraded that tower
+				// Then attempt to build/upgraded that tower
 				if (Physics.collides(Game.TOWERS[i].getBox(), event.target.parent.getBox())) {
 					used = Game.TOWERS[i].upgrade(event.target.parent.smallString());
 					break;
@@ -1265,7 +1266,7 @@
 				event.target.parent.Vx = 1000 * Math.cos(ratio);
 				event.target.parent.Vy = 1000 * Math.sin(ratio);
 			}
-		}
+		};
 
 		// Add event handlers
 		image.addEventListener("pressmove", handlePressMove);
@@ -1276,8 +1277,8 @@
 		 */
 		this.tick = function(event) {
 			switch (this.state) {
-			 	case "FREE": // Go into ItemsList
-			 		// Move item
+                case "FREE": // Go into ItemsList
+                    // Move item
 					this.x += event.delta / 1000 * this.Vx;
 					this.y += event.delta / 1000 * this.Vy;
 
@@ -1306,7 +1307,7 @@
 					}
 					break;
 			}
-		}
+		};
 
 		/**
 		 * Get small string form of item
@@ -1315,7 +1316,7 @@
 			if (this.type == "tech") return "T";
 			else if (this.type == "chemical") return "C";
 			else if (this.type == "alien") return "A";
-		}
+		};
 
 		/**
 		 * Remove item from game
@@ -1324,8 +1325,8 @@
 			Game.ITEMS.splice(Game.ITEMS.indexOf(this), 1);
 			this.removeAllChildren();
 			Game.stage.removeChild(this);
-		}
-	}
+		};
+	};
 
 
 	/**
@@ -1384,7 +1385,7 @@
 		free: function(y) {
 			var bankedItemMoved = false;
 			for (var i = 0; i < Game.ITEMS.length; i++) { // Reorder list
-				if (Game.ITEMS[i].y > y && (!bankedItemMoved || !Game.ITEMS[i].y >= this.bank)) { // Only move up the first item in the bank
+				if (Game.ITEMS[i].y > y && !(bankedItemMoved && Game.ITEMS[i].y >= this.bank)) { // Only move up the first item in the bank
 					if (Game.ITEMS[i].y >= this.bank) {
 						bankedItemMoved = true;
 					}
@@ -1401,7 +1402,7 @@
 				}
 			}
 		}
-	}
+	};
 
 	/**
 	 * Effect object
@@ -1415,11 +1416,11 @@
 
 	Effect.prototype.initialize = function(type, duration, parent) {
 		this.type = type;
-		this.effects = Game.DATA["effects"][this.type].effects;
+		this.effects = Game.DATA.effects[this.type].effects;
 		this.duration = duration;
 
 		var image = new createjs.Shape();
-		image.graphics.beginFill(Game.DATA["effects"][this.type].image).drawRect(-10, -10, parent.width + 20, parent.height + 20);
+		image.graphics.beginFill(Game.DATA.effects[this.type].image).drawRect(-10, -10, parent.width + 20, parent.height + 20);
 		parent.addChild(image);
 
 		/**
@@ -1430,7 +1431,7 @@
 			if (this.duration <= 0) {
 				this.kill();
 			}
-		}
+		};
 
 		/**
 		 * Remove effect
@@ -1438,9 +1439,8 @@
 		this.kill = function() {
 			parent.EFFECTS.splice(parent.EFFECTS.indexOf(this), 1);
 			parent.removeChild(image);
-
-		}
-	}
+		};
+	};
 
 
 	/**
