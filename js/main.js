@@ -654,6 +654,81 @@
 	};
 
 
+    /**
+	 * Creature object
+	 * A superclass object for every living (or undead) creature that can walk (or fly) around and attacks stuff
+	 */
+	function Creature() {
+		this.initialize();
+	}
+	Game.Creature = Creature;
+
+	var p = Creature.prototype = new GameObject();
+	Creature.prototype.GameObject_initialize = p.initialize;
+
+	Creature.prototype.initialize = function() {
+		this.GameObject_initialize();
+		
+		// Creature stats
+		this.health = 1;
+		this.flying = false;
+		
+		// Current effects active on the creature
+		this.EFFECTS = [];
+		
+		/**
+		 * Adds an effect to the creature
+		 */
+		this.addEffect = function(type, duration) {
+			if (!this.hasEffect(type)) {
+				var effect = new Effect(type, duration, this);
+				this.EFFECTS.push(effect);
+			}
+		};
+
+		/**
+		 * Get all of the active effects on the creature
+		 */
+		this.getEffects = function(event) {
+			var effects = {"speed": 1};
+			for (var i = 0; i < this.EFFECTS.length; i++) {
+				for (var effect in this.EFFECTS[0].effects) {
+					effects[effect] = this.EFFECTS[0].effects[effect];
+				}
+				this.EFFECTS[0].tick(event); // tick effects
+			}
+			return effects;
+		};
+
+		/**
+		 * Does creature have a certain effect?
+		 */
+		this.hasEffect = function(type) {
+			for (var i = 0; i < this.EFFECTS.length; i++) {
+				if (this.EFFECTS[i].type == type) {
+					return true;
+				}
+			}
+			return false;
+		};
+		
+		/**
+		 * Deal damage to the creature
+		 * damage: amount of damage to be dealt
+		 */
+		this.damage = function(amount) {
+			// Subtract damage from health
+			this.health -= amount;
+
+			// Does monster have zero or less health?
+			if (this.health <= 0) {
+				// Then the creature is dead :(
+				this.kill();
+			}
+		};
+	};
+
+
 	/**
 	 * Monster object
 	 * A monster that the mad scientist has created to protected his lab
@@ -664,11 +739,11 @@
 
 	Game.Monster = Monster;
 
-	var p = Monster.prototype = new GameObject();
-	Monster.prototype.GameObject_initialize = p.initialize;
+	var p = Monster.prototype = new Creature();
+	Monster.prototype.Creature_initialize = p.initialize;
 
 	Monster.prototype.initialize = function(type) {
-		this.GameObject_initialize();
+		this.Creature_initialize();
 
 		// Set Monster's size
 		this.width = 115;
@@ -918,25 +993,99 @@
 		};
 
 		/**
-		 * Deal damage to the monster
-		 * damage: amount of damage to be dealt
-		 */
-		this.damage = function(amount) {
-			// Subtract damage from health
-			this.health -= amount;
-
-			// Does monster have zero or less health?
-			if (this.health <= 0) {
-				// Then the monster DIES!!!
-				this.kill();
-			}
-		};
-
-		/**
 		 * Destroy the monster and all references to it
 		 */
 		this.kill = function() {
 			Game.MONSTERS.splice(Game.MONSTERS.indexOf(this), 1);
+			this.removeAllChildren();
+			Game.stage.removeChild(this);
+		};
+	};
+	
+	
+	/**
+	 * Hero object
+	 * Store all the data associated with one hero
+	 */
+	function Hero(type) {
+		this.initialize(type);
+	}
+
+	Game.Hero = Hero;
+
+	var p = Hero.prototype = new Creature();
+	Hero.prototype.Creature_initialize = p.initialize;
+
+	Hero.prototype.initialize = function(type) {
+		this.Creature_initialize();
+
+		// Set hero's data
+		this.type = type;
+		this.flying = Game.DATA.heroes[this.type].flying;
+		this.health = Game.DATA.heroes[this.type].health;
+
+		// Set hero's size
+		this.width = 70;
+		this.height = 100;
+
+		// Set hero's position
+		this.x = -1 * this.width + 300;
+		this.y = Game.GROUND.y - this.height;
+
+		// Hero velocity
+		this.Vx = Game.DATA.heroes[this.type].speed;
+		this.starty = this.y;
+
+		// Set flying heroes position and velocity
+		if (this.flying) {
+			this.y = MathEx.randInt(120, 420);
+			this.Vy = this.flying.velocity; // y velocity
+			this.flyingHeight = this.flying.height; // height difference from starting y that the hero goes to while flying
+		}
+
+		// Hero's state
+		// IDLE: Not doing anything
+		// MOVING: Moving towards target
+		// COMBAT: In combat with monster
+		this.state = "MOVING";
+
+		// Hero image
+		var image = new createjs.Shape();
+		image.graphics.beginFill("#54eb46").drawRect(0, 0, this.width, this.height);
+		this.addChild(image);
+
+		/**
+		 * Update hero
+		 */
+		this.tick = function(event) {
+			// Get active effects on hero
+			var effects = this.getEffects(event);
+
+			switch (this.state) { // What state is the hero in?
+				case "MOVING": // Move hero
+					// Move on x-axis
+					this.x += event.delta / 1000 * this.Vx * effects.speed;
+
+					// Fly
+					if (this.flying) {
+						this.y += event.delta / 1000 * this.Vy * effects.speed; // Move on y-axis
+						if (this.y > this.starty + this.flyingHeight || this.y < this.starty - this.flyingHeight) { // Oscillate flying
+							this.Vy = -1 * this.Vy;
+						}
+					}
+					break;
+				case "IDLE":
+                    break;
+				default:
+					break;
+			}
+		};
+    
+		/**
+		 * Remove object
+		 */
+		this.kill = function() {
+			Game.HEROES.splice(Game.HEROES.indexOf(this), 1);
 			this.removeAllChildren();
 			Game.stage.removeChild(this);
 		};
@@ -1017,148 +1166,6 @@
 		 */
 		this.kill = function() {
 			Game.CANNON = null;
-			this.removeAllChildren();
-			Game.stage.removeChild(this);
-		};
-	};
-
-
-	/**
-	 * Hero object
-	 * Store all the data associated with one hero
-	 */
-	function Hero(type) {
-		this.initialize(type);
-	}
-
-	Game.Hero = Hero;
-
-	var p = Hero.prototype = new GameObject();
-	Hero.prototype.GameObject_initialize = p.initialize;
-
-	Hero.prototype.initialize = function(type) {
-		this.GameObject_initialize();
-
-		// Set hero's data
-		this.type = type;
-		this.flying = Game.DATA.heroes[this.type].flying;
-		this.health = Game.DATA.heroes[this.type].health;
-		this.EFFECTS = []; // All active effects on hero
-
-		// Set hero's size
-		this.width = 70;
-		this.height = 100;
-
-		// Set hero's position
-		this.x = -1 * this.width + 300;
-		this.y = Game.GROUND.y - this.height;
-
-		// Hero velocity
-		this.Vx = Game.DATA.heroes[this.type].speed;
-		this.starty = this.y;
-
-		// Set flying heroes position and velocity
-		if (this.flying) {
-			this.y = MathEx.randInt(120, 420);
-			this.Vy = this.flying.velocity; // y velocity
-			this.flyingHeight = this.flying.height; // height difference from starting y that the hero goes to while flying
-		}
-
-		// Hero's state
-		// IDLE: Not doing anything
-		// MOVING: Moving towards target
-		// COMBAT: In combat with monster
-		this.state = "MOVING";
-
-		// Hero image
-		var image = new createjs.Shape();
-		image.graphics.beginFill("#54eb46").drawRect(0, 0, this.width, this.height);
-		this.addChild(image);
-
-		/**
-		 * Update hero
-		 */
-		this.tick = function(event) {
-			// Get active effects on hero
-			var effects = this.getEffects(event);
-
-			switch (this.state) { // What state is the hero in?
-				case "MOVING": // Move hero
-					// Move on x-axis
-					this.x += event.delta / 1000 * this.Vx * effects.speed;
-
-					// Fly
-					if (this.flying) {
-						this.y += event.delta / 1000 * this.Vy * effects.speed; // Move on y-axis
-						if (this.y > this.starty + this.flyingHeight || this.y < this.starty - this.flyingHeight) { // Oscillate flying
-							this.Vy = -1 * this.Vy;
-						}
-					}
-					break;
-				case "IDLE":
-                    break;
-				default:
-					break;
-			}
-		};
-
-		/**
-		 * Adds an effect to hero
-		 */
-		this.addEffect = function(type, duration) {
-			if (!this.hasEffect(type)) {
-				var effect = new Effect(type, duration, this);
-				this.EFFECTS.push(effect);
-			}
-		};
-
-		/**
-		 * Get all of the active effects on a hero
-		 */
-		this.getEffects = function(event) {
-			var effects = {"speed": 1};
-			for (var i = 0; i < this.EFFECTS.length; i++) {
-				for (var effect in this.EFFECTS[0].effects) {
-					effects[effect] = this.EFFECTS[0].effects[effect];
-				}
-				this.EFFECTS[0].tick(event); // tick effects
-			}
-			return effects;
-		};
-
-		/**
-		 * Does hero have a certain effect?
-		 */
-		this.hasEffect = function(type) {
-			for (var i = 0; i < this.EFFECTS.length; i++) {
-				if (this.EFFECTS[i].type == type) {
-					return true;
-				}
-			}
-			return false;
-		};
-
-
-		/**
-		 * Deal damage to the hero
-		 * damage: the amout of damage dealt
-		 */
-		this.damage = function(amount) {
-			// Subtract damage from heroes life
-			this.health -= amount;
-
-			// If the hero has less than 1 life
-			if (this.health <= 0) {
-				// then it dies
-				this.kill();
-			}
-		};
-
-		/**
-		 * Remove object
-		 */
-		this.kill = function() {
-			Game.HEROES.splice(Game.HEROES.indexOf(this), 1);
 			this.removeAllChildren();
 			Game.stage.removeChild(this);
 		};
@@ -1502,8 +1509,8 @@
 			Game.INFOBAR = null;
 			this.removeAllChildren();
 			Game.stage.removeChild(this);
-		}
-	}
+		};
+	};
 
 
 	/**
@@ -1541,10 +1548,10 @@
 			Game.GROUND = null;
 			this.removeAllChildren();
 			Game.stage.removeChild(this);
-		}
-	}
+		};
+	};
 
-	Game.init("canvas", Game.SCENES["loading"]);
+	Game.init("canvas", Game.SCENES.loading);
 	Game.load();
 
 })(window);
