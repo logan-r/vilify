@@ -67,29 +67,12 @@
 			"name": "UFO",
 			"health": 100,
 			"speed": 120,
-			"flying": true,
-			"image": "#8daab5"
-		},
-		"C": {
-			"name": "Zombie",
-			"health": 1,
-			"speed": 40,
 			"flying": false,
-			"image": "#45362b"
-		},
-		"A": {
-			"name": "Alien bug",
-			"health": 1,
-			"speed": 400,
-			"flying": false,
-			"image": "#bacc89"
-		},
-		"TA": {
-			"name": "UFO",
-			"health": 100,
-			"speed": 120,
-			"flying": true,
-			"image": "#8daab5"
+			"image": "#8daab5",
+			"range": {
+			    "vertical": 0,
+			    "horizontal": 10
+			}
 		}
 	},
 	"heroes": {

@@ -25,7 +25,7 @@ window.MathEx = {
 	 * Gets the distance between 2 points
 	 */
 	distance: function(p1x,p1y,p2x,p2y) {
-		return Math.round(Math.sqrt((p2x-p1x)*(p2x-p1x)+(p2y-p1y)*(p2y-p1y)));
+		return Math.round(Math.sqrt((p2x-p1x) * (p2x-p1x) + (p2y-p1y) * (p2y-p1y)));
 	}
 };
 

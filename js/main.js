@@ -684,7 +684,11 @@
 		this.health = Game.DATA["monsters"][this.type]["health"];
 		this.speed = Game.DATA["monsters"][this.type]["speed"];
 		this.flying = Game.DATA["monsters"][this.type]["flying"];
-		this.goal = [this.x, this.y];
+		this.range = Game.DATA["monsters"][this.type]["range"]; // How close a hero has to be for the monster to attack it
+		
+		// Targets
+		this.goal = [this.x, this.y]; // Location that the monster wants to move to
+		this.target = null; // Hero that the monster is attacking
 
 		// Monster's state
 		// IDLE: Waiting for orders
@@ -700,12 +704,36 @@
 		 * Update the monster
 		 */
 		this.tick = function(event) {
+            if (!this.target) { // Only look for a new target if monster doesn't currently have one
+                // Check if there are any heroes within attack range
+                // TODO: Optimize so that the monster doesn't just attack the first hero in range
+                for (var i = 0; i < Game.HEROES.length; i++) {
+                    // Make monster collision box, extending the box by the monster's range
+                    var monsterBox = {
+                        "left": this.x - this.range.horizontal,
+                        "top": this.y - this.range.vertical,
+                        "width": this.width + this.range.horizontal,
+                        "height": this.height + this.range.vertical
+                    }
+                    
+                    // Get hero collision box
+                    var heroBox = Game.HEROES[i].getBox();
+                    
+                    // Hero within range of monster's attack, set as monster's target
+                    if (Physics.collides(monsterBox, heroBox)) {
+                        this.target = Game.HEROES[i];
+                        this.state = "COMBAT";
+                        break;
+                    }
+                }
+            }
+            
 			switch (this.state) { // What state is the monster in
 				case "MOVING": // Move monster
 					// Is it a flying monster?
 					if (this.flying) {
 						// Move on the y-axis
-						this.y += event.delta/1000 * this.Vy;
+						this.y += event.delta / 1000 * this.Vy;
 
 						// Has the monster reached it's goal?
 						if ((this.goal[1] > this.y && this.Vy < 0) || (this.goal[1] < this.y && this.Vy > 0)) {
@@ -714,7 +742,7 @@
 					}
 
 					// Move on x-axis
-					this.x += event.delta/1000 * this.Vx;
+					this.x += event.delta / 1000 * this.Vx;
 
 					// Has the monster reached it's goal?
 					if ((this.goal[0] > this.x && this.Vx < 0) || (this.goal[0] < this.x && this.Vx > 0)) {
@@ -730,7 +758,15 @@
 						this.status == "IDLE";
 					}
 					break;
-				case "IDLE":
+				case "COMBAT":
+                    // If creature has no enemy, then exit combat state
+                    if (!this.target) {
+                        this.state = "IDLE"; // TODO: decide if state should be set to MOVE if monster not at goal
+                        break;
+                    }
+                    break;
+                case "IDLE":
+                    break;
 				default:
 					break;
 			}
