@@ -710,7 +710,7 @@
 		 * Gets the creature's current action
 		 */
 		this.getAction = function() {
-            return this.state.action();
+            return this.state.action;
 		};
 		
 		/**
@@ -877,6 +877,7 @@
                     if (this.inRange(Game.HEROES[i])) {
                         this.target = Game.HEROES[i];
                         this.setState("COMBAT");
+                        this.setAction("attacking");
                         break;
                     }
                 }
@@ -919,11 +920,24 @@
                         break;
                     }
                     
-                    this.updateTimer(event.delta);
-                    if (this.getTimer() >= this.attack.time) {
-                        this.resetTimer();
-                        this.target.damage(this.attack.damage);
-                        
+                    switch(this.getAction()) {
+                        case "attacking":
+                            this.updateTimer(event.delta);
+                            if (this.getTimer() >= this.attack.time) {
+                                this.resetTimer();
+                                this.target.damage(this.attack.damage);
+                                this.setAction("cooldown");
+                            }
+                            break;
+                        case "cooldown":
+                            this.updateTimer(event.delta);
+                            if (this.getTimer() >= this.attack.cooldown) {
+                                this.resetTimer();
+                                this.setAction("attacking");
+                            }
+                            break;
+                        default:
+                            break;
                     }
                     break;
                 case "IDLE":
