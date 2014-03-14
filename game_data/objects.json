@@ -65,7 +65,7 @@
 	"monsters": {
 		"T": {
 			"name": "UFO",
-			"health": 100,
+			"health": 10,
 			"speed": 120,
 			"flying": false,
 			"image": "#8daab5",
@@ -88,6 +88,11 @@
 			"range": {
 			    "vertical": 0,
 			    "horizontal": 10
+			},
+			"attack": {
+			    "damage": 1,
+			    "time": 100,
+			    "cooldown": 0
 			}
 		}
 	},

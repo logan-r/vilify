@@ -1126,6 +1126,7 @@
 		this.health = Game.DATA.heroes[this.type].health;
 		this.target = null; // Monster hero is attacking
 		this.range = Game.DATA.heroes[this.type].range; // How far away the hero can attack a monster from
+		this.attack = Game.DATA.heroes[this.type].attack;
 
 		// Set hero's size
 		this.width = 70;
@@ -1169,6 +1170,7 @@
                     if (this.inRange(Game.MONSTERS[i])) {
                         this.target = Game.MONSTERS[i];
                         this.setState("COMBAT");
+                        this.setAction("attacking");
                         break;
                     }
                 }
@@ -1192,6 +1194,26 @@
                     if (!this.target) {
                         this.setState("MOVING"); // TODO: decide if state should be set to MOVE if monster not at goal
                         break;
+                    }
+                    
+                    switch(this.getAction()) {
+                        case "attacking":
+                            this.updateTimer(event.delta);
+                            if (this.getTimer() >= this.attack.time) {
+                                this.resetTimer();
+                                this.target.damage(this.attack.damage);
+                                this.setAction("cooldown");
+                            }
+                            break;
+                        case "cooldown":
+                            this.updateTimer(event.delta);
+                            if (this.getTimer() >= this.attack.cooldown) {
+                                this.resetTimer();
+                                this.setAction("attacking");
+                            }
+                            break;
+                        default:
+                            break;
                     }
                     break;
 				case "IDLE":
