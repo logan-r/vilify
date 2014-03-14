@@ -673,6 +673,75 @@
 		this.health = 1;
 		this.flying = false;
 		
+		// Monster's state
+		// IDLE: Waiting for orders
+		// MOVING: Moving to goal
+		// COMBAT: In combat with hero
+		this.state = {
+            name: "IDLE",
+            action: "",
+            timer: 0
+		};
+		
+		/**
+		 * Gets the creature's active state
+		 */
+		this.getState = function() {
+            return this.state.name;
+		};
+		
+		/**
+		 * Sets the creature's state to something new
+		 */
+		this.setState = function(state) {
+            this.state.name = state;
+            this.state.action = "";
+            this.state.timer = 0;
+		};
+		
+		/**
+		 * Gets the creature's current action
+		 */
+		this.getAction = function() {
+            return this.state.action();
+		};
+		
+		/**
+		 * Sets the current action the creature is preforming
+		 */
+		this.setAction = function(action) {
+            this.state.action = action;
+            this.state.timer = 0;
+		};
+		
+		/**
+		 * Gets the current time on the timer
+		 */
+		this.getTimer = function() {
+            return this.state.timer;
+		};
+		
+		/**
+		 * Sets the timer's value to a new time
+		 */
+		this.setTimer = function(time) {
+            this.state.timer = time;
+		};
+		
+		/**
+		 * Increaments the timers value by time
+		 */
+		this.updateTimer = function(time) {
+            this.state.timer += time;
+		};
+		
+		/**
+		 * Resets the state timer
+		 */
+		this.resetTimer = function() {
+            this.state.timer = 0;
+		};
+		
 		// Current effects active on the creature
 		this.EFFECTS = [];
 		
@@ -761,17 +830,10 @@
 		this.flying = Game.DATA.monsters[this.type].flying;
 		this.range = Game.DATA.monsters[this.type].range; // How close a hero has to be for the monster to attack it
 		this.attack = Game.DATA.monsters[this.type].attack;
-		this.attackTimer = 0; // Time left until monster finnishes attack
 		
 		// Targets
 		this.goal = [this.x, this.y]; // Location that the monster wants to move to
 		this.target = null; // Hero that the monster is attacking
-
-		// Monster's state
-		// IDLE: Waiting for orders
-		// MOVING: Moving to goal
-		// COMBAT: In combat with hero
-		this.state = "IDLE";
 
 		// Get Monster's image
 		var image = new createjs.Bitmap(Game.queue.getResult("monsters/ufo.png"));
@@ -799,13 +861,13 @@
                     // Hero within range of monster's attack, set as monster's target
                     if (Physics.collides(monsterBox, heroBox)) {
                         this.target = Game.HEROES[i];
-                        this.state = "COMBAT";
+                        this.setState("COMBAT");
                         break;
                     }
                 }
             }
             
-			switch (this.state) { // What state is the monster in
+			switch (this.getState()) { // What state is the monster in
 				case "MOVING": // Move monster
 					// Is it a flying monster?
 					if (this.flying) {
@@ -831,20 +893,20 @@
 						this.x = this.goal[0];
 						this.y = this.goal[1];
 
-						// Change status
-						this.status == "IDLE";
+						// Change state
+						this.setState("IDLE");
 					}
 					break;
 				case "COMBAT":
                     // If creature has no enemy, then exit combat state
                     if (!this.target) {
-                        this.state = "IDLE"; // TODO: decide if state should be set to MOVE if monster not at goal
+                        this.setState("IDLE"); // TODO: decide if state should be set to MOVE if monster not at goal
                         break;
                     }
                     
-                    this.attackTimer += event.delta;
-                    if (this.attackTimer >= this.attack.time) {
-                        this.attackTimer = 0;
+                    this.updateTimer(event.delta);
+                    if (this.getTimer() >= this.attack.time) {
+                        this.resetTimer();
                         this.target.damage(this.attack.damage);
                         
                     }
@@ -894,7 +956,7 @@
 		 */
 		var handlePressUp = function(event) {
 			// Update monster status
-			event.target.parent.state = "MOVING";
+			event.target.parent.setState("MOVING");
 
             // Set new goal
 			event.target.parent.goal[0] = event.stageX - event.target.parent.width / 2;
@@ -1054,12 +1116,9 @@
 			this.Vy = this.flying.velocity; // y velocity
 			this.flyingHeight = this.flying.height; // height difference from starting y that the hero goes to while flying
 		}
-
-		// Hero's state
-		// IDLE: Not doing anything
-		// MOVING: Moving towards target
-		// COMBAT: In combat with monster
-		this.state = "MOVING";
+		
+		// Start in MOVING state
+		this.setState("MOVING");
 
 		// Hero image
 		var image = new createjs.Shape();
@@ -1091,13 +1150,13 @@
                     // Hero within range of monster's attack, set as monster's target
                     if (Physics.collides(heroBox, monsterBox)) {
                         this.target = Game.MONSTERS[i];
-                        this.state = "COMBAT";
+                        this.setState("COMBAT");
                         break;
                     }
                 }
             }
 
-			switch (this.state) { // What state is the hero in?
+			switch (this.getState()) { // What state is the hero in?
 				case "MOVING": // Move hero
 					// Move on x-axis
 					this.x += event.delta / 1000 * this.Vx * effects.speed;
@@ -1113,7 +1172,7 @@
 				case "COMBAT":
                     // If creature has no enemy, then exit combat state
                     if (!this.target) {
-                        this.state = "MOVING"; // TODO: decide if state should be set to MOVE if monster not at goal
+                        this.setState("MOVING"); // TODO: decide if state should be set to MOVE if monster not at goal
                         break;
                     }
                     break;

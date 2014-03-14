@@ -87,7 +87,7 @@
 			"flying": false,
 			"range": {
 			    "vertical": 0,
-			    "horizontal": 100
+			    "horizontal": 10
 			}
 		}
 	},
