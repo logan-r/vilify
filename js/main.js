@@ -760,6 +760,8 @@
 		this.speed = Game.DATA.monsters[this.type].speed;
 		this.flying = Game.DATA.monsters[this.type].flying;
 		this.range = Game.DATA.monsters[this.type].range; // How close a hero has to be for the monster to attack it
+		this.attack = Game.DATA.monsters[this.type].attack;
+		this.attackTimer = 0; // Time left until monster finnishes attack
 		
 		// Targets
 		this.goal = [this.x, this.y]; // Location that the monster wants to move to
@@ -838,6 +840,13 @@
                     if (!this.target) {
                         this.state = "IDLE"; // TODO: decide if state should be set to MOVE if monster not at goal
                         break;
+                    }
+                    
+                    this.attackTimer += event.delta;
+                    if (this.attackTimer >= this.attack.time) {
+                        this.attackTimer = 0;
+                        this.target.damage(this.attack.damage);
+                        
                     }
                     break;
                 case "IDLE":

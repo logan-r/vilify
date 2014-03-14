@@ -72,12 +72,17 @@
 			"range": {
 			    "vertical": 0,
 			    "horizontal": 50
+			},
+			"attack": {
+			    "damage": 1,
+			    "time": 100,
+			    "cooldown": 0
 			}
 		}
 	},
 	"heroes": {
 		"Sidekick": {
-			"health": 1,
+			"health": 100,
 			"speed": 100,
 			"flying": false,
 			"range": {
