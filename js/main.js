@@ -672,11 +672,18 @@
 		// Creature stats
 		this.health = 1;
 		this.flying = false;
+		this.range = { // How far the creature's melee attacks can reach
+            "horizontal": 0,
+            "vertical": 0
+		};
 		
-		// Monster's state
+		// Creature's state
 		// IDLE: Waiting for orders
 		// MOVING: Moving to goal
 		// COMBAT: In combat with hero
+		//  - engaging: not yet with in range to attack target
+		//  - attacking: attacking the target
+		//  - cooldown: in between attacks
 		this.state = {
             name: "IDLE",
             action: "",
@@ -782,6 +789,25 @@
 		};
 		
 		/**
+		 * Checks if an enemy is within attack range
+		 */
+		this.inRange = function(enemy) {
+            // Make creature collision box, extending the box by the creature's range
+            var creatureBox = {
+                "left": this.x - this.range.horizontal,
+                "top": this.y - this.range.verical,
+                "width": this.width + this.range.horizontal * 2,
+                "height": this.height + this.range.verical * 2
+            };
+            
+            // Get enemy collision box
+            var enemyBox = enemy.getBox();
+            
+            // Hero within range of monster's attack, set as monster's target
+            return Physics.collides(creatureBox, enemyBox);
+		};
+		
+		/**
 		 * Deal damage to the creature
 		 * damage: amount of damage to be dealt
 		 */
@@ -847,19 +873,8 @@
                 // Check if there are any heroes within attack range
                 // TODO: Optimize so that the monster doesn't just attack the first hero in range
                 for (var i = 0; i < Game.HEROES.length; i++) {
-                    // Make monster collision box, extending the box by the monster's range
-                    var monsterBox = {
-                        "left": this.x - this.range.horizontal,
-                        "top": this.y - this.range.verical,
-                        "width": this.width + this.range.horizontal * 2,
-                        "height": this.height + this.range.verical * 2
-                    };
-                    
-                    // Get hero collision box
-                    var heroBox = Game.HEROES[i].getBox();
-                    
                     // Hero within range of monster's attack, set as monster's target
-                    if (Physics.collides(monsterBox, heroBox)) {
+                    if (this.inRange(Game.HEROES[i])) {
                         this.target = Game.HEROES[i];
                         this.setState("COMBAT");
                         break;
@@ -1136,19 +1151,8 @@
                 // Check if there are any monsters within attack range
                 // TODO: Optimize so that the hero doesn't just attack the first monster in range
                 for (var i = 0; i < Game.MONSTERS.length; i++) {
-                    // Make hero collision box, extending the box by the hero's range
-                    var heroBox = {
-                        "left": this.x - this.range.horizontal,
-                        "top": this.y - this.range.vertical,
-                        "width": this.width + this.range.horizontal * 2,
-                        "height": this.height + this.range.vertical * 2
-                    };
-                    
-                    // Get hero collision box
-                    var monsterBox = Game.MONSTERS[i].getBox();
-                    
-                    // Hero within range of monster's attack, set as monster's target
-                    if (Physics.collides(heroBox, monsterBox)) {
+                    // If hero can reach monster, then set as target
+                    if (this.inRange(Game.MONSTERS[i])) {
                         this.target = Game.MONSTERS[i];
                         this.setState("COMBAT");
                         break;
