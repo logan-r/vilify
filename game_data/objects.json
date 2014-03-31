@@ -44,6 +44,7 @@
 					"damage": 5,
 					"effects": {
 						"freeze": 10
+						"slowness":5
 					},
 					"chance": 100
 				}
