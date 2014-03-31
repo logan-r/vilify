@@ -41,7 +41,7 @@
 			"attacks": [
 				{
 					"type": "bullet",
-					"damage": 0,
+					"damage": 5,
 					"effects": {
 						"freeze": 10
 					},
