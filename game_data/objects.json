@@ -57,7 +57,9 @@
 				{
 					"type": "bullet",
 					"damage": 1,
-					"effects": {},
+					"effects": {
+						"curse":5
+					},
 					"chance": 100
 				}
 			]
