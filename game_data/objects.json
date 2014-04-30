@@ -70,7 +70,7 @@
 			"name": "UFO",
 			"health": 10,
 			"speed": 120,
-			"flying": false,
+			"flying": true,
 			"image": "#8daab5",
 			"range": {
 			    "vertical": 0,
