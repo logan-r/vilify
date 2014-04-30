@@ -43,7 +43,7 @@
 					"type": "bullet",
 					"damage": 5,
 					"effects": {
-						"freeze": 10
+						"freeze": 7,
 						"slowness":5
 					},
 					"chance": 100
@@ -73,7 +73,7 @@
 			"flying": true,
 			"image": "#8daab5",
 			"range": {
-			    "vertical": 0,
+			    "vertical": 10,
 			    "horizontal": 50
 			},
 			"attack": {
