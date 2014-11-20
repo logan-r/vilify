@@ -1,47 +1,10 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Vilify Game</title>
-
-		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1" charset="UTF-8">
-
-		<!-- Icon -->
-		<link rel="shortcut icon" href="favicon.ico">
-
-		<!-- Load stylesheets -->
-		<link href='//fonts.googleapis.com/css?family=Bangers' rel='stylesheet' type='text/css'>
-		<link href='//fonts.googleapis.com/css?family=Monda:400,700' rel='stylesheet' type='text/css'>
-		<link href="/css/bootstrap.min.css" rel="stylesheet" type='text/css'>
-		<link href="/css/style.css" rel="stylesheet" type='text/css'>
-</head>
-<body>
-
-<header class="nav-bar">
-	<div class="container">
-		<a href="/">
-			<img src="/images/logo.png">
-		</a>
-		
-		<nav class="pull-right">
-			<a href="/">home</a> | 
-			<a href="/play">play</a> | 
-			<a href="/contribute">contribute</a>
-		</nav>
-	</div>
-</header>
-
-<article class="post container">
-
-  <h2>Vilify - An Introduction</h2>
-  
-  <div class="date text-muted">
-    Written on November 18, 2014
-  </div>
-  
-  <br>
-  
-  <div class="entry">
-    <p>
+---
+layout: post
+title: Vilify - An Introduction
+category: Game Overview
+excerpt: An introduction to Vilify and its game mechanics.
+---
+<p>
     Hello world!
 </p>
 
@@ -62,7 +25,7 @@
     <a href="http://en.wikipedia.org/wiki/Platform_game">platformer game</a> too.
 </p>
 
-<hr />
+<hr>
 
 <p>
     <b>Objective:</b>
@@ -70,26 +33,26 @@
     Don't let the heroes destroy it before then.
 </p>
 
-<hr />
+<hr>
 
 <p>
-    <b>Heroes:</b><br />
+    <b>Heroes:</b><br>
     Heroes spawn on the left side of the screen and move rightwards. If a hero
     reaches the right side of the screen before the doomsday device goes off,
     you lose. Checkout the
     <a href="https://github.com/logan-r/vilify/wiki/Heroes">game guide</a>
     for all the heroes in the game and their stats.
     
-    <br />
+    <br>
     
-    <img src="//i.imgur.com/aU0dDON.png" class="img" />
+    <img src="//i.imgur.com/aU0dDON.png" class="img">
 </p>
 
-<hr />
+<hr>
 
 <p>    
-    <b>Defenses:</b><br />
-    You can stop heroes from reaching your doomsday device via two methods: building towers and creating monsters.<br />
+    <b>Defenses:</b><br>
+    You can stop heroes from reaching your doomsday device via two methods: building towers and creating monsters.<br>
     <ol>
         <li>
             Towers are built on the roof of your lab.
@@ -116,13 +79,13 @@
         </li>
     </ol>
     
-    <img src="//i.imgur.com/wUxADYd.png" class="img" />
+    <img src="//i.imgur.com/wUxADYd.png" class="img">
 </p>
 
-<hr />
+<hr>
 
 <p>
-    <b>Items:</b><br />
+    <b>Items:</b><br>
     When the player defeats an enemy the player can get items. Items are the
     currency of the game - they are what the player uses to purchase towers and
     monsters. There are 3 types of items:
@@ -133,7 +96,7 @@
         <li>Alien</li>
     </ol>
     
-    We often abbreviate the items to their first letter: <b>T</b>, <b>C</b> &amp;
+    We often abbreviate the items to their first letter: <b>T</b>, <b>C</b> &
     <b>A</b> for Tech, Chemical, and Alien respectively. A player's items are
     stored on the right of the screen (see the image below). To purchase a new
     tower with an item, the player drags an item to an unbuilt tower spot on the
@@ -151,26 +114,19 @@
     items need to make them. Cyborg - a rank 2 monster - is denoted by <b>[TA]</b>
     meaning that the cyborg is either a monster created by a <b>Tech</b> item
     and upgraded with a <b>Alien</b> item or a monster created by an <b>Alien</b>
-    item and upgraded with a <b>Tech</b> item.<br />
+    item and upgraded with a <b>Tech</b> item.<br>
     
-    <img class="img" src="http://i.imgur.com/nGmQNJq.png" />
+    <img class="img" src="http://i.imgur.com/nGmQNJq.png">
 </p>
 
-<hr />
+<hr>
 
 <p>
     So that about wraps up the primary mechanics of the game. If you have any questions stop by our <a href="https://www.hipchat.com/invite/205301/121e488078d93033a4133e430ce00c4b">HipChat</a> to
-    discuss them. Also, we'd love your help turning Vilify into a reality so checkout our <a href="/contribute">contribute</a> page when you've got some spare time!
+    discuss them. Also, we'd love your help turning Vilify into a reality so checkout our <a href="/vilify/contribute">contribute</a> page when you've got some spare time!
 </p>
 
 <p>
-    Peace out,<br />
+    Peace out,<br>
     - Logan
 </p>
-
-  </div>
-
-</article>
-
-	</body>
-</html>

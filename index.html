@@ -27,7 +27,7 @@
 			
 			<aside class="pull-right text-large">
 				<span class="muted">Visit us on:</span> &nbsp;
-				<a href="https://github.com/logan-r/vilify" title="GitHub"><img src="{{site.url}}/images/GitHub-Mark-32px.png" alt="GitHub"></a>
+				<a href="https://github.com/logan-r/vilify" title="GitHub"><img src="{{site.url}}/vilify/images/GitHub-Mark-32px.png" alt="GitHub"></a>
 			</aside>
 		</div>
 	</section>
@@ -42,7 +42,7 @@
 			Whether you're a programer, artist, or someone who has an idea for something they
 			think would be really cool in this game, we want (and need) your help.
 			In fact we order you, in the name of ice cream, to help us!
-			Checkout our <a href="/contribute">contribution page</a> and view our source code on 
+			Checkout our <a href="/vilify/contribute">contribution page</a> and view our source code on 
 			<a href="https://github.com/logan-r/vilify">GitHub</a> to get started. Also,
 			visit our <a href="https://www.hipchat.com/invite/205301/121e488078d93033a4133e430ce00c4b">HipChat</a>
 			to talk with us!
@@ -70,11 +70,11 @@
 			
 			{% for post in site.posts %}
 				<div class="title">
-					<a href="{{post.url}}">{{ post.title }}</a> 
+					<a href="{{post.url}}">{{post.title}}</a> 
 				</div>
 				
 				<div class="excerpt">
-					{{ post.excerpt }}
+					{{post.excerpt}}
 				</div>
 			{% endfor %}
 		</div>
