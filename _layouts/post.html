@@ -1,0 +1,26 @@
+---
+layout: default
+---
+
+{% include head.html %}
+{% include neck.html %}
+
+{% include header.html %}
+
+<article class="post container">
+
+  <h2>{{page.title}}</h2>
+  
+  <div class="date text-muted">
+    Written on {{page.date | date: "%B %e, %Y"}}
+  </div>
+  
+  <br>
+  
+  <div class="entry">
+    {{content}}
+  </div>
+
+</article>
+
+{% include foot.html %}
