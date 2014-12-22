@@ -1,25 +1,24 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Vilify Game</title>
-
-		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1" charset="UTF-8">
-
-		<!-- Icon -->
-		<link rel="shortcut icon" href="favicon.ico">
-
-		<!-- Load stylesheets -->
-		<link href='http://fonts.googleapis.com/css?family=Fredoka+One' rel='stylesheet' type='text/css'>
-		<link href="css/style.css" rel="stylesheet" />
-		<script src="http://code.createjs.com/createjs-2013.09.25.min.js"></script>
-	</head>
-	<body>
-		<canvas id="canvas" width="1280px" height="800px">
-			Your browser doesn't support HTML5! <!--will display this text if canvas isn't supported-->
-		</canvas>
-
-		<!-- Load scripts -->
-		<script src="js/utilities.js"></script>
-		<script src="js/main.js"></script>
-	</body>
+<head>
+    <meta charset="UTF-8" />
+    <title>Vilify</title>
+    <script src="js/phaser.min.js"></script>
+</head>
+<body>
+    <script type="text/javascript">
+        window.onload = function() {
+            var game = new Phaser.Game(960, 640, Phaser.AUTO, '', {preload: preload, create: create});
+    
+            function preload () {
+                game.load.image('logo', '/images/logo.png');
+            }
+    
+            function create () {
+                var logo = game.add.sprite(game.world.centerX, game.world.centerY, 'logo');
+                logo.anchor.setTo(0.5, 0.5);
+            }
+        };
+    </script>
+</body>
 </html>
