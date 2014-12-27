@@ -1,0 +1,6 @@
+# Ignore bundler config
+/.bundle
+
+# Ingore Jekyll stuff
+_site/
+.sass-cache/
