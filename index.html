@@ -5,8 +5,13 @@
     <title>Vilify</title>
     <script src="js/phaser.min.js"></script>
     <style>
+        body {
+            background: #f0f0f0;
+        }
+        
         canvas {
-            border: 1px solid #ccc;
+            margin: auto;
+            border: 1px solid #111;
         }
     </style>
 </head>
@@ -28,7 +33,19 @@
                 // Set background color of game canvas to white
                 game.stage.backgroundColor = 0xffffff;
                 
+                // Create monster
                 var monster = Monster(game, "scrapyard robot");
+                
+                // Create floor
+                var drawnObject;
+                var width = game.width; // example;
+                var height = 15; // example;
+                var bmd = game.add.bitmapData(width, height);
+                bmd.ctx.beginPath();
+                bmd.ctx.rect(0, 0, width, height);
+                bmd.ctx.fillStyle = "#111111";
+                bmd.ctx.fill();
+                drawnObject = game.add.sprite(0, game.world.height - height, bmd);
             }
         };
     </script>
