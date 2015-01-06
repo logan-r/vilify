@@ -112,3 +112,19 @@ a, a:hover, a:active, a:visited {
 	border: 7px solid #111;
 	margin-top: 5px;
 }
+
+/* ROADMAP
+-------------------------------------------------- */
+#roadmap .completion-path {
+	border-top: 4px solid #ccc;
+	border-bottom: 4px solid #ccc;
+	padding: 4px 6px;
+}
+
+#roadmap span {
+	color: #888;
+}
+
+#roadmap .description {
+	margin-top: 4px;
+}
