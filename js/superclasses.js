@@ -86,6 +86,13 @@ function AnimateObject(game, type) {
      */
     var model = _superclass.m;
     
+    // Give the animate object a velocity
+    model.velocity = 0;
+    
+    // Give the animate object a mass
+    model.mass = 0;
+    
+    
     /**
      * AnimateObject sprite/view
      */
@@ -123,6 +130,13 @@ function FightingObject(game, type) {
      */
     var model = _superclass.m;
     
+    // A FightingObject's health repersents how much damage it can take
+    model.health = 0;
+    
+    // A FightingObject's maxHealth repersent the maximum value its health can
+    // reach. This FightingObjects health can not exceed its maxHealth
+    model.maxHealth = 0;
+    
     /**
      * FightingObject sprite/view
      */
@@ -132,6 +146,30 @@ function FightingObject(game, type) {
      * FightingObject actions/controller
      */
     var controller = _superclass.c;
+    
+    // Apply damage to this object and if need be kill this object
+    // amount: the amount of damage done to this object
+    controller.damage = function(amount) {
+        // Subtract damage away from health
+        model.health = model.health - amount;
+        
+        // Check to see if the object is dead
+        if (model.health <= 0) {
+            // TODO: kill object
+        }
+    };
+    
+    // Apply healing to this object
+    // amount: the amount of health the object is healed
+    controller.heal = function(amount) {
+        // Add healing to health
+        model.health = model.health + amount;
+        
+        // Check to make sure the object's health does not exceed its maxHealth
+        if (model.health > model.maxHealth) {
+            model.health = model.maxHealth;
+        }
+    };
     
     /**
      * Generate object that is an instance of this class
