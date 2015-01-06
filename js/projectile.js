@@ -1,27 +1,23 @@
 // Projectile class
 function Projectile(game, type) {
+    // Inherits from AnimateObject
+    var _superclass = AnimateObject(game, type);
+    
     /**
      * Projectile data/model
      */
-    var model = {
-        type: type,
-        mass: undefined,
-        velocity: undefined
-    };
+    var model = _superclass.m;
 
     /**
      * Projectile sprite/view
      */
-    var view = game.add.sprite(0, 0, type);
-
-    // Set the sprite's anchor point to the center of the sprite
-    view.anchor.setTo(0.5, 0.5);
+    var view = _superclass.v;
 
 
     /**
      * Projectile actions/controller
      */
-    var controller = {};
+    var controller = _superclass.c;
 
     /**
      * Generate object that is an instance of this class

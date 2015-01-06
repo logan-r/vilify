@@ -1,42 +1,32 @@
 // Hero class
-function Hero(game, init_type) {
+function Hero(game, type) {
+    // Inherits from FightingObject
+    var _superclass = FightingObject(game, type);
+    
     /**
      * Hero data/model
      */
-    var model = {};
-    
-    // Categorization data
-    model.type = init_type; // The type of the hero (e.g. "agent", "Inferno")
-
-    // Combat data
-    model.health; // The hero's health
-    model.maxHealth; // The maximum health the hero can have
-    
-    // Movement data
-    model.speed; // The speed at which the hero move
+    var model = _superclass.m;
     
     
     /**
      * Hero sprite/view
      */
-    var view = game.add.sprite(0, 0, init_type);
-    
-    // Set the sprite's anchor point to the center of the sprite
-    view.anchor.setTo(0.5, 0.5);
+    var view = _superclass.v;
     
     
     /**
      * Hero actions/controller
      */
-    var controller = {};
+    var controller = _superclass.c;
     
     /**
      * Generate object that is an instance of this class
      */
     return {
-        "m": model,
-        "v": view,
-        "c": controller,
+        m: model,
+        v: view,
+        c: controller,
         type: "Hero"
     };
 }

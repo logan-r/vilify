@@ -1,25 +1,23 @@
 // Tower class
 function Tower(game, type) {
+    // Inherits from PhysicalObject
+    var _superclass = PhysicalObject(game, type);
+    
     /**
      * Tower data/model
      */
-    var model = {
-        type: type
-    };
+    var model = _superclass.m;
 
     /**
      * Tower sprite/view
      */
-    var view = game.add.sprite(0, 0, type);
-
-    // Set the sprite's anchor point to the center of the sprite
-    view.anchor.setTo(0.5, 0.5);
+    var view = _superclass.v;
 
 
     /**
      * Tower actions/controller
      */
-    var controller = {};
+    var controller = _superclass.c;
 
     /**
      * Generate object that is an instance of this class
