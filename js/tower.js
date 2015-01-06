@@ -27,6 +27,7 @@ function Tower(game, type) {
     return {
         m: model,
         v: view,
-        c: controller
+        c: controller,
+        type: "Tower"
     };
 }

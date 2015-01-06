@@ -33,10 +33,10 @@ function Monster(game, init_type) {
     /**
      * Generate object that is an instance of this class
      */
-    var _public = {
-        "type": "monster",
+    return {
         "m": model,
         "v": view,
-        "c": controller
-    }; return _public;
+        "c": controller,
+        type: "Monster"
+    };
 }
