@@ -5,7 +5,7 @@ function Projectile(game, type) {
      */
     var model = {
         type: type,
-        weight: undefined,
+        mass: undefined,
         velocity: undefined
     };
 
