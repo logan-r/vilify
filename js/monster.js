@@ -15,8 +15,8 @@ function Monster(game, type) {
     var view = _superclass.v;
     
     // Spawn monster in bottom right corner of screen
-    view.x = game.world.width + Math.abs(view.width) / 2;
-    view.y = game.world.height - view.height / 2;
+    view.x = game.width + Math.abs(view.width) / 2;
+    view.y = game.height - Math.abs(view.height) / 2;
     
     view.body.velocity.x = -300;
     

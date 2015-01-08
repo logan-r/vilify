@@ -12,7 +12,13 @@ function Projectile(game, type) {
      * Projectile sprite/view
      */
     var view = _superclass.v;
-
+    
+    // Spawn monster in center top corner of screen
+    view.x = game.width / 2;
+    view.y = 0 - Math.abs(view.height) / 2;
+    
+    view.body.velocity.y = 300;
+    
 
     /**
      * Projectile actions/controller

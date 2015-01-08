@@ -24,7 +24,7 @@
     <script type="text/javascript" src="js/monster.js"></script>
     <script type="text/javascript">
         window.onload = function() {
-            var game = new Phaser.Game(960, 640, Phaser.AUTO, '', {preload: preload, create: create});
+            game = new Phaser.Game(960, 640, Phaser.AUTO, '', {preload: preload, create: create});
     
             function preload() {
                 // Load data
@@ -40,6 +40,9 @@
                 // Load hero sprites
                 game.load.spritesheet("soldier", "/images/heroes/soldier.png", 260, 304);
                 game.load.spritesheet("tank", "/images/heroes/tank.png", 420, 292);
+                
+                // Load projectiles
+                game.load.image('missile', '/images/projectiles/missileA2.png');
             }
     
             function create() {
@@ -47,8 +50,14 @@
                 window.data = {};
                 window.data.view_data = JSON.parse(game.cache.getText('view_data'));
                 
+                // Set world bounds
+                game.world.setBounds(-2000, 0, game.world.width + 2000 * 2, game.world.height)
+                
                 // Using arcade physics engine
                 game.physics.startSystem(Phaser.Physics.ARCADE);
+                
+                // Setup world physic params
+                game.physics.arcade.gravity.y = 100;
                 
                 // Set background color of game canvas to white
                 game.stage.backgroundColor = 0xffffff;
@@ -58,6 +67,9 @@
                 
                 // Create monster
                 monster = Monster(game, "werewolf");
+                
+                // Create projecitle
+                projectile = Projectile(game, "missile");
             }
         };
     </script>

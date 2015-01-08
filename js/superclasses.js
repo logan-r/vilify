@@ -149,6 +149,9 @@ function FightingObject(game, type) {
      */
     var view = _superclass.v;
     
+    // Don't allow fighting objects to go off screen
+    view.body.collideWorldBounds = true;
+    
     /**
      * FightingObject actions/controller
      */
