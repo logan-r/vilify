@@ -14,6 +14,23 @@ function Hero(game, type) {
      */
     var view = _superclass.v;
     
+    // TODO: find a way to vary scalling of objects
+    view.scale.x = -0.5;
+    view.scale.y = 0.5;
+    
+    // Spawn hero in bottom left corner of screen
+    view.x = 0 - Math.abs(view.width) / 2;
+    view.y = game.world.height - view.height / 2 - 9 /* Account for floor */;
+    
+    // Enable physics on hero
+    game.physics.arcade.enable(view);
+    
+    view.body.velocity.x = 50;
+    
+    view.animations.add("move", null, 5, true);
+    
+    view.animations.play("move");
+    
     
     /**
      * Hero actions/controller
