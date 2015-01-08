@@ -20,14 +20,14 @@ function Hero(game, type) {
     
     // Spawn hero in bottom left corner of screen
     view.x = 0 - Math.abs(view.width) / 2;
-    view.y = game.world.height - view.height / 2 - 9 /* Account for floor */;
+    view.y = game.world.height - view.height / 2 - 14 /* Account for floor */;
     
     // Enable physics on hero
     game.physics.arcade.enable(view);
     
-    view.body.velocity.x = 50;
+    view.body.velocity.x = 100;
     
-    view.animations.add("move", null, 5, true);
+    view.animations.add("move", null, 20, true);
     
     view.animations.play("move");
     

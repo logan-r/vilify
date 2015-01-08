@@ -29,6 +29,7 @@
             function preload() {
                 game.load.image('logo', '/images/logo.png');
                 game.load.spritesheet('scrapyard robot', '/images/monsters/scrapyard_robot_walk.png', 411, 327);
+                game.load.spritesheet("soldier", "/images/heroes/soldier.png", 260, 304);
                 game.load.spritesheet("tank", "/images/heroes/tank.png", 420, 292);
             }
     
@@ -40,7 +41,7 @@
                 game.stage.backgroundColor = 0xffffff;
                 
                 // Create monster
-                hero = Hero(game, "tank");
+                hero = Hero(game, "soldier");
                 
                 // Create floor
                 var drawnObject;
