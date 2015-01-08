@@ -27,13 +27,25 @@
             var game = new Phaser.Game(960, 640, Phaser.AUTO, '', {preload: preload, create: create});
     
             function preload() {
+                // Load data
+                game.load.text('view_data', '/game_data/view_data.json');
+                
+                // Load game images
                 game.load.image('logo', '/images/logo.png');
+                
+                // Load monster sprites
                 game.load.spritesheet('scrapyard robot', '/images/monsters/scrapyard_robot_walk.png', 411, 327);
+                
+                // Load hero sprites
                 game.load.spritesheet("soldier", "/images/heroes/soldier.png", 260, 304);
                 game.load.spritesheet("tank", "/images/heroes/tank.png", 420, 292);
             }
     
             function create() {
+                // Parse data into global objects
+                window.data = {};
+                window.data.view_data = JSON.parse(game.cache.getText('view_data'));
+                
                 // Using arcade physics engine
                 game.physics.startSystem(Phaser.Physics.ARCADE);
                 

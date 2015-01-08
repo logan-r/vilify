@@ -19,6 +19,10 @@ function GameObject(game, type) {
     // Set the sprite's anchor point to the center of the sprite
     view.anchor.setTo(0.5, 0.5);
     
+    // Scale the sprite based upon the data defined in view_data
+    view.scale.x = window.data.view_data[type].scale.x;
+    view.scale.y = window.data.view_data[type].scale.y;
+    
     /**
      * GameObject actions/controller
      */
@@ -97,6 +101,9 @@ function AnimateObject(game, type) {
      * AnimateObject sprite/view
      */
     var view = _superclass.v;
+    
+    // Enable physics on AnimateObjects
+    game.physics.arcade.enable(view);
     
     /**
      * AnimateObject actions/controller
