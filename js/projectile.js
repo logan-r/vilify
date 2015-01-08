@@ -26,7 +26,7 @@ function Projectile(game, type, angle) {
     var model = _superclass.m;
     
     // Total velocity of projectile
-    model.velocity = 100;
+    model.velocity = 300;
     
     /**
      * Projectile sprite/view
@@ -35,7 +35,7 @@ function Projectile(game, type, angle) {
     
     // Spawn projectile in center top corner of screen
     view.x = game.width / 2;
-    view.y = game.height / 2;//0 - Math.abs(view.height) / 2;
+    view.y = 0 - Math.abs(view.height) / 2;
     
     // Projecitle should be pointing in the param "Angle" that was passed to this contructor
     // Note: angle is in radians

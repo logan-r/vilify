@@ -56,9 +56,6 @@
                 // Using arcade physics engine
                 game.physics.startSystem(Phaser.Physics.ARCADE);
                 
-                // Setup world physic params
-                //game.physics.arcade.gravity.y = 100;
-                
                 // Set background color of game canvas to white
                 game.stage.backgroundColor = 0xffffff;
                 
@@ -69,7 +66,7 @@
                 monster = Monster(game, "werewolf");
                 
                 // Create projecitle
-                projectile = Projectile(game, "missile", Math.PI * 0.15);
+                projectile = Projectile(game, "missile", Math.PI * .75);
             }
         };
     </script>
