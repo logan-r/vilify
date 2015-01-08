@@ -35,6 +35,7 @@
                 
                 // Load monster sprites
                 game.load.spritesheet('scrapyard robot', '/images/monsters/scrapyard_robot.png', 329, 262);
+                game.load.spritesheet('werewolf', '/images/monsters/werewolf.png', 540, 289);
                 
                 // Load hero sprites
                 game.load.spritesheet("soldier", "/images/heroes/soldier.png", 260, 304);
@@ -53,7 +54,10 @@
                 game.stage.backgroundColor = 0xffffff;
                 
                 // Create hero
-                hero2 = Hero(game, "soldier");
+                hero = Hero(game, "soldier");
+                
+                // Create monster
+                monster = Monster(game, "werewolf");
             }
         };
     </script>

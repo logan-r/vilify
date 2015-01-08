@@ -16,7 +16,7 @@ function Hero(game, type) {
     
     // Spawn hero in bottom left corner of screen
     view.x = 0 - Math.abs(view.width) / 2;
-    view.y = game.world.height - view.height / 2 /* Account for floor */;
+    view.y = game.world.height - view.height / 2;
     
     view.body.velocity.x = 100;
     
