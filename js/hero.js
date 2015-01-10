@@ -24,12 +24,6 @@ function Hero(game, type) {
         view.y = MathEx.randInt(model.flying.min, model.flying.max);
     }
     
-    view.body.velocity.x = model.velocity;
-    
-    view.animations.add("move", model.viewInfo.animations.move, 20, true);
-    
-    view.animations.play("move");
-    
     /**
      * Hero actions/controller
      */

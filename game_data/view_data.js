@@ -41,6 +41,9 @@ window.data.view_data = {
         "scale": {
             "x": -0.5,
             "y": 0.5
+        },
+        "animations": {
+            "move": Phaser.Animation.generateFrameNames('run/' , 1 , 13, '.png')
         }
     },
     "scrapyard robot": {

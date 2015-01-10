@@ -184,6 +184,12 @@ function FightingObject(game, type, pos, group) {
     // Don't allow fighting objects to go off screen
     view.body.collideWorldBounds = true;
     
+    view.body.velocity.x = model.velocity;
+    
+    view.animations.add("move", model.viewInfo.animations.move, 20, true);
+    
+    view.animations.play("move");
+    
     /**
      * FightingObject actions/controller
      */

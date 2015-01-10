@@ -20,10 +20,6 @@ function Monster(game, type) {
     
     view.body.velocity.x = -1 * model.velocity;
     
-    view.animations.add("move", null, 20, true);
-    
-    view.animations.play("move");
-    
     
     /**
      * Monster actions/controller

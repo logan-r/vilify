@@ -47,7 +47,7 @@
                 
                 // Load monster sprites
                 //game.load.spritesheet('scrapyard robot', '/images/monsters/scrapyard_robot.png', 329, 262);
-                //game.load.spritesheet('werewolf', '/images/monsters/werewolf.png', 540, 289);
+                game.load.atlasJSONHash('werewolf', '/images/werewolf/sheet-running.png', '/images/werewolf/data-running.json');
                 
                 // Load hero sprites
                 game.load.atlasJSONHash('soldier', '/images/soldier/sheet.png', '/images/soldier/data.json');
@@ -76,7 +76,7 @@
                 hero = Hero(game, "helicopter");
                 
                 // Create monster
-                //monster = Monster(game, "werewolf");
+                monster = Monster(game, "werewolf");
                 
                 tower = Tower(game, "basic", 300);
                 
