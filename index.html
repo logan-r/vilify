@@ -16,7 +16,14 @@
     </style>
 </head>
 <body>
+    <!-- Data -->
+    <script type="text/javascript" src="game_data/model_data.js"></script>
+    <script type="text/javascript" src="game_data/view_data.js"></script>
+    
+    <!-- Utilities -->
     <script type="text/javascript" src="js/utilities.js"></script>
+    
+    <!-- Classes -->
     <script type="text/javascript" src="js/superclasses.js"></script>
     <script type="text/javascript" src="js/item.js"></script>
     <script type="text/javascript" src="js/tower.js"></script>
@@ -28,10 +35,6 @@
             var game = new Phaser.Game(960, 640, Phaser.AUTO, '', {preload: preload, create: create, update: update});
     
             function preload() {
-                // Load data
-                game.load.text('model_data', '/game_data/model_data.json');
-                game.load.text('view_data', '/game_data/view_data.json');
-                
                 // Load game images
                 game.load.image('logo', '/images/logo.png');
                 
@@ -53,13 +56,8 @@
             }
     
             function create() { 
-                // Parse data into global objects
-                window.data = {};
-                window.data.view_data = JSON.parse(game.cache.getText('view_data'));
-                window.data.model_data = JSON.parse(game.cache.getText('model_data'));
-                
                 // Set world bounds
-                game.world.setBounds(-2000, 0, game.world.width + 2000 * 2, game.world.height)
+                game.world.setBounds(-2000, 0, game.world.width + 2000 * 2, game.world.height);
                 
                 // Using arcade physics engine
                 game.physics.startSystem(Phaser.Physics.ARCADE);

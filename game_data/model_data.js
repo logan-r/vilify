@@ -1,4 +1,6 @@
-{
+window.data = window.data || {}; // Make sure window.data is defined
+
+window.data.model_data = {
 	"soldier": {
 		"velocity": 100,
 		"flying": false
@@ -8,10 +10,10 @@
 		"flying": false
 	},
 	"jet": {
-		"velocity": 50,
+		"velocity": 300,
 		"flying": {
-			"min": 100,
-			"max": 400
+			"min": 240,
+			"max": 420
 		}
 	},
 	"scrapyard robot": {
@@ -22,4 +24,4 @@
 		"velocity": 300,
 		"flying": false
 	}
-}
+};

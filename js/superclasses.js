@@ -13,6 +13,18 @@ function GameObject(game, type, pos, group) {
     group = typeof group !== 'undefined' ? group : game; // Group defaults to game if not defined
     
     /**
+     * GameObject actions/controller
+     */
+    var controller = {};
+    
+    // Removes the object from the game world
+    // TODO: Look into using phaser's .kill() method instead of .destroy() for optimization
+    controller.destroy = function() {
+        // Stop rendering view
+        view.destroy();
+    };
+    
+    /**
      * GameObject data/model
      */
     var model = {
@@ -40,11 +52,6 @@ function GameObject(game, type, pos, group) {
     // Scale the sprite based upon the data defined in view_data
     view.scale.x = window.data.view_data[type].scale.x;
     view.scale.y = window.data.view_data[type].scale.y;
-    
-    /**
-     * GameObject actions/controller
-     */
-    var controller = {};
     
     /**
      * Generate object that is an instance of this class
@@ -110,9 +117,6 @@ function AnimateObject(game, type, pos, group) {
      * AnimateObject data/model
      */
     var model = _superclass.m;
-    
-    // Give the animate object a velocity
-    model.velocity = 0;
     
     // Give the animate object a mass
     model.mass = 0;

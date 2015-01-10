@@ -1,4 +1,6 @@
-{
+window.data = window.data || {}; // Make sure window.data is defined
+
+window.data.view_data = {
     "werewolf": {
         "scale": {
             "x": -0.5,
@@ -47,4 +49,4 @@
             "y": -0.5
         }
     }
-}
+};

@@ -8,8 +8,6 @@ function Hero(game, type) {
      */
     var model = _superclass.m;
     
-    
-    
     /**
      * Hero sprite/view
      */
@@ -26,12 +24,11 @@ function Hero(game, type) {
         view.y = MathEx.randInt(model.flying.min, model.flying.max);
     }
     
-    view.body.velocity.x = 100;
+    view.body.velocity.x = model.velocity;
     
     view.animations.add("move", null, 20, true);
     
     view.animations.play("move");
-    
     
     /**
      * Hero actions/controller

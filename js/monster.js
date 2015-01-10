@@ -18,7 +18,7 @@ function Monster(game, type) {
     view.x = game.width + Math.abs(view.width) / 2;
     view.y = game.height - Math.abs(view.height) / 2;
     
-    view.body.velocity.x = -300;
+    view.body.velocity.x = -1 * model.velocity;
     
     view.animations.add("move", null, 20, true);
     
