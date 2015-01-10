@@ -24,7 +24,7 @@
     <script type="text/javascript" src="js/monster.js"></script>
     <script type="text/javascript">
         window.onload = function() {
-            var game = new Phaser.Game(960, 640, Phaser.AUTO, '', {preload: preload, create: create});
+            var game = new Phaser.Game(960, 640, Phaser.AUTO, '', {preload: preload, create: create, update: update});
     
             function preload() {
                 // Load data
@@ -73,6 +73,18 @@
                 //projectile = Projectile(game, "missile", Math.PI * .75, {x: game.width / 2, y: -100});
                 
                 tower = Tower(game, "basic", 300);
+                
+                speed = 0.03;
+            }
+            
+            function update() {
+                tower.c.rotate(tower.v.turret.rotation + speed);
+                
+                if (tower.v.turret.rotation > Math.PI / 2 && speed > 0) {
+                    speed = speed * -1;
+                } else if (tower.v.turret.rotation < -Math.PI / 2 && speed < 0) {
+                    speed = speed * -1;
+                }
             }
         };
     </script>

@@ -4,6 +4,13 @@ function Tower(game, type, posX) {
     var _superclass = PhysicalObject(game, "turret", {x: posX, y: 0});
     
     /**
+     * Tower global vars
+     * TODO: move somewhere else
+     */
+    var PADDING_TOP = -8; // How far from the top of the page the tower is located
+    var TURRET_SPACING = 15; // How close the turret is to the base - higher = closer
+    
+    /**
      * Tower actions/controller
      */
     var controller = _superclass.c;
@@ -19,8 +26,8 @@ function Tower(game, type, posX) {
         view.turret.rotation = angle;
         
         // Move the turret around the base of the tower
-        view.turret.x = model.x - (Math.abs(view.base.width) / 2) * Math.sin(view.turret.rotation);
-        view.turret.y = Math.abs(view.base.height) * Math.cos(view.turret.rotation);
+        view.turret.x = model.x - (Math.abs(view.base.width) / 2) * Math.sin(view.turret.rotation) +  TURRET_SPACING * Math.sin(view.turret.rotation);
+        view.turret.y = (Math.abs(view.base.height) + PADDING_TOP) * Math.cos(view.turret.rotation) -  TURRET_SPACING * Math.cos(view.turret.rotation);
     };
     
     /**
@@ -40,7 +47,7 @@ function Tower(game, type, posX) {
     view.turret = _superclass.v;
     view.turret.anchor.setTo(0.5, 1);
     
-    view.base = game.add.sprite(posX, 0, "base");
+    view.base = game.add.sprite(posX, PADDING_TOP, "base");
     
     // Set the sprite's anchor point to the center of the sprite
     view.base.anchor.setTo(0.5, 1);
@@ -50,6 +57,7 @@ function Tower(game, type, posX) {
     view.base.scale.y = window.data.view_data["base"].scale.y;
     
     // Position and angle the turret
+    controller.rotate(-Math.PI / 4);
     controller.rotate(0);
 
     /**
