@@ -17,6 +17,11 @@ function GameObject(game, type, pos, group) {
      */
     var controller = {};
     
+    // Update the GameObject - performed on every tick of the game's clock
+    controller.update = function() {
+        // Each subclass should override this
+    };
+    
     // Removes the object from the game world
     // TODO: Look into using phaser's .kill() method instead of .destroy() for optimization
     controller.destroy = function() {
@@ -55,7 +60,12 @@ function GameObject(game, type, pos, group) {
     /**
      * GameObject sprite/view
      */
-    var view = group.add.sprite(pos.x, pos.y, type);
+    var view;
+    if (group === game) {
+        view = group.add.sprite(pos.x, pos.y, type);
+    } else {
+        view = group.create(pos.x, pos.y, type);
+    }
     
     // Set the sprite's anchor point to the center of the sprite
     view.anchor.setTo(0.5, 0.5);
@@ -83,7 +93,7 @@ function GameObject(game, type, pos, group) {
  */
 function PhysicalObject(game, type, pos, group) {
     // Inherits from GameObject
-    var _superclass = GameObject(game, type, pos);
+    var _superclass = GameObject(game, type, pos, group);
     
     /**
      * PhysicalObject data/model
@@ -122,7 +132,7 @@ function PhysicalObject(game, type, pos, group) {
  */
 function AnimateObject(game, type, pos, group) {
     // Inherits from PhysicalObject
-    var _superclass = PhysicalObject(game, type, pos);
+    var _superclass = PhysicalObject(game, type, pos, group);
     
     /**
      * AnimateObject data/model
@@ -162,7 +172,7 @@ function AnimateObject(game, type, pos, group) {
  */
 function FightingObject(game, type, pos, group) {
     // Inherits from AnimateObject
-    var _superclass = AnimateObject(game, type, pos);
+    var _superclass = AnimateObject(game, type, pos, group);
     
     /**
      * FightingObject data/model

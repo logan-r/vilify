@@ -56,7 +56,7 @@
                 game.load.atlasJSONHash('jet', '/images/jet/sheet.png', '/images/jet/data.json');
                 
                 // Load projectiles
-                //game.load.image('missile', '/images/projectiles/missileA2.png');
+                game.load.image('missile', '/images/projectiles/red2.png');
             }
     
             function create() { 
@@ -70,7 +70,10 @@
                 game.stage.backgroundColor = 0xffffff;
                 
                 // Create projecitle group
-                projectiles = game.add.group();
+                projectiles = {
+                    items: [],
+                    views: game.add.group()
+                };
                 
                 // Create hero
                 hero = Hero(game, "helicopter");
@@ -98,6 +101,12 @@
                 if (count > 55) {
                     count = 0;
                     tower.c.fire();
+                }
+                
+                // Update each projectile
+                for (var i = 0; i < projectiles.items.length; i++) {
+                    p = projectiles.items[i];
+                    p.c.update();
                 }
             }
         };

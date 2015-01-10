@@ -1,7 +1,7 @@
 // Projectile class
 function Projectile(game, type, pos, angle) {
     // Inherits from AnimateObject
-    var _superclass = AnimateObject(game, type, pos, projectiles);
+    var _superclass = AnimateObject(game, type, pos, projectiles.view);
     
     
     /**
@@ -9,11 +9,33 @@ function Projectile(game, type, pos, angle) {
      */
     var controller = _superclass.c;
     
+    // Update the projectile - performed on every tick of the game's clock
+    controller.update = function() {
+        
+        view.body.velocity.x = controller.getHorizontalVelocity();
+        view.body.velocity.y = controller.getVerticalVelocity();
+        
+        if (view.body.angularVelocity < 0 && view.angle > 0) {
+            view.body.angularVelocity = 0;
+            view.body.angularAcceleration = 0;
+            view.rotation = Math.PI;
+        } else if (view.body.angularVelocity > 0 && view.angle < 0) {
+            view.body.angularVelocity = 0;
+            view.body.angularAcceleration = 0;
+            view.rotation = Math.PI;
+        }
+        
+    };
+    
+    // Calculate the horizontal portion of the projectiles total velocity based
+    // upon the angle that the projecitle is point in
     controller.getHorizontalVelocity = function() {
         // Calculate vertical component of total velocity
         return Math.sin(view.rotation) * model.velocity;
     };
     
+    // Calculate the verticle portion of the projectiles total velocity based
+    // upon the angle that the projecitle is point in
     controller.getVerticalVelocity = function() {
         // Calculate vertical component of total velocity
         return -Math.cos(view.rotation) * model.velocity;
@@ -28,6 +50,9 @@ function Projectile(game, type, pos, angle) {
     // Total velocity of projectile
     model.velocity = 500;
     
+    // Intial angle of the projectile
+    model.initialAngle = angle;
+    
     /**
      * Projectile sprite/view
      */
@@ -38,7 +63,7 @@ function Projectile(game, type, pos, angle) {
     view.rotation = angle;
     
     // The rate at which the angle changes
-    view.body.angularVelocity = 0;
+    view.body.angularAcceleration = 50 * Math.cos(angle - Math.PI / 2);
     
     // Calculate vertical and horizontal portions of velocity based upon angle
     // and total velocity

@@ -40,10 +40,10 @@ function Tower(game, type, posX) {
     // Causes the tower to fire a projectile
     controller.fire = function() {
         var angle = this.getRotation();
-        projectile = Projectile(game, "missile", {
+        projectiles.items.push(Projectile(game, "missile", {
             x: view.turret.x - Math.abs(view.turret.height) / 2 * Math.sin(angle), 
             y: view.turret.y + Math.abs(view.turret.height) / 2 * Math.cos(angle)
-        }, angle + Math.PI);
+        }, angle + Math.PI));
     };
     
     /**
