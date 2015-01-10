@@ -2,8 +2,14 @@
  * GameObject class
  * Base class for anything in the game world
  * Parent class of Item and PhysicalObject
+ * 
+ * @params
+ * game: an instance of the overarching phaser game
+ * type: the type of the object (e.g. "soldier", "robot", etc.)
+ * pos: an object in the form {x: _, y: _} that specifies the initial position
+ *      of the object
  */
-function GameObject(game, type) {
+function GameObject(game, type, pos) {
     /**
      * GameObject data/model
      */
@@ -14,7 +20,7 @@ function GameObject(game, type) {
     /**
      * GameObject sprite/view
      */
-    var view = game.add.sprite(0, 0, type);
+    var view = game.add.sprite(pos.x, pos.y, type);
     
     // Set the sprite's anchor point to the center of the sprite
     view.anchor.setTo(0.5, 0.5);
@@ -45,9 +51,9 @@ function GameObject(game, type) {
  * Base class for any physical object in the game world
  * Parent class of Tower and AnimateObject
  */
-function PhysicalObject(game, type) {
+function PhysicalObject(game, type, pos) {
     // Inherits from GameObject
-    var _superclass = GameObject(game, type);
+    var _superclass = GameObject(game, type, pos);
     
     /**
      * PhysicalObject data/model
@@ -58,6 +64,9 @@ function PhysicalObject(game, type) {
      * PhysicalObject sprite/view
      */
     var view = _superclass.v;
+    
+    // Enable physics on all PhysicalObjects
+    game.physics.arcade.enable(view);
     
     /**
      * PhysicalObject actions/controller
@@ -81,9 +90,9 @@ function PhysicalObject(game, type) {
  * Base class for any physical, moving object in the game world
  * Parent class of Projectile and FightingObject
  */
-function AnimateObject(game, type) {
+function AnimateObject(game, type, pos) {
     // Inherits from PhysicalObject
-    var _superclass = PhysicalObject(game, type);
+    var _superclass = PhysicalObject(game, type, pos);
     
     /**
      * AnimateObject data/model
@@ -96,14 +105,10 @@ function AnimateObject(game, type) {
     // Give the animate object a mass
     model.mass = 0;
     
-    
     /**
      * AnimateObject sprite/view
      */
     var view = _superclass.v;
-    
-    // Enable physics on AnimateObjects
-    game.physics.arcade.enable(view);
     
     /**
      * AnimateObject actions/controller
@@ -128,9 +133,9 @@ function AnimateObject(game, type) {
  * direct combat with other objects
  * Parent class of Hero and Monster
  */
-function FightingObject(game, type) {
+function FightingObject(game, type, pos) {
     // Inherits from AnimateObject
-    var _superclass = AnimateObject(game, type);
+    var _superclass = AnimateObject(game, type, pos);
     
     /**
      * FightingObject data/model

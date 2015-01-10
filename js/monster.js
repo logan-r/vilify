@@ -1,7 +1,7 @@
 // Monster class
 function Monster(game, type) {
     // Inherits from FightingObject
-    var _superclass = FightingObject(game, type);
+    var _superclass = FightingObject(game, type, {x: 0, y: 0});
     
     /**
      * Monster data/model

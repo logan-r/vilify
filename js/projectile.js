@@ -1,7 +1,7 @@
 // Projectile class
-function Projectile(game, type, angle) {
+function Projectile(game, type, pos, angle) {
     // Inherits from AnimateObject
-    var _superclass = AnimateObject(game, type);
+    var _superclass = AnimateObject(game, type, pos);
     
     
     /**
@@ -32,10 +32,6 @@ function Projectile(game, type, angle) {
      * Projectile sprite/view
      */
     var view = _superclass.v;
-    
-    // Spawn projectile in center top corner of screen
-    view.x = game.width / 2;
-    view.y = 0 - Math.abs(view.height) / 2;
     
     // Projecitle should be pointing in the param "Angle" that was passed to this contructor
     // Note: angle is in radians

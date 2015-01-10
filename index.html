@@ -24,7 +24,7 @@
     <script type="text/javascript" src="js/monster.js"></script>
     <script type="text/javascript">
         window.onload = function() {
-            game = new Phaser.Game(960, 640, Phaser.AUTO, '', {preload: preload, create: create});
+            var game = new Phaser.Game(960, 640, Phaser.AUTO, '', {preload: preload, create: create});
     
             function preload() {
                 // Load data
@@ -33,19 +33,23 @@
                 // Load game images
                 game.load.image('logo', '/images/logo.png');
                 
+                // Load tower sprites
+                game.load.spritesheet('base', '/images/towers/base-small.png', 339, 211);
+                game.load.spritesheet('turret', '/images/towers/turret-small.png', 138.53, 179);
+                
                 // Load monster sprites
                 game.load.spritesheet('scrapyard robot', '/images/monsters/scrapyard_robot.png', 329, 262);
                 game.load.spritesheet('werewolf', '/images/monsters/werewolf.png', 540, 289);
                 
                 // Load hero sprites
-                game.load.spritesheet("soldier", "/images/heroes/soldier.png", 260, 304);
+                game.load.spritesheet("soldier", "/images/heroes/soldier-small.png", 130, 152);
                 game.load.spritesheet("tank", "/images/heroes/tank.png", 420, 292);
                 
                 // Load projectiles
                 game.load.image('missile', '/images/projectiles/missileA2.png');
             }
     
-            function create() {
+            function create() { 
                 // Parse data into global objects
                 window.data = {};
                 window.data.view_data = JSON.parse(game.cache.getText('view_data'));
@@ -66,7 +70,9 @@
                 monster = Monster(game, "werewolf");
                 
                 // Create projecitle
-                projectile = Projectile(game, "missile", Math.PI * .75);
+                //projectile = Projectile(game, "missile", Math.PI * .75, {x: game.width / 2, y: -100});
+                
+                tower = Tower(game, "basic", 300);
             }
         };
     </script>

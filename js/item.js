@@ -1,7 +1,7 @@
 // Item class
-function Item(game, type) {
+function Item(game, type, pos) {
     // Inherits from GameObject
-    var _superclass = GameObject(game, type);
+    var _superclass = GameObject(game, type, pos);
     
     /**
      * Item data/model
