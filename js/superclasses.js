@@ -9,7 +9,9 @@
  * pos: an object in the form {x: _, y: _} that specifies the initial position
  *      of the object
  */
-function GameObject(game, type, pos) {
+function GameObject(game, type, pos, group) {
+    group = typeof group !== 'undefined' ? group : game; // Group defaults to game if not defined
+    
     /**
      * GameObject data/model
      */
@@ -20,7 +22,7 @@ function GameObject(game, type, pos) {
     /**
      * GameObject sprite/view
      */
-    var view = game.add.sprite(pos.x, pos.y, type);
+    var view = group.add.sprite(pos.x, pos.y, type);
     
     // Set the sprite's anchor point to the center of the sprite
     view.anchor.setTo(0.5, 0.5);
@@ -51,7 +53,7 @@ function GameObject(game, type, pos) {
  * Base class for any physical object in the game world
  * Parent class of Tower and AnimateObject
  */
-function PhysicalObject(game, type, pos) {
+function PhysicalObject(game, type, pos, group) {
     // Inherits from GameObject
     var _superclass = GameObject(game, type, pos);
     
@@ -90,7 +92,7 @@ function PhysicalObject(game, type, pos) {
  * Base class for any physical, moving object in the game world
  * Parent class of Projectile and FightingObject
  */
-function AnimateObject(game, type, pos) {
+function AnimateObject(game, type, pos, group) {
     // Inherits from PhysicalObject
     var _superclass = PhysicalObject(game, type, pos);
     
@@ -133,7 +135,7 @@ function AnimateObject(game, type, pos) {
  * direct combat with other objects
  * Parent class of Hero and Monster
  */
-function FightingObject(game, type, pos) {
+function FightingObject(game, type, pos, group) {
     // Inherits from AnimateObject
     var _superclass = AnimateObject(game, type, pos);
     

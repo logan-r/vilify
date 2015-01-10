@@ -1,7 +1,7 @@
 // Projectile class
 function Projectile(game, type, pos, angle) {
     // Inherits from AnimateObject
-    var _superclass = AnimateObject(game, type, pos);
+    var _superclass = AnimateObject(game, type, pos, projectiles);
     
     
     /**
@@ -26,7 +26,7 @@ function Projectile(game, type, pos, angle) {
     var model = _superclass.m;
     
     // Total velocity of projectile
-    model.velocity = 300;
+    model.velocity = 500;
     
     /**
      * Projectile sprite/view

@@ -15,19 +15,35 @@ function Tower(game, type, posX) {
      */
     var controller = _superclass.c;
     
+    // Retrive the angle at which the turret is rotated
+    // 0 is staight down, pi/2 is all the way to the left and -pi/2 is all the
+    // to the right
+    controller.getRotation = function() {
+        return view.turret.rotation;
+    };
+    
     // Rotate the towers turret to point at a new angle
     // 0 is staight down, pi/2 is all the way to the left and -pi/2 is all the
     // to the right
     // 
     // @params
     // angle - the new angle in the turret is pointed at (in radians)
-    controller.rotate = function(angle) {
+    controller.setRotation = function(angle) {
         // Rotate the turret
         view.turret.rotation = angle;
         
         // Move the turret around the base of the tower
         view.turret.x = model.x - (Math.abs(view.base.width) / 2) * Math.sin(view.turret.rotation) +  TURRET_SPACING * Math.sin(view.turret.rotation);
         view.turret.y = (Math.abs(view.base.height) + PADDING_TOP) * Math.cos(view.turret.rotation) -  TURRET_SPACING * Math.cos(view.turret.rotation);
+    };
+    
+    // Causes the tower to fire a projectile
+    controller.fire = function() {
+        var angle = this.getRotation();
+        projectile = Projectile(game, "missile", {
+            x: view.turret.x - Math.abs(view.turret.height) / 2 * Math.sin(angle), 
+            y: view.turret.y + Math.abs(view.turret.height) / 2 * Math.cos(angle)
+        }, angle + Math.PI);
     };
     
     /**
@@ -57,8 +73,7 @@ function Tower(game, type, posX) {
     view.base.scale.y = window.data.view_data["base"].scale.y;
     
     // Position and angle the turret
-    controller.rotate(-Math.PI / 4);
-    controller.rotate(0);
+    controller.setRotation(Math.PI/2 - 1);
 
     /**
      * Generate object that is an instance of this class
