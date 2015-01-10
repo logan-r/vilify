@@ -41,6 +41,17 @@ function GameObject(game, type, pos, group) {
         }
     }
     
+    // If data exists about this type of object in the global view_data
+    // load that data into the model's viewInfo property
+    if (window.data.view_data.hasOwnProperty(type)) {
+        model.viewInfo = {};
+        for (var property in window.data.view_data[type]) {
+            if (window.data.view_data[type].hasOwnProperty(property)) {
+                model.viewInfo[property] = window.data.view_data[type][property];
+            }
+        }
+    }
+    
     /**
      * GameObject sprite/view
      */

@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8" />
     <title>Vilify</title>
-    <script src="js/phaser.min.js"></script>
     <style>
         body {
             background: #f0f0f0;
@@ -16,9 +15,8 @@
     </style>
 </head>
 <body>
-    <!-- Data -->
-    <script type="text/javascript" src="game_data/model_data.js"></script>
-    <script type="text/javascript" src="game_data/view_data.js"></script>
+    <!-- Import Phaser Engine -->
+    <script src="js/phaser.min.js"></script>
     
     <!-- Utilities -->
     <script type="text/javascript" src="js/utilities.js"></script>
@@ -30,6 +28,11 @@
     <script type="text/javascript" src="js/projectile.js"></script>
     <script type="text/javascript" src="js/hero.js"></script>
     <script type="text/javascript" src="js/monster.js"></script>
+    
+    <!-- Data -->
+    <script type="text/javascript" src="game_data/model_data.js"></script>
+    <script type="text/javascript" src="game_data/view_data.js"></script>
+    
     <script type="text/javascript">
         window.onload = function() {
             var game = new Phaser.Game(960, 640, Phaser.AUTO, '', {preload: preload, create: create, update: update});
@@ -49,7 +52,7 @@
                 // Load hero sprites
                 game.load.spritesheet("soldier", "/images/heroes/soldier-small.png", 130, 152);
                 game.load.spritesheet("tank", "/images/heroes/tank.png", 420, 292);
-                game.load.spritesheet("jet", "/images/heroes/jet.png", 652, 328);
+                game.load.atlasJSONHash('jet', '/images/heroes/jet.png', '/images/heroes/jet.json');
                 
                 // Load projectiles
                 game.load.image('missile', '/images/projectiles/missileA2.png');

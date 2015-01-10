@@ -26,7 +26,7 @@ function Hero(game, type) {
     
     view.body.velocity.x = model.velocity;
     
-    view.animations.add("move", null, 20, true);
+    view.animations.add("move", model.viewInfo.animations.move, 20, true);
     
     view.animations.play("move");
     

@@ -23,6 +23,10 @@ window.data.view_data = {
         "scale": {
             "x": -0.3,
             "y": 0.3
+        },
+        "animations": {
+            "move": Phaser.Animation.generateFrameNames('jet_fly000' , 1 ,  2 ,  '.png'),
+            
         }
     },
     "scrapyard robot": {
