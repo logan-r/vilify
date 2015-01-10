@@ -16,6 +16,7 @@
     </style>
 </head>
 <body>
+    <script type="text/javascript" src="js/utilities.js"></script>
     <script type="text/javascript" src="js/superclasses.js"></script>
     <script type="text/javascript" src="js/item.js"></script>
     <script type="text/javascript" src="js/tower.js"></script>
@@ -28,6 +29,7 @@
     
             function preload() {
                 // Load data
+                game.load.text('model_data', '/game_data/model_data.json');
                 game.load.text('view_data', '/game_data/view_data.json');
                 
                 // Load game images
@@ -44,6 +46,7 @@
                 // Load hero sprites
                 game.load.spritesheet("soldier", "/images/heroes/soldier-small.png", 130, 152);
                 game.load.spritesheet("tank", "/images/heroes/tank.png", 420, 292);
+                game.load.spritesheet("jet", "/images/heroes/jet.png", 652, 328);
                 
                 // Load projectiles
                 game.load.image('missile', '/images/projectiles/missileA2.png');
@@ -53,6 +56,7 @@
                 // Parse data into global objects
                 window.data = {};
                 window.data.view_data = JSON.parse(game.cache.getText('view_data'));
+                window.data.model_data = JSON.parse(game.cache.getText('model_data'));
                 
                 // Set world bounds
                 game.world.setBounds(-2000, 0, game.world.width + 2000 * 2, game.world.height)
@@ -67,7 +71,7 @@
                 projectiles = game.add.group();
                 
                 // Create hero
-                hero = Hero(game, "soldier");
+                hero = Hero(game, "jet");
                 
                 // Create monster
                 monster = Monster(game, "werewolf");

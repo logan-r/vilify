@@ -17,6 +17,12 @@
             "y": 0.5
         }
     },
+    "jet": {
+        "scale": {
+            "x": -0.3,
+            "y": 0.3
+        }
+    },
     "scrapyard robot": {
         "scale": {
             "x": -0.8,

@@ -1,0 +1,25 @@
+{
+	"soldier": {
+		"velocity": 100,
+		"flying": false
+	},
+	"tank": {
+		"velocity": 50,
+		"flying": false
+	},
+	"jet": {
+		"velocity": 50,
+		"flying": {
+			"min": 100,
+			"max": 400
+		}
+	},
+	"scrapyard robot": {
+		"velocity": 100,
+		"flying": false
+	},
+	"werewolf": {
+		"velocity": 300,
+		"flying": false
+	}
+}

@@ -29,21 +29,6 @@ window.MathEx = {
 	}
 };
 
-window.Physics = {
-	/**
-	 * Checks if two boxes collide
-	 * Boxs are objects with left, top, width, and height values
-	 */
-	collides: function(box1, box2) {
-		return !(
-			box1.top + box1.height < box2.top ||
-			box1.top > box2.top + box2.height ||
-			box1.left + box1.width < box2.left ||
-			box1.left > box2.left + box2.width
-		);
-	}
-}
-
 /**
  * Takes a string and sorts the letters
  * fn can be 1) function to sort, or 2) boolean
@@ -66,6 +51,6 @@ window.String.prototype.sort = function(fn) {
 	}
 
 	return a.join("");
-}
+};
 
 })(window);

@@ -19,6 +19,16 @@ function GameObject(game, type, pos, group) {
         type: type
     };
     
+    // If data exists about this type of object in the global model_data
+    // load that data into the model
+    if (window.data.model_data.hasOwnProperty(type)) {
+        for (var property in window.data.model_data[type]) {
+            if (window.data.model_data[type].hasOwnProperty(property)) {
+                model[property] = window.data.model_data[type][property];
+            }
+        }
+    }
+    
     /**
      * GameObject sprite/view
      */

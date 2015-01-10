@@ -9,14 +9,22 @@ function Hero(game, type) {
     var model = _superclass.m;
     
     
+    
     /**
      * Hero sprite/view
      */
     var view = _superclass.v;
     
-    // Spawn hero in bottom left corner of screen
+    // Spawn hero at left of screen
     view.x = 0 - Math.abs(view.width) / 2;
-    view.y = game.height - Math.abs(view.height) / 2;
+    
+    // If hero isn't capable of fly, spawn hero at bottom of screen
+    if (!model.flying) {
+        view.y = game.height - Math.abs(view.height) / 2;
+    } else {
+        // Spawn hero at random height within it flying range
+        view.y = MathEx.randInt(model.flying.min, model.flying.max);
+    }
     
     view.body.velocity.x = 100;
     
