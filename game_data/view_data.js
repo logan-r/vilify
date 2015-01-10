@@ -1,22 +1,22 @@
 window.data = window.data || {}; // Make sure window.data is defined
 
 window.data.view_data = {
-    "werewolf": {
+    "soldier": {
         "scale": {
             "x": -0.5,
             "y": 0.5
-        }
-    },
-    "soldier": {
-        "scale": {
-            "x": -1,
-            "y": 1
+        },
+        "animations": {
+            "move": Phaser.Animation.generateFrameNames('walk/' , 1 , 18, '.png')
         }
     },
     "tank": {
         "scale": {
             "x": -0.5,
             "y": 0.5
+        },
+        "animations": {
+            "move": Phaser.Animation.generateFrameNames('move/' , 1 , 9, '.png')
         }
     },
     "jet": {
@@ -25,8 +25,22 @@ window.data.view_data = {
             "y": 0.3
         },
         "animations": {
-            "move": Phaser.Animation.generateFrameNames('jet_fly000' , 1 ,  2 ,  '.png'),
-            
+            "move": Phaser.Animation.generateFrameNames('fly/' , 1 , 2, '.png')
+        }
+    },
+    "helicopter": {
+        "scale": {
+            "x": -0.5,
+            "y": 0.5
+        },
+        "animations": {
+            "move": Phaser.Animation.generateFrameNames('fly/' , 1 , 2, '.png')
+        }
+    },
+    "werewolf": {
+        "scale": {
+            "x": -0.5,
+            "y": 0.5
         }
     },
     "scrapyard robot": {
@@ -43,14 +57,14 @@ window.data.view_data = {
     },
     "base": {
         "scale": {
-            "x": 0.5,
-            "y": -0.5
+            "x": 0.25,
+            "y": -0.25
         }
     },
     "turret": {
         "scale": {
-            "x": 0.5,
-            "y": -0.5
+            "x": 0.25,
+            "y": -0.25
         }
     }
 };

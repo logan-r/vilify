@@ -42,20 +42,21 @@
                 game.load.image('logo', '/images/logo.png');
                 
                 // Load tower sprites
-                game.load.spritesheet('base', '/images/towers/base-small.png', 339, 211);
-                game.load.spritesheet('turret', '/images/towers/turret-small.png', 138.53, 179);
+                game.load.atlasJSONHash('base', '/images/base/sheet.png', '/images/base/data.json');
+                game.load.atlasJSONHash('turret', '/images/turret/sheet.png', '/images/turret/data.json');
                 
                 // Load monster sprites
-                game.load.spritesheet('scrapyard robot', '/images/monsters/scrapyard_robot.png', 329, 262);
-                game.load.spritesheet('werewolf', '/images/monsters/werewolf.png', 540, 289);
+                //game.load.spritesheet('scrapyard robot', '/images/monsters/scrapyard_robot.png', 329, 262);
+                //game.load.spritesheet('werewolf', '/images/monsters/werewolf.png', 540, 289);
                 
                 // Load hero sprites
-                game.load.spritesheet("soldier", "/images/heroes/soldier-small.png", 130, 152);
-                game.load.spritesheet("tank", "/images/heroes/tank.png", 420, 292);
-                game.load.atlasJSONHash('jet', '/images/heroes/jet.png', '/images/heroes/jet.json');
+                game.load.atlasJSONHash('soldier', '/images/soldier/sheet.png', '/images/soldier/data.json');
+                game.load.atlasJSONHash('tank', '/images/tank/sheet.png', '/images/tank/data.json');
+                game.load.atlasJSONHash('helicopter', '/images/helicopter/sheet.png', '/images/helicopter/data.json');
+                game.load.atlasJSONHash('jet', '/images/jet/sheet.png', '/images/jet/data.json');
                 
                 // Load projectiles
-                game.load.image('missile', '/images/projectiles/missileA2.png');
+                //game.load.image('missile', '/images/projectiles/missileA2.png');
             }
     
             function create() { 
@@ -72,10 +73,10 @@
                 projectiles = game.add.group();
                 
                 // Create hero
-                hero = Hero(game, "jet");
+                hero = Hero(game, "helicopter");
                 
                 // Create monster
-                monster = Monster(game, "werewolf");
+                //monster = Monster(game, "werewolf");
                 
                 tower = Tower(game, "basic", 300);
                 

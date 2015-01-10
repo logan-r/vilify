@@ -16,6 +16,13 @@ window.data.model_data = {
 			"max": 420
 		}
 	},
+	"helicopter": {
+		"velocity": 200,
+		"flying": {
+			"min": 240,
+			"max": 420
+		}
+	},
 	"scrapyard robot": {
 		"velocity": 100,
 		"flying": false

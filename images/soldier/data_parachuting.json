@@ -1,0 +1,44 @@
+{"frames": {
+
+"fall/1.png":
+{
+	"frame": {"x":276,"y":2,"w":243,"h":792},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":2,"w":243,"h":792},
+	"sourceSize": {"w":272,"h":794}
+},
+"fall/2.png":
+{
+	"frame": {"x":2,"y":2,"w":272,"h":794},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":272,"h":794},
+	"sourceSize": {"w":272,"h":794}
+},
+"parachute/1.png":
+{
+	"frame": {"x":521,"y":2,"w":418,"h":617},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":418,"h":617},
+	"sourceSize": {"w":418,"h":617}
+},
+"parachute/2.png":
+{
+	"frame": {"x":941,"y":2,"w":417,"h":616},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":0,"w":417,"h":616},
+	"sourceSize": {"w":418,"h":617}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "sheet_parachuting.png",
+	"format": "RGBA8888",
+	"size": {"w":1360,"h":798},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:97e074295a22866468e16b39066f9af8:27b973c6965d46aa6d9d0f176e63fc8b:0ef5013d5042a78171711515926b54c9$"
+}
+}
