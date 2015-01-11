@@ -41,6 +41,11 @@
                 // Load game images
                 game.load.image('logo', '/images/logo.png');
                 
+                // Load item images
+                game.load.image('alien item', '/images/items/alien.png');
+                game.load.image('biochem item', '/images/items/biochemical.png');
+                game.load.image('tech item', '/images/items/tech.png');
+                
                 // Load tower sprites
                 game.load.atlasJSONHash('base', '/images/base/sheet.png', '/images/base/data.json');
                 game.load.atlasJSONHash('turret', '/images/turret/sheet.png', '/images/turret/data.json');
@@ -55,7 +60,7 @@
                 game.load.atlasJSONHash('helicopter', '/images/helicopter/sheet.png', '/images/helicopter/data.json');
                 game.load.atlasJSONHash('jet', '/images/jet/sheet.png', '/images/jet/data.json');
                 
-                // Load projectiles
+                // Load projectiles images
                 game.load.image('missile', '/images/projectiles/red2.png');
             }
     
@@ -88,6 +93,8 @@
                 
                 // Create monster
                 monster = Monster(game, "werewolf");
+                
+                item = Item(game, "biochem item", {x: 100, y: 100});
             }
             
             function update() {

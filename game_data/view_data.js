@@ -69,5 +69,23 @@ window.data.view_data = {
             "x": 0.25,
             "y": -0.25
         }
+    },
+    "alien item": {
+        "scale": {
+            "x": 0.13,
+            "y": 0.13
+        }
+    },
+    "biochem item": {
+        "scale": {
+            "x": 0.13,
+            "y": 0.13
+        }
+    },
+    "tech item": {
+        "scale": {
+            "x": 0.13,
+            "y": 0.13
+        }
     }
 };
