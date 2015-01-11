@@ -21,14 +21,32 @@ function Tower(game, type, posX) {
     
     // Update the tower - performed on every tick of the game's clock
     controller.update = function() {
-        // Rotate tower
-        this.setRotation(this.getRotation() + model.velocity);
-        
-        // Limit tower turret range
-        if (this.getRotation() > Math.PI / 2 &&  model.velocity > 0) {
-            model.velocity = model.velocity * -1;
-        } else if (this.getRotation() < -Math.PI / 2 && model.velocity < 0) {
-            model.velocity = model.velocity * -1;
+        // Move tower's turret if it has a destination
+        if (model.destination !== null) {
+            var deltaAngle = 0; // Amount to change the turret's angle by
+            
+            
+            // Is tower at destination?
+            if (this.getRotation() > model.destination - model.velocity &&
+                this.getRotation() < model.destination + model.velocity) {
+                // Make sure tower is exactly at detination
+                this.setRotation(model.destination);
+                
+                // Don't move tower
+                deltaAngle = 0;
+                
+                // Has reached destination so can set that property back to null
+                this.destination = null;
+            } else if (model.destination < this.getRotation()) { // Is target angle smaller or larger than current angle?
+                // Need to subtract velocity from angle to reach destination
+                deltaAngle = model.velocity * -1;
+            } else if (model.destination > this.getRotation()) {
+                // Need to add velocity to angle to reach destination
+                deltaAngle = model.velocity;
+            }
+            
+            // Rotate tower
+            this.setRotation(this.getRotation() + deltaAngle);
         }
         
         // Fire a projectile every 55 ticks - TODO: intergrate rate of fire
@@ -77,6 +95,9 @@ function Tower(game, type, posX) {
     
     // The x position of the tower
     model.x = posX;
+    
+    // Angle that the tower wants to move its turret to
+    model.destination = -Math.PI / 2 + 1;
 
     /**
      * Tower sprite/view
@@ -97,7 +118,7 @@ function Tower(game, type, posX) {
     view.base.scale.y = window.data.view_data["base"].scale.y;
     
     // Position and angle the turret
-    controller.setRotation(Math.PI/2 - 1);
+    controller.setRotation(Math.PI / 2 - 1);
 
     /**
      * Generate object that is an instance of this class

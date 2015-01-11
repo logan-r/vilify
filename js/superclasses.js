@@ -100,6 +100,9 @@ function PhysicalObject(game, type, pos, group) {
      */
     var model = _superclass.m;
     
+    // The place the object is trying to reach
+    model.destination = null; // Overriden by subtypes
+    
     /**
      * PhysicalObject sprite/view
      */
