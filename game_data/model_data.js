@@ -30,5 +30,8 @@ window.data.model_data = {
 	"werewolf": {
 		"velocity": 300,
 		"flying": false
+	},
+	"turret": {
+		"velocity": 0.01
 	}
 };

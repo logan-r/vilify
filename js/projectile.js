@@ -1,7 +1,7 @@
 // Projectile class
 function Projectile(game, type, pos, angle) {
     // Inherits from AnimateObject
-    var _superclass = AnimateObject(game, type, pos, projectiles.view);
+    var _superclass = AnimateObject(game, type, pos, projectiles.views);
     
     
     /**
@@ -11,10 +11,11 @@ function Projectile(game, type, pos, angle) {
     
     // Update the projectile - performed on every tick of the game's clock
     controller.update = function() {
-        
+        // Calculate horizontal and vertical portions of velocity
         view.body.velocity.x = controller.getHorizontalVelocity();
         view.body.velocity.y = controller.getVerticalVelocity();
         
+        // Keep the projectile's angle within it initial quadrant
         if (view.body.angularVelocity < 0 && view.angle > 0) {
             view.body.angularVelocity = 0;
             view.body.angularAcceleration = 0;
@@ -24,7 +25,6 @@ function Projectile(game, type, pos, angle) {
             view.body.angularAcceleration = 0;
             view.rotation = Math.PI;
         }
-        
     };
     
     // Calculate the horizontal portion of the projectiles total velocity based

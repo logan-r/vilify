@@ -75,38 +75,32 @@
                     views: game.add.group()
                 };
                 
+                // Create projecitle group
+                towers = {
+                    items: [],
+                    views: game.add.group()
+                };
+                
+                towers.items.push(Tower(game, "basic", 300));
+                
                 // Create hero
                 hero = Hero(game, "helicopter");
                 
                 // Create monster
                 monster = Monster(game, "werewolf");
-                
-                tower = Tower(game, "basic", 300);
-                
-                speed = 0.01;
-                
-                count = 0;
             }
             
             function update() {
-                tower.c.setRotation(tower.c.getRotation() + speed);
-                
-                if (tower.c.getRotation() > Math.PI / 2 && speed > 0) {
-                    speed = speed * -1;
-                } else if (tower.c.getRotation() < -Math.PI / 2 && speed < 0) {
-                    speed = speed * -1;
-                }
-                
-                count++;
-                if (count > 55) {
-                    count = 0;
-                    tower.c.fire();
-                }
-                
                 // Update each projectile
                 for (var i = 0; i < projectiles.items.length; i++) {
-                    p = projectiles.items[i];
+                    var p = projectiles.items[i];
                     p.c.update();
+                }
+                
+                // Update each tower
+                for (var i = 0; i < towers.items.length; i++) {
+                    var t = towers.items[i];
+                    t.c.update();
                 }
             }
         };
