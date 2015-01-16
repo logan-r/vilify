@@ -25,7 +25,6 @@ function Tower(game, type, posX) {
         if (model.destination !== null) {
             var deltaAngle = 0; // Amount to change the turret's angle by
             
-            
             // Is tower at destination?
             if (this.getRotation() > model.destination - model.velocity &&
                 this.getRotation() < model.destination + model.velocity) {
@@ -36,7 +35,7 @@ function Tower(game, type, posX) {
                 deltaAngle = 0;
                 
                 // Has reached destination so can set that property back to null
-                this.destination = null;
+                model.destination = null;
             } else if (model.destination < this.getRotation()) { // Is target angle smaller or larger than current angle?
                 // Need to subtract velocity from angle to reach destination
                 deltaAngle = model.velocity * -1;

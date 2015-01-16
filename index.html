@@ -80,19 +80,22 @@
                     views: game.add.group()
                 };
                 
-                // Create projecitle group
+                // Create towers group
                 towers = {
                     items: [],
                     views: game.add.group()
                 };
-                
                 towers.items.push(Tower(game, "basic", 300));
                 
                 // Create hero
                 hero = Hero(game, "helicopter");
                 
-                // Create monster
-                monster = Monster(game, "werewolf");
+                // Create monsters group
+                monsters = {
+                    items: [],
+                    views: game.add.group()
+                };
+                monsters.items.push(Monster(game, "werewolf"));
                 
                 item = Item(game, "biochem item", {x: 100, y: 100});
             }
@@ -108,6 +111,12 @@
                 for (var i = 0; i < towers.items.length; i++) {
                     var t = towers.items[i];
                     t.c.update();
+                }
+                
+                // Update each monster
+                for (var i = 0; i < monsters.items.length; i++) {
+                    var m = monsters.items[i];
+                    m.c.update();
                 }
             }
         };
