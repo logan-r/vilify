@@ -89,7 +89,14 @@
                 monsters = ObjectGroup(game);
                 monsters.add(Monster(game, "werewolf"));
                 
-                item = Item(game, "biochem item", {x: 100, y: 100});
+                inventory = InventoryGroup(game);
+                
+                inventory.add(Item(game, ["biochem item", "tech item", "alien item"][MathEx.randInt(0,2)], {x: 100, y: 100}));
+                inventory.add(Item(game, ["biochem item", "tech item", "alien item"][MathEx.randInt(0,2)], {x: 100, y: 100}));
+                inventory.add(Item(game, ["biochem item", "tech item", "alien item"][MathEx.randInt(0,2)], {x: 100, y: 100}));
+                inventory.add(Item(game, ["biochem item", "tech item", "alien item"][MathEx.randInt(0,2)], {x: 100, y: 100}));
+                inventory.add(Item(game, ["biochem item", "tech item", "alien item"][MathEx.randInt(0,2)], {x: 100, y: 100}));
+                inventory.add(Item(game, ["biochem item", "tech item", "alien item"][MathEx.randInt(0,2)], {x: 100, y: 100}));
             }
             
             function update() {
