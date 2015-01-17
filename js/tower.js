@@ -1,7 +1,7 @@
 // Tower class
 function Tower(game, type, posX) {
     // Inherits from PhysicalObject
-    var _superclass = PhysicalObject(game, "turret", {x: posX, y: 0}, towers.views);
+    var _superclass = PhysicalObject(game, "turret", {x: posX, y: 0});
     
     /**
      * Tower global vars
@@ -60,7 +60,7 @@ function Tower(game, type, posX) {
     // 0 is staight down, pi/2 is all the way to the left and -pi/2 is all the
     // to the right
     controller.getRotation = function() {
-        return view.turret.rotation;
+        return view.rotation;
     };
     
     // Rotate the towers turret to point at a new angle
@@ -71,19 +71,19 @@ function Tower(game, type, posX) {
     // angle - the new angle in the turret is pointed at (in radians)
     controller.setRotation = function(angle) {
         // Rotate the turret
-        view.turret.rotation = angle;
+        view.rotation = angle;
         
         // Move the turret around the base of the tower
-        view.turret.x = model.x - (Math.abs(view.base.width) / 2) * Math.sin(view.turret.rotation) +  TURRET_SPACING * Math.sin(view.turret.rotation);
-        view.turret.y = (Math.abs(view.base.height) + PADDING_TOP) * Math.cos(view.turret.rotation) -  TURRET_SPACING * Math.cos(view.turret.rotation);
+        view.x = model.x - (Math.abs(view.base.width) / 2) * Math.sin(view.rotation) +  TURRET_SPACING * Math.sin(view.rotation);
+        view.y = (Math.abs(view.base.height) + PADDING_TOP) * Math.cos(view.rotation) -  TURRET_SPACING * Math.cos(view.rotation);
     };
     
     // Causes the tower to fire a projectile
     controller.fire = function() {
         var angle = this.getRotation();
-        projectiles.items.push(Projectile(game, "missile", {
-            x: view.turret.x - Math.abs(view.turret.height) / 2 * Math.sin(angle), 
-            y: view.turret.y + Math.abs(view.turret.height) / 2 * Math.cos(angle)
+        projectiles.add(Projectile(game, "missile", {
+            x: view.x - Math.abs(view.height) / 2 * Math.sin(angle), 
+            y: view.y + Math.abs(view.height) / 2 * Math.cos(angle)
         }, angle + Math.PI));
     };
     
@@ -97,17 +97,16 @@ function Tower(game, type, posX) {
     
     // Angle that the tower wants to move its turret to
     model.destination = -Math.PI / 2 + 1;
-
+    
     /**
      * Tower sprite/view
      * Unlike most objects, towers have two sprites instead of one in its
      * view: one for its base and one for its turret
      */
-    var view = {};
-    view.turret = _superclass.v;
-    view.turret.anchor.setTo(0.5, 1);
+    var view = _superclass.v;
+    view.anchor.setTo(0.5, 1);
     
-    view.base = towers.views.create(posX, PADDING_TOP, "base");
+    view.base = game.add.sprite(posX, PADDING_TOP, "base");
     
     // Set the sprite's anchor point to the center of the sprite
     view.base.anchor.setTo(0.5, 1);
@@ -118,7 +117,7 @@ function Tower(game, type, posX) {
     
     // Position and angle the turret
     controller.setRotation(Math.PI / 2 - 1);
-
+    
     /**
      * Generate object that is an instance of this class
      */

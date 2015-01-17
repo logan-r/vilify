@@ -1,7 +1,7 @@
 // Projectile class
 function Projectile(game, type, pos, angle) {
     // Inherits from AnimateObject
-    var _superclass = AnimateObject(game, type, pos, projectiles.views);
+    var _superclass = AnimateObject(game, type, pos);
     
     
     /**

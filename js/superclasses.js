@@ -9,9 +9,7 @@
  * pos: an object in the form {x: _, y: _} that specifies the initial position
  *      of the object
  */
-function GameObject(game, type, pos, group) {
-    group = typeof group !== 'undefined' ? group : game; // Group defaults to game if not defined
-    
+function GameObject(game, type, pos) {
     /**
      * GameObject actions/controller
      */
@@ -60,12 +58,7 @@ function GameObject(game, type, pos, group) {
     /**
      * GameObject sprite/view
      */
-    var view;
-    if (group === game) {
-        view = group.add.sprite(pos.x, pos.y, type);
-    } else {
-        view = group.create(pos.x, pos.y, type);
-    }
+    var view = game.add.sprite(pos.x, pos.y, type);
     
     // Set the sprite's anchor point to the center of the sprite
     view.anchor.setTo(0.5, 0.5);
@@ -91,9 +84,9 @@ function GameObject(game, type, pos, group) {
  * Base class for any physical object in the game world
  * Parent class of Tower and AnimateObject
  */
-function PhysicalObject(game, type, pos, group) {
+function PhysicalObject(game, type, pos) {
     // Inherits from GameObject
-    var _superclass = GameObject(game, type, pos, group);
+    var _superclass = GameObject(game, type, pos);
     
     /**
      * PhysicalObject data/model
@@ -133,9 +126,9 @@ function PhysicalObject(game, type, pos, group) {
  * Base class for any physical, moving object in the game world
  * Parent class of Projectile and FightingObject
  */
-function AnimateObject(game, type, pos, group) {
+function AnimateObject(game, type, pos) {
     // Inherits from PhysicalObject
-    var _superclass = PhysicalObject(game, type, pos, group);
+    var _superclass = PhysicalObject(game, type, pos);
     
     /**
      * AnimateObject data/model
@@ -173,9 +166,9 @@ function AnimateObject(game, type, pos, group) {
  * direct combat with other objects
  * Parent class of Hero and Monster
  */
-function FightingObject(game, type, pos, group) {
+function FightingObject(game, type, pos) {
     // Inherits from AnimateObject
-    var _superclass = AnimateObject(game, type, pos, group);
+    var _superclass = AnimateObject(game, type, pos);
     
     /**
      * FightingObject data/model

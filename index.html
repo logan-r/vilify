@@ -23,6 +23,7 @@
     
     <!-- Classes -->
     <script type="text/javascript" src="js/superclasses.js"></script>
+    <script type="text/javascript" src="js/groups.js"></script>
     <script type="text/javascript" src="js/item.js"></script>
     <script type="text/javascript" src="js/tower.js"></script>
     <script type="text/javascript" src="js/projectile.js"></script>
@@ -75,49 +76,27 @@
                 game.stage.backgroundColor = 0xffffff;
                 
                 // Create projecitle group
-                projectiles = {
-                    items: [],
-                    views: game.add.group()
-                };
+                projectiles = ObjectGroup(game);
                 
                 // Create towers group
-                towers = {
-                    items: [],
-                    views: game.add.group()
-                };
-                towers.items.push(Tower(game, "basic", 300));
+                towers = ObjectGroup(game);
+                towers.add(Tower(game, "basic", 300));
                 
                 // Create hero
                 hero = Hero(game, "helicopter");
                 
                 // Create monsters group
-                monsters = {
-                    items: [],
-                    views: game.add.group()
-                };
-                monsters.items.push(Monster(game, "werewolf"));
+                monsters = ObjectGroup(game);
+                monsters.add(Monster(game, "werewolf"));
                 
                 item = Item(game, "biochem item", {x: 100, y: 100});
             }
             
             function update() {
-                // Update each projectile
-                for (var i = 0; i < projectiles.items.length; i++) {
-                    var p = projectiles.items[i];
-                    p.c.update();
-                }
-                
-                // Update each tower
-                for (var i = 0; i < towers.items.length; i++) {
-                    var t = towers.items[i];
-                    t.c.update();
-                }
-                
-                // Update each monster
-                for (var i = 0; i < monsters.items.length; i++) {
-                    var m = monsters.items[i];
-                    m.c.update();
-                }
+                // Update game objects
+                projectiles.update();
+                towers.update();
+                monsters.update();
             }
         };
     </script>
