@@ -1,5 +1,8 @@
 window.data = window.data || {}; // Make sure window.data is defined
 
+var TOWER_X_SCALE = 0.18;
+var TOWER_Y_SCALE = -0.18;
+
 window.data.view_data = {
     "soldier": {
         "scale": {
@@ -58,16 +61,23 @@ window.data.view_data = {
             "y": 0.4
         }
     },
-    "base": {
+    "tower base": {
         "scale": {
-            "x": 0.25,
-            "y": -0.25
+            "x": TOWER_X_SCALE,
+            "y": TOWER_Y_SCALE
         }
     },
-    "turret": {
+    "destroyed tower": {
         "scale": {
-            "x": 0.25,
-            "y": -0.25
+            "x": TOWER_X_SCALE,
+            "y": TOWER_Y_SCALE
+        },
+        "visible": false
+    },
+    "bullet tower": {
+        "scale": {
+            "x": TOWER_X_SCALE,
+            "y": TOWER_Y_SCALE
         }
     },
     "alien item": {

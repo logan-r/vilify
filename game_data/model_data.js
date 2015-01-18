@@ -31,7 +31,12 @@ window.data.model_data = {
 		"velocity": 300,
 		"flying": false
 	},
-	"turret": {
-		"velocity": 0.01
+	"bullet tower": {
+		"velocity": 0.01,
+		"attacks": true
+	},
+	"destroyed tower": {
+		"velocity": 0,
+		"attacks": false
 	}
 };

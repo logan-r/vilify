@@ -1,7 +1,7 @@
 // Tower class
 function Tower(game, type, posX) {
     // Inherits from PhysicalObject
-    var _superclass = PhysicalObject(game, "turret", {x: posX, y: 0});
+    var _superclass = PhysicalObject(game, type + " tower", {x: posX, y: 0});
     
     /**
      * Tower global vars
@@ -48,11 +48,13 @@ function Tower(game, type, posX) {
             this.setRotation(this.getRotation() + deltaAngle);
         }
         
-        // Fire a projectile every 55 ticks - TODO: intergrate rate of fire
-        count++;
-        if (count > 100) {
-            count = 0;
-            this.fire();
+        if (model.attacks) {
+            // Fire a projectile every 55 ticks - TODO: intergrate rate of fire
+            count++;
+            if (count > 100) {
+                count = 0;
+                this.fire();
+            }
         }
     };
     
@@ -106,14 +108,17 @@ function Tower(game, type, posX) {
     var view = _superclass.v;
     view.anchor.setTo(0.5, 1);
     
-    view.base = game.add.sprite(posX, PADDING_TOP, "base");
+    view.base = game.add.sprite(posX, PADDING_TOP, "tower base");
     
     // Set the sprite's anchor point to the center of the sprite
     view.base.anchor.setTo(0.5, 1);
     
     // Scale the sprite based upon the data defined in view_data
-    view.base.scale.x = window.data.view_data["base"].scale.x;
-    view.base.scale.y = window.data.view_data["base"].scale.y;
+    view.base.scale.x = window.data.view_data["tower base"].scale.x;
+    view.base.scale.y = window.data.view_data["tower base"].scale.y;
+    
+    // Set base image depending on the tower's type
+    view.base.frameName = type + "-1.png";
     
     // Position and angle the turret
     controller.setRotation(Math.PI / 2 - 1);

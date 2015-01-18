@@ -48,8 +48,9 @@
                 game.load.image('tech item', '/images/items/tech.png');
                 
                 // Load tower sprites
-                game.load.atlasJSONHash('base', '/images/base/sheet.png', '/images/base/data.json');
-                game.load.atlasJSONHash('turret', '/images/turret/sheet.png', '/images/turret/data.json');
+                game.load.atlasJSONHash('tower base', '/images/base/sheet.png', '/images/base/data.json');
+                game.load.atlasJSONHash('bullet tower', '/images/turret/sheet.png', '/images/turret/data.json');
+                game.load.atlasJSONHash('destroyed tower', '/images/turret/sheet.png', '/images/turret/data.json');
                 
                 // Load monster sprites
                 //game.load.spritesheet('scrapyard robot', '/images/monsters/scrapyard_robot.png', 329, 262);
@@ -80,23 +81,24 @@
                 
                 // Create towers group
                 towers = ObjectGroup(game);
-                towers.add(Tower(game, "basic", 300));
-                
-                // Create hero
-                hero = Hero(game, "helicopter");
+                for (var i = 0; i < 4; i++) {
+                    towers.add(Tower(game, "destroyed", 110+210*i));
+                }
                 
                 // Create monsters group
                 monsters = ObjectGroup(game);
-                monsters.add(Monster(game, "werewolf"));
                 
+                // Create inventory
                 inventory = InventoryGroup(game);
                 
+                // Spawn some items to fill the inventory
+                /*inventory.add(Item(game, ["biochem item", "tech item", "alien item"][MathEx.randInt(0,2)], {x: 100, y: 100}));
                 inventory.add(Item(game, ["biochem item", "tech item", "alien item"][MathEx.randInt(0,2)], {x: 100, y: 100}));
                 inventory.add(Item(game, ["biochem item", "tech item", "alien item"][MathEx.randInt(0,2)], {x: 100, y: 100}));
                 inventory.add(Item(game, ["biochem item", "tech item", "alien item"][MathEx.randInt(0,2)], {x: 100, y: 100}));
                 inventory.add(Item(game, ["biochem item", "tech item", "alien item"][MathEx.randInt(0,2)], {x: 100, y: 100}));
                 inventory.add(Item(game, ["biochem item", "tech item", "alien item"][MathEx.randInt(0,2)], {x: 100, y: 100}));
-                inventory.add(Item(game, ["biochem item", "tech item", "alien item"][MathEx.randInt(0,2)], {x: 100, y: 100}));
+                */
             }
             
             function update() {

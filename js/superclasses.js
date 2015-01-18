@@ -64,8 +64,20 @@ function GameObject(game, type, pos) {
     view.anchor.setTo(0.5, 0.5);
     
     // Scale the sprite based upon the data defined in view_data
-    view.scale.x = window.data.view_data[type].scale.x;
-    view.scale.y = window.data.view_data[type].scale.y;
+    if (model.viewInfo.hasOwnProperty("scale")) {
+        if (model.viewInfo.scale.hasOwnProperty("x")) {
+            view.scale.x = model.viewInfo.scale.x;
+        }
+        
+        if (model.viewInfo.scale.hasOwnProperty("y")) {
+            view.scale.y = model.viewInfo.scale.y;
+        }
+    }
+    
+    // Is the sprite visible?
+    if (model.viewInfo.hasOwnProperty("visible")) {
+        view.visible = model.viewInfo.visible;
+    }
     
     /**
      * Generate object that is an instance of this class
