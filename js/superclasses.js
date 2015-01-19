@@ -15,9 +15,60 @@ function GameObject(game, type, pos) {
      */
     var controller = {};
     
+    // Sets the GameObject's velocity so that it moves towards its destination
+    // if it has one
+    controller.moveToDestination = function() {
+        var axies = ["x", "y"];
+        
+        // For each axis, update the GameObject velocity
+        for (var i = 0; i < axies.length; i++) {
+            var axis = axies[i];
+            
+            // Move the GameObject on this axis if it has a destination for
+            // this axis
+            if (model.destination[axis] !== null) {
+                var delta = 0; // Amount to move on the axis
+                
+                // Is GameObject at destination?
+                if (view[axis] >= model.destination[axis] - model.velocity / 100 &&
+                    view[axis] <= model.destination[axis] + model.velocity / 100) {
+                    // Make sure GameObject is exactly at detination
+                    view[axis] = model.destination[axis];
+                    
+                    // Don't move object
+                    delta = 0;
+                    
+                    // Has reached destination for this axis so can set that
+                    // property back to null
+                    model.destination[axis] = null;
+                } else if (model.destination[axis] < view[axis]) { // Is target angle smaller or larger than current angle?
+                    // Need to subtract velocity from angle to reach destination
+                    delta = model.velocity * -1;
+                } else if (model.destination[axis] > view[axis]) {
+                    // Need to add velocity to angle to reach destination
+                    delta = model.velocity;
+                }
+                view.body.velocity[axis] = delta;
+            } else {
+                // For some reason at high velocities the object won't stop at
+                // the correct location unless we do this
+                view[axis] = model.previousDestination[axis];
+            }
+        }
+    };
+    
     // Update the GameObject - performed on every tick of the game's clock
     controller.update = function() {
         // Each subclass should override this
+        this.moveToDestination();
+    };
+    
+    // Updates the GameObject's destination to a new location
+    controller.setDestination = function(dest) {
+        model.destination = dest;
+        
+        // Clone the object
+        model.previousDestination = JSON.parse(JSON.stringify(dest));
     };
     
     // Removes the object from the game world
@@ -33,6 +84,18 @@ function GameObject(game, type, pos) {
     var model = {
         type: type
     };
+    
+    // The location the object is trying to reach
+    model.destination = {
+        "x": null,
+        "y": null
+    }; // Overriden by subtypes
+    
+    // The last destination the object had
+    model.previousDestination = {
+        "x": null,
+        "y": null
+    }; // Overriden by subtypes
     
     // If data exists about this type of object in the global model_data
     // load that data into the model
@@ -62,6 +125,9 @@ function GameObject(game, type, pos) {
     
     // Set the sprite's anchor point to the center of the sprite
     view.anchor.setTo(0.5, 0.5);
+    
+    // Enable physics on all GameObjects
+    game.physics.arcade.enable(view);
     
     // Scale the sprite based upon the data defined in view_data
     if (model.viewInfo.hasOwnProperty("scale")) {
@@ -105,16 +171,10 @@ function PhysicalObject(game, type, pos) {
      */
     var model = _superclass.m;
     
-    // The place the object is trying to reach
-    model.destination = null; // Overriden by subtypes
-    
     /**
      * PhysicalObject sprite/view
      */
     var view = _superclass.v;
-    
-    // Enable physics on all PhysicalObjects
-    game.physics.arcade.enable(view);
     
     /**
      * PhysicalObject actions/controller

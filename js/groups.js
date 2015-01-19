@@ -15,6 +15,12 @@ function ObjectGroup(game) {
         views.add(obj.v);
     };
     
+    // Returns the object at a certain index in the group
+    // index - the index of the item
+    controller.get = function(index) {
+        return objs[index];
+    };
+    
     // Iterates over every object in this object group and call its update
     // function
     controller.update = function() {
@@ -38,9 +44,9 @@ function InventoryGroup(game) {
     
     // Globals
     // TODO: find better place to define
-    var POS_X = game.width - 50; // the x location of the inventory
-    var POS_Y = 50; // the y location of the inventory
-    var SPACING_Y = 75; // the y-axis spacing between each item
+    var POS_X = game.width - 33 - 5; // the x location of the inventory
+    var POS_Y = 33 + 5; // the y location of the inventory
+    var SPACING_Y = 66 + 5; // the y-axis spacing between each item
     
     // Properties inherited from ObjectGroup
     var objs = _superclass.objs;
@@ -55,10 +61,12 @@ function InventoryGroup(game) {
         objs.push(item);
         views.add(item.v);
         
-        // But detirmin the position of the item based upon what already in the
-        // inventory
-        item.v.x = POS_X;
-        item.v.y = POS_Y + SPACING_Y * (objs.length - 1);
+        // But determine the destination location of the item based upon what is
+        // already in the inventory
+        item.c.setDestination({
+            "x": POS_X,
+            "y": POS_Y + SPACING_Y * (objs.length - 1)
+        });
     };
     
     // Add in items to final object for debug purposes only

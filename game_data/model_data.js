@@ -38,5 +38,14 @@ window.data.model_data = {
 	"destroyed tower": {
 		"velocity": 0,
 		"attacks": false
-	}
+	},
+    "alien item": {
+        "velocity": 300
+    },
+    "biochem item": {
+        "velocity": 300
+    },
+    "tech item": {
+        "velocity": 300
+    }
 };

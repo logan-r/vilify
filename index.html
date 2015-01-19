@@ -92,13 +92,18 @@
                 inventory = InventoryGroup(game);
                 
                 // Spawn some items to fill the inventory
-                /*inventory.add(Item(game, ["biochem item", "tech item", "alien item"][MathEx.randInt(0,2)], {x: 100, y: 100}));
-                inventory.add(Item(game, ["biochem item", "tech item", "alien item"][MathEx.randInt(0,2)], {x: 100, y: 100}));
-                inventory.add(Item(game, ["biochem item", "tech item", "alien item"][MathEx.randInt(0,2)], {x: 100, y: 100}));
-                inventory.add(Item(game, ["biochem item", "tech item", "alien item"][MathEx.randInt(0,2)], {x: 100, y: 100}));
-                inventory.add(Item(game, ["biochem item", "tech item", "alien item"][MathEx.randInt(0,2)], {x: 100, y: 100}));
-                inventory.add(Item(game, ["biochem item", "tech item", "alien item"][MathEx.randInt(0,2)], {x: 100, y: 100}));
-                */
+                for (var i = 0; i < MathEx.randInt(5,7); i++) {
+                    inventory.add(
+                        Item(
+                            game,
+                            ["biochem item", "tech item", "alien item"][MathEx.randInt(0,2)],
+                            {
+                                x: MathEx.randInt(0, game.width - 100),
+                                y: MathEx.randInt(0, game.height - 67/2)
+                            }
+                        )
+                    );
+                }
             }
             
             function update() {
@@ -106,6 +111,7 @@
                 projectiles.update();
                 towers.update();
                 monsters.update();
+                inventory.update();
             }
         };
     </script>
