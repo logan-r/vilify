@@ -4,6 +4,30 @@ function Item(game, type, pos) {
     var _superclass = GameObject(game, type, pos);
     
     /**
+     * Item actions/controller
+     */
+    var controller = _superclass.c;
+    
+    // Update the item - called each tick
+    controller.update = function() {
+        if (!view.input.isDragged) {
+            // Each subclass should override this
+            this.moveToDestination();
+        }
+    };
+    
+    // Handle the item begining to be dragged
+    controller.handleDragStart = function() {
+        // Empty for now
+    };
+    
+    // Handle the item stopping being dragged
+    controller.handleDragStop = function() {
+        // Set the item's destination back to where it was before
+        this.setDestination(model.previousDestination);
+    };
+    
+    /**
      * Item data/model
      */
     var model = _superclass.m;
@@ -12,12 +36,14 @@ function Item(game, type, pos) {
      * Item sprite/view
      */
     var view = _superclass.v;
-
-
-    /**
-     * Item actions/controller
-     */
-    var controller = _superclass.c;
+    
+    // Allow item to be dragged
+    view.inputEnabled = true;
+    view.input.enableDrag(true);
+    
+    // Set up event hanlder for when the item starts and stops being dragged
+    view.events.onDragStart.add(controller.handleDragStart, controller);
+    view.events.onDragStop.add(controller.handleDragStop, controller);
 
     /**
      * Generate object that is an instance of this class
