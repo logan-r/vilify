@@ -88,6 +88,21 @@ window.data.view_data = {
         "scale": {
             "x": TOWER_X_SCALE,
             "y": TOWER_Y_SCALE
+        }
+    },
+    "slime tower": {
+        "image": "tower turret",
+        "scale": {
+            "x": TOWER_X_SCALE,
+            "y": TOWER_Y_SCALE
+        },
+        "tint": 0x00ff00
+    },
+    "energy tower": {
+        "image": "tower turret",
+        "scale": {
+            "x": TOWER_X_SCALE,
+            "y": TOWER_Y_SCALE
         },
         "tint": 0x00ffff
     },

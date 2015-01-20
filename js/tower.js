@@ -124,7 +124,9 @@ function Tower(game, type, posX) {
     view.base.frameName = type + "-1.png";
     
     // Set base image's tint
-    view.base.tint = model.viewInfo.tint;
+    if (model.viewInfo.hasOwnProperty("tint")) {
+        view.base.tint = model.viewInfo.tint;
+    }
     
     // Position and angle the turret
     controller.setRotation(Math.PI / 2 - 1);

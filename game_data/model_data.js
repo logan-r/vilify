@@ -40,6 +40,14 @@ window.data.model_data = {
 		"velocity": 0.01,
 		"attacks": true
 	},
+	"slime tower": {
+		"velocity": 0.01,
+		"attacks": true
+	},
+	"energy tower": {
+		"velocity": 0.01,
+		"attacks": true
+	},
 	
 	// Items
     "alien item": {
