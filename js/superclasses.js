@@ -18,41 +18,18 @@ function GameObject(game, type, pos) {
     // Sets the GameObject's velocity so that it moves towards its destination
     // if it has one
     controller.moveToDestination = function() {
-        var axies = ["x", "y"];
-        
-        // For each axis, update the GameObject velocity
-        for (var i = 0; i < axies.length; i++) {
-            var axis = axies[i];
-            
-            // Move the GameObject on this axis if it has a destination for
-            // this axis
-            if (model.destination[axis] !== null) {
-                var delta = 0; // Amount to move on the axis
-                
-                // Is GameObject at destination?
-                if (view[axis] >= model.destination[axis] - model.velocity / 100 &&
-                    view[axis] <= model.destination[axis] + model.velocity / 100) {
-                    // Make sure GameObject is exactly at detination
-                    view[axis] = model.destination[axis];
-                    
-                    // Don't move object
-                    delta = 0;
-                    
-                    // Has reached destination for this axis so can set that
-                    // property back to null
-                    model.destination[axis] = null;
-                } else if (model.destination[axis] < view[axis]) { // Is target angle smaller or larger than current angle?
-                    // Need to subtract velocity from angle to reach destination
-                    delta = model.velocity * -1;
-                } else if (model.destination[axis] > view[axis]) {
-                    // Need to add velocity to angle to reach destination
-                    delta = model.velocity;
-                }
-                view.body.velocity[axis] = delta;
+        // If GameObject has a destination - move towards it
+        if (model.destination !== null) {
+            // Check if object has reached its destination
+            if (view.x == model.destination.x && view.y == model.destination.y) {
+                // If so then stop moving
+                model.destination = null;
             } else {
-                // For some reason at high velocities the object won't stop at
-                // the correct location unless we do this
-                view[axis] = model.previousDestination[axis];
+                // Move at model.velocity pixel per second
+                var duration = (game.physics.arcade.distanceToXY(view, model.destination.x, model.destination.y) / model.velocity) * 1000;
+                
+                // Tween items to inventory
+                game.add.tween(view).to(model.destination, duration, Phaser.Easing.Linear.None, true);
             }
         }
     };
@@ -86,16 +63,10 @@ function GameObject(game, type, pos) {
     };
     
     // The location the object is trying to reach
-    model.destination = {
-        "x": null,
-        "y": null
-    }; // Overriden by subtypes
+    model.destination = null; // Overriden by subtypes
     
     // The last destination the object had
-    model.previousDestination = {
-        "x": null,
-        "y": null
-    }; // Overriden by subtypes
+    model.previousDestination = null; // Overriden by subtypes
     
     /**
      * Load data
