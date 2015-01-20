@@ -7,8 +7,8 @@ function Tower(game, type, posX) {
      * Tower global vars
      * TODO: move somewhere else
      */
-    var PADDING_TOP = -8; // How far from the top of the page the tower is located
-    var TURRET_SPACING = 15; // How close the turret is to the base - higher = closer
+    var PADDING_TOP = -8 + 75/2;//-8; // How far from the top of the page the tower is located
+    var TURRET_SPACING = 18; // How close the turret is to the base - higher = closer
     
     
     // TODO: intergrate with model
@@ -77,7 +77,7 @@ function Tower(game, type, posX) {
         
         // Move the turret around the base of the tower
         view.x = model.x - (Math.abs(view.base.width) / 2) * Math.sin(view.rotation) +  TURRET_SPACING * Math.sin(view.rotation);
-        view.y = (Math.abs(view.base.height) + PADDING_TOP) * Math.cos(view.rotation) -  TURRET_SPACING * Math.cos(view.rotation);
+        view.y = (Math.abs(view.base.height) + PADDING_TOP) * Math.cos(view.rotation) - (TURRET_SPACING + Math.abs(view.height) / 2)  * Math.cos(view.rotation);
     };
     
     // Causes the tower to fire a projectile
@@ -111,7 +111,10 @@ function Tower(game, type, posX) {
     view.base = game.add.sprite(posX, PADDING_TOP, "tower base");
     
     // Set the sprite's anchor point to the center of the sprite
-    view.base.anchor.setTo(0.5, 1);
+    view.base.anchor.setTo(0.5, 0.5);
+    
+    // Enable physics on base
+    game.physics.arcade.enable(view.base);
     
     // Scale the sprite based upon the data defined in view_data
     view.base.scale.x = window.data.view_data["tower base"].scale.x;

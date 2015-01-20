@@ -25,6 +25,14 @@ function Item(game, type, pos) {
     controller.handleDragStop = function() {
         // Set the item's destination back to where it was before
         this.setDestination(model.previousDestination);
+        
+        // Check if the object collides with a tower
+        game.physics.arcade.collide(view, towers.getBaseViewGroup(), null, this.handleUpgradeTower, this);
+    };
+    
+    // Handle the item being dropped on a tower in order to upgrade it
+    controller.handleUpgradeTower = function(itemView, towerView) {
+        towerView.tint = 0x333333;
     };
     
     /**

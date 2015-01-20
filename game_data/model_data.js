@@ -40,12 +40,12 @@ window.data.model_data = {
 		"attacks": false
 	},
     "alien item": {
-        "velocity": 300
+        "velocity": 600
     },
     "biochem item": {
-        "velocity": 300
+        "velocity": 600
     },
     "tech item": {
-        "velocity": 300
+        "velocity": 600
     }
 };

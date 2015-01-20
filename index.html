@@ -36,8 +36,9 @@
     
     <script type="text/javascript">
         window.onload = function() {
-            var game = new Phaser.Game(960, 640, Phaser.AUTO, '', {preload: preload, create: create, update: update});
-    
+            var game = new Phaser.Game(960, 640, Phaser.AUTO, '', {preload: preload, create: create, update: update, render: render});
+            window.game = game;
+            
             function preload() {
                 // Load game images
                 game.load.image('logo', '/images/logo.png');
@@ -80,9 +81,9 @@
                 projectiles = ObjectGroup(game);
                 
                 // Create towers group
-                towers = ObjectGroup(game);
+                towers = TowerGroup(game);
                 for (var i = 0; i < 4; i++) {
-                    towers.add(Tower(game, "destroyed", 110+210*i));
+                    towers.add(Tower(game, "bullet", 110+210*i));
                 }
                 
                 // Create monsters group
@@ -112,8 +113,17 @@
                 towers.update();
                 monsters.update();
                 inventory.update();
+            }
+            
+            function render() {
+                // Debugging tower bodies
+                /*for (var i = 0; i < towers.views_bases.children.length; i++) {
+                    game.debug.body(towers.views_bases.children[i]);
+                }
                 
-                // Handle input
+                for (var i = 0; i < towers.views.children.length; i++) {
+                    game.debug.body(towers.views.children[i]);
+                }*/
             }
         };
     </script>

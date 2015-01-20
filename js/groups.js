@@ -29,6 +29,12 @@ function ObjectGroup(game) {
         }
     };
     
+    // Returns the phaser sprite group in which all the objects' views are stored
+    // Mainly for use with phaser functions
+    controller.getViewGroup = function() {
+        return views;
+    };
+    
     // Add in items to final object for debug purposes only
     // TODO: return only controller instead of _obj
     var _obj = controller;
@@ -74,5 +80,42 @@ function InventoryGroup(game) {
     var _obj = controller;
     _obj.objs = objs;
     _obj.views = views;
+    return _obj;
+}
+
+// Tower group class - contains a group of towers
+// Mostly like ObjectGroup exept has support for the multiple layers of sprites
+// (i.e. base and turret) that towers contain
+function TowerGroup(game) {
+    // Inherits from ObjectGroup
+    var _superclass = ObjectGroup(game);
+    
+    // Properties inherited from ObjectGroup
+    var objs = _superclass.objs;
+    var views = _superclass.views;
+    var views_bases = game.add.group(); // A sprite group for the towers' bases
+    
+    var controller = _superclass;
+    
+    // Extend the add function so that it also adds the tower's base
+    controller.add = function(item) {
+        // Extend from the ObjectGroup add function
+        objs.push(item);
+        views.add(item.v);
+        views_bases.add(item.v.base);
+    };
+    
+    // Returns the phaser sprite group in which all the objects' base views are
+    // stored - Mainly for use with phaser functions
+    controller.getBaseViewGroup = function() {
+        return views_bases;
+    };
+    
+    // Add in items to final object for debug purposes only
+    // TODO: return only controller instead of _obj
+    var _obj = controller;
+    _obj.objs = objs;
+    _obj.views = views;
+    _obj.views_bases = views_bases;
     return _obj;
 }
