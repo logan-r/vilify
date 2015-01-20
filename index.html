@@ -113,6 +113,19 @@
                 towers.update();
                 monsters.update();
                 inventory.update();
+                
+                // Handle mouse/touch input
+                if (game.input.activePointer.isDown) {
+                    // Interate through each tower checking if the player is
+                    // rotating that tower's turret
+                    for (var i = 0; i < towers.objs.length; i++) {
+                        var tower = towers.objs[i];
+                        if (tower.m.beingDragged) {
+                            // If so, make the turret point toward the mouse pointer
+                            tower.c.setRotationFromPosition(game.input.activePointer.position);
+                        }
+                    }
+                }
             }
             
             function render() {
