@@ -1,7 +1,10 @@
 // Tower class
-function Tower(game, type, posX) {
+function Tower(game, rank, posX) {
+    // Find the tower's type from its rank
+    var type = window.data.upgrade_data.towers[rank];
+    
     // Inherits from PhysicalObject
-    var _superclass = PhysicalObject(game, type + " tower", {x: posX, y: 0});
+    var _superclass = PhysicalObject(game, type, {x: posX, y: 0});
     
     /**
      * Tower global vars
@@ -89,10 +92,112 @@ function Tower(game, type, posX) {
         }, angle + Math.PI));
     };
     
+    // Upgrades the tower
+    // Returns true if the tower was upgraded, else returns false
+    // rank - the rank (e.g. "T", "C", "A") of the item the tower was upgraded with
+    controller.upgrade = function(rank) {
+        /* Step 1. Determine the new rank */
+        
+        // If the tower currently is destroyed and doesn't have a rank (indecated
+        // by the towers rank being null), build a new rank 1 tower
+        if (model.rank === null) {
+            model.rank = rank;
+        } else {
+            // Otherwise upgrade the tower by appending the rank onto the current
+            // rank (for example, a "TT" tower upgraded with a "T" item becomes
+            // a "TTT" tower)
+            
+            // But first check to make sure it is a valid upgrade
+            if (model.rank.length == 3) {
+                // Tower has reach upgrade limit, don't upgrade
+                return false;
+            } else {
+                // Check to make sure item type matches type previous upgrades
+                // e.g. can't add a "C" to a "TT" tower
+                // TODO: maybe change this later?
+                for (var i = 0; i < model.rank.length; i++) {
+                    if (rank != model.rank[i]) {
+                        return false;
+                    }
+                }
+            }
+            
+            // No errors thrown, go ahead and upgrade
+            model.rank = model.rank + rank;
+        }
+        
+        /* Step 2. Reload data based on new rank */
+        
+        // Update the tower's type based upon its rank
+        model.type = window.data.upgrade_data.towers[model.rank];
+        
+        // Load tower stats window.data.model_data
+        if (window.data.model_data.hasOwnProperty(model.type)) {
+            for (var property in window.data.model_data[model.type]) {
+                if (window.data.model_data[model.type].hasOwnProperty(property)) {
+                    model[property] = window.data.model_data[model.type][property];
+                }
+            }
+        }
+        
+        // Load view data from window.data.view_data
+        if (window.data.view_data.hasOwnProperty(model.type)) {
+            model.viewInfo = {};
+            for (var property in window.data.view_data[model.type]) {
+                if (window.data.view_data[model.type].hasOwnProperty(property)) {
+                    model.viewInfo[property] = window.data.view_data[model.type][property];
+                }
+            }
+        }
+        
+        /* Step 3. Update tower with new properties */
+        
+        // Scale the sprite based upon the data defined in view_data
+        if (model.viewInfo.hasOwnProperty("scale")) {
+            if (model.viewInfo.scale.hasOwnProperty("x")) {
+                view.scale.x = model.viewInfo.scale.x;
+            }
+            
+            if (model.viewInfo.scale.hasOwnProperty("y")) {
+                view.scale.y = model.viewInfo.scale.y;
+            }
+        }
+        
+        // Is the sprite visible?
+        if (model.viewInfo.hasOwnProperty("visible")) {
+            view.visible = model.viewInfo.visible;
+        } else {
+            // Defaults to true
+            view.visible = true;
+        }
+        
+        // Tint the sprite
+        if (model.viewInfo.hasOwnProperty("tint")) {
+            view.tint = model.viewInfo.tint;
+        }
+        
+        // Scale the sprite based upon the data defined in view_data
+        view.base.scale.x = window.data.view_data["tower base"].scale.x;
+        view.base.scale.y = window.data.view_data["tower base"].scale.y;
+        
+        // Set base's image depending on the tower's type
+        view.base.frameName = model.viewInfo.base_frame;
+    
+        // Set base's image's tint
+        if (model.viewInfo.hasOwnProperty("tint")) {
+            view.base.tint = model.viewInfo.tint;
+        }
+        
+        return true;
+    };
+    
     /**
      * Tower data/model
      */
     var model = _superclass.m;
+    
+    // The rank of the tower (i.e. "TT", "A", "CCC", etc.)
+    model.rank = rank;
     
     // The x position of the tower
     model.x = posX;
@@ -120,10 +225,10 @@ function Tower(game, type, posX) {
     view.base.scale.x = window.data.view_data["tower base"].scale.x;
     view.base.scale.y = window.data.view_data["tower base"].scale.y;
     
-    // Set base image depending on the tower's type
-    view.base.frameName = type + "-1.png";
+    // Set base's image depending on the tower's type
+    view.base.frameName = model.viewInfo.base_frame;
     
-    // Set base image's tint
+    // Set base's image's tint
     if (model.viewInfo.hasOwnProperty("tint")) {
         view.base.tint = model.viewInfo.tint;
     }

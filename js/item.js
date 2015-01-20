@@ -37,12 +37,25 @@ function Item(game, type, pos) {
         
         // Get the item that is being used to upgrade the tower
         var item = inventory.getParentOfView(itemView);
+        
+        // Upgrade the tower
+        console.log(tower.c.upgrade(item.m.rank));
     };
     
     /**
      * Item data/model
      */
     var model = _superclass.m;
+    
+    // Type to rank mappings
+    model.type_ranks = {
+        "tech item": "T",
+        "biochem item": "C",
+        "alien item": "A"
+    };
+    
+    // Calculate the item rank (e.g. "T")
+    model.rank = model.type_ranks[type];
 
     /**
      * Item sprite/view

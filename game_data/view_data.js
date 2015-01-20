@@ -77,6 +77,7 @@ window.data.view_data = {
     },
     "destroyed tower": {
         "image": "tower turret",
+        "base_frame": "10.png",
         "scale": {
             "x": TOWER_X_SCALE,
             "y": TOWER_Y_SCALE
@@ -85,6 +86,7 @@ window.data.view_data = {
     },
     "bullet tower": {
         "image": "tower turret",
+        "base_frame": "1.png",
         "scale": {
             "x": TOWER_X_SCALE,
             "y": TOWER_Y_SCALE
@@ -92,6 +94,7 @@ window.data.view_data = {
     },
     "slime tower": {
         "image": "tower turret",
+        "base_frame": "1.png",
         "scale": {
             "x": TOWER_X_SCALE,
             "y": TOWER_Y_SCALE
@@ -100,11 +103,66 @@ window.data.view_data = {
     },
     "energy tower": {
         "image": "tower turret",
+        "base_frame": "1.png",
         "scale": {
             "x": TOWER_X_SCALE,
             "y": TOWER_Y_SCALE
         },
         "tint": 0x00ffff
+    },
+    "missile tower": {
+        "image": "tower turret",
+        "base_frame": "1.png",
+        "scale": {
+            "x": TOWER_X_SCALE,
+            "y": TOWER_Y_SCALE
+        },
+        "tint": 0x8a0707
+    },
+    "tornado tower": {
+        "image": "tower turret",
+        "base_frame": "1.png",
+        "scale": {
+            "x": TOWER_X_SCALE,
+            "y": TOWER_Y_SCALE
+        },
+        "tint": 0x4c7a8a
+    },
+    "curse tower": {
+        "image": "tower turret",
+        "base_frame": "1.png",
+        "scale": {
+            "x": TOWER_X_SCALE,
+            "y": TOWER_Y_SCALE
+        },
+        "tint": 0xff00ff
+    },
+    "tesla tower": {
+        "image": "tower turret",
+        "base_frame": "1.png",
+        "scale": {
+            "x": TOWER_X_SCALE,
+            "y": TOWER_Y_SCALE
+        },
+        "tint": 0x94d6ff
+    },
+    "radiation tower": {
+        "image": "tower turret",
+        "base_frame": "1.png",
+        "scale": {
+            "x": TOWER_X_SCALE,
+            "y": TOWER_Y_SCALE
+        },
+        "tint": 0xbfa900
+    },
+    "wormhole tower": {
+        "image": "tower turret",
+        "base_frame": "1.png",
+        "scale": {
+            "x": TOWER_X_SCALE,
+            "y": TOWER_Y_SCALE
+        },
+        "tint": 0x3b2438
     },
     
     // Items

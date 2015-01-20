@@ -48,6 +48,14 @@ window.data.model_data = {
 		"velocity": 0.01,
 		"attacks": true
 	},
+	"curse tower": {
+		"velocity": 0.01,
+		"attacks": true
+	},
+	"wormhole tower": {
+		"velocity": 0.01,
+		"attacks": true
+	},
 	
 	// Items
     "alien item": {

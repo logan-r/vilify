@@ -147,6 +147,9 @@ function GameObject(game, type, pos) {
     // Is the sprite visible?
     if (model.viewInfo.hasOwnProperty("visible")) {
         view.visible = model.viewInfo.visible;
+    } else {
+        // Defaults to true
+        view.visible = true;
     }
     
     // Tint the sprite
