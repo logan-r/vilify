@@ -39,7 +39,13 @@ function Item(game, type, pos) {
         var item = inventory.getParentOfView(itemView);
         
         // Upgrade the tower
-        console.log(tower.c.upgrade(item.m.rank));
+        var upgradeSuccessful = tower.c.upgrade(item.m.rank);
+        
+        if (upgradeSuccessful) {
+            // If the upgrade was successful the item was used up, and should
+            // be destroyed
+            inventory.remove(item);
+        }
     };
     
     /**

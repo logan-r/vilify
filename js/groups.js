@@ -15,6 +15,25 @@ function ObjectGroup(game) {
         views.add(obj.v);
     };
     
+    // Removes an object from the group
+    // obj - the object to be removed
+    controller.remove = function(obj) {
+        // TODO: implement re-use of dead sprites to avoid cost of creating
+        // new sprites
+        
+        // Remove the object's view from views
+        views.removeChild(obj.v);
+        
+        // Destroy the object's view
+        obj.v.destroy();
+        
+        // Find the index of the object within objs
+        var index = objs.indexOf(obj);
+        
+        // Remove the object from objs
+        objs.splice(index, 1);
+    };
+    
     // Returns the object at a certain index in the group
     // index - the index of the item
     controller.get = function(index) {
@@ -86,6 +105,47 @@ function InventoryGroup(game) {
             "x": POS_X,
             "y": POS_Y + SPACING_Y * (objs.length - 1)
         });
+    };
+    
+    // Removes an object from the group
+    // obj - the object to be removed
+    // TODO: Should extend from ObjectGroup.remove since it is almost exactly
+    // the same code just with an extra function call at the bottom
+    controller.remove = function(obj) {
+        // TODO: implement re-use of dead sprites to avoid cost of creating
+        // new sprites
+        
+        // Remove the object's view from views
+        views.removeChild(obj.v);
+        
+        // Destroy the object's view
+        obj.v.destroy();
+        
+        // Find the index of the object within objs
+        var index = objs.indexOf(obj);
+        
+        // Remove the object from objs
+        objs.splice(index, 1);
+        
+        // Update the destinations of the items in the inventory now that there
+        // is a new spot open in the list
+        this.updateDestinations();
+    };
+    
+    // Update the destinations of the items within the InventoryGroup, to reflect
+    // changes that happened in the ordering of the items - such as if one of the
+    // items from the middle of the group was deleted
+    controller.updateDestinations = function() {
+        for (var i = 0; i < objs.length; i++) {
+            var item = objs[i];
+            
+            // Determine the destination location of the item based upon its index
+            // in the list of objs
+            item.c.setDestination({
+                "x": POS_X,
+                "y": POS_Y + SPACING_Y * i
+            });
+        }
     };
     
     // Add in items to final object for debug purposes only
