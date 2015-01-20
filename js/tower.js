@@ -24,11 +24,8 @@ function Tower(game, rank, posX) {
     
     // Update the tower - performed on every tick of the game's clock
     controller.update = function() {
-        if (view.input.isDragged) {
-            controller.setRotationAndLocationFromXPosition(view.x);
-        }
         // Move tower's turret if it has a destination
-        /*if (model.destination !== null) {
+        if (model.destination !== null) {
             var deltaAngle = 0; // Amount to change the turret's angle by
             
             // Is tower at destination?
@@ -61,7 +58,7 @@ function Tower(game, rank, posX) {
                 count = 0;
                 this.fire();
             }
-        }*/
+        }
     };
     
     // Retrive the angle at which the turret is rotated
@@ -71,7 +68,7 @@ function Tower(game, rank, posX) {
         return view.rotation;
     };
     
-    // Rotate the towers turret to point at a new angle
+    // Rotate the tower's turret to point at a new angle
     // 0 is staight down, pi/2 is all the way to the left and -pi/2 is all the
     // to the right
     // 
@@ -86,20 +83,22 @@ function Tower(game, rank, posX) {
         view.y = (Math.abs(view.base.height) - TURRET_SPACING) * Math.cos(angle);
     };
     
-    controller.setRotationAndLocationFromXPosition = function(x) {
-        // Limit the x values
-        x = Math.min(x, model.x + (Math.abs(view.base.width) - TURRET_SPACING) / 2);
-        x = Math.max(x, model.x - (Math.abs(view.base.width) - TURRET_SPACING) / 2);
-        
-        // Calculate angle based upon position
-        var angle = Math.asin((x - model.x) / ((Math.abs(view.base.width) - TURRET_SPACING) / 2)) * -1;
-        
-        // Calculate the sprite's y coridinate
-        var y = (Math.abs(view.base.height) - TURRET_SPACING) * Math.cos(angle);
+    // Rotate the tower's turret so that it points towards a position
+    // pos - the position the tower should be angled towards
+    controller.setRotationFromPosition = function(pos) {
+        // Calculate the distance angle from the center-bottom of the tower to the
+        // position of the input event's triggerer
+        var deltaY = pos.y;
+        var deltaX = pos.x - model.x;
+        var angle = Math.atan(deltaY / deltaX);
         
         // Rotate the view to match the calculated angle
-        view.rotation = angle;
-        view.y = y;
+        //view.rotation = angle;
+        if (angle < 0) {
+            model.destination = angle + Math.PI / 2;
+        } else {
+            model.destination = angle - Math.PI / 2;
+        }
     };
     
     // Causes the tower to fire a projectile
@@ -110,6 +109,10 @@ function Tower(game, rank, posX) {
             y: view.y + Math.abs(view.height) / 2 * Math.cos(angle)
         }, angle + Math.PI));
     };
+    
+    controller.handleInputUp = function(view, pointer) {
+        controller.setRotationFromPosition(pointer.position);
+    }
     
     // Upgrades the tower
     // Returns true if the tower was upgraded, else returns false
@@ -254,9 +257,10 @@ function Tower(game, rank, posX) {
     
     // Allow turret to be dragged
     view.inputEnabled = true;
-    view.input.enableDrag(false);
-    view.input.allowVerticalDrag = false;
-    view.input.boundsRect = new Phaser.Rectangle(model.x - (Math.abs(view.base.width) - TURRET_SPACING) / 2, -1000, (Math.abs(view.base.width) - TURRET_SPACING) * 1.5, 2000)
+    view.events.onInputUp.add(controller.handleInputUp, controller);
+    //view.input.enableDrag(true);
+    //view.input.allowVerticalDrag = false;
+    //view.input.boundsRect = new Phaser.Rectangle(model.x - (Math.abs(view.base.width) - TURRET_SPACING) / 2, -1000, (Math.abs(view.base.width) - TURRET_SPACING) * 1.5, 2000)
     
     // Position and angle the turret
     controller.setRotation(-Math.PI / 2 + 1);
