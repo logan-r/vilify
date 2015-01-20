@@ -97,6 +97,10 @@ function GameObject(game, type, pos) {
         "y": null
     }; // Overriden by subtypes
     
+    /**
+     * Load data
+     */
+    
     // If data exists about this type of object in the global model_data
     // load that data into the model
     if (window.data.model_data.hasOwnProperty(type)) {
@@ -121,7 +125,7 @@ function GameObject(game, type, pos) {
     /**
      * GameObject sprite/view
      */
-    var view = game.add.sprite(pos.x, pos.y, type);
+    var view = game.add.sprite(pos.x, pos.y, model.viewInfo.image);
     
     // Set the sprite's anchor point to the center of the sprite
     view.anchor.setTo(0.5, 0.5);

@@ -5,6 +5,7 @@ var TOWER_Y_SCALE = -0.18;
 
 window.data.view_data = {
     "soldier": {
+        "image": "soldier",
         "scale": {
             "x": -0.5,
             "y": 0.5
@@ -14,6 +15,7 @@ window.data.view_data = {
         }
     },
     "tank": {
+        "image": "tank",
         "scale": {
             "x": -0.5,
             "y": 0.5
@@ -23,6 +25,7 @@ window.data.view_data = {
         }
     },
     "jet": {
+        "image": "jet",
         "scale": {
             "x": -0.3,
             "y": 0.3
@@ -32,6 +35,7 @@ window.data.view_data = {
         }
     },
     "helicopter": {
+        "image": "helicopter",
         "scale": {
             "x": -0.5,
             "y": 0.5
@@ -41,6 +45,7 @@ window.data.view_data = {
         }
     },
     "werewolf": {
+        "image": "werewolf",
         "scale": {
             "x": -0.5,
             "y": 0.5
@@ -49,25 +54,22 @@ window.data.view_data = {
             "move": Phaser.Animation.generateFrameNames('run/' , 1 , 13, '.png')
         }
     },
-    "scrapyard robot": {
-        "scale": {
-            "x": -0.8,
-            "y": 0.8
-        }
-    },
     "missile": {
+        "image": "missile",
         "scale": {
             "x": 0.4,
             "y": 0.4
         }
     },
     "tower base": {
+        "image": "tower base",
         "scale": {
             "x": TOWER_X_SCALE,
             "y": TOWER_Y_SCALE
         }
     },
     "destroyed tower": {
+        "image": "tower turret",
         "scale": {
             "x": TOWER_X_SCALE,
             "y": TOWER_Y_SCALE
@@ -75,24 +77,28 @@ window.data.view_data = {
         "visible": false
     },
     "bullet tower": {
+        "image": "tower turret",
         "scale": {
             "x": TOWER_X_SCALE,
             "y": TOWER_Y_SCALE
         }
     },
     "alien item": {
+        "image": "alien item",
         "scale": {
             "x": 0.13,
             "y": 0.13
         }
     },
     "biochem item": {
+        "image": "biochem item",
         "scale": {
             "x": 0.13,
             "y": 0.13
         }
     },
     "tech item": {
+        "image": "tech item",
         "scale": {
             "x": 0.13,
             "y": 0.13
