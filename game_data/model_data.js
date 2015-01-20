@@ -1,6 +1,7 @@
 window.data = window.data || {}; // Make sure window.data is defined
 
 window.data.model_data = {
+	// Heroes
 	"soldier": {
 		"velocity": 100,
 		"flying": false
@@ -23,22 +24,24 @@ window.data.model_data = {
 			"max": 420
 		}
 	},
-	"scrapyard robot": {
-		"velocity": 100,
-		"flying": false
-	},
+	
+	// Monsters
 	"werewolf": {
 		"velocity": 300,
 		"flying": false
+	},
+	
+	// Towers
+	"destroyed tower": {
+		"velocity": 0,
+		"attacks": false
 	},
 	"bullet tower": {
 		"velocity": 0.01,
 		"attacks": true
 	},
-	"destroyed tower": {
-		"velocity": 0,
-		"attacks": false
-	},
+	
+	// Items
     "alien item": {
         "velocity": 600
     },

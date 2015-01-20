@@ -123,6 +123,9 @@ function Tower(game, type, posX) {
     // Set base image depending on the tower's type
     view.base.frameName = type + "-1.png";
     
+    // Set base image's tint
+    view.base.tint = model.viewInfo.tint;
+    
     // Position and angle the turret
     controller.setRotation(Math.PI / 2 - 1);
     

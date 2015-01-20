@@ -149,6 +149,11 @@ function GameObject(game, type, pos) {
         view.visible = model.viewInfo.visible;
     }
     
+    // Tint the sprite
+    if (model.viewInfo.hasOwnProperty("tint")) {
+        view.tint = model.viewInfo.tint;
+    }
+    
     /**
      * Generate object that is an instance of this class
      */

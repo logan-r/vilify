@@ -4,6 +4,7 @@ var TOWER_X_SCALE = 0.18;
 var TOWER_Y_SCALE = -0.18;
 
 window.data.view_data = {
+    // Heroes
     "soldier": {
         "image": "soldier",
         "scale": {
@@ -44,6 +45,8 @@ window.data.view_data = {
             "move": Phaser.Animation.generateFrameNames('fly/' , 1 , 2, '.png')
         }
     },
+    
+    // Monsters
     "werewolf": {
         "image": "werewolf",
         "scale": {
@@ -54,6 +57,8 @@ window.data.view_data = {
             "move": Phaser.Animation.generateFrameNames('run/' , 1 , 13, '.png')
         }
     },
+    
+    // Projectiles
     "missile": {
         "image": "missile",
         "scale": {
@@ -61,6 +66,8 @@ window.data.view_data = {
             "y": 0.4
         }
     },
+    
+    // Towers
     "tower base": {
         "image": "tower base",
         "scale": {
@@ -81,8 +88,11 @@ window.data.view_data = {
         "scale": {
             "x": TOWER_X_SCALE,
             "y": TOWER_Y_SCALE
-        }
+        },
+        "tint": 0x00ffff
     },
+    
+    // Items
     "alien item": {
         "image": "alien item",
         "scale": {
