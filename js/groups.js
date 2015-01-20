@@ -35,6 +35,19 @@ function ObjectGroup(game) {
         return views;
     };
     
+    // Fetches and returns the parent object (if it exists) with in this group
+    // view - the view to fetch the parent of
+    controller.getParentOfView = function(view) {
+        // Iterate through all objects in group, checking to see if the object's
+        // view matches the view passed into this function
+        for (var i = 0; i < objs.length; i++) {
+            if (objs[i].v === view) {
+                // If so return that object
+                return objs[i];
+            }
+        }
+    };
+    
     // Add in items to final object for debug purposes only
     // TODO: return only controller instead of _obj
     var _obj = controller;
@@ -106,9 +119,23 @@ function TowerGroup(game) {
     };
     
     // Returns the phaser sprite group in which all the objects' base views are
-    // stored - Mainly for use with phaser functions
+    // stored
+    // Mainly for use with phaser functions
     controller.getBaseViewGroup = function() {
         return views_bases;
+    };
+    
+    // Fetches and returns the parent object (if it exists) with in this group
+    // view - the view to fetch the parent of
+    controller.getParentOfView = function(view) {
+        // Iterate through all objects in group, checking to see if the object's
+        // view matches the view passed into this function
+        for (var i = 0; i < objs.length; i++) {
+            if (objs[i].v === view || objs[i].v.base === view) {
+                // If so return that object
+                return objs[i];
+            }
+        }
     };
     
     // Add in items to final object for debug purposes only

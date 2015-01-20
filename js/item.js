@@ -32,7 +32,11 @@ function Item(game, type, pos) {
     
     // Handle the item being dropped on a tower in order to upgrade it
     controller.handleUpgradeTower = function(itemView, towerView) {
-        towerView.tint = 0x333333;
+        // Get the tower object that is to be upgraded
+        var tower = towers.getParentOfView(towerView);
+        
+        // Get the item that is being used to upgrade the tower
+        var item = inventory.getParentOfView(itemView);
     };
     
     /**
