@@ -67,6 +67,7 @@
                 
                 // Load effect sprites
                 game.load.atlasJSONHash('explosion', '/images/explosion/sheet.png', '/images/explosion/data.json');
+                game.load.atlasJSONHash('fireball', '/images/fireball/sheet.png', '/images/fireball/data.json');
             }
     
             function create() { 
@@ -120,8 +121,8 @@
                 }
                 
                 // Add explosion effect
-                var fx = game.add.sprite(200, 200, "explosion");
-                fx.animations.add("fx", Phaser.Animation.generateFrameNames(1 , 21, '.png'), 20, false);
+                var fx = game.add.sprite(200, 200, "fireball");
+                fx.animations.add("fx", Phaser.Animation.generateFrameNames(1 , 31, '.png'), 1, false);
                 fx.animations.play("fx");
             }
             
