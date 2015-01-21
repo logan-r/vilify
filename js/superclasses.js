@@ -37,7 +37,6 @@ function GameObject(game, type, pos) {
     // Update the GameObject - performed on every tick of the game's clock
     controller.update = function() {
         // Each subclass should override this
-        this.moveToDestination();
     };
     
     // Updates the GameObject's destination to a new location
@@ -98,8 +97,8 @@ function GameObject(game, type, pos) {
      */
     var view = game.add.sprite(pos.x, pos.y, model.viewInfo.image);
     
-    // Set the sprite's anchor point to the center of the sprite
-    view.anchor.setTo(0.5, 0.5);
+    // Set the sprite's anchor point to the center-bottom of the sprite
+    view.anchor.setTo(0.5, 1);
     
     // Enable physics on all GameObjects
     game.physics.arcade.enable(view);
@@ -248,8 +247,6 @@ function FightingObject(game, type, pos) {
     view.body.velocity.x = model.velocity;
     
     view.animations.add("move", model.viewInfo.animations.move, 20, true);
-    
-    view.animations.play("move");
     
     /**
      * FightingObject actions/controller

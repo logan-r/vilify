@@ -51,14 +51,38 @@ function Tower(game, rank, posX) {
             this.setRotation(this.getRotation() + deltaAngle);
         }
         
-        if (model.attacks) {
+        if (model.hasOwnProperty("abilities")) {
+            // Interate through each of the tower's abilities and check their cooldowns
+            // to see if any of them are ready for use
+            for (var i = 0; i < model.abilities.length; i++) {
+                var ability = model.abilities[i];
+                
+                // Check if ability is ready for use
+                if (ability.cooldown <= 0) {
+                    // Use ability
+                    if (ability.type == "projectile") {
+                        // Fire projectile
+                        this.fire(ability.projectile);
+                    }
+                    
+                    // Reset cooldown
+                    ability.cooldown = ability.cooldownLength;
+                } else {
+                    // Update cooldown
+                    // TODO: use realtime instead of click
+                    ability.cooldown--;
+                }
+            }
+        }
+        
+        /*if (model.attacks) {
             // Fire a projectile every 55 ticks - TODO: intergrate rate of fire
             count++;
             if (count > 100) {
                 count = 0;
                 this.fire();
             }
-        }
+        }*/
     };
     
     // Retrive the angle at which the turret is rotated
@@ -103,9 +127,10 @@ function Tower(game, rank, posX) {
     };
     
     // Causes the tower to fire a projectile
-    controller.fire = function() {
+    // type - the type of projectile to fire
+    controller.fire = function(type) {
         var angle = this.getRotation();
-        projectiles.add(Projectile(game, "missile", {
+        projectiles.add(Projectile(game, type, {
             x: view.x - Math.abs(view.height) / 2 * Math.sin(angle), 
             y: view.y + Math.abs(view.height) / 2 * Math.cos(angle)
         }, angle + Math.PI));

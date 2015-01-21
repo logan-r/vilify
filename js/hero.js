@@ -18,7 +18,7 @@ function Hero(game, type) {
     
     // If hero isn't capable of fly, spawn hero at bottom of screen
     if (!model.flying) {
-        view.y = game.height - Math.abs(view.height) / 2;
+        view.y = game.height - FLOOR_HEIGHT / 2 + 4;
     } else {
         // Spawn hero at random height within it flying range
         view.y = MathEx.randInt(model.flying.min, model.flying.max);
@@ -28,6 +28,11 @@ function Hero(game, type) {
      * Hero actions/controller
      */
     var controller = _superclass.c;
+    
+    /**
+     * Init sprite
+     */
+    view.animations.play("move");
     
     /**
      * Generate object that is an instance of this class

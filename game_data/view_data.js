@@ -8,8 +8,8 @@ window.data.view_data = {
     "soldier": {
         "image": "soldier",
         "scale": {
-            "x": -0.35,
-            "y": 0.35
+            "x": -0.3,
+            "y": 0.3
         },
         "animations": {
             "move": Phaser.Animation.generateFrameNames('walk/' , 1 , 18, '.png')
@@ -18,8 +18,8 @@ window.data.view_data = {
     "tank": {
         "image": "tank",
         "scale": {
-            "x": -0.35,
-            "y": 0.35
+            "x": -0.38,
+            "y": 0.38
         },
         "animations": {
             "move": Phaser.Animation.generateFrameNames('move/' , 1 , 9, '.png')
@@ -38,8 +38,8 @@ window.data.view_data = {
     "helicopter": {
         "image": "helicopter",
         "scale": {
-            "x": -0.5,
-            "y": 0.5
+            "x": -0.35,
+            "y": 0.35
         },
         "animations": {
             "move": Phaser.Animation.generateFrameNames('fly/' , 1 , 2, '.png')
@@ -64,6 +64,16 @@ window.data.view_data = {
         "scale": {
             "x": 0.4,
             "y": 0.4
+        }
+    },
+    "slime": {
+        "image": "slime",
+        "animations": {
+            "move": Phaser.Animation.generateFrameNames(1 , 8)
+        },
+        "scale": {
+            "x": 0.25,
+            "y": -0.25
         }
     },
     

@@ -20,7 +20,7 @@ window.data.model_data = {
 		}
 	},
 	"helicopter": {
-		"velocity": 200,
+		"velocity": 130,
 		"flying": {
 			"min": 240,
 			"max": 420
@@ -35,44 +35,50 @@ window.data.model_data = {
 	
 	// Towers
 	"destroyed tower": {
-		"velocity": 0,
-		"attacks": false
+		"velocity": 0
 	},
 	"bullet tower": {
 		"velocity": TOWER_ANGULAR_VELOCITY,
-		"attacks": true
+		"abilities": [
+			{
+				"type": "projectile",
+				"projectile": "missile",
+				"cooldownLength": 100,
+				"cooldown": 100
+			}
+		]
 	},
 	"slime tower": {
 		"velocity": TOWER_ANGULAR_VELOCITY,
-		"attacks": true
+		"abilities": [
+			{
+				"type": "projectile",
+				"projectile": "slime",
+				"cooldownLength": 100,
+				"cooldown": 100
+			}
+		]
 	},
 	"energy tower": {
-		"velocity": TOWER_ANGULAR_VELOCITY,
-		"attacks": true
+		"velocity": TOWER_ANGULAR_VELOCITY
 	},
 	"missile tower": {
-		"velocity": TOWER_ANGULAR_VELOCITY,
-		"attacks": true
+		"velocity": TOWER_ANGULAR_VELOCITY
 	},
 	"tornado tower": {
-		"velocity": TOWER_ANGULAR_VELOCITY,
-		"attacks": true
+		"velocity": TOWER_ANGULAR_VELOCITY
 	},
 	"curse tower": {
-		"velocity": TOWER_ANGULAR_VELOCITY,
-		"attacks": true
+		"velocity": TOWER_ANGULAR_VELOCITY
 	},
 	"tesla tower": {
-		"velocity": TOWER_ANGULAR_VELOCITY,
-		"attacks": true
+		"velocity": TOWER_ANGULAR_VELOCITY
 	},
 	"radiation tower": {
-		"velocity": TOWER_ANGULAR_VELOCITY,
-		"attacks": true
+		"velocity": TOWER_ANGULAR_VELOCITY
 	},
 	"wormhole tower": {
-		"velocity": TOWER_ANGULAR_VELOCITY,
-		"attacks": true
+		"velocity": TOWER_ANGULAR_VELOCITY
 	},
 	
 	// Items

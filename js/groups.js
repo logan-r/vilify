@@ -83,8 +83,8 @@ function InventoryGroup(game) {
     // Globals
     // TODO: find better place to define
     var POS_X = game.width - 33 - 5; // the x location of the inventory
-    var POS_Y = 33 + 5; // the y location of the inventory
-    var SPACING_Y = 66 + 5; // the y-axis spacing between each item
+    var POS_Y = 67 + 5; // the y location of the inventory
+    var SPACING_Y = 67 + 5; // the y-axis spacing between each item
     
     // Properties inherited from ObjectGroup
     var objs = _superclass.objs;

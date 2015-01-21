@@ -36,6 +36,9 @@
     <script type="text/javascript" src="js/monster.js"></script>
     
     <script type="text/javascript">
+        // Globals
+        var FLOOR_HEIGHT = 50;
+        
         window.onload = function() {
             var game = new Phaser.Game(960, 640, Phaser.AUTO, '', {preload: preload, create: create, update: update, render: render});
             window.game = game;
@@ -83,12 +86,11 @@
                 // Set background color of game canvas to white
                 game.stage.backgroundColor = 0xffffff;
                 
-                // Create floor
-                var FLOOR_HEIGHT = 40;
+                // Add floor
                 var floor = game.add.graphics(0, 0);
-                floor.beginFill(0x00000, 1);
-                floor.bounds = new PIXI.Rectangle(0, game.height - FLOOR_HEIGHT, game.width, FLOOR_HEIGHT);
-                floor.drawRect(0, game.height - FLOOR_HEIGHT, game.width, FLOOR_HEIGHT);
+                floor.bounds = new PIXI.Rectangle(0, game.height - FLOOR_HEIGHT, game.width, 1);
+                floor.beginFill(0x000000, 1);
+                floor.drawRect(0, game.height - FLOOR_HEIGHT, game.width, 1);
                 floor.boundsPadding = 0;
                 
                 // Create projecitle group
@@ -148,6 +150,12 @@
                             tower.c.setRotationFromPosition(game.input.activePointer.position);
                         }
                     }
+                }
+                
+                // Spawn heroes at random - for debug
+                if (Math.random() > 0.9973) {
+                    var types = ["soldier", "soldier", "soldier", "soldier", "soldier", "soldier", "tank", "tank", "tank", "tank", "jet", "helicopter"];
+                    heroes.add(Hero(game, types[MathEx.randInt(0, types.length - 1)]));
                 }
             }
             

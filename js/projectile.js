@@ -70,7 +70,16 @@ function Projectile(game, type, pos, angle) {
     view.body.velocity.x = controller.getHorizontalVelocity();
     view.body.velocity.y = controller.getVerticalVelocity();
     
-
+    /**
+     * Animation
+     */
+    
+    // If projectile has a "move" animation sequence then play it
+    if (model.viewInfo.hasOwnProperty("animations") && model.viewInfo.animations.hasOwnProperty("move")) {
+        view.animations.add("move", model.viewInfo.animations.move, 20, true);
+        view.animations.play("move");
+    }
+    
     /**
      * Generate object that is an instance of this class
      */
