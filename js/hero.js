@@ -18,7 +18,7 @@ function Hero(game, type) {
     
     // If hero isn't capable of fly, spawn hero at bottom of screen
     if (!model.flying) {
-        view.y = game.height - FLOOR_HEIGHT / 2 + 4;
+        view.y = GROUND_LEVEL;
     } else {
         // Spawn hero at random height within it flying range
         view.y = MathEx.randInt(model.flying.min, model.flying.max);

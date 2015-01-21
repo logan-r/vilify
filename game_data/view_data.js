@@ -62,8 +62,8 @@ window.data.view_data = {
     "missile": {
         "image": "missile",
         "scale": {
-            "x": 0.4,
-            "y": 0.4
+            "x": 0.35,
+            "y": 0.35
         }
     },
     "slime": {

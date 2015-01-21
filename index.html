@@ -36,8 +36,9 @@
     <script type="text/javascript" src="js/monster.js"></script>
     
     <script type="text/javascript">
-        // Globals
+        // Globals - TODO: move elsewhere
         var FLOOR_HEIGHT = 50;
+        var GROUND_LEVEL;
         
         window.onload = function() {
             var game = new Phaser.Game(960, 640, Phaser.AUTO, '', {preload: preload, create: create, update: update, render: render});
@@ -77,6 +78,9 @@
             }
     
             function create() { 
+                // Init globals
+                GROUND_LEVEL = game.height - FLOOR_HEIGHT / 2 + 4;
+                
                 // Set world bounds
                 game.world.setBounds(-2000, 0, game.world.width + 2000 * 2, game.world.height);
                 

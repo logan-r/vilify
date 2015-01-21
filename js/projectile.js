@@ -25,6 +25,17 @@ function Projectile(game, type, pos, angle) {
             view.body.angularAcceleration = 0;
             view.rotation = Math.PI;
         }
+        
+        // Check to see if projectile has hit ground yet
+        if (view.y >= GROUND_LEVEL - Math.abs(view.height)) {
+            this.implode();
+        }
+    };
+    
+    // Projectile has hit some sort of target, now it should detonate or whatever
+    controller.implode = function() {
+        // Destroy projectile
+        projectiles.remove(projectiles.getParentOfView(view));
     };
     
     // Calculate the horizontal portion of the projectiles total velocity based
