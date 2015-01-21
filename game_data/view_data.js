@@ -8,8 +8,8 @@ window.data.view_data = {
     "soldier": {
         "image": "soldier",
         "scale": {
-            "x": -0.5,
-            "y": 0.5
+            "x": -0.35,
+            "y": 0.35
         },
         "animations": {
             "move": Phaser.Animation.generateFrameNames('walk/' , 1 , 18, '.png')
@@ -18,8 +18,8 @@ window.data.view_data = {
     "tank": {
         "image": "tank",
         "scale": {
-            "x": -0.5,
-            "y": 0.5
+            "x": -0.35,
+            "y": 0.35
         },
         "animations": {
             "move": Phaser.Animation.generateFrameNames('move/' , 1 , 9, '.png')
@@ -50,8 +50,8 @@ window.data.view_data = {
     "werewolf": {
         "image": "werewolf",
         "scale": {
-            "x": -0.5,
-            "y": 0.5
+            "x": -0.35,
+            "y": 0.35
         },
         "animations": {
             "move": Phaser.Animation.generateFrameNames('run/' , 1 , 13, '.png')

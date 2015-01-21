@@ -54,7 +54,6 @@
                 game.load.atlasJSONHash('tower turret', '/images/turret/sheet.png', '/images/turret/data.json');
                 
                 // Load monster sprites
-                //game.load.spritesheet('scrapyard robot', '/images/monsters/scrapyard_robot.png', 329, 262);
                 game.load.atlasJSONHash('werewolf', '/images/werewolf/sheet-running.png', '/images/werewolf/data-running.json');
                 
                 // Load hero sprites
@@ -65,6 +64,9 @@
                 
                 // Load projectiles images
                 game.load.image('missile', '/images/projectiles/red2.png');
+                
+                // Load effect sprites
+                game.load.atlasJSONHash('explosion', '/images/explosion/sheet.png', '/images/explosion/data.json');
             }
     
             function create() { 
@@ -77,6 +79,14 @@
                 // Set background color of game canvas to white
                 game.stage.backgroundColor = 0xffffff;
                 
+                // Create floor
+                var FLOOR_HEIGHT = 40;
+                var floor = game.add.graphics(0, 0);
+                floor.beginFill(0x00000, 1);
+                floor.bounds = new PIXI.Rectangle(0, game.height - FLOOR_HEIGHT, game.width, FLOOR_HEIGHT);
+                floor.drawRect(0, game.height - FLOOR_HEIGHT, game.width, FLOOR_HEIGHT);
+                floor.boundsPadding = 0;
+                
                 // Create projecitle group
                 projectiles = ObjectGroup(game);
                 
@@ -88,6 +98,9 @@
                 
                 // Create monsters group
                 monsters = ObjectGroup(game);
+                
+                // Create heroes group
+                heroes = ObjectGroup(game);
                 
                 // Create inventory
                 inventory = InventoryGroup(game);
@@ -105,6 +118,11 @@
                         )
                     );
                 }
+                
+                // Add explosion effect
+                var fx = game.add.sprite(200, 200, "explosion");
+                fx.animations.add("fx", Phaser.Animation.generateFrameNames(1 , 21, '.png'), 20, false);
+                fx.animations.play("fx");
             }
             
             function update() {
@@ -112,6 +130,7 @@
                 projectiles.update();
                 towers.update();
                 monsters.update();
+                heroes.update();
                 inventory.update();
                 
                 // Handle mouse/touch input
