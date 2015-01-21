@@ -30,6 +30,7 @@
     <script type="text/javascript" src="js/superclasses.js"></script>
     <script type="text/javascript" src="js/groups.js"></script>
     <script type="text/javascript" src="js/item.js"></script>
+    <script type="text/javascript" src="js/effect.js"></script>
     <script type="text/javascript" src="js/tower.js"></script>
     <script type="text/javascript" src="js/projectile.js"></script>
     <script type="text/javascript" src="js/hero.js"></script>
@@ -112,6 +113,9 @@
                 // Create heroes group
                 heroes = ObjectGroup(game);
                 
+                // Create effects group
+                effects = ObjectGroup(game);
+                
                 // Create inventory
                 inventory = InventoryGroup(game);
                 
@@ -142,6 +146,7 @@
                 monsters.update();
                 heroes.update();
                 inventory.update();
+                effects.update();
                 
                 // Handle mouse/touch input
                 if (game.input.activePointer.isDown) {

@@ -34,6 +34,9 @@ function Projectile(game, type, pos, angle) {
     
     // Projectile has hit some sort of target, now it should detonate or whatever
     controller.implode = function() {
+        // Create effect
+        effects.add(Effect(game, model.effect, {x: view.x, y: view.y + Math.abs(view.height)}));
+        
         // Destroy projectile
         projectiles.remove(projectiles.getParentOfView(view));
     };

@@ -81,6 +81,11 @@ window.data.model_data = {
 		"velocity": TOWER_ANGULAR_VELOCITY
 	},
 	
+	// Projectiles
+	"missile": {
+		"effect": "explosion"
+	},
+	
 	// Items
     "alien item": {
         "velocity": 600

@@ -1,7 +1,7 @@
 /**
  * GameObject class
  * Base class for anything in the game world
- * Parent class of Item and PhysicalObject
+ * Parent class of Item, Effect & PhysicalObject
  * 
  * @params
  * game: an instance of the overarching phaser game

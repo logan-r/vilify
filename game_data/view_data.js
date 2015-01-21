@@ -175,6 +175,18 @@ window.data.view_data = {
         "tint": 0x3b2438
     },
     
+    // Effects
+    "explosion": {
+        "image": "explosion",
+        "animations": {
+            "move": Phaser.Animation.generateFrameNames(1 , 21)
+        },
+        "scale": {
+            "x": 0.7,
+            "y": 0.7
+        }
+    },
+    
     // Items
     "alien item": {
         "image": "alien item",
