@@ -62,13 +62,15 @@
                 game.load.atlasJSONHash('helicopter', '/images/helicopter/sheet.png', '/images/helicopter/data.json');
                 game.load.atlasJSONHash('jet', '/images/jet/sheet.png', '/images/jet/data.json');
                 
-                // Load projectiles images
+                // Load projectiles images/sprites
                 game.load.image('missile', '/images/projectiles/red2.png');
+                game.load.atlasJSONHash('slime', '/images/slime/sheet.png', '/images/slime/data.json');
                 
                 // Load effect sprites
                 game.load.atlasJSONHash('explosion', '/images/explosion/sheet.png', '/images/explosion/data.json');
                 game.load.atlasJSONHash('fireball', '/images/fireball/sheet.png', '/images/fireball/data.json');
                 game.load.atlasJSONHash('tornado', '/images/tornado/sheet.png', '/images/tornado/data.json');
+                game.load.atlasJSONHash('splat', '/images/splat/sheet.png', '/images/splat/data.json');
             }
     
             function create() { 
@@ -122,8 +124,8 @@
                 }
                 
                 // Add explosion effect
-                /*var fx = game.add.sprite(200, 200, "tornado");
-                fx.animations.add("fx", Phaser.Animation.generateFrameNames(1 , 35, '.png'), 20, true);
+                /*var fx = game.add.sprite(200, 200, "slime");
+                fx.animations.add("fx", Phaser.Animation.generateFrameNames(1 , 8, '.png'), 20, true);
                 fx.animations.play("fx");*/
             }
             
