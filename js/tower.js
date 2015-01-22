@@ -133,7 +133,7 @@ function Tower(game, rank, posX) {
         projectiles.add(Projectile(game, type, {
             x: view.x - Math.abs(view.height) / 2 * Math.sin(angle), 
             y: view.y + Math.abs(view.height) / 2 * Math.cos(angle)
-        }, angle + Math.PI));
+        }, angle));
     };
     
     controller.handleInputDown = function(view, pointer) {

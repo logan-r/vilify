@@ -16,18 +16,18 @@ function Projectile(game, type, pos, angle) {
         view.body.velocity.y = controller.getVerticalVelocity();
         
         // Keep the projectile's angle within it initial quadrant
-        if (view.body.angularVelocity < 0 && view.angle > 0) {
+        if (view.body.angularVelocity < 0 && view.angle < 0) {
             view.body.angularVelocity = 0;
             view.body.angularAcceleration = 0;
-            view.rotation = Math.PI;
-        } else if (view.body.angularVelocity > 0 && view.angle < 0) {
+            view.rotation = 0;
+        } else if (view.body.angularVelocity > 0 && view.angle > 0) {
             view.body.angularVelocity = 0;
             view.body.angularAcceleration = 0;
-            view.rotation = Math.PI;
+            view.rotation = 0;
         }
         
         // Check to see if projectile has hit ground yet
-        if (view.y >= GROUND_LEVEL - Math.abs(view.height)) {
+        if (view.y >= GROUND_LEVEL) {
             this.implode({x: view.x, y: GROUND_LEVEL});
         }
         
@@ -49,14 +49,14 @@ function Projectile(game, type, pos, angle) {
     // upon the angle that the projecitle is point in
     controller.getHorizontalVelocity = function() {
         // Calculate vertical component of total velocity
-        return Math.sin(view.rotation) * model.velocity;
+        return -Math.sin(view.rotation) * model.velocity;
     };
     
     // Calculate the verticle portion of the projectiles total velocity based
     // upon the angle that the projecitle is point in
     controller.getVerticalVelocity = function() {
         // Calculate vertical component of total velocity
-        return -Math.cos(view.rotation) * model.velocity;
+        return Math.cos(view.rotation) * model.velocity;
     };
     
     // Projectile has collided with a hero
@@ -88,7 +88,11 @@ function Projectile(game, type, pos, angle) {
     view.rotation = angle;
     
     // The rate at which the angle changes
-    view.body.angularAcceleration = 50 * Math.cos(angle - Math.PI / 2);
+    if (angle < 0) {
+        view.body.angularAcceleration = 50 * Math.cos(angle);
+    } else if (angle > 0) {
+        view.body.angularAcceleration = 50 * -Math.cos(angle);
+    }
     
     // Calculate vertical and horizontal portions of velocity based upon angle
     // and total velocity

@@ -63,7 +63,15 @@ window.data.model_data = {
 		"velocity": TOWER_ANGULAR_VELOCITY
 	},
 	"missile tower": {
-		"velocity": TOWER_ANGULAR_VELOCITY
+		"velocity": TOWER_ANGULAR_VELOCITY,
+		"abilities": [
+			{
+				"type": "projectile",
+				"projectile": "fire missile",
+				"cooldownLength": 100,
+				"cooldown": 100
+			}
+		]
 	},
 	"tornado tower": {
 		"velocity": TOWER_ANGULAR_VELOCITY
@@ -84,6 +92,9 @@ window.data.model_data = {
 	// Projectiles
 	"missile": {
 		"effect": "explosion"
+	},
+	"fire missile": {
+		"effect": "fireball"
 	},
 	"slime": {
 		"effect": "splat"

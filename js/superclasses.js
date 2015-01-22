@@ -111,6 +111,9 @@ function GameObject(game, type, pos) {
         
         if (model.viewInfo.scale.hasOwnProperty("y")) {
             view.scale.y = model.viewInfo.scale.y;
+            /*if (view.scale.y < 0) {
+                view.body.offset.y = view.body.offset.y + Math.abs(view.height) + 10;
+            }*/
         }
     }
     

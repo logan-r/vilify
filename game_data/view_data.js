@@ -58,25 +58,6 @@ window.data.view_data = {
         }
     },
     
-    // Projectiles
-    "missile": {
-        "image": "missile",
-        "scale": {
-            "x": 0.35,
-            "y": 0.35
-        }
-    },
-    "slime": {
-        "image": "slime",
-        "animations": {
-            "move": Phaser.Animation.generateFrameNames(1 , 8)
-        },
-        "scale": {
-            "x": 0.25,
-            "y": -0.25
-        }
-    },
-    
     // Towers
     "tower base": {
         "image": "tower base",
@@ -175,6 +156,32 @@ window.data.view_data = {
         "tint": 0x3b2438
     },
     
+    // Projectiles
+    "missile": {
+        "image": "missile",
+        "scale": {
+            "x": 0.35,
+            "y": 0.35
+        }
+    },
+    "fire missile": {
+        "image": "missile",
+        "scale": {
+            "x": 0.35,
+            "y": 0.35
+        }
+    },
+    "slime": {
+        "image": "slime",
+        "animations": {
+            "move": Phaser.Animation.generateFrameNames(1 , 8)
+        },
+        "scale": {
+            "x": 0.25,
+            "y": 0.25
+        }
+    },
+    
     // Effects
     "explosion": {
         "image": "explosion",
@@ -184,6 +191,16 @@ window.data.view_data = {
         "scale": {
             "x": 0.7,
             "y": 0.7
+        }
+    },
+    "fireball": {
+        "image": "fireball",
+        "animations": {
+            "move": Phaser.Animation.generateFrameNames(1 , 31)
+        },
+        "scale": {
+            "x": 0.5,
+            "y": 0.5
         }
     },
     "splat": {
