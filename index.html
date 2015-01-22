@@ -70,6 +70,7 @@
                 game.load.atlasJSONHash('tower turret', '/images/turret/sheet.png', '/images/turret/data.json');
                 
                 // Load monster sprites
+                game.load.atlasJSONHash('wasp', '/images/wasp/sheet.png', '/images/wasp/data.json');
                 game.load.atlasJSONHash('invader', '/images/invader/sheet.png', '/images/invader/data.json');
                 game.load.atlasJSONHash('werewolf', '/images/werewolf/sheet-running.png', '/images/werewolf/data-running.json');
                 
@@ -130,7 +131,7 @@
                 
                 // Create monsters group
                 monsters = ObjectGroup(game);
-                monsters.add(Monster(game, "invader"));
+                monsters.add(Monster(game, "wasp"));
                 
                 // Create heroes group
                 heroes = ObjectGroup(game);

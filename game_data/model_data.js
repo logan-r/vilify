@@ -32,6 +32,13 @@ window.data.model_data = {
 	},
 	
 	// Monsters
+	"wasp": {
+		"velocity": 150,
+		"flying": {
+			"min": 240,
+			"max": 420
+		},
+	},
 	"invader": {
 		"velocity": 100,
 		"flying": false
