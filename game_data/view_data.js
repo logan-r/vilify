@@ -193,8 +193,8 @@ window.data.view_data = {
             "y": 0.7
         },
         "anchor": {
-            "x": 0.5,
-            "y": 0.5
+            "x": 0,
+            "y": 0
         }
     },
     "fireball": {
@@ -207,8 +207,8 @@ window.data.view_data = {
             "y": 0.5
         },
         "anchor": {
-            "x": 0.5,
-            "y": 0.5
+            "x": 0,
+            "y": 0
         }
     },
     "splat": {
@@ -224,8 +224,21 @@ window.data.view_data = {
             "y": 130
         },
         "anchor": {
-            "x": 0.5,
-            "y": 0.5
+            "x": 0,
+            "y": 0
+        }
+    },
+    
+    // Monster spawner
+    "spawner": {
+        "image": "spawner",
+        "scale": {
+            "x": 0.8,
+            "y": 0.8
+        },
+        "anchor": {
+            "x": 1,
+            "y": 1
         }
     },
     

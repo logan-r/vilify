@@ -76,6 +76,9 @@
                 game.load.atlasJSONHash('fireball', '/images/fireball/sheet.png', '/images/fireball/data.json');
                 game.load.atlasJSONHash('tornado', '/images/tornado/sheet.png', '/images/tornado/data.json');
                 game.load.atlasJSONHash('splat', '/images/splat/sheet.png', '/images/splat/data.json');
+                
+                // Load interactive elements images/sprites
+                game.load.image('spawner', '/images/spawner/spawner.png');
             }
     
             function create() { 
@@ -97,6 +100,12 @@
                 floor.beginFill(0x000000, 1);
                 floor.drawRect(0, game.height - FLOOR_HEIGHT, game.width, 1);
                 floor.boundsPadding = 0;
+                
+                // Create spawner
+                spawner = InteractiveObject(game, "spawner", {
+                    "x": game.width - 10,
+                    "y": game.height - FLOOR_HEIGHT / 2 - 1
+                });
                 
                 // Create projecitle group
                 projectiles = ObjectGroup(game);

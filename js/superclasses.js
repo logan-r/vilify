@@ -108,7 +108,7 @@ function GameObject(game, type, pos) {
     
     // Set the sprite's anchor point
     if (model.viewInfo.hasOwnProperty("anchor")) {
-        view.anchor.setTo(model.viewInfo.x, model.viewInfo.y);
+        view.anchor.setTo(model.viewInfo.anchor.x, model.viewInfo.anchor.y);
     } else {
         // By default set the sprite's anchor point to the center-bottom of the sprite
         view.anchor.setTo(0.5, 1);
@@ -156,7 +156,7 @@ function GameObject(game, type, pos) {
 /**
  * PhysicalObject class
  * Base class for any physical object in the game world
- * Parent class of Tower and AnimateObject
+ * Parent class of Tower, InteractiveObject & AnimateObject
  */
 function PhysicalObject(game, type, pos) {
     // Inherits from GameObject
@@ -188,6 +188,39 @@ function PhysicalObject(game, type, pos) {
     };
 }
 
+/**
+ * InteractiveObject class
+ * Repesents an object in the game world that the player can interact with
+ */
+function InteractiveObject(game, type, pos) {
+    // Inherits from PhysicalObject
+    var _superclass = PhysicalObject(game, type, pos);
+    
+    /**
+     * InteractiveObject data/model
+     */
+    var model = _superclass.m;
+    
+    /**
+     * InteractiveObject sprite/view
+     */
+    var view = _superclass.v;
+    
+    /**
+     * InteractiveObject actions/controller
+     */
+    var controller = _superclass.c;
+    
+    /**
+     * Generate object that is an instance of this class
+     */
+    return {
+        m: model,
+        v: view,
+        c: controller,
+        type: "InteractiveObject"
+    };
+}
 
 /**
  * AnimateObject class
