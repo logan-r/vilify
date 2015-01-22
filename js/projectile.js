@@ -28,14 +28,18 @@ function Projectile(game, type, pos, angle) {
         
         // Check to see if projectile has hit ground yet
         if (view.y >= GROUND_LEVEL - Math.abs(view.height)) {
-            this.implode();
+            this.implode({x: view.x, y: GROUND_LEVEL});
         }
+        
+        // Check if projectile has collided with a hero
+        game.physics.arcade.collide(view, heroes.getViewGroup(), null, this.handleCollideWithHero, this);
     };
     
     // Projectile has hit some sort of target, now it should detonate or whatever
-    controller.implode = function() {
+    controller.implode = function(pos) {
+        console.log(pos.y)
         // Create effect
-        effects.add(Effect(game, model.effect, {x: view.x, y: view.y + Math.abs(view.height)}));
+        effects.add(Effect(game, model.effect, pos));
         
         // Destroy projectile
         projectiles.remove(projectiles.getParentOfView(view));
@@ -53,6 +57,13 @@ function Projectile(game, type, pos, angle) {
     controller.getVerticalVelocity = function() {
         // Calculate vertical component of total velocity
         return -Math.cos(view.rotation) * model.velocity;
+    };
+    
+    // Projectile has collided with a hero
+    controller.handleCollideWithHero = function(projectileView, heroView) {
+        var hero = heroes.getParentOfView(heroView);
+        
+        this.implode({x: view.x, y: hero.v.y});
     };
     
     

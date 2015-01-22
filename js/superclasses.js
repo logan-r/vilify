@@ -244,6 +244,9 @@ function FightingObject(game, type, pos) {
     // Don't allow fighting objects to go off screen
     view.body.collideWorldBounds = true;
     
+    // Don't allow other sprites to push around FightingObjects
+    view.body.immovable = true;
+    
     view.body.velocity.x = model.velocity;
     
     view.animations.add("move", model.viewInfo.animations.move, 20, true);

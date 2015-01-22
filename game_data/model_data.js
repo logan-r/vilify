@@ -85,6 +85,9 @@ window.data.model_data = {
 	"missile": {
 		"effect": "explosion"
 	},
+	"slime": {
+		"effect": "splat"
+	},
 	
 	// Items
     "alien item": {

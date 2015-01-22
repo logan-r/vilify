@@ -186,6 +186,16 @@ window.data.view_data = {
             "y": 0.7
         }
     },
+    "splat": {
+        "image": "splat",
+        "animations": {
+            "move": Phaser.Animation.generateFrameNames(1 , 11)
+        },
+        "scale": {
+            "x": 0.5,
+            "y": 0.5
+        }
+    },
     
     // Items
     "alien item": {
