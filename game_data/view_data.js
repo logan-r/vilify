@@ -191,6 +191,10 @@ window.data.view_data = {
         "scale": {
             "x": 0.7,
             "y": 0.7
+        },
+        "anchor": {
+            "x": 0.5,
+            "y": 0.5
         }
     },
     "fireball": {
@@ -199,6 +203,10 @@ window.data.view_data = {
             "move": Phaser.Animation.generateFrameNames(1 , 31)
         },
         "scale": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "anchor": {
             "x": 0.5,
             "y": 0.5
         }
@@ -214,6 +222,10 @@ window.data.view_data = {
         },
         "offset": {
             "y": 130
+        },
+        "anchor": {
+            "x": 0.5,
+            "y": 0.5
         }
     },
     

@@ -75,7 +75,7 @@ function Item(game, type, pos) {
     // Set up event hanlder for when the item starts and stops being dragged
     view.events.onDragStart.add(controller.handleDragStart, controller);
     view.events.onDragStop.add(controller.handleDragStop, controller);
-
+    
     /**
      * Generate object that is an instance of this class
      */

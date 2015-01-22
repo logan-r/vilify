@@ -27,6 +27,10 @@ function Effect(game, type, pos) {
      */
     var view = _superclass.v;
     
+    // Move sprite to correct location
+    view.body.x = view.body.x - Math.abs(view.body.width) / 2;
+    view.body.y = view.body.y - Math.abs(view.body.height);
+    
     /**
      * Animation
      */
@@ -36,7 +40,7 @@ function Effect(game, type, pos) {
         view.animations.add("move", model.viewInfo.animations.move, 20, false);
         view.animations.play("move");
     }
-
+    
     /**
      * Generate object that is an instance of this class
      */

@@ -59,16 +59,32 @@ function Projectile(game, type, projectileType, pos, angle) {
         }
         
         // Check if projectile has collided with a hero
-        game.physics.arcade.collide(view, heroes.getViewGroup(), null, this.handleCollideWithHero, this);
+        game.physics.arcade.overlap(view, heroes.getViewGroup(), null, this.handleCollideWithHero, this);
     };
     
     // Projectile has hit some sort of target, now it should detonate or whatever
     controller.implode = function(pos) {
-        // Create effect
-        effects.add(Effect(game, model.effect, pos));
+        // Create effect object
+        var efct = Effect(game, model.effect, pos);
+        
+        // Add effect to effects group
+        effects.add(efct);
         
         // Destroy projectile
         this.destroy();
+        
+        // If bomb apply AoE damage here
+        if (model.projectileType == "bomb") {
+            // Called on every hero that the effect collides with
+            var attackHeroes = function(effectSprie, heroSprite) {
+                hero = heroes.getParentOfView(heroSprite);
+                
+                hero.v.tint = 0xff0000;
+            };
+            
+            // Check to see which heroes were hit
+            game.physics.arcade.overlap(efct.v, heroes.getViewGroup(), null, attackHeroes, this);
+        }
     };
     
     // Destroy this projectile and remove it from the game world
@@ -98,9 +114,6 @@ function Projectile(game, type, projectileType, pos, angle) {
             case "bomb":
                 // Animate explosion effect
                 this.implode({x: view.x, y: hero.v.y});
-                
-                // Attack hero
-                // TODO: figure out AoE damage
                 
                 break;
             

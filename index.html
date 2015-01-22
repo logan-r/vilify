@@ -132,11 +132,6 @@
                         )
                     );
                 }
-                
-                // Add explosion effect
-                /*var fx = game.add.sprite(200, 200, "slime");
-                fx.animations.add("fx", Phaser.Animation.generateFrameNames(1 , 8, '.png'), 20, true);
-                fx.animations.play("fx");*/
             }
             
             function update() {
@@ -163,15 +158,19 @@
                 
                 // Spawn heroes at random - for debug
                 if (Math.random() > 0.9973) {
-                    var types = ["soldier", "tank", "jet", "helicopter"]//["soldier", "soldier", "soldier", "soldier", "soldier", "soldier", "tank", "tank", "tank", "tank", "jet", "helicopter"];
+                    var types = ["soldier", "tank", "jet", "helicopter"]; //["soldier", "soldier", "soldier", "soldier", "soldier", "soldier", "tank", "tank", "tank", "tank", "jet", "helicopter"];
                     heroes.add(Hero(game, types[MathEx.randInt(0, types.length - 1)]));
                 }
             }
             
             function render() {
                 // Debugging physic bodies
-                /*for (var i = 0; i < projectiles.views.children.length; i++) {
-                    game.debug.body(projectiles.views.children[i]);
+                /*for (var i = 0; i < effects.views.children.length; i++) {
+                    game.debug.body(effects.views.children[i]);
+                }
+                
+                for (var i = 0; i < heroes.views.children.length; i++) {
+                    game.debug.body(heroes.views.children[i]);
                 }*/
             }
         };

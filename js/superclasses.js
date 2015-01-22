@@ -106,11 +106,13 @@ function GameObject(game, type, pos) {
     
     var view = game.add.sprite(pos.x, pos.y, model.viewInfo.image);
     
-    // Set the sprite's anchor point to the center-bottom of the sprite
-    view.anchor.setTo(0.5, 1);
-    
-    // Enable physics on all GameObjects
-    game.physics.arcade.enable(view);
+    // Set the sprite's anchor point
+    if (model.viewInfo.hasOwnProperty("anchor")) {
+        view.anchor.setTo(model.viewInfo.x, model.viewInfo.y);
+    } else {
+        // By default set the sprite's anchor point to the center-bottom of the sprite
+        view.anchor.setTo(0.5, 1);
+    }
     
     // Scale the sprite based upon the data defined in view_data
     if (model.viewInfo.hasOwnProperty("scale")) {
@@ -135,6 +137,9 @@ function GameObject(game, type, pos) {
     if (model.viewInfo.hasOwnProperty("tint")) {
         view.tint = model.viewInfo.tint;
     }
+    
+    // Enable physics for all GameObjects
+    game.physics.arcade.enable(view);
     
     /**
      * Generate object that is an instance of this class
