@@ -49,11 +49,15 @@ function Monster(game, type) {
      */
     var view = _superclass.v;
     
-    // Spawn monster in bottom right corner of screen
+    // Spawn monster on right of screen
     view.x = game.width + Math.abs(view.width) / 2;
-    view.y = game.height - Math.abs(view.height) / 2;
     
     view.body.velocity.x = 0;//-1 * model.velocity;
+    
+    /**
+     * Init sprite
+     */
+    view.animations.play("move");
     
     /**
      * Generate object that is an instance of this class

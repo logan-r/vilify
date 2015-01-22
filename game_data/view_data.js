@@ -47,6 +47,16 @@ window.data.view_data = {
     },
     
     // Monsters
+    "invader": {
+        "image": "invader",
+        "scale": {
+            "x": 0.3,
+            "y": 0.3
+        },
+        "animations": {
+            "move": Phaser.Animation.generateFrameNames('walk' , 1 , 22)
+        }
+    },
     "werewolf": {
         "image": "werewolf",
         "scale": {

@@ -32,6 +32,10 @@ window.data.model_data = {
 	},
 	
 	// Monsters
+	"invader": {
+		"velocity": 100,
+		"flying": false
+	},
 	"werewolf": {
 		"velocity": 300,
 		"flying": false

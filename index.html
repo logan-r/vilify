@@ -31,6 +31,7 @@
     <script type="text/javascript" src="js/groups.js"></script>
     <script type="text/javascript" src="js/item.js"></script>
     <script type="text/javascript" src="js/effect.js"></script>
+    <script type="text/javascript" src="js/spawner.js"></script>
     <script type="text/javascript" src="js/tower.js"></script>
     <script type="text/javascript" src="js/projectile.js"></script>
     <script type="text/javascript" src="js/hero.js"></script>
@@ -44,6 +45,16 @@
         window.onload = function() {
             var game = new Phaser.Game(960, 640, Phaser.AUTO, '', {preload: preload, create: create, update: update, render: render});
             window.game = game;
+            
+            // Game objects & game object collections
+            window.floor = null;
+            window.spawner = null;
+            window.projectiles = null;
+            window.towers = null;
+            window.monsters = null;
+            window.heroes = null;
+            window.effects = null;
+            window.inventory = null;
             
             function preload() {
                 // Load game images
@@ -59,6 +70,7 @@
                 game.load.atlasJSONHash('tower turret', '/images/turret/sheet.png', '/images/turret/data.json');
                 
                 // Load monster sprites
+                game.load.atlasJSONHash('invader', '/images/invader/sheet.png', '/images/invader/data.json');
                 game.load.atlasJSONHash('werewolf', '/images/werewolf/sheet-running.png', '/images/werewolf/data-running.json');
                 
                 // Load hero sprites
@@ -95,14 +107,14 @@
                 game.stage.backgroundColor = 0xffffff;
                 
                 // Add floor
-                var floor = game.add.graphics(0, 0);
+                floor = game.add.graphics(0, 0);
                 floor.bounds = new PIXI.Rectangle(0, game.height - FLOOR_HEIGHT, game.width, 1);
                 floor.beginFill(0x000000, 1);
                 floor.drawRect(0, game.height - FLOOR_HEIGHT, game.width, 1);
                 floor.boundsPadding = 0;
                 
                 // Create spawner
-                spawner = InteractiveObject(game, "spawner", {
+                spawner = Spawner(game, "spawner", {
                     "x": game.width - 10,
                     "y": game.height - FLOOR_HEIGHT / 2 - 1
                 });
@@ -118,6 +130,7 @@
                 
                 // Create monsters group
                 monsters = ObjectGroup(game);
+                monsters.add(Monster(game, "invader"));
                 
                 // Create heroes group
                 heroes = ObjectGroup(game);

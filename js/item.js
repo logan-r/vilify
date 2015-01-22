@@ -28,6 +28,9 @@ function Item(game, type, pos) {
         
         // Check if the object collides with a tower
         game.physics.arcade.collide(view, towers.getBaseViewGroup(), null, this.handleUpgradeTower, this);
+        
+        // Check if the object collides the monster spawner
+        game.physics.arcade.collide(view, spawner.v, null, this.handleMonsterBuild, this);
     };
     
     // Handle the item being dropped on a tower in order to upgrade it
@@ -42,6 +45,18 @@ function Item(game, type, pos) {
         var upgradeSuccessful = tower.c.upgrade(item.m.rank);
         
         if (upgradeSuccessful) {
+            // If the upgrade was successful the item was used up, and should
+            // be destroyed
+            inventory.remove(item);
+        }
+    };
+    
+    // Handle the item being dropped onto the monster spawner in order to build a new monster
+    controller.handleMonsterBuild = function(itemView, spawnerView) {
+        // Get the item that is being used to build the monster
+        var item = inventory.getParentOfView(itemView);
+        
+        if (true/*upgradeSuccessful*/) {
             // If the upgrade was successful the item was used up, and should
             // be destroyed
             inventory.remove(item);

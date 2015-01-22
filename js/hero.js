@@ -16,14 +16,6 @@ function Hero(game, type) {
     // Spawn hero at left of screen
     view.x = 0 - Math.abs(view.width) / 2;
     
-    // If hero isn't capable of fly, spawn hero at bottom of screen
-    if (!model.flying) {
-        view.y = GROUND_LEVEL;
-    } else {
-        // Spawn hero at random height within it flying range
-        view.y = MathEx.randInt(model.flying.min, model.flying.max);
-    }
-    
     /**
      * Hero actions/controller
      */

@@ -12,5 +12,8 @@ window.data.upgrade_data = {
 	    "TTT": "tesla tower",
 	    "CCC": "radiation tower",
 	    "AAA": "wormhole tower"
+	},
+	"monsters": {
+		"T": "scrapyard robot"
 	}
 };

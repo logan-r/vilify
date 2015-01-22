@@ -172,6 +172,14 @@ function PhysicalObject(game, type, pos) {
      */
     var view = _superclass.v;
     
+    // If FightingObject isn't capable of fly, spawn object at bottom of screen
+    if (!model.flying) {
+        view.y = GROUND_LEVEL;
+    } else {
+        // Otherwise, spawn object at random height within it flying range
+        view.y = MathEx.randInt(model.flying.min, model.flying.max);
+    }
+    
     /**
      * PhysicalObject actions/controller
      */
