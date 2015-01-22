@@ -209,8 +209,11 @@ window.data.view_data = {
             "move": Phaser.Animation.generateFrameNames(1 , 11)
         },
         "scale": {
-            "x": 0.5,
-            "y": 0.5
+            "x": 0.3,
+            "y": 0.3
+        },
+        "offset": {
+            "y": 130
         }
     },
     

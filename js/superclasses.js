@@ -95,6 +95,15 @@ function GameObject(game, type, pos) {
     /**
      * GameObject sprite/view
      */
+    
+    // Move the sprite's location based upon it's offset
+    if (model.viewInfo.hasOwnProperty("offset")) {
+        
+        if (model.viewInfo.scale.hasOwnProperty("y")) {
+            pos.y = pos.y + model.viewInfo.offset.y;
+        }
+    }
+    
     var view = game.add.sprite(pos.x, pos.y, model.viewInfo.image);
     
     // Set the sprite's anchor point to the center-bottom of the sprite
@@ -111,9 +120,6 @@ function GameObject(game, type, pos) {
         
         if (model.viewInfo.scale.hasOwnProperty("y")) {
             view.scale.y = model.viewInfo.scale.y;
-            /*if (view.scale.y < 0) {
-                view.body.offset.y = view.body.offset.y + Math.abs(view.height) + 10;
-            }*/
         }
     }
     

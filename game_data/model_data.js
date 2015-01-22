@@ -43,6 +43,7 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "missile",
+				"projectileType": "bomb",
 				"cooldownLength": 100,
 				"cooldown": 100
 			}
@@ -54,6 +55,7 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "slime",
+				"projectileType": "bullet",
 				"cooldownLength": 100,
 				"cooldown": 100
 			}
@@ -68,6 +70,7 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "fire missile",
+				"projectileType": "bomb",
 				"cooldownLength": 100,
 				"cooldown": 100
 			}

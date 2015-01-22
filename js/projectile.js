@@ -1,8 +1,21 @@
 // Projectile class
-function Projectile(game, type, pos, angle) {
+// @param projectileType:
+//  - bullet (hits one heroes; does nothing if it hits the ground)
+//    * slime tower
+//  - bomb (explodes when it hit the ground or a hero; deals AoE damage)
+//    * missile tower
+//    * energy tower?
+//    * fire/bomb tower
+//    * tornado tower?
+//    * radiation tower
+//  - ray (launches ray that instantly hits everything along a line from the tower to the ground)
+//    * tesla tower
+//  - TODO
+//    * curse tower
+//    * wormhole tower
+function Projectile(game, type, projectileType, pos, angle) {
     // Inherits from AnimateObject
     var _superclass = AnimateObject(game, type, pos);
-    
     
     /**
      * Projectile actions/controller
@@ -28,7 +41,20 @@ function Projectile(game, type, pos, angle) {
         
         // Check to see if projectile has hit ground yet
         if (view.y >= GROUND_LEVEL) {
-            this.implode({x: view.x, y: GROUND_LEVEL});
+            switch (model.projectileType) {
+                case "bomb":
+                    // Bombs explode when they hit the ground
+                    this.implode({x: view.x, y: GROUND_LEVEL});
+                    break;
+                
+                case "bullet":
+                    // Bullet don't do anything when they hit the ground
+                    this.destroy();
+                
+                default:
+                    // Error!
+                    break;
+            }
         }
         
         // Check if projectile has collided with a hero
@@ -37,11 +63,15 @@ function Projectile(game, type, pos, angle) {
     
     // Projectile has hit some sort of target, now it should detonate or whatever
     controller.implode = function(pos) {
-        console.log(pos.y)
         // Create effect
         effects.add(Effect(game, model.effect, pos));
         
         // Destroy projectile
+        this.destroy();
+    };
+    
+    // Destroy this projectile and remove it from the game world
+    controller.destroy = function() {
         projectiles.remove(projectiles.getParentOfView(view));
     };
     
@@ -63,7 +93,18 @@ function Projectile(game, type, pos, angle) {
     controller.handleCollideWithHero = function(projectileView, heroView) {
         var hero = heroes.getParentOfView(heroView);
         
-        this.implode({x: view.x, y: hero.v.y});
+        switch (model.projectileType) {
+            case "bomb":
+                this.implode({x: view.x, y: hero.v.y});
+                break;
+            
+            case "bullet":
+                this.implode({x: view.x, y: view.y});
+            
+            default:
+                // Error!
+                break;
+        }
     };
     
     
@@ -77,6 +118,9 @@ function Projectile(game, type, pos, angle) {
     
     // Intial angle of the projectile
     model.initialAngle = angle;
+    
+    // Set the projectile type
+    model.projectileType = projectileType;
     
     /**
      * Projectile sprite/view
