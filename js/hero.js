@@ -29,6 +29,11 @@ function Hero(game, type) {
      */
     var controller = _superclass.c;
     
+    // Destroy this hero and remove it from the game world
+    controller.destroy = function() {
+        heroes.remove(heroes.getParentOfView(view));
+    };
+    
     /**
      * Init sprite
      */

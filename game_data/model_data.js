@@ -6,25 +6,29 @@ window.data.model_data = {
 	// Heroes
 	"soldier": {
 		"velocity": 100,
-		"flying": false
+		"flying": false,
+		"health": 2
 	},
 	"tank": {
 		"velocity": 50,
-		"flying": false
+		"flying": false,
+		"health": 5
 	},
 	"jet": {
 		"velocity": 300,
 		"flying": {
 			"min": 240,
 			"max": 420
-		}
+		},
+		"health": 1
 	},
 	"helicopter": {
 		"velocity": 130,
 		"flying": {
 			"min": 240,
 			"max": 420
-		}
+		},
+		"health": 2
 	},
 	
 	// Monsters
@@ -43,7 +47,6 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "missile",
-				"projectileType": "bomb",
 				"cooldownLength": 100,
 				"cooldown": 100
 			}
@@ -55,7 +58,6 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "slime",
-				"projectileType": "bullet",
 				"cooldownLength": 100,
 				"cooldown": 100
 			}
@@ -70,7 +72,6 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "fire missile",
-				"projectileType": "bomb",
 				"cooldownLength": 100,
 				"cooldown": 100
 			}
@@ -94,13 +95,20 @@ window.data.model_data = {
 	
 	// Projectiles
 	"missile": {
-		"effect": "explosion"
+		"effect": "explosion",
+		"projectileType": "bomb",
+		"damage": 1
 	},
 	"fire missile": {
-		"effect": "fireball"
+		"effect": "fireball",
+		"projectileType": "bomb",
+		"damage": 4
 	},
 	"slime": {
-		"effect": "splat"
+		"effect": "splat",
+		"projectileType": "bullet",
+		"damage": 0,
+		"status": "slime"
 	},
 	
 	// Items

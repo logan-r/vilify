@@ -13,7 +13,7 @@
 //  - TODO
 //    * curse tower
 //    * wormhole tower
-function Projectile(game, type, projectileType, pos, angle) {
+function Projectile(game, type, pos, angle) {
     // Inherits from AnimateObject
     var _superclass = AnimateObject(game, type, pos);
     
@@ -76,14 +76,14 @@ function Projectile(game, type, projectileType, pos, angle) {
         // If bomb apply AoE damage here
         if (model.projectileType == "bomb") {
             // Called on every hero that the effect collides with
-            var attackHeroes = function(effectSprie, heroSprite) {
+            var handleHitHeroes = function(effectSprie, heroSprite) {
                 hero = heroes.getParentOfView(heroSprite);
                 
-                hero.v.tint = 0xff0000;
+                this.attackHero(hero);
             };
             
             // Check to see which heroes were hit
-            game.physics.arcade.overlap(efct.v, heroes.getViewGroup(), null, attackHeroes, this);
+            game.physics.arcade.overlap(efct.v, heroes.getViewGroup(), null, handleHitHeroes, this);
         }
     };
     
@@ -121,8 +121,8 @@ function Projectile(game, type, projectileType, pos, angle) {
                 // Animate explosion effect
                 this.implode({x: view.x, y: view.y});
                 
-                // Attack hero
-                hero.c.applyEffect("slime");
+                // Attack the hero that was hit
+                this.attackHero(hero);
                 
                 break;
             
@@ -130,6 +130,18 @@ function Projectile(game, type, projectileType, pos, angle) {
                 // Error!
                 break;
         }
+    };
+    
+    // Attack a hero that the projectile has hit
+    // @param hero - the hero that was hit
+    controller.attackHero = function(hero) {
+        // Apply effect to hero, if acceptable
+        if (model.hasOwnProperty("status")) {
+            hero.c.applyStatus(model.status);
+        }
+        
+        // Damage hero
+        hero.c.damage(model.damage);
     };
     
     
@@ -143,9 +155,6 @@ function Projectile(game, type, projectileType, pos, angle) {
     
     // Intial angle of the projectile
     model.initialAngle = angle;
-    
-    // Set the projectile type
-    model.projectileType = projectileType;
     
     /**
      * Projectile sprite/view

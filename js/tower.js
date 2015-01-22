@@ -62,7 +62,7 @@ function Tower(game, rank, posX) {
                     // Use ability
                     if (ability.type == "projectile") {
                         // Fire projectile
-                        this.fire(ability.projectile, ability.projectileType);
+                        this.fire(ability.projectile);
                     }
                     
                     // Reset cooldown
@@ -128,9 +128,9 @@ function Tower(game, rank, posX) {
     
     // Causes the tower to fire a projectile
     // type - the type of projectile to fire
-    controller.fire = function(type, projectileType) {
+    controller.fire = function(type) {
         var angle = this.getRotation();
-        projectiles.add(Projectile(game, type, projectileType, {
+        projectiles.add(Projectile(game, type, {
             x: view.x - Math.abs(view.height) / 2 * Math.sin(angle), 
             y: view.y + Math.abs(view.height) / 2 * Math.cos(angle)
         }, angle));

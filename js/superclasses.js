@@ -243,12 +243,9 @@ function FightingObject(game, type, pos) {
      */
     var model = _superclass.m;
     
-    // A FightingObject's health repersents how much damage it can take
-    model.health = 0;
-    
     // A FightingObject's maxHealth repersent the maximum value its health can
     // reach. This FightingObjects health can not exceed its maxHealth
-    model.maxHealth = 0;
+    model.maxHealth = model.health;
     
     // Save the intial velocity the object is traveling at for future reference
     model.initVelocity = model.velocity;
@@ -273,11 +270,11 @@ function FightingObject(game, type, pos) {
      */
     var controller = _superclass.c;
     
-    // Apply an effect (e.g. slime) to the FightingObject
-    // @param effect - the type of effect to apply
+    // Apply an status (e.g. slime, curse) to the FightingObject
+    // @param status - the type of status to apply
     // @param duration - TODO
-    controller.applyEffect = function(effect) {
-        switch (effect) {
+    controller.applyStatus = function(status) {
+        switch (status) {
             case "slime":
                 // Tint FightingObject green
                 view.tint = 0x00ff00;
@@ -302,7 +299,7 @@ function FightingObject(game, type, pos) {
         
         // Check to see if the object is dead
         if (model.health <= 0) {
-            // TODO: kill object
+            this.destroy();
         }
     };
     
