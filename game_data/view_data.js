@@ -47,6 +47,16 @@ window.data.view_data = {
     },
     
     // Monsters
+    "scrapyard robot": {
+        "image": "scrapyard robot",
+        "scale": {
+            "x": 0.35,
+            "y": 0.35
+        },
+        "animations": {
+            "move": Phaser.Animation.generateFrameNames('walk' , 1 , 23)
+        }
+    },
     "wasp": {
         "image": "wasp",
         "scale": {

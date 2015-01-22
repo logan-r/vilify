@@ -32,6 +32,10 @@ window.data.model_data = {
 	},
 	
 	// Monsters
+	"scrapyard robot": {
+		"velocity": 100,
+		"flying": false
+	},
 	"wasp": {
 		"velocity": 150,
 		"flying": {
