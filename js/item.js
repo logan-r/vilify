@@ -56,11 +56,14 @@ function Item(game, type, pos) {
         // Get the item that is being used to build the monster
         var item = inventory.getParentOfView(itemView);
         
-        if (true/*upgradeSuccessful*/) {
-            // If the upgrade was successful the item was used up, and should
-            // be destroyed
-            inventory.remove(item);
-        }
+        // Get the type of rank 1 monster that the item builds
+        var type = window.data.upgrade_data.monsters[item.m.rank];
+        
+        // Item is used up and should be destroyed
+        inventory.remove(item);
+        
+        // Build new monster
+        monsters.add(Monster(game, type));
     };
     
     /**

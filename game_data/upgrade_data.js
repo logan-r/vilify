@@ -14,6 +14,8 @@ window.data.upgrade_data = {
 	    "AAA": "wormhole tower"
 	},
 	"monsters": {
-		"T": "scrapyard robot"
+		"T": "scrapyard robot",
+		"C": "wasp",
+		"A": "invader"
 	}
 };
