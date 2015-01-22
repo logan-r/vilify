@@ -50,6 +50,7 @@ function Projectile(game, type, projectileType, pos, angle) {
                 case "bullet":
                     // Bullet don't do anything when they hit the ground
                     this.destroy();
+                    break;
                 
                 default:
                     // Error!
@@ -95,11 +96,22 @@ function Projectile(game, type, projectileType, pos, angle) {
         
         switch (model.projectileType) {
             case "bomb":
+                // Animate explosion effect
                 this.implode({x: view.x, y: hero.v.y});
+                
+                // Attack hero
+                // TODO: figure out AoE damage
+                
                 break;
             
             case "bullet":
+                // Animate explosion effect
                 this.implode({x: view.x, y: view.y});
+                
+                // Attack hero
+                hero.c.applyEffect("slime");
+                
+                break;
             
             default:
                 // Error!
