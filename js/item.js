@@ -56,6 +56,9 @@ function Item(game, type, pos) {
         // Get the item that is being used to build the monster
         var item = inventory.getParentOfView(itemView);
         
+        // Get the spawner which built the monster
+        var spawner = spawners.getParentOfView(spawnerView);
+        
         // Get the type of rank 1 monster that the item builds
         var type = window.data.upgrade_data.monsters[item.m.rank];
         
@@ -63,7 +66,7 @@ function Item(game, type, pos) {
         inventory.remove(item);
         
         // Build new monster
-        monsters.add(Monster(game, type));
+        monsters.add(Monster(game, type, spawner.v.x - Math.abs(spawner.v.width) / 2));
     };
     
     /**
