@@ -59,18 +59,21 @@ function Item(game, type, pos) {
         // Get the spawner which built the monster
         var spawner = spawners.getParentOfView(spawnerView);
         
-        // Get the type of rank 1 monster that the item builds
-        var type = window.data.upgrade_data.monsters[item.m.rank];
-        
         // Make sure that the spawner doesn't already have a active monster associated with it
         if (spawner.m.monster === null) {
             // Item is used up and should be destroyed
             inventory.remove(item);
             
             // Spawn a new monster
-            spawner.c.spawn(type);
+            spawner.c.spawn(item.m.rank);
         } else {
+            // Attempt to upgrade pre-existing monster
+            var upgradeSuccessful = spawner.m.monster.c.upgrade(item.m.rank);
             
+            // If the upgrade was successful, then the item was used up
+            if (upgradeSuccessful) {
+                inventory.remove(item);
+            }
         }
     };
     

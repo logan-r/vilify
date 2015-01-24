@@ -72,7 +72,7 @@ window.data.view_data = {
         },
         "animations": {
             "idle": {
-                "frames": Phaser.Animation.generateFrameNames('walk' , 1 , 23)
+                "frames": Phaser.Animation.generateFrameNames('idle' , 1 , 35)
             }
         }
     },
@@ -117,6 +117,12 @@ window.data.view_data = {
         "animations": {
             "idle": {
                 "frames": Phaser.Animation.generateFrameNames('idle' , 1 , 26)
+            },
+            "attack": {
+                "frames": Phaser.Animation.generateFrameNames('attack' , 1 , 12)
+            },
+            "fire": {
+                "frames": Phaser.Animation.generateFrameNames('attack' , 1 , 11)
             }
         }
     },
