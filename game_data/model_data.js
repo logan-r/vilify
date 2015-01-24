@@ -54,6 +54,7 @@ window.data.model_data = {
 	"invader": {
 		"velocity": 100,
 		"flying": false,
+		"reach": [20, 40],
 		"abilities": [
 			{
 				"type": "melee attack",

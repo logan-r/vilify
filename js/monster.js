@@ -32,7 +32,9 @@ function Monster(game, type, posX) {
                 if (ability.type === "melee attack") {
                     // Check if any heroes are within meele range
                     for (var i = 0; i < heroes.objs.length; i++) {
-                        if (game.physics.arcade.overlap(view, heroes.get(i).v)) {
+                        var hero = heroes.objs[i];
+                        
+                        if (controller.inMeeleRange(hero.v)) {
                             view.animations.play(ability.animation);
                             model.state = "melee attack";
                             model.action = ability.animation;
@@ -41,6 +43,20 @@ function Monster(game, type, posX) {
                 }
             }
         }
+    };
+    
+    // Check if a hero is close enough to a monster for the monster to be
+    // able to hit it with a meele attack
+    controller.inMeeleRange = function(heroView) {
+        // Calculate position data
+        var heroRight = heroView.x + Math.abs(heroView.width) / 2;
+        var monsterLeft = view.x - Math.abs(view.width) / 2;
+        var monsterTop = view.y - Math.abs(view.height);
+        
+        // See if hero is in range
+        return (heroRight >= monsterLeft + model.reach[0] &&
+                heroRight <= monsterLeft + model.reach[1] &&
+                heroView.y > monsterTop);
     };
     
     /**

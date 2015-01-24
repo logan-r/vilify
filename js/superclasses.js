@@ -314,8 +314,6 @@ function FightingObject(game, type, pos) {
     // Don't allow other sprites to push around FightingObjects
     view.body.immovable = true;
     
-    view.body.velocity.x = model.velocity;
-    
     // If FightingObject isn't capable of fly, spawn object at bottom of screen
     if (!model.flying) {
         view.y = GROUND_LEVEL;
