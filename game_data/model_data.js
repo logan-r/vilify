@@ -7,7 +7,7 @@ window.data.model_data = {
 	"soldier": {
 		"velocity": 100,
 		"flying": false,
-		"health": 2
+		"health": 100
 	},
 	"tank": {
 		"velocity": 50,
@@ -58,7 +58,8 @@ window.data.model_data = {
 		"abilities": [
 			{
 				"type": "melee attack",
-				"animation": "punch"
+				"animation": "punch",
+				"damage": 1 // Damage per frame
 			}
 		]
 	},

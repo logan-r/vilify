@@ -19,6 +19,10 @@ function Monster(game, type, posX) {
             } else if (model.state === "melee attack") {
                 // Check if attack animation is completed
                 if (view.animations.getAnimation(model.action).isFinished) {
+                    // Deal damage to hero
+                    model.target.c.damage(1 * view.animations.getAnimation(model.action).frameTotal);
+                    
+                    // Go back to idle state
                     model.state = "idle";
                     model.action = null;
                 }
@@ -38,6 +42,8 @@ function Monster(game, type, posX) {
                             view.animations.play(ability.animation);
                             model.state = "melee attack";
                             model.action = ability.animation;
+                            model.target = hero;
+                            break;
                         }
                     }
                 }
@@ -69,6 +75,9 @@ function Monster(game, type, posX) {
     
     // The current ability the monster is performing
     model.action = null;
+    
+    // The hero the monster is currently attacking
+    model.target = null;
     
     /**
      * Monster sprite/view
