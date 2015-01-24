@@ -98,6 +98,9 @@ function GameObject(game, type, pos) {
     
     // Move the sprite's location based upon it's offset
     if (model.viewInfo.hasOwnProperty("offset")) {
+        if (model.viewInfo.scale.hasOwnProperty("x")) {
+            pos.x = pos.x + model.viewInfo.offset.x;
+        }
         
         if (model.viewInfo.scale.hasOwnProperty("y")) {
             pos.y = pos.y + model.viewInfo.offset.y;
@@ -137,6 +140,17 @@ function GameObject(game, type, pos) {
     if (model.viewInfo.hasOwnProperty("tint")) {
         view.tint = model.viewInfo.tint;
     }
+    
+    // Add all animations defined in view_data
+    if (model.viewInfo.hasOwnProperty("animations")) {
+        // Interat through each animation an add each indivdually
+        for (var anim in model.viewInfo.animations) {
+            if (model.viewInfo.animations.hasOwnProperty(anim)) {
+                view.animations.add(anim, model.viewInfo.animations[anim], 20, true);
+            }
+        }
+    }
+    
     
     // Enable physics for all GameObjects
     game.physics.arcade.enable(view);
@@ -303,8 +317,6 @@ function FightingObject(game, type, pos) {
         // Otherwise, spawn object at random height within it flying range
         view.y = MathEx.randInt(model.flying.min, model.flying.max);
     }
-    
-    view.animations.add("move", model.viewInfo.animations.move, 20, true);
     
     /**
      * FightingObject actions/controller

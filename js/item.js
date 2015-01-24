@@ -30,7 +30,7 @@ function Item(game, type, pos) {
         game.physics.arcade.collide(view, towers.getBaseViewGroup(), null, this.handleUpgradeTower, this);
         
         // Check if the object collides the monster spawner
-        game.physics.arcade.collide(view, spawner.v, null, this.handleMonsterBuild, this);
+        game.physics.arcade.collide(view, spawners.getViewGroup(), null, this.handleMonsterBuild, this);
     };
     
     // Handle the item being dropped on a tower in order to upgrade it

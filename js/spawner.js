@@ -1,7 +1,7 @@
 // Monster spawner class
-function Spawner(game, type, pos) {
+function Spawner(game, posX) {
     // Inherits from InteractiveObject
-    var _superclass = InteractiveObject(game, type, pos);
+    var _superclass = InteractiveObject(game, "spawner", {x: posX, y: game.height});
     
     /**
      * Spawner actions/controller

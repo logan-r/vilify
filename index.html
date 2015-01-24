@@ -48,7 +48,7 @@
             
             // Game objects & game object collections
             window.floor = null;
-            window.spawner = null;
+            window.spawners = null;
             window.projectiles = null;
             window.towers = null;
             window.monsters = null;
@@ -83,6 +83,7 @@
                 
                 // Load projectiles images/sprites
                 game.load.image('missile', '/images/projectiles/red2.png');
+                game.load.image('tank missile', '/images/projectiles/green2.png');
                 game.load.atlasJSONHash('slime', '/images/slime/sheet.png', '/images/slime/data.json');
                 
                 // Load effect sprites
@@ -115,11 +116,11 @@
                 floor.drawRect(0, game.height - FLOOR_HEIGHT, game.width, 1);
                 floor.boundsPadding = 0;
                 
-                // Create spawner
-                spawner = Spawner(game, "spawner", {
-                    "x": game.width - 10,
-                    "y": game.height - FLOOR_HEIGHT / 2 - 1
-                });
+                // Create spawner group
+                spawners = ObjectGroup(game);
+                for (var i = 0; i < 3; i++) {
+                    spawners.add(Spawner(game, game.width / 3 * (i+1)));
+                }
                 
                 // Create projecitle group
                 projectiles = ObjectGroup(game);
@@ -135,6 +136,7 @@
                 
                 // Create heroes group
                 heroes = ObjectGroup(game);
+                //heroes.add(Hero(game, "helicopter"));
                 
                 // Create effects group
                 effects = ObjectGroup(game);
@@ -179,7 +181,7 @@
                     }
                 }
                 
-                // Spawn heroes at random - for debug
+                // Spawn heroes at random - for debuging
                 if (Math.random() > 0.9973) {
                     var types = ["soldier", "tank", "jet", "helicopter"]; //["soldier", "soldier", "soldier", "soldier", "soldier", "soldier", "tank", "tank", "tank", "tank", "jet", "helicopter"];
                     heroes.add(Hero(game, types[MathEx.randInt(0, types.length - 1)]));

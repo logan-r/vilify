@@ -12,7 +12,15 @@ window.data.model_data = {
 	"tank": {
 		"velocity": 50,
 		"flying": false,
-		"health": 5
+		"health": 5,
+		"abilities": [
+			{
+				"type": "projectile",
+				"projectile": "tank missile",
+				"cooldownLength": 100,
+				"cooldown": 100
+			}
+		]
 	},
 	"jet": {
 		"velocity": 300,
@@ -118,6 +126,11 @@ window.data.model_data = {
 		"effect": "fireball",
 		"projectileType": "bomb",
 		"damage": 4
+	},
+	"tank missile": {
+		"effect": "fireball",
+		"projectileType": "bomb",
+		"damage": 1
 	},
 	"slime": {
 		"effect": "splat",

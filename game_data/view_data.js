@@ -12,7 +12,8 @@ window.data.view_data = {
             "y": 0.3
         },
         "animations": {
-            "move": Phaser.Animation.generateFrameNames('walk/' , 1 , 18, '.png')
+            "move": Phaser.Animation.generateFrameNames('walk/' , 1 , 18, '.png'),
+            "fire": Phaser.Animation.generateFrameNames('shoot/' , 2 , 3, '.png')
         }
     },
     "tank": {
@@ -22,7 +23,8 @@ window.data.view_data = {
             "y": 0.38
         },
         "animations": {
-            "move": Phaser.Animation.generateFrameNames('move/' , 1 , 9, '.png')
+            "move": Phaser.Animation.generateFrameNames('move/' , 1 , 9, '.png'),
+            "fire": Phaser.Animation.generateFrameNames('fire/' , 1 , 11, '.png')
         }
     },
     "jet": {
@@ -42,7 +44,8 @@ window.data.view_data = {
             "y": 0.35
         },
         "animations": {
-            "move": Phaser.Animation.generateFrameNames('fly/' , 1 , 2, '.png')
+            "move": Phaser.Animation.generateFrameNames('fly/' , 1 , 2, '.png'),
+            "fall": Phaser.Animation.generateFrameNames('fall/' , 1 , 16, '.png')
         }
     },
     
@@ -201,6 +204,13 @@ window.data.view_data = {
             "y": 0.35
         }
     },
+    "tank missile": {
+        "image": "tank missile",
+        "scale": {
+            "x": 0.35,
+            "y": 0.35
+        }
+    },
     "slime": {
         "image": "slime",
         "animations": {
@@ -263,8 +273,12 @@ window.data.view_data = {
     "spawner": {
         "image": "spawner",
         "scale": {
-            "x": 0.8,
-            "y": 0.8
+            "x": 0.4,
+            "y": 0.4
+        },
+        "offset": {
+            "x": -30,
+            "y": -5
         },
         "anchor": {
             "x": 1,
