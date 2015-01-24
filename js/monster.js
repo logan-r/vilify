@@ -23,6 +23,8 @@ function Monster(game, type, posX) {
      */
     var view = _superclass.v;
     
+    view.body.velocity.x = 0;
+    
     /**
      * Init sprite
      */
