@@ -14,6 +14,8 @@ function Monster(game, rank, posX) {
     // Update the monster - performed on every tick of the game's clock
     controller.update = function() {
         if (model.hasOwnProperty("abilities")) {
+            
+            // Update current state
             if (model.state === "idle") {
                 // Make sure monster is performing "idle" animation
                 if (!view.animations.getAnimation("idle").isPlaying) {
@@ -31,22 +33,31 @@ function Monster(game, rank, posX) {
                 }
             }
             
-            // Interate through each of the monster's abilities and see if any of
-            // them can be used
-            for (var i = 0; i < model.abilities.length; i++) {
-                var ability = model.abilities[i];
-                
-                if (ability.type === "melee attack") {
-                    // Check if any heroes are within meele range
-                    for (var i = 0; i < heroes.objs.length; i++) {
-                        var hero = heroes.objs[i];
-                        
-                        if (controller.inMeeleRange(hero.v)) {
-                            view.animations.play(ability.animation);
-                            model.state = "melee attack";
-                            model.action = ability.animation;
-                            model.target = hero;
-                            break;
+            var closestHero = this.getClosestHero();
+            if (closestHero !== null) {
+                console.log(closestHero.hero.m.type + " - " + closestHero.distance);
+            } else {
+                console.log(null);
+            }
+            
+            // If the monster is in an idle state, see if it can use any of its
+            // abilities
+            if (model.state === "idle") {
+                for (var i = 0; i < model.abilities.length; i++) {
+                    var ability = model.abilities[i];
+                    
+                    if (ability.type === "melee attack") {
+                        // Check if any heroes are within meele range
+                        for (var i = 0; i < heroes.objs.length; i++) {
+                            var hero = heroes.objs[i];
+                            
+                            if (controller.inMeeleRange(hero.v)) {
+                                view.animations.play(ability.animation);
+                                model.state = "melee attack";
+                                model.action = ability.animation;
+                                model.target = hero;
+                                break;
+                            }
                         }
                     }
                 }
@@ -166,6 +177,51 @@ function Monster(game, rank, posX) {
         return true;
     };
     
+    // Returns the closest hero to the monster and its distance (either "meele"
+    // or a number if not in meele range) - returns null if no heroes (or if all
+    // heroes have moved past the monster)
+    controller.getClosestHero = function() {
+        var closestHero = null;
+        
+        // Interate through all heroes, checking their distance
+        for (var i = 0; i < heroes.objs.length; i++) {
+            var hero = heroes.objs[i];
+            
+            if (controller.inMeeleRange(hero.v)) {
+                // Found a hero within meele range - this is the closest a hero
+                // can get so we don't need to continue looking through the heroes
+                return {
+                    "hero": hero,
+                    "distance": "meele"
+                };
+            } else {
+                // Find how far away the hero is
+                var distance = this.distanceTo(hero.v);
+                
+                // Make sure the hero is to the left of the monster
+                if (distance !== null) {
+                    // If there is not yet a closestHero, this automatically qualifies
+                    if (closestHero === null) {
+                        closestHero = {
+                            "hero": hero,
+                            "distance": distance
+                        };
+                    } else {
+                        // Check if this hero is closer than the previous closestHero
+                        if (distance < closestHero.distance) {
+                            closestHero = {
+                                "hero": hero,
+                                "distance": distance
+                            };
+                        }
+                    }
+                }
+            }
+        }
+        
+        return closestHero;
+    };
+    
     // Check if a hero is close enough to a monster for the monster to be
     // able to hit it with a meele attack
     controller.inMeeleRange = function(heroView) {
@@ -177,6 +233,30 @@ function Monster(game, rank, posX) {
         // See if hero is in range
         return (heroRight >= monsterLeft + model.reach[0] &&
                 heroRight <= monsterLeft + model.reach[1]);
+    };
+    
+    // Gets how far away a hero is from the monster (note: as soon as a hero pases
+    // out of the monster's meele range, the monster can no longer reach it, so this
+    // function returns null if the hero is to the right of the monster)
+    // @param hero - the hero to check how far away from the monster it is
+    controller.distanceTo = function(heroView) {
+        // Calculate position data
+        var heroRight = heroView.x + Math.abs(heroView.width) / 2;
+        var monsterLeft = view.x - Math.abs(model.width) / 2;
+        var monsterTop = view.y - Math.abs(model.height);
+        
+        // Check if the hero is in meele range
+        if (this.inMeeleRange(heroView)) {
+            return "meele";
+        }
+        
+        // Check to make sure hero isn't to the right of the monster
+        if (heroRight > monsterLeft + model.reach[1]) {
+            return null;
+        }
+        
+        // Otherwise return the distance from the monster to the hero
+        return monsterLeft + model.reach[0] - heroRight;
     };
     
     /**

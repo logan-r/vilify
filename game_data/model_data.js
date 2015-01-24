@@ -72,6 +72,11 @@ window.data.model_data = {
 				"type": "melee attack",
 				"animation": "attack",
 				"damage": 1 // Damage per frame
+			},
+			{
+				"type": "ranged attack",
+				"animation": "fire",
+				"damage": 1 // Damage per frame
 			}
 		]
 	},

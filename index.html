@@ -98,7 +98,7 @@
                 game.load.image('spawner', '/images/spawner/spawner.png');
             }
     
-            function create() { 
+            function create() {
                 // Init globals
                 GROUND_LEVEL = game.height - FLOOR_HEIGHT / 2 + 4;
                 
@@ -109,13 +109,18 @@
                 game.physics.startSystem(Phaser.Physics.ARCADE);
                 
                 // Set background color of game canvas to white
-                game.stage.backgroundColor = 0xffffff;
+                game.stage.backgroundColor = 0xe5e5e5;
                 
                 // Add floor
                 floor = game.add.graphics(0, 0);
                 floor.bounds = new PIXI.Rectangle(0, game.height - FLOOR_HEIGHT, game.width, 1);
                 floor.beginFill(0x000000, 1);
                 floor.drawRect(0, game.height - FLOOR_HEIGHT, game.width, 1);
+                floor.boundsPadding = 0;
+                floor = game.add.graphics(0, 0);
+                floor.bounds = new PIXI.Rectangle(0, game.height - FLOOR_HEIGHT + 1, game.width, FLOOR_HEIGHT - 1);
+                floor.beginFill(0xdddddd, 1);
+                floor.drawRect(0, game.height - FLOOR_HEIGHT + 1, game.width, FLOOR_HEIGHT - 1);
                 floor.boundsPadding = 0;
                 
                 // Create spawner group
@@ -138,7 +143,7 @@
                 
                 // Create heroes group
                 heroes = ObjectGroup(game);
-                heroes.add(Hero(game, "soldier"));
+                //heroes.add(Hero(game, "soldier"));
                 
                 // Create effects group
                 effects = ObjectGroup(game);
@@ -184,10 +189,10 @@
                 }
                 
                 // Spawn heroes at random - for debuging
-                /*if (Math.random() > 0.9973) {
-                    var types = ["soldier", "tank", "jet", "helicopter"]; //["soldier", "soldier", "soldier", "soldier", "soldier", "soldier", "tank", "tank", "tank", "tank", "jet", "helicopter"];
+                if (Math.random() > 0.9973) {
+                    var types = ["soldier", "tank"]; //["soldier", "soldier", "soldier", "soldier", "soldier", "soldier", "tank", "tank", "tank", "tank", "jet", "helicopter"];
                     heroes.add(Hero(game, types[MathEx.randInt(0, types.length - 1)]));
-                }*/
+                }
             }
             
             function render() {
