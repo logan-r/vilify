@@ -8,10 +8,25 @@ function Spawner(game, posX) {
      */
     var controller = _superclass.c;
     
+    // Cause the spawner to spawn a new monster
+    // @param type - the type of monster to spawn
+    controller.spawn = function(type) {
+        // Create new monster
+        var m = Monster(game, type, view.x - Math.abs(view.width) / 2);
+        monsters.add(m);
+        
+        // Associate that monster with this spawner
+        model.monster = m;
+    };
+    
     /**
      * Spawner data/model
      */
     var model = _superclass.m;
+    
+    // The monster spawned from this spawner, null means no monster has been spawned
+    // (or a monster was spawned but it died)
+    model.monster = null;
     
     /**
      * Spawner sprite/view

@@ -12,8 +12,12 @@ window.data.view_data = {
             "y": 0.3
         },
         "animations": {
-            "move": Phaser.Animation.generateFrameNames('walk/' , 1 , 18, '.png'),
-            "fire": Phaser.Animation.generateFrameNames('shoot/' , 2 , 3, '.png')
+            "move": {
+                "frames": Phaser.Animation.generateFrameNames('walk/' , 1 , 18, '.png')
+            },
+            "fire": {
+                "frames": Phaser.Animation.generateFrameNames('shoot/' , 2 , 3, '.png')
+            }
         }
     },
     "tank": {
@@ -23,8 +27,12 @@ window.data.view_data = {
             "y": 0.38
         },
         "animations": {
-            "move": Phaser.Animation.generateFrameNames('move/' , 1 , 9, '.png'),
-            "fire": Phaser.Animation.generateFrameNames('fire/' , 1 , 11, '.png')
+            "move": {
+                "frames": Phaser.Animation.generateFrameNames('move/' , 1 , 9, '.png')
+            },
+            "fire": {
+                "frames": Phaser.Animation.generateFrameNames('fire/' , 1 , 11, '.png')
+            }
         }
     },
     "jet": {
@@ -34,7 +42,9 @@ window.data.view_data = {
             "y": 0.3
         },
         "animations": {
-            "move": Phaser.Animation.generateFrameNames('fly/' , 1 , 2, '.png')
+            "move": {
+                "frames": Phaser.Animation.generateFrameNames('fly/' , 1 , 2, '.png')
+            }
         }
     },
     "helicopter": {
@@ -44,8 +54,12 @@ window.data.view_data = {
             "y": 0.35
         },
         "animations": {
-            "move": Phaser.Animation.generateFrameNames('fly/' , 1 , 2, '.png'),
-            "fall": Phaser.Animation.generateFrameNames('fall/' , 1 , 16, '.png')
+            "move": {
+                "frames": Phaser.Animation.generateFrameNames('fly/' , 1 , 2, '.png')
+            },
+            "fall": {
+                "frames": Phaser.Animation.generateFrameNames('fall/' , 1 , 16, '.png')
+            }
         }
     },
     
@@ -57,7 +71,9 @@ window.data.view_data = {
             "y": 0.35
         },
         "animations": {
-            "move": Phaser.Animation.generateFrameNames('walk' , 1 , 23)
+            "idle": {
+                "frames": Phaser.Animation.generateFrameNames('walk' , 1 , 23)
+            }
         }
     },
     "wasp": {
@@ -67,27 +83,41 @@ window.data.view_data = {
             "y": 0.3
         },
         "animations": {
-            "move": Phaser.Animation.generateFrameNames('fly' , 1 , 18)
+            "idle": {
+                "frames": Phaser.Animation.generateFrameNames('fly' , 1 , 18)
+            }
         }
     },
     "invader": {
         "image": "invader",
         "scale": {
+            "x": 0.6,
+            "y": 0.6
+        }, 
+        "animations": {
+            "idle": {
+                "frames": Phaser.Animation.generateFrameNames('idle' , 1 , 25)
+            },
+            "punch": {
+                "frames": Phaser.Animation.generateFrameNames('punch' , 1 , 14),
+                "loop": false
+            },
+            "hit": {
+                "frames": Phaser.Animation.generateFrameNames('hit' , 1 , 14),
+                "loop": false
+            }
+        }
+    },
+    "exterminator": {
+        "image": "exterminator",
+        "scale": {
             "x": 0.3,
             "y": 0.3
         },
         "animations": {
-            "move": Phaser.Animation.generateFrameNames('walk' , 1 , 22)
-        }
-    },
-    "werewolf": {
-        "image": "werewolf",
-        "scale": {
-            "x": -0.35,
-            "y": 0.35
-        },
-        "animations": {
-            "move": Phaser.Animation.generateFrameNames('run/' , 1 , 13, '.png')
+            "idle": {
+                "frames": Phaser.Animation.generateFrameNames('idle' , 1 , 26)
+            }
         }
     },
     

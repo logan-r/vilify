@@ -53,6 +53,16 @@ window.data.model_data = {
 	},
 	"invader": {
 		"velocity": 100,
+		"flying": false,
+		"abilities": [
+			{
+				"type": "melee attack",
+				"animation": "punch"
+			}
+		]
+	},
+	"exterminator": {
+		"velocity": 100,
 		"flying": false
 	},
 	"werewolf": {

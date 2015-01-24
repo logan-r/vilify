@@ -39,6 +39,7 @@
     
     <script type="text/javascript">
         // Globals - TODO: move elsewhere
+        window.FPS = 20;
         var FLOOR_HEIGHT = 50;
         var GROUND_LEVEL;
         
@@ -72,7 +73,8 @@
                 // Load monster sprites
                 game.load.atlasJSONHash('scrapyard robot', '/images/scrapyard_robot/sheet.png', '/images/scrapyard_robot/data.json');
                 game.load.atlasJSONHash('wasp', '/images/wasp/sheet.png', '/images/wasp/data.json');
-                game.load.atlasJSONHash('invader', '/images/invader/sheet.png', '/images/invader/data.json');
+                game.load.atlasJSONHash('invader', '/images/invader/sheet-50percent.png', '/images/invader/data-50percent.json');
+                game.load.atlasJSONHash('exterminator', '/images/exterminator/sheet-50percent.png', '/images/exterminator/data-50percent.json');
                 game.load.atlasJSONHash('werewolf', '/images/werewolf/sheet-running.png', '/images/werewolf/data-running.json');
                 
                 // Load hero sprites
@@ -194,8 +196,8 @@
                     game.debug.body(effects.views.children[i]);
                 }
                 
-                for (var i = 0; i < heroes.views.children.length; i++) {
-                    game.debug.body(heroes.views.children[i]);
+                for (var i = 0; i < monsters.views.children.length; i++) {
+                    game.debug.body(monsters.views.children[i]);
                 }*/
             }
         };

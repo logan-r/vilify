@@ -74,15 +74,6 @@ function Tower(game, rank, posX) {
                 }
             }
         }
-        
-        /*if (model.attacks) {
-            // Fire a projectile every 55 ticks - TODO: intergrate rate of fire
-            count++;
-            if (count > 100) {
-                count = 0;
-                this.fire();
-            }
-        }*/
     };
     
     // Retrive the angle at which the turret is rotated

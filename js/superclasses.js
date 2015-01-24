@@ -146,7 +146,13 @@ function GameObject(game, type, pos) {
         // Interat through each animation an add each indivdually
         for (var anim in model.viewInfo.animations) {
             if (model.viewInfo.animations.hasOwnProperty(anim)) {
-                view.animations.add(anim, model.viewInfo.animations[anim], 20, true);
+                // Is the animation looping? (default to true if not defined in view data file)
+                var loop = true;
+                if (model.viewInfo.animations[anim].hasOwnProperty("loop")) {
+                    loop = model.viewInfo.animations[anim].loop;
+                }
+                
+                view.animations.add(anim, model.viewInfo.animations[anim].frames, FPS, loop);
             }
         }
     }

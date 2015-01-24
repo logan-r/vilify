@@ -16,6 +16,7 @@ window.data.upgrade_data = {
 	"monsters": {
 		"T": "scrapyard robot",
 		"C": "wasp",
-		"A": "invader"
+		"A": "invader",
+		"AA": "exterminator"
 	}
 };

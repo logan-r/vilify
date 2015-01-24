@@ -27,10 +27,10 @@ function Item(game, type, pos) {
         this.setDestination(model.previousDestination);
         
         // Check if the object collides with a tower
-        game.physics.arcade.collide(view, towers.getBaseViewGroup(), null, this.handleUpgradeTower, this);
+        game.physics.arcade.overlap(view, towers.getBaseViewGroup(), null, this.handleUpgradeTower, this);
         
         // Check if the object collides the monster spawner
-        game.physics.arcade.collide(view, spawners.getViewGroup(), null, this.handleMonsterBuild, this);
+        game.physics.arcade.overlap(view, spawners.getViewGroup(), null, this.handleMonsterBuild, this);
     };
     
     // Handle the item being dropped on a tower in order to upgrade it
@@ -62,11 +62,16 @@ function Item(game, type, pos) {
         // Get the type of rank 1 monster that the item builds
         var type = window.data.upgrade_data.monsters[item.m.rank];
         
-        // Item is used up and should be destroyed
-        inventory.remove(item);
-        
-        // Build new monster
-        monsters.add(Monster(game, type, spawner.v.x - Math.abs(spawner.v.width) / 2));
+        // Make sure that the spawner doesn't already have a active monster associated with it
+        if (spawner.m.monster === null) {
+            // Item is used up and should be destroyed
+            inventory.remove(item);
+            
+            // Spawn a new monster
+            spawner.c.spawn(type);
+        } else {
+            
+        }
     };
     
     /**
