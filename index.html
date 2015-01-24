@@ -138,7 +138,7 @@
                 
                 // Create heroes group
                 heroes = ObjectGroup(game);
-                //heroes.add(Hero(game, "soldier"));
+                heroes.add(Hero(game, "soldier"));
                 
                 // Create effects group
                 effects = ObjectGroup(game);
@@ -151,7 +151,7 @@
                     inventory.add(
                         Item(
                             game,
-                            ["biochem item", "tech item", "alien item"][MathEx.randInt(0,2)],
+                            ["biochem item", "tech item", "alien item"][/*MathEx.randInt(0,2)*/2],
                             {
                                 x: MathEx.randInt(0, game.width - 100),
                                 y: MathEx.randInt(0, game.height - 67/2)
@@ -192,8 +192,8 @@
             
             function render() {
                 // Debugging physic bodies
-                /*for (var i = 0; i < effects.views.children.length; i++) {
-                    game.debug.body(effects.views.children[i]);
+                /*for (var i = 0; i < heroes.views.children.length; i++) {
+                    game.debug.body(heroes.views.children[i]);
                 }
                 
                 for (var i = 0; i < monsters.views.children.length; i++) {

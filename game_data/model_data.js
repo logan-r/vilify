@@ -65,11 +65,15 @@ window.data.model_data = {
 	},
 	"exterminator": {
 		"velocity": 100,
-		"flying": false
-	},
-	"werewolf": {
-		"velocity": 300,
-		"flying": false
+		"flying": false,
+		"reach": [20, 40],
+		"abilities": [
+			{
+				"type": "melee attack",
+				"animation": "attack",
+				"damage": 1 // Damage per frame
+			}
+		]
 	},
 	
 	// Towers

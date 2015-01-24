@@ -119,10 +119,12 @@ window.data.view_data = {
                 "frames": Phaser.Animation.generateFrameNames('idle' , 1 , 26)
             },
             "attack": {
-                "frames": Phaser.Animation.generateFrameNames('attack' , 1 , 12)
+                "frames": Phaser.Animation.generateFrameNames('attack' , 1 , 12),
+                "loop": false
             },
             "fire": {
-                "frames": Phaser.Animation.generateFrameNames('attack' , 1 , 11)
+                "frames": Phaser.Animation.generateFrameNames('fire' , 1 , 11),
+                "loop": false
             }
         }
     },

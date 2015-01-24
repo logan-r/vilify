@@ -133,6 +133,7 @@ function Monster(game, rank, posX) {
         
         // Switch the texture of the sprite
         view.loadTexture(model.viewInfo.image);
+        view.body.setSize(view.width, view.height);
         
         // Add all animations defined in view_data
         if (model.viewInfo.hasOwnProperty("animations")) {
@@ -150,6 +151,13 @@ function Monster(game, rank, posX) {
             }
         }
         
+        
+        // Save initial height and width for latter
+        model.width = view.width;
+        model.height = view.height;
+        
+        view.animations.play("idle");
+        
         // Reset state variables
         model.state = "idle";
         model.action = null;
@@ -163,13 +171,12 @@ function Monster(game, rank, posX) {
     controller.inMeeleRange = function(heroView) {
         // Calculate position data
         var heroRight = heroView.x + Math.abs(heroView.width) / 2;
-        var monsterLeft = view.x - Math.abs(view.width) / 2;
-        var monsterTop = view.y - Math.abs(view.height);
+        var monsterLeft = view.x - Math.abs(model.width) / 2;
+        var monsterTop = view.y - Math.abs(model.height);
         
         // See if hero is in range
         return (heroRight >= monsterLeft + model.reach[0] &&
-                heroRight <= monsterLeft + model.reach[1] &&
-                heroView.y > monsterTop);
+                heroRight <= monsterLeft + model.reach[1]);
     };
     
     /**
@@ -196,6 +203,10 @@ function Monster(game, rank, posX) {
     
     // Monsters don't move
     view.body.velocity.x = 0;
+    
+    // Save initial height and width for latter
+    model.width = view.width;
+    model.height = view.height;
     
     /**
      * Init sprite
