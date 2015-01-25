@@ -23,22 +23,25 @@ function Monster(game, rank, posX) {
                 }
             } else if (model.state === "melee attack") {
                 // Check if attack animation is completed
-                if (view.animations.getAnimation(model.action).isFinished) {
+                if (view.animations.getAnimation(model.action.animation).isFinished) {
                     // Deal damage to hero
-                    model.target.c.damage(1 * view.animations.getAnimation(model.action).frameTotal);
+                    model.target.c.damage(1 * view.animations.getAnimation(model.action.animation).frameTotal);
+                    
+                    // Go back to idle state
+                    model.state = "idle";
+                    model.action = null;
+                }
+            } else if (model.state === "range attack") {
+                // Check if attack animation is completed
+                if (view.animations.getAnimation(model.action.animation).isFinished) {
+                    // Launch projectile
+                    this.fire(model.action.projectile, model.action.angle, model.action.offsetY);
                     
                     // Go back to idle state
                     model.state = "idle";
                     model.action = null;
                 }
             }
-            
-            /*var closestHero = this.getClosestHero();
-            if (closestHero !== null) {
-                console.log(closestHero.hero.m.type + " - " + closestHero.distance);
-            } else {
-                console.log(null);
-            }*/
             
             // If the monster is in an idle state, see if it can use any of its
             // abilities
@@ -59,7 +62,7 @@ function Monster(game, rank, posX) {
                                 
                                 // Update monster state
                                 model.state = "melee attack";
-                                model.action = ability.animation;
+                                model.action = ability;
                                 model.target = closestHero.hero;
                                 
                                 break;
@@ -70,15 +73,25 @@ function Monster(game, rank, posX) {
                         for (var i = 0; i < model.abilities.length; i++) {
                             var ability = model.abilities[i];
                             if (ability.type === "range attack") {
-                                // Play attack animation
-                                view.animations.play(ability.animation);
-                                
-                                // Update monster state
-                                model.state = "melee attack";
-                                model.action = ability.animation;
-                                model.target = closestHero.hero;
-                                
-                                break;
+                                // Check if ability is ready for use
+                                if (ability.cooldown <= 0) {
+                                    // Play attack animation
+                                    view.animations.play(ability.animation);
+                                    
+                                    // Update monster state
+                                    model.state = "range attack";
+                                    model.action = ability;
+                                    model.target = closestHero.hero;
+                                    
+                                    // Reset cooldown
+                                    ability.cooldown = ability.cooldownLength;
+                                    
+                                    break;
+                                } else {
+                                    // Update cooldown
+                                    // TODO: use realtime instead of click
+                                    ability.cooldown--;
+                                }
                             }
                         }
                     }
@@ -292,7 +305,7 @@ function Monster(game, rank, posX) {
     // What the monster is currently doing (e.g. idle, attack)
     model.state = "idle";
     
-    // The current ability the monster is performing
+    // The current ability the monster is performing (either null or an object)
     model.action = null;
     
     // The hero the monster is currently attacking

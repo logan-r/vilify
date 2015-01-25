@@ -28,18 +28,48 @@ function Projectile(game, type, pos, angle) {
         view.body.velocity.x = controller.getHorizontalVelocity();
         view.body.velocity.y = controller.getVerticalVelocity();
         
-        // Keep the projectile's angle within it initial quadrant
-        if (view.body.angularVelocity < 0 && view.angle < 0) {
-            view.body.angularVelocity = 0;
-            view.body.angularAcceleration = 0;
-            view.rotation = 0;
-        } else if (view.body.angularVelocity > 0 && view.angle > 0) {
-            view.body.angularVelocity = 0;
-            view.body.angularAcceleration = 0;
-            view.rotation = 0;
-        }
+        this.applyGravity();
         
-        // Check to see if projectile has hit ground yet
+        this.collideGround();
+        
+        // Check if projectile has collided with a hero
+        game.physics.arcade.overlap(view, heroes.getViewGroup(), null, this.handleCollideWithHero, this);
+    };
+    
+    // Projectile has hit some sort of target, now it should detonate or whatever
+    controller.implode = function(pos) {
+        // Only create effect if one is defined for this projectile in the modeldata file
+        // Note: bomb projecitles must have effects as the effect is use to detirmine AoE
+        if (model.hasOwnProperty("effect")) {
+            // Create effect object
+            var efct = Effect(game, model.effect, pos);
+            
+            // Add effect to effects group
+            effects.add(efct);
+            
+            // Destroy projectile
+            this.destroy();
+            
+            // If bomb apply AoE damage here
+            if (model.projectileType == "bomb") {
+                // Called on every hero that the effect collides with
+                var handleHitHeroes = function(effectSprie, heroSprite) {
+                    hero = heroes.getParentOfView(heroSprite);
+                    
+                    this.attackHero(hero);
+                };
+                
+                // Check to see which heroes were hit
+                game.physics.arcade.overlap(efct.v, heroes.getViewGroup(), null, handleHitHeroes, this);
+            }
+        } else {
+            // Destroy projectile
+            this.destroy();
+        }
+    };
+    
+    // Check to see if projectile has hit ground yet
+    controller.collideGround = function() {
         if (view.y >= GROUND_LEVEL) {
             switch (model.projectileType) {
                 case "bomb":
@@ -57,35 +87,22 @@ function Projectile(game, type, pos, angle) {
                     break;
             }
         }
-        
-        // Check if projectile has collided with a hero
-        game.physics.arcade.overlap(view, heroes.getViewGroup(), null, this.handleCollideWithHero, this);
     };
     
-    // Projectile has hit some sort of target, now it should detonate or whatever
-    controller.implode = function(pos) {
-        // Create effect object
-        var efct = Effect(game, model.effect, pos);
-        
-        // Add effect to effects group
-        effects.add(efct);
-        
-        // Destroy projectile
-        this.destroy();
-        
-        // If bomb apply AoE damage here
-        if (model.projectileType == "bomb") {
-            // Called on every hero that the effect collides with
-            var handleHitHeroes = function(effectSprie, heroSprite) {
-                hero = heroes.getParentOfView(heroSprite);
-                
-                this.attackHero(hero);
-            };
-            
-            // Check to see which heroes were hit
-            game.physics.arcade.overlap(efct.v, heroes.getViewGroup(), null, handleHitHeroes, this);
+    // Change the projectiles angle based on its mass
+    // TODO: base this on projectile mass
+    controller.applyGravity = function() {
+        // Keep the projectile's angle within it initial quadrant
+        if (view.body.angularVelocity < 0 && view.angle < 0) {
+            view.body.angularVelocity = 0;
+            view.body.angularAcceleration = 0;
+            view.rotation = 0;
+        } else if (view.body.angularVelocity > 0 && view.angle > 0) {
+            view.body.angularVelocity = 0;
+            view.body.angularAcceleration = 0;
+            view.rotation = 0;
         }
-    };
+    }
     
     // Destroy this projectile and remove it from the game world
     controller.destroy = function() {
@@ -176,16 +193,6 @@ function Projectile(game, type, pos, angle) {
     // and total velocity
     view.body.velocity.x = controller.getHorizontalVelocity();
     view.body.velocity.y = controller.getVerticalVelocity();
-    
-    /**
-     * Animation
-     */
-    
-    // If projectile has a "move" animation sequence then play it
-    if (model.viewInfo.hasOwnProperty("animations") && model.viewInfo.animations.hasOwnProperty("move")) {
-        view.animations.add("move", model.viewInfo.animations.move, 20, true);
-        view.animations.play("move");
-    }
     
     /**
      * Generate object that is an instance of this class

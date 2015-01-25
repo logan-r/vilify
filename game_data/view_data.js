@@ -235,6 +235,13 @@ window.data.view_data = {
             "y": 0.35
         }
     },
+    "laser": {
+        "image": "laser",
+        "scale": {
+            "x": 1,
+            "y": 1
+        }
+    },
     "fire missile": {
         "image": "missile",
         "scale": {

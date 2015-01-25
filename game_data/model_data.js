@@ -76,7 +76,11 @@ window.data.model_data = {
 			{
 				"type": "range attack",
 				"animation": "fire",
-				"damage": 1 // Damage per frame
+				"projectile": "laser",
+				"angle": Math.PI / 2,
+				"offsetY": 70,
+				"cooldownLength": 100,
+				"cooldown": 100
 			}
 		]
 	},
@@ -142,6 +146,10 @@ window.data.model_data = {
 		"effect": "explosion",
 		"projectileType": "bomb",
 		"damage": 1
+	},
+	"laser": {
+		"projectileType": "bullet",
+		"damage": 100
 	},
 	"fire missile": {
 		"effect": "fireball",

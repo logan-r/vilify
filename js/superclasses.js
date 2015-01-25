@@ -372,6 +372,16 @@ function FightingObject(game, type, pos) {
         }
     };
     
+    // Causes the FightingObject to fire a projectile
+    // @param type - the type of projectile to fire
+    // @param angle - the angle at which to launch the projectile
+    controller.fire = function(type, angle, offsetY) {
+        projectiles.add(Projectile(game, type, {
+            x: view.x, 
+            y: view.y - Math.abs(view.height) + offsetY
+        }, angle));
+    };
+    
     /**
      * Generate object that is an instance of this class
      */

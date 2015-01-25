@@ -25,21 +25,11 @@ function Hero(game, type) {
         } else {
             view.body.velocity.x = model.velocity;
         }
-    }
+    };
     
     // Destroy this hero and remove it from the game world
     controller.destroy = function() {
         heroes.remove(heroes.getParentOfView(view));
-    };
-    
-    // Causes the hero to fire a projectile
-    // type - the type of projectile to fire
-    controller.fire = function(type) {
-        var angle = -Math.PI / 2;
-        projectiles.add(Projectile(game, type, {
-            x: view.x + Math.abs(view.width) / 2 + 100, 
-            y: view.y - Math.abs(view.height) + 20
-        }, angle));
     };
     
     /**
