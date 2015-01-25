@@ -33,29 +33,51 @@ function Monster(game, rank, posX) {
                 }
             }
             
-            var closestHero = this.getClosestHero();
+            /*var closestHero = this.getClosestHero();
             if (closestHero !== null) {
                 console.log(closestHero.hero.m.type + " - " + closestHero.distance);
             } else {
                 console.log(null);
-            }
+            }*/
             
             // If the monster is in an idle state, see if it can use any of its
             // abilities
             if (model.state === "idle") {
-                for (var i = 0; i < model.abilities.length; i++) {
-                    var ability = model.abilities[i];
-                    
-                    if (ability.type === "melee attack") {
-                        // Check if any heroes are within meele range
-                        for (var i = 0; i < heroes.objs.length; i++) {
-                            var hero = heroes.objs[i];
-                            
-                            if (controller.inMeeleRange(hero.v)) {
+                // Find the closest hero
+                var closestHero = this.getClosestHero();
+                
+                // Check to make sure there is a closestHero
+                if (closestHero !== null) {
+                    // Is hero within meele range?
+                    if (closestHero.distance === "meele") {
+                        // Find meele ability
+                        for (var i = 0; i < model.abilities.length; i++) {
+                            var ability = model.abilities[i];
+                            if (ability.type === "melee attack") {
+                                // Play attack animation
                                 view.animations.play(ability.animation);
+                                
+                                // Update monster state
                                 model.state = "melee attack";
                                 model.action = ability.animation;
-                                model.target = hero;
+                                model.target = closestHero.hero;
+                                
+                                break;
+                            }
+                        }
+                    } else {
+                        // Does the hero have any ranged abilities?
+                        for (var i = 0; i < model.abilities.length; i++) {
+                            var ability = model.abilities[i];
+                            if (ability.type === "range attack") {
+                                // Play attack animation
+                                view.animations.play(ability.animation);
+                                
+                                // Update monster state
+                                model.state = "melee attack";
+                                model.action = ability.animation;
+                                model.target = closestHero.hero;
+                                
                                 break;
                             }
                         }

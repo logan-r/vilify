@@ -74,7 +74,7 @@ window.data.model_data = {
 				"damage": 1 // Damage per frame
 			},
 			{
-				"type": "ranged attack",
+				"type": "range attack",
 				"animation": "fire",
 				"damage": 1 // Damage per frame
 			}
