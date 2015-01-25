@@ -35,6 +35,27 @@ window.data.view_data = {
             }
         }
     },
+    "ninja": {
+        "image": "ninja",
+        "scale": {
+            "x": 0.38,
+            "y": 0.38
+        },
+        "animations": {
+            "move": {
+                "frames": Phaser.Animation.generateFrameNames("run", 1, 10)
+            },
+            "attack": {
+                "frames": Phaser.Animation.generateFrameNames("attack", 1, 10)
+            },
+            "throw": {
+                "frames": Phaser.Animation.generateFrameNames("throw", 1, 10)
+            },
+            "death": {
+                "frames": Phaser.Animation.generateFrameNames("death", 1, 10)
+            }
+        }
+    },
     "jet": {
         "image": "jet",
         "scale": {

@@ -80,6 +80,7 @@
                 // Load hero sprites
                 game.load.atlasJSONHash('soldier', '/images/soldier/sheet.png', '/images/soldier/data.json');
                 game.load.atlasJSONHash('tank', '/images/tank/sheet.png', '/images/tank/data.json');
+                game.load.atlasJSONHash('ninja', '/images/ninja/sheet-50percent.png', '/images/ninja/data-50percent.json');
                 game.load.atlasJSONHash('helicopter', '/images/helicopter/sheet.png', '/images/helicopter/data.json');
                 game.load.atlasJSONHash('jet', '/images/jet/sheet.png', '/images/jet/data.json');
                 
@@ -144,7 +145,7 @@
                 
                 // Create heroes group
                 heroes = ObjectGroup(game);
-                heroes.add(Hero(game, "soldier"));
+                heroes.add(Hero(game, "ninja"));
                 
                 // Create effects group
                 effects = ObjectGroup(game);

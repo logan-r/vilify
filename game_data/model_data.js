@@ -22,6 +22,11 @@ window.data.model_data = {
 			}
 		]
 	},
+	"ninja": {
+		"velocity": 100,
+		"flying": false,
+		"health": 5
+	},
 	"jet": {
 		"velocity": 300,
 		"flying": {
