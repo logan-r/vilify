@@ -10,21 +10,13 @@ function Hero(game, type) {
     
     // Update the hero - called each tick
     controller.update = function() {
-        // Don't let hero move past monsters
-        /*var collidesWithMonster = false;
-        for (var i = 0; i < monsters.objs.length; i++) {
-            var monster = monsters.objs[i];
-            
-            if (monster.c.inMeleeRange(view)) {
-                collidesWithMonster = true;
-                break;
-            }
-        }
-        if (collidesWithMonster) {
-            view.body.velocity.x = 0;
-        } else {
+        // Hero only move when in idle state
+        if (model.state === "idle") {
             view.body.velocity.x = model.velocity;
-        }*/
+        } else {
+            view.body.velocity.x = 0;
+        }
+        
         if (model.hasOwnProperty("abilities")) {
             // Update hero based upon what action it is currently performing
             this.updateState();
