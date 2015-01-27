@@ -44,7 +44,7 @@ function Monster(game, rank, posX) {
                     }
                 }
             } else {
-                // Does the hero have any ranged abilities?
+                // Does the monsters have any ranged abilities?
                 for (var i = 0; i < model.abilities.length; i++) {
                     var ability = model.abilities[i];
                     if (ability.type === "range_attack") {
@@ -71,7 +71,7 @@ function Monster(game, rank, posX) {
                 }
             }
         }
-    }
+    };
     
     // Upgrades the monster
     // Returns true if the monster was upgraded, else returns false
@@ -170,7 +170,6 @@ function Monster(game, rank, posX) {
             }
         }
         
-        
         // Save initial height and width for latter
         model.width = view.width;
         model.height = view.height;
@@ -183,6 +182,11 @@ function Monster(game, rank, posX) {
         model.target = null;
         
         return true;
+    };
+    
+    // Destroy this monster and remove it from the game world
+    controller.destroy = function() {
+        monsters.remove(monsters.getParentOfView(view));
     };
     
     /**
@@ -200,10 +204,6 @@ function Monster(game, rank, posX) {
     
     // Monsters don't move
     view.body.velocity.x = 0;
-    
-    // Save initial height and width for latter
-    model.width = view.width;
-    model.height = view.height;
     
     /**
      * Init sprite

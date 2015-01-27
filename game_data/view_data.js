@@ -42,17 +42,20 @@ window.data.view_data = {
             "y": 0.38
         },
         "animations": {
-            "move": {
+            "idle": {
                 "frames": Phaser.Animation.generateFrameNames("run", 1, 10)
             },
             "attack": {
-                "frames": Phaser.Animation.generateFrameNames("attack", 1, 10)
+                "frames": Phaser.Animation.generateFrameNames("attack", 1, 10),
+                "loop": false
             },
             "throw": {
-                "frames": Phaser.Animation.generateFrameNames("throw", 1, 10)
+                "frames": Phaser.Animation.generateFrameNames("throw", 1, 10),
+                "loop": false
             },
             "death": {
-                "frames": Phaser.Animation.generateFrameNames("death", 1, 10)
+                "frames": Phaser.Animation.generateFrameNames("death", 1, 10),
+                "loop": false
             }
         }
     },

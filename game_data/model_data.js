@@ -25,7 +25,15 @@ window.data.model_data = {
 	"ninja": {
 		"velocity": 100,
 		"flying": false,
-		"health": 5
+		"health": 100,
+		"reach": [20, 40],
+		"abilities": [
+			{
+				"type": "melee_attack",
+				"animation": "attack",
+				"damage": 1 // Damage per frame
+			}
+		]
 	},
 	"jet": {
 		"velocity": 300,
@@ -46,18 +54,18 @@ window.data.model_data = {
 	
 	// Monsters
 	"scrapyard robot": {
-		"velocity": 100,
+		"health": 1,
 		"flying": false
 	},
 	"wasp": {
-		"velocity": 150,
+		"health": 1,
 		"flying": {
 			"min": 240,
 			"max": 420
 		},
 	},
 	"invader": {
-		"velocity": 100,
+		"health": 1,
 		"flying": false,
 		"reach": [20, 40],
 		"abilities": [
@@ -69,7 +77,7 @@ window.data.model_data = {
 		]
 	},
 	"exterminator": {
-		"velocity": 100,
+		"health": 1,
 		"flying": false,
 		"reach": [20, 40],
 		"abilities": [

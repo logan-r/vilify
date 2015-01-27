@@ -300,9 +300,6 @@ function FightingObject(game, type, pos) {
     // reach. This FightingObjects health can not exceed its maxHealth
     model.maxHealth = model.health;
     
-    // Save the intial velocity the object is traveling at for future reference
-    model.initVelocity = model.velocity;
-    
     // What the FighingObject is currently doing (e.g. "idle", "attack")
     model.state = "idle";
     
@@ -322,6 +319,10 @@ function FightingObject(game, type, pos) {
     
     // Don't allow other sprites to push around FightingObjects
     view.body.immovable = true;
+    
+    // Save initial height and width for latter
+    model.width = view.width;
+    model.height = view.height;
     
     // If FightingObject isn't capable of fly, spawn object at bottom of screen
     if (!model.flying) {
