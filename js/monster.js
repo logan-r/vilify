@@ -14,91 +14,64 @@ function Monster(game, rank, posX) {
     // Update the monster - performed on every tick of the game's clock
     controller.update = function() {
         if (model.hasOwnProperty("abilities")) {
-            
-            // Update current state
-            if (model.state === "idle") {
-                // Make sure monster is performing "idle" animation
-                if (!view.animations.getAnimation("idle").isPlaying) {
-                    view.animations.play("idle");
+            // Update monster based upon what action it is currently performing
+            this.updateState();
+        }
+    };
+    
+    // Calculate what action the monster should take next
+    controller.calculateNewAction = function() {
+        // Find the closest hero
+        var closestHero = this.getClosest(heroes);
+        
+        // Check to make sure there is a closestHero
+        if (closestHero !== null) {
+            // Is hero within melee range?
+            if (closestHero.distance === "melee") {
+                // Find melee ability
+                for (var i = 0; i < model.abilities.length; i++) {
+                    var ability = model.abilities[i];
+                    if (ability.type === "melee_attack") {
+                        // Play attack animation
+                        view.animations.play(ability.animation);
+                        
+                        // Update monster state
+                        model.state = ability.type;
+                        model.action = ability;
+                        model.target = closestHero.obj;
+                        
+                        break;
+                    }
                 }
-            } else if (model.state === "melee attack") {
-                // Check if attack animation is completed
-                if (view.animations.getAnimation(model.action.animation).isFinished) {
-                    // Deal damage to hero
-                    model.target.c.damage(1 * view.animations.getAnimation(model.action.animation).frameTotal);
-                    
-                    // Go back to idle state
-                    model.state = "idle";
-                    model.action = null;
-                }
-            } else if (model.state === "range attack") {
-                // Check if attack animation is completed
-                if (view.animations.getAnimation(model.action.animation).isFinished) {
-                    // Launch projectile
-                    this.fire(model.action.projectile, model.action.angle, model.action.offsetY);
-                    
-                    // Go back to idle state
-                    model.state = "idle";
-                    model.action = null;
-                }
-            }
-            
-            // If the monster is in an idle state, see if it can use any of its
-            // abilities
-            if (model.state === "idle") {
-                // Find the closest hero
-                var closestHero = this.getClosest(heroes);
-                
-                // Check to make sure there is a closestHero
-                if (closestHero !== null) {
-                    // Is hero within meele range?
-                    if (closestHero.distance === "meele") {
-                        // Find meele ability
-                        for (var i = 0; i < model.abilities.length; i++) {
-                            var ability = model.abilities[i];
-                            if (ability.type === "melee attack") {
-                                // Play attack animation
-                                view.animations.play(ability.animation);
-                                
-                                // Update monster state
-                                model.state = "melee attack";
-                                model.action = ability;
-                                model.target = closestHero.obj;
-                                
-                                break;
-                            }
-                        }
-                    } else {
-                        // Does the hero have any ranged abilities?
-                        for (var i = 0; i < model.abilities.length; i++) {
-                            var ability = model.abilities[i];
-                            if (ability.type === "range attack") {
-                                // Check if ability is ready for use
-                                if (ability.cooldown <= 0) {
-                                    // Play attack animation
-                                    view.animations.play(ability.animation);
-                                    
-                                    // Update monster state
-                                    model.state = "range attack";
-                                    model.action = ability;
-                                    model.target = closestHero.obj;
-                                    
-                                    // Reset cooldown
-                                    ability.cooldown = ability.cooldownLength;
-                                    
-                                    break;
-                                } else {
-                                    // Update cooldown
-                                    // TODO: use realtime instead of click
-                                    ability.cooldown--;
-                                }
-                            }
+            } else {
+                // Does the hero have any ranged abilities?
+                for (var i = 0; i < model.abilities.length; i++) {
+                    var ability = model.abilities[i];
+                    if (ability.type === "range_attack") {
+                        // Check if ability is ready for use
+                        if (ability.cooldown <= 0) {
+                            // Play attack animation
+                            view.animations.play(ability.animation);
+                            
+                            // Update monster state
+                            model.state = ability.type;
+                            model.action = ability;
+                            model.target = closestHero.obj;
+                            
+                            // Reset cooldown
+                            ability.cooldown = ability.cooldownLength;
+                            
+                            break;
+                        } else {
+                            // Update cooldown
+                            // TODO: use realtime instead of click
+                            ability.cooldown--;
                         }
                     }
                 }
             }
         }
-    };
+    }
     
     // Upgrades the monster
     // Returns true if the monster was upgraded, else returns false
@@ -219,15 +192,6 @@ function Monster(game, rank, posX) {
     
     // The rank of the model (i.e. "TT", "A", "CCC", etc.)
     model.rank = rank;
-    
-    // What the monster is currently doing (e.g. idle, attack)
-    model.state = "idle";
-    
-    // The current ability the monster is performing (either null or an object)
-    model.action = null;
-    
-    // The hero the monster is currently attacking
-    model.target = null;
     
     /**
      * Monster sprite/view

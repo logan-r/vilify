@@ -15,7 +15,7 @@ function Hero(game, type) {
         for (var i = 0; i < monsters.objs.length; i++) {
             var monster = monsters.objs[i];
             
-            if (monster.c.inMeeleRange(view)) {
+            if (monster.c.inMeleeRange(view)) {
                 collidesWithMonster = true;
                 break;
             }

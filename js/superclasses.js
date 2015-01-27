@@ -303,6 +303,15 @@ function FightingObject(game, type, pos) {
     // Save the intial velocity the object is traveling at for future reference
     model.initVelocity = model.velocity;
     
+    // What the FighingObject is currently doing (e.g. "idle", "attack")
+    model.state = "idle";
+    
+    // The current ability this FighingObject is performing (either null or an object)
+    model.action = null;
+    
+    // The FightingObject this object is currently attacking
+    model.target = null;
+    
     /**
      * FightingObject sprite/view
      */
@@ -327,6 +336,51 @@ function FightingObject(game, type, pos) {
      */
     var controller = _superclass.c;
     
+    // Calculate what action the FightingObject should take next
+    controller.calculateNewAction = function() {
+        // Overriden by subclasses
+    };
+    
+    // Update the FighingObject depending on its current state
+    controller.updateState = function() {
+        // Call the update function that corresponds to the FightingObject's state
+        controller["update_" + model.state]();
+    };
+    
+    controller.update_idle = function() {
+        // Make sure FightingObject is performing "idle" animation
+        if (!view.animations.getAnimation("idle").isPlaying) {
+            view.animations.play("idle");
+        }
+        
+        // Check to see if there is a non-idle action the FighingObject can take
+        this.calculateNewAction();
+    };
+    
+    controller.update_melee_attack = function() {
+        // Check if attack animation is completed
+        if (view.animations.getAnimation(model.action.animation).isFinished) {
+            // Deal damage to target
+            model.target.c.damage(1 * view.animations.getAnimation(model.action.animation).frameTotal);
+            
+            // Go back to idle state
+            model.state = "idle";
+            model.action = null;
+        }
+    };
+    
+    controller.update_range_attack = function() {
+        // Check if attack animation is completed
+        if (view.animations.getAnimation(model.action.animation).isFinished) {
+            // Launch projectile
+            this.fire(model.action.projectile, model.action.angle, model.action.offsetY);
+            
+            // Go back to idle state
+            model.state = "idle";
+            model.action = null;
+        }
+    };
+    
     // Apply an status (e.g. slime, curse) to the FightingObject
     // @param status - the type of status to apply
     // @param duration - TODO
@@ -350,8 +404,8 @@ function FightingObject(game, type, pos) {
     
     // Returns the FightingObject from a group of FightingObjects that
     // does not include this FightingObject that is closest to this 
-    // FightingObject and its distance from this object (either "meele"
-    // or a number if not in meele range) - returns null if none of the objects
+    // FightingObject and its distance from this object (either "melee"
+    // or a number if not in melee range) - returns null if none of the objects
     // from the group are in range
     // @param group - the group of FightingObject to find the closest of
     controller.getClosest = function(group) {
@@ -362,13 +416,13 @@ function FightingObject(game, type, pos) {
         for (var i = 0; i < group.objs.length; i++) {
             var fightingObj = group.objs[i];
             
-            if (controller.inMeeleRange(fightingObj.v)) {
+            if (controller.inMeleeRange(fightingObj.v)) {
                 // Found a FightingObject within meele range - this is the
                 // closest another FightingObject can get to this object so we
                 // don't need to continue looking through the group
                 return {
                     "obj": fightingObj,
-                    "distance": "meele"
+                    "distance": "melee"
                 };
             } else {
                 // Find how far away the FightingObject is
@@ -402,7 +456,7 @@ function FightingObject(game, type, pos) {
     
     // Checks if another FightingObject is close enough for this FightingObject
     // to be able to hit it with a meele attack
-    controller.inMeeleRange = function(enemyView) {
+    controller.inMeleeRange = function(enemyView) {
         // Calculate position data
         var enemyRight = enemyView.x + Math.abs(enemyView.width) / 2;
         var myLeft = view.x - Math.abs(model.width) / 2;
@@ -430,8 +484,8 @@ function FightingObject(game, type, pos) {
         var myTop = view.y - Math.abs(model.height);
         
         // Check if the enemy is in meele range
-        if (this.inMeeleRange(enemyView)) {
-            return "meele";
+        if (this.inMeleeRange(enemyView)) {
+            return "melee";
         }
         
         // Check to make sure enemy isn't to the right of this object

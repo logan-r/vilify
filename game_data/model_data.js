@@ -62,7 +62,7 @@ window.data.model_data = {
 		"reach": [20, 40],
 		"abilities": [
 			{
-				"type": "melee attack",
+				"type": "melee_attack",
 				"animation": "punch",
 				"damage": 1 // Damage per frame
 			}
@@ -74,12 +74,12 @@ window.data.model_data = {
 		"reach": [20, 40],
 		"abilities": [
 			{
-				"type": "melee attack",
+				"type": "melee_attack",
 				"animation": "attack",
 				"damage": 1 // Damage per frame
 			},
 			{
-				"type": "range attack",
+				"type": "range_attack",
 				"animation": "fire",
 				"projectile": "laser",
 				"angle": Math.PI / 2,
