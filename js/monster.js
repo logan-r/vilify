@@ -47,7 +47,7 @@ function Monster(game, rank, posX) {
             // abilities
             if (model.state === "idle") {
                 // Find the closest hero
-                var closestHero = this.getClosestHero();
+                var closestHero = this.getClosest(heroes);
                 
                 // Check to make sure there is a closestHero
                 if (closestHero !== null) {
@@ -63,7 +63,7 @@ function Monster(game, rank, posX) {
                                 // Update monster state
                                 model.state = "melee attack";
                                 model.action = ability;
-                                model.target = closestHero.hero;
+                                model.target = closestHero.obj;
                                 
                                 break;
                             }
@@ -81,7 +81,7 @@ function Monster(game, rank, posX) {
                                     // Update monster state
                                     model.state = "range attack";
                                     model.action = ability;
-                                    model.target = closestHero.hero;
+                                    model.target = closestHero.obj;
                                     
                                     // Reset cooldown
                                     ability.cooldown = ability.cooldownLength;
@@ -210,88 +210,6 @@ function Monster(game, rank, posX) {
         model.target = null;
         
         return true;
-    };
-    
-    // Returns the closest hero to the monster and its distance (either "meele"
-    // or a number if not in meele range) - returns null if no heroes (or if all
-    // heroes have moved past the monster)
-    controller.getClosestHero = function() {
-        var closestHero = null;
-        
-        // Interate through all heroes, checking their distance
-        for (var i = 0; i < heroes.objs.length; i++) {
-            var hero = heroes.objs[i];
-            
-            if (controller.inMeeleRange(hero.v)) {
-                // Found a hero within meele range - this is the closest a hero
-                // can get so we don't need to continue looking through the heroes
-                return {
-                    "hero": hero,
-                    "distance": "meele"
-                };
-            } else {
-                // Find how far away the hero is
-                var distance = this.distanceTo(hero.v);
-                
-                // Make sure the hero is to the left of the monster
-                if (distance !== null) {
-                    // If there is not yet a closestHero, this automatically qualifies
-                    if (closestHero === null) {
-                        closestHero = {
-                            "hero": hero,
-                            "distance": distance
-                        };
-                    } else {
-                        // Check if this hero is closer than the previous closestHero
-                        if (distance < closestHero.distance) {
-                            closestHero = {
-                                "hero": hero,
-                                "distance": distance
-                            };
-                        }
-                    }
-                }
-            }
-        }
-        
-        return closestHero;
-    };
-    
-    // Check if a hero is close enough to a monster for the monster to be
-    // able to hit it with a meele attack
-    controller.inMeeleRange = function(heroView) {
-        // Calculate position data
-        var heroRight = heroView.x + Math.abs(heroView.width) / 2;
-        var monsterLeft = view.x - Math.abs(model.width) / 2;
-        var monsterTop = view.y - Math.abs(model.height);
-        
-        // See if hero is in range
-        return (heroRight >= monsterLeft + model.reach[0] &&
-                heroRight <= monsterLeft + model.reach[1]);
-    };
-    
-    // Gets how far away a hero is from the monster (note: as soon as a hero pases
-    // out of the monster's meele range, the monster can no longer reach it, so this
-    // function returns null if the hero is to the right of the monster)
-    // @param hero - the hero to check how far away from the monster it is
-    controller.distanceTo = function(heroView) {
-        // Calculate position data
-        var heroRight = heroView.x + Math.abs(heroView.width) / 2;
-        var monsterLeft = view.x - Math.abs(model.width) / 2;
-        var monsterTop = view.y - Math.abs(model.height);
-        
-        // Check if the hero is in meele range
-        if (this.inMeeleRange(heroView)) {
-            return "meele";
-        }
-        
-        // Check to make sure hero isn't to the right of the monster
-        if (heroRight > monsterLeft + model.reach[1]) {
-            return null;
-        }
-        
-        // Otherwise return the distance from the monster to the hero
-        return monsterLeft + model.reach[0] - heroRight;
     };
     
     /**
