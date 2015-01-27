@@ -13,10 +13,19 @@ window.data.model_data = {
 		"velocity": 50,
 		"flying": false,
 		"health": 5,
+		"reach": [35, 55],
 		"abilities": [
 			{
-				"type": "projectile",
+				"type": "melee_attack",
+				"animation": "idle",
+				"damage": 1 // Damage per frame
+			},
+			{
+				"type": "range_attack",
+				"animation": "fire",
 				"projectile": "tank missile",
+				"angle": -Math.PI / 2,
+				"offsetY": 45,
 				"cooldownLength": 100,
 				"cooldown": 100
 			}
@@ -65,7 +74,7 @@ window.data.model_data = {
 		},
 	},
 	"invader": {
-		"health": 50,
+		"health": 1,
 		"flying": false,
 		"reach": [20, 40],
 		"abilities": [

@@ -170,6 +170,9 @@ function Monster(game, rank, posX) {
             }
         }
         
+        // Fix physics body size
+        view.body.setSize(Math.abs(view.width / view.scale.x), Math.abs(view.height / view.scale.y));
+        
         // Save initial height and width for latter
         model.width = view.width;
         model.height = view.height;

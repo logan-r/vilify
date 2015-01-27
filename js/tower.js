@@ -121,7 +121,7 @@ function Tower(game, rank, posX) {
     // type - the type of projectile to fire
     controller.fire = function(type) {
         var angle = this.getRotation();
-        projectiles.add(Projectile(game, type, {
+        projectiles.add(Projectile(game, type, heroes, {
             x: view.x - Math.abs(view.height) / 2 * Math.sin(angle), 
             y: view.y + Math.abs(view.height) / 2 * Math.cos(angle)
         }, angle));

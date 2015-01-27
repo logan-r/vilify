@@ -23,15 +23,16 @@ window.data.view_data = {
     "tank": {
         "image": "tank",
         "scale": {
-            "x": -0.38,
-            "y": 0.38
+            "x": -0.36,
+            "y": 0.36
         },
         "animations": {
-            "move": {
+            "idle": {
                 "frames": Phaser.Animation.generateFrameNames('move/' , 1 , 9, '.png')
             },
             "fire": {
-                "frames": Phaser.Animation.generateFrameNames('fire/' , 1 , 11, '.png')
+                "frames": Phaser.Animation.generateFrameNames('fire/' , 1 , 11, '.png'),
+                "loop": false
             }
         }
     },

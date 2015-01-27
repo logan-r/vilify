@@ -1,4 +1,5 @@
 // Projectile class
+// @param targets - the group of FightingObjects the projectile collides with
 // @param projectileType:
 //  - bullet (hits one heroes; does nothing if it hits the ground)
 //    * slime tower
@@ -13,7 +14,7 @@
 //  - TODO
 //    * curse tower
 //    * wormhole tower
-function Projectile(game, type, pos, angle) {
+function Projectile(game, type, targets, pos, angle) {
     // Inherits from AnimateObject
     var _superclass = AnimateObject(game, type, pos);
     
@@ -32,8 +33,8 @@ function Projectile(game, type, pos, angle) {
         
         this.collideGround();
         
-        // Check if projectile has collided with a hero
-        game.physics.arcade.overlap(view, heroes.getViewGroup(), null, this.handleCollideWithHero, this);
+        // Check if projectile has collided with a target
+        game.physics.arcade.overlap(view, model.targets.getViewGroup(), null, this.handleCollideWithTarget, this);
     };
     
     // Projectile has hit some sort of target, now it should detonate or whatever
@@ -52,15 +53,15 @@ function Projectile(game, type, pos, angle) {
             
             // If bomb apply AoE damage here
             if (model.projectileType == "bomb") {
-                // Called on every hero that the effect collides with
-                var handleHitHeroes = function(effectSprie, heroSprite) {
-                    hero = heroes.getParentOfView(heroSprite);
+                // Called on every target that the effect collides with
+                var handleHitTarget = function(effectSprie, targetSprite) {
+                    var target = targets.getParentOfView(targetSprite);
                     
-                    this.attackHero(hero);
+                    this.attackTarget(target);
                 };
                 
-                // Check to see which heroes were hit
-                game.physics.arcade.overlap(efct.v, heroes.getViewGroup(), null, handleHitHeroes, this);
+                // Check to see which targets were hit
+                game.physics.arcade.overlap(efct.v, targets.getViewGroup(), null, handleHitTarget, this);
             }
         } else {
             // Destroy projectile
@@ -123,14 +124,14 @@ function Projectile(game, type, pos, angle) {
         return Math.cos(view.rotation) * model.velocity;
     };
     
-    // Projectile has collided with a hero
-    controller.handleCollideWithHero = function(projectileView, heroView) {
-        var hero = heroes.getParentOfView(heroView);
+    // Projectile has collided with a target
+    controller.handleCollideWithTarget = function(projectileView, targetView) {
+        var target = targets.getParentOfView(targetView);
         
         switch (model.projectileType) {
             case "bomb":
                 // Animate explosion effect
-                this.implode({x: view.x, y: hero.v.y});
+                this.implode({x: view.x, y: target.v.y});
                 
                 break;
             
@@ -138,8 +139,8 @@ function Projectile(game, type, pos, angle) {
                 // Animate explosion effect
                 this.implode({x: view.x, y: view.y});
                 
-                // Attack the hero that was hit
-                this.attackHero(hero);
+                // Attack the target that was hit
+                this.attackTarget(target);
                 
                 break;
             
@@ -149,18 +150,17 @@ function Projectile(game, type, pos, angle) {
         }
     };
     
-    // Attack a hero that the projectile has hit
-    // @param hero - the hero that was hit
-    controller.attackHero = function(hero) {
-        // Apply effect to hero, if acceptable
+    // Attack a target that the projectile has hit
+    // @param target - the target that was hit
+    controller.attackTarget = function(target) {
+        // Apply effect to target, if acceptable
         if (model.hasOwnProperty("status")) {
-            hero.c.applyStatus(model.status);
+            target.c.applyStatus(model.status);
         }
         
         // Damage hero
-        hero.c.damage(model.damage);
+        target.c.damage(model.damage);
     };
-    
     
     /**
      * Projectile data/model
@@ -172,6 +172,9 @@ function Projectile(game, type, pos, angle) {
     
     // Intial angle of the projectile
     model.initialAngle = angle;
+    
+    // Save the projectile's targets
+    model.targets = targets;
     
     /**
      * Projectile sprite/view

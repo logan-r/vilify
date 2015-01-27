@@ -145,7 +145,7 @@
                 
                 // Create heroes group
                 heroes = ObjectGroup(game);
-                heroes.add(Hero(game, "ninja"));
+                heroes.add(Hero(game, "tank"));
                 
                 // Create effects group
                 effects = ObjectGroup(game);
@@ -199,8 +199,8 @@
             
             function render() {
                 // Debugging physic bodies
-                /*for (var i = 0; i < heroes.views.children.length; i++) {
-                    game.debug.body(heroes.views.children[i]);
+                /*for (var i = 0; i < monsters.views.children.length; i++) {
+                    game.debug.body(monsters.views.children[i]);
                 }
                 
                 for (var i = 0; i < projectiles.views.children.length; i++) {

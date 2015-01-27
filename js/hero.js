@@ -136,6 +136,9 @@ function Hero(game, type) {
     // Save the intial velocity the object is traveling at for future reference
     model.initVelocity = model.velocity;
     
+    // Projectiles fired by a hero should target monsters not other heroes
+    model.targets = monsters;
+    
     /**
      * Hero sprite/view
      */

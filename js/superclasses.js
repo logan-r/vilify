@@ -309,6 +309,9 @@ function FightingObject(game, type, pos) {
     // The FightingObject this object is currently attacking
     model.target = null;
     
+    // What group of FightingObjects should projectiles fired by this object
+    // target? (defaults to heroes)
+    model.targets = heroes;
     /**
      * FightingObject sprite/view
      */
@@ -526,7 +529,7 @@ function FightingObject(game, type, pos) {
     // @param type - the type of projectile to fire
     // @param angle - the angle at which to launch the projectile
     controller.fire = function(type, angle, offsetY) {
-        projectiles.add(Projectile(game, type, {
+        projectiles.add(Projectile(game, type, model.targets, {
             x: view.x, 
             y: view.y - Math.abs(view.height) + offsetY
         }, angle));
