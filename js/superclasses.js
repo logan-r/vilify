@@ -151,12 +151,10 @@ function GameObject(game, type, pos) {
                 if (model.viewInfo.animations[anim].hasOwnProperty("loop")) {
                     loop = model.viewInfo.animations[anim].loop;
                 }
-                
                 view.animations.add(anim, model.viewInfo.animations[anim].frames, FPS, loop);
             }
         }
     }
-    
     
     // Enable physics for all GameObjects
     game.physics.arcade.enable(view);

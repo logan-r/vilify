@@ -17,7 +17,7 @@ window.data.model_data = {
 		"abilities": [
 			{
 				"type": "melee_attack",
-				"animation": "idle",
+				"animation": "fire",
 				"damage": 1 // Damage per frame
 			},
 			{

@@ -103,7 +103,7 @@ function Projectile(game, type, targets, pos, angle) {
             view.body.angularAcceleration = 0;
             view.rotation = 0;
         }
-    }
+    };
     
     // Destroy this projectile and remove it from the game world
     controller.destroy = function() {
@@ -196,6 +196,15 @@ function Projectile(game, type, targets, pos, angle) {
     // and total velocity
     view.body.velocity.x = controller.getHorizontalVelocity();
     view.body.velocity.y = controller.getVerticalVelocity();
+    
+    /**
+     * Animation
+     */
+    
+    // If projectile has "idle" animation, play it
+    if (model.viewInfo.hasOwnProperty("animations")) {
+        view.animations.play("idle");
+    }
     
     /**
      * Generate object that is an instance of this class

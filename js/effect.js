@@ -35,10 +35,9 @@ function Effect(game, type, pos) {
      * Animation
      */
     
-    // If effect has a "move" animation sequence then play it
-    if (model.viewInfo.hasOwnProperty("animations") && model.viewInfo.animations.hasOwnProperty("move")) {
-        view.animations.add("move", model.viewInfo.animations.move, 20, false);
-        view.animations.play("move");
+    // If effect has a "idle" animation sequence then play it
+    if (model.viewInfo.hasOwnProperty("animations")) {
+        view.animations.play("idle");
     }
     
     /**

@@ -39,7 +39,7 @@
     
     <script type="text/javascript">
         // Globals - TODO: move elsewhere
-        window.FPS = 20;
+        window.FPS = 30;
         var FLOOR_HEIGHT = 50;
         var GROUND_LEVEL;
         
@@ -158,7 +158,7 @@
                     inventory.add(
                         Item(
                             game,
-                            [/*"biochem item", */"tech item", "alien item"][MathEx.randInt(0,1)],//[MathEx.randInt(0,2)],
+                            ["biochem item", "tech item", "alien item"][MathEx.randInt(0,1)],//[MathEx.randInt(0,2)],
                             {
                                 x: MathEx.randInt(0, game.width - 100),
                                 y: MathEx.randInt(0, game.height - 67/2)

@@ -284,7 +284,7 @@ window.data.view_data = {
     "slime": {
         "image": "slime",
         "animations": {
-            "move": Phaser.Animation.generateFrameNames(1 , 8)
+            "idle": Phaser.Animation.generateFrameNames(1 , 8)
         },
         "scale": {
             "x": 0.25,
@@ -296,7 +296,10 @@ window.data.view_data = {
     "explosion": {
         "image": "explosion",
         "animations": {
-            "move": Phaser.Animation.generateFrameNames(1 , 21)
+            "idle": {
+                "frames": Phaser.Animation.generateFrameNames(1 , 21),
+                "loop": false
+            }
         },
         "scale": {
             "x": 0.7,
@@ -310,7 +313,10 @@ window.data.view_data = {
     "fireball": {
         "image": "fireball",
         "animations": {
-            "move": Phaser.Animation.generateFrameNames(1 , 31)
+            "idle": {
+                "frames": Phaser.Animation.generateFrameNames(1 , 31),
+                "loop": false
+            }
         },
         "scale": {
             "x": 0.5,
@@ -324,14 +330,18 @@ window.data.view_data = {
     "splat": {
         "image": "splat",
         "animations": {
-            "move": Phaser.Animation.generateFrameNames(1 , 11)
+            "idle": {
+                "frames": Phaser.Animation.generateFrameNames(1 , 11),
+                "loop": false
+            }
         },
         "scale": {
             "x": 0.3,
             "y": 0.3
         },
         "offset": {
-            "y": 130
+            "y": 130,
+            "x": 0
         },
         "anchor": {
             "x": 0,
