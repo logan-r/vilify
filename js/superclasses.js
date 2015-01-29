@@ -418,7 +418,7 @@ function FightingObject(game, type, pos) {
         for (var i = 0; i < group.objs.length; i++) {
             var fightingObj = group.objs[i];
             
-            if (controller.inMeleeRange(fightingObj.v)) {
+            if (controller.inMeleeRange(fightingObj)) {
                 // Found a FightingObject within meele range - this is the
                 // closest another FightingObject can get to this object so we
                 // don't need to continue looking through the group
@@ -428,7 +428,7 @@ function FightingObject(game, type, pos) {
                 };
             } else {
                 // Find how far away the FightingObject is
-                var distance = this.distanceTo(fightingObj.v);
+                var distance = this.distanceTo(fightingObj);
                 
                 // Make sure the FightingObject is to the left of this object
                 if (distance !== null) {
@@ -456,11 +456,12 @@ function FightingObject(game, type, pos) {
         return closest;
     };
     
-    // Checks if another FightingObject is close enough for this FightingObject
+    // Checks if a hero is close enough for this FightingObject
     // to be able to hit it with a meele attack
-    controller.inMeleeRange = function(enemyView) {
+    // @param hero - the hero that this function checks whether or not is in range
+    controller.inMeleeRange = function(enemy) {
         // Calculate position data
-        var enemyRight = enemyView.x + Math.abs(enemyView.width) / 2;
+        var enemyRight = enemy.v.x + Math.abs(enemy.v.width) / 2 - enemy.m.reach;
         var myLeft = view.x - Math.abs(model.width) / 2;
         var myTop = view.y - Math.abs(model.height);
         
@@ -477,16 +478,16 @@ function FightingObject(game, type, pos) {
     // right of this FightingObject)
     // TODO: possibly edit calculation to account for the case of one of the
     // FightingObjects being flying?
-    // @param enemyView - the view of the enemy FightingObject whose distance
-    // from this FightingObject is trying to be found
-    controller.distanceTo = function(enemyView) {
+    // @param enemy - the enemy FightingObject whose distance from this 
+    // FightingObject is trying to be found
+    controller.distanceTo = function(enemy) {
         // Calculate position data
-        var enemyRight = enemyView.x + Math.abs(enemyView.width) / 2;
+        var enemyRight = enemy.v.x + Math.abs(enemy.v.width) / 2 - enemy.m.reach;
         var myLeft = view.x - Math.abs(model.width) / 2;
         var myTop = view.y - Math.abs(model.height);
         
         // Check if the enemy is in meele range
-        if (this.inMeleeRange(enemyView)) {
+        if (this.inMeleeRange(enemy)) {
             return "melee";
         }
         
@@ -496,7 +497,7 @@ function FightingObject(game, type, pos) {
         }
         
         // Otherwise return the distance from this object to the enemy
-        return enemyRight + model.reach[0] - myLeft;
+        return myLeft + model.reach[0] - enemyRight;
     };
 
     // Apply damage to this object and if need be kill this object

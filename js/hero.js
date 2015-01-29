@@ -77,20 +77,13 @@ function Hero(game, type) {
         }
     };
     
-    // Checks if a FightingObject is close enough for this hero to be able to
-    // hit it with a meele attack (this function overrides the
-    // FightingObject.inMeleeRange to check for FightingObjects to the right
-    // instead of the left)
-    controller.inMeleeRange = function(enemyView) {
-        // Calculate position data
-        var enemyLeft = enemyView.x - Math.abs(enemyView.width) / 2;
-        var myRight = view.x + Math.abs(model.width) / 2;
-        var myTop = view.y - Math.abs(model.height);
-        
-        // See if hero is in range
-        return (enemyLeft >= myRight - model.reach[1] &&
-                enemyLeft <= myRight - model.reach[0]);
-        // TODO: Check if enemy is flying
+    // Checks if a monster is close enough for this hero to be able to hit it
+    // with a meele attack (this function overrides the
+    // FightingObject.inMeleeRange to check for monsters to the right instead of
+    // the left)
+    controller.inMeleeRange = function(monster) {
+        // Check if hero is in the monster's melee range
+        return monster.c.inMeleeRange(_self);
     };
     
     // Gets how far away a FightingObject is from this hero
@@ -103,24 +96,9 @@ function Hero(game, type) {
     // check for the distance right instead of the left
     // @param enemyView - the view of the enemy FightingObject whose distance
     // from this hero is trying to be found
-    controller.distanceTo = function(enemyView) {
-        // Calculate position data
-        var enemyLeft = enemyView.x - Math.abs(enemyView.width) / 2;
-        var myRight = view.x + Math.abs(model.width) / 2;
-        var myTop = view.y - Math.abs(model.height);
-        
-        // Check if the enemy is in meele range
-        if (this.inMeleeRange(enemyView)) {
-            return "melee";
-        }
-        
-        // Check to make sure enemy isn't to the left of this object
-        if (enemyLeft < myRight - model.reach[1]) {
-            return null;
-        }
-        
-        // Otherwise return the distance from this object to the enemy
-        return myRight - model.reach[0] - enemyLeft;
+    controller.distanceTo = function(monster) {
+        // Check how far away the hero is is from the monster
+        return monster.c.distanceTo(_self);
     };
     
     // Destroy this hero and remove it from the game world
@@ -158,10 +136,10 @@ function Hero(game, type) {
     /**
      * Generate object that is an instance of this class
      */
-    return {
+    var _self = {
         m: model,
         v: view,
         c: controller,
         type: "Hero"
-    };
+    }; return _self;
 }

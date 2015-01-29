@@ -13,7 +13,7 @@ window.data.model_data = {
 		"velocity": 50,
 		"flying": false,
 		"health": 5,
-		"reach": [35, 55],
+		"reach": 35,
 		"abilities": [
 			{
 				"type": "melee_attack",
@@ -35,7 +35,7 @@ window.data.model_data = {
 		"velocity": 100,
 		"flying": false,
 		"health": 100,
-		"reach": [35, 55],
+		"reach": 35,
 		"abilities": [
 			{
 				"type": "melee_attack",
@@ -74,7 +74,7 @@ window.data.model_data = {
 		},
 	},
 	"invader": {
-		"health": 1,
+		"health": 400,
 		"flying": false,
 		"reach": [20, 40],
 		"abilities": [
