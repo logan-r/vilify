@@ -112,8 +112,6 @@ function Tower(game, rank, posX) {
             model.destination = angle + Math.PI / 2;
         } else if (angle > 0) {
             model.destination = angle - Math.PI / 2;
-        } else {
-            model.destination = angle;
         }
     };
     
