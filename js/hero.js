@@ -106,6 +106,12 @@ function Hero(game, type) {
         heroes.remove(heroes.getParentOfView(view));
     };
     
+    // Debug the hero's reach by drawing a rectangle on the screen
+    controller.debugReach = function() {
+        var reach = new Phaser.Rectangle(view.x + Math.abs(view.width) / 2 - model.reach, game.height - view.height, 1, view.height);
+        game.debug.geom(floor, '#0fffff');
+    };
+    
     /**
      * Hero data/model
      */

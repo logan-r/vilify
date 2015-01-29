@@ -76,7 +76,7 @@ window.data.model_data = {
 	"invader": {
 		"health": 400,
 		"flying": false,
-		"reach": [20, 40],
+		"reach": [20, 60],
 		"abilities": [
 			{
 				"type": "melee_attack",

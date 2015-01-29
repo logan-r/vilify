@@ -192,6 +192,15 @@ function Monster(game, rank, posX) {
         monsters.remove(monsters.getParentOfView(view));
     };
     
+    // Debug the hero's reach by drawing a rectangle on the screen
+    controller.debugReach = function() {
+        var reach = new Phaser.Rectangle(view.x - Math.abs(model.width) / 2 + model.reach[0],
+                                         game.height - view.height,
+                                         model.reach[1] - model.reach[0],
+                                         view.height);
+        game.debug.geom(floor, '#0fffff');
+    };
+    
     /**
      * Monster data/model
      */
