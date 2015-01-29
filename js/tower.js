@@ -249,6 +249,9 @@ function Tower(game, rank, posX) {
     // Is the turret currently being dragged?
     model.beingDragged = false;
     
+    // Speed at which the turret moves
+    model.velocity = window.data.constants.TOWER_ANGULAR_VELOCITY;
+    
     /**
      * Tower sprite/view
      * Unlike most objects, towers have two sprites instead of one in its

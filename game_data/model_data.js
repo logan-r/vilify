@@ -1,7 +1,5 @@
 window.data = window.data || {}; // Make sure window.data is defined
 
-var TOWER_ANGULAR_VELOCITY = 0.12;
-
 window.data.model_data = {
 	// Heroes
 	"soldier": {
@@ -112,7 +110,6 @@ window.data.model_data = {
 		"velocity": 0
 	},
 	"bullet tower": {
-		"velocity": TOWER_ANGULAR_VELOCITY,
 		"abilities": [
 			{
 				"type": "projectile",
@@ -123,7 +120,6 @@ window.data.model_data = {
 		]
 	},
 	"slime tower": {
-		"velocity": TOWER_ANGULAR_VELOCITY,
 		"abilities": [
 			{
 				"type": "projectile",
@@ -134,10 +130,8 @@ window.data.model_data = {
 		]
 	},
 	"energy tower": {
-		"velocity": TOWER_ANGULAR_VELOCITY
 	},
 	"missile tower": {
-		"velocity": TOWER_ANGULAR_VELOCITY,
 		"abilities": [
 			{
 				"type": "projectile",
@@ -148,19 +142,14 @@ window.data.model_data = {
 		]
 	},
 	"tornado tower": {
-		"velocity": TOWER_ANGULAR_VELOCITY
 	},
 	"curse tower": {
-		"velocity": TOWER_ANGULAR_VELOCITY
 	},
 	"tesla tower": {
-		"velocity": TOWER_ANGULAR_VELOCITY
 	},
 	"radiation tower": {
-		"velocity": TOWER_ANGULAR_VELOCITY
 	},
 	"wormhole tower": {
-		"velocity": TOWER_ANGULAR_VELOCITY
 	},
 	
 	// Projectiles
