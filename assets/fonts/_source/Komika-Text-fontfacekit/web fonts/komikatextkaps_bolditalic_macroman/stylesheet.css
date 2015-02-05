@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'komika_text_kapsbold_italic';
+    src: url('KOMTXKBI-webfont.eot');
+    src: url('KOMTXKBI-webfont.eot?#iefix') format('embedded-opentype'),
+         url('KOMTXKBI-webfont.woff') format('woff'),
+         url('KOMTXKBI-webfont.ttf') format('truetype'),
+         url('KOMTXKBI-webfont.svg#komika_text_kapsbold_italic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+

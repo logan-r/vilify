@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'komika_title_-_wideregular';
+    src: url('KomikaTitle-Wide-webfont.eot');
+    src: url('KomikaTitle-Wide-webfont.eot?#iefix') format('embedded-opentype'),
+         url('KomikaTitle-Wide-webfont.woff') format('woff'),
+         url('KomikaTitle-Wide-webfont.ttf') format('truetype'),
+         url('KomikaTitle-Wide-webfont.svg#komika_title_-_wideregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+

@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'komika_textitalic';
+    src: url('KOMTXTI_-webfont.eot');
+    src: url('KOMTXTI_-webfont.eot?#iefix') format('embedded-opentype'),
+         url('KOMTXTI_-webfont.woff') format('woff'),
+         url('KOMTXTI_-webfont.ttf') format('truetype'),
+         url('KOMTXTI_-webfont.svg#komika_textitalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+

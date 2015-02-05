@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'komika_title_-_paintregular';
+    src: url('KomikaTitle-Paint-webfont.eot');
+    src: url('KomikaTitle-Paint-webfont.eot?#iefix') format('embedded-opentype'),
+         url('KomikaTitle-Paint-webfont.woff') format('woff'),
+         url('KomikaTitle-Paint-webfont.ttf') format('truetype'),
+         url('KomikaTitle-Paint-webfont.svg#komika_title_-_paintregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+

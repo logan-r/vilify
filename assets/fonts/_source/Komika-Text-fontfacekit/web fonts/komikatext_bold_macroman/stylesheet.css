@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'komika_textbold';
+    src: url('KOMTXTB_-webfont.eot');
+    src: url('KOMTXTB_-webfont.eot?#iefix') format('embedded-opentype'),
+         url('KOMTXTB_-webfont.woff') format('woff'),
+         url('KOMTXTB_-webfont.ttf') format('truetype'),
+         url('KOMTXTB_-webfont.svg#komika_textbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
