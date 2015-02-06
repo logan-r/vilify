@@ -313,8 +313,10 @@ function Tower(game, rank, posX) {
     view.events.onInputUp.add(controller.handleInputUp, controller);
     
     // Add attack animation
-    view.animations.add("idle", "1", FPS, false);
-    view.animations.add("attack", Phaser.Animation.generateFrameNames(1, 15), FPS, false);
+    view.animations.add("idle", ["1.png"], FPS, false);
+    view.animations.add("attack", ["1.png","2.png","3.png","4.png","5.png","6.png","7.png","8.png","9.png","10.png","11.png","12.png","13.png","14.png","15.png"], FPS, false);
+    
+    view.animations.play("idle");    
     
     // Position and angle the turret
     controller.setRotation(-Math.PI / 2 + 1);
