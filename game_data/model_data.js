@@ -119,7 +119,9 @@ window.data.model_data = {
 				"cooldownLength": 100,
 				"cooldown": 100
 			}
-		]
+		],
+		"flavor": "The most generic tower there is.",
+		"description": "Average damage, average attack speed, average everything."
 	},
 	"slime tower": {
 		"abilities": [

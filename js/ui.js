@@ -2,6 +2,8 @@
 function UI(game) {
     // Globals
     var UI_VERTICAL_OFFSET = -42;
+    var TOWER_HEALTH_ICON = "clock";
+    var MONSTER_HEALTH_ICON = "heart-icon";
     
     // Font objects
     var titleFont = {
@@ -44,20 +46,28 @@ function UI(game) {
         // Change the active object
         activeObj = obj;
         
+        // Display the object's name
+        name.setText(obj.m.type);
+        
+        // Display the object's flavor text
+        flavor.setText("\""+obj.m.flavor+"\"");
+        
+        // Display the object's description text
+        description.setText(obj.m.description);
+        
         // See what type of object it is
         switch (obj.type) {
             case "Monster":
-                // Display the object's name
-                name.setText(obj.m.type);
-                
-                // Display the object's flavor text
-                flavor.setText("\""+obj.m.flavor+"\"");
-                
-                // Display the object's description text
-                description.setText(obj.m.description);
-                
                 // Display the object's health
+                healthIcon.loadTexture(MONSTER_HEALTH_ICON);
                 healthAmount.setText(obj.m.health + "/" + obj.m.maxHealth);
+                
+                break;
+            
+            case "Tower":
+                // Display how much time the tower has left
+                healthIcon.loadTexture(TOWER_HEALTH_ICON);
+                healthAmount.setText("0:26");;
                 
                 break;
         }
@@ -95,7 +105,7 @@ function UI(game) {
     name.y = name.y - name.height - 4;
     description.y = description.y + description.height + 4;
     
-    var healthIcon = game.add.sprite(game.width / 2 - 45, description.y + 60, "heart-icon");
+    var healthIcon = game.add.sprite(game.width / 2 - 45, description.y + 60, MONSTER_HEALTH_ICON);
     healthIcon.anchor.setTo(0.5, 0.5);
     
     // Object's stats
