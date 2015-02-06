@@ -36,6 +36,15 @@ function UI(game) {
                 healthAmount.setText(activeObj.m.health + "/" + activeObj.m.maxHealth);
                 
                 break;
+                
+            
+            case "Tower":
+                // Update the active object's time until experation
+                var secondsLeft = ("0" + Math.ceil(activeObj.m.time / 1000)
+                                  ).slice(-2); // Format so that number always has two digits
+                healthAmount.setText("0:" + secondsLeft);
+                
+                break;
         }
     };
     

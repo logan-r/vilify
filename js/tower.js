@@ -93,6 +93,20 @@ function Tower(game, rank, posX) {
                 model.action = null;
             }
         }
+        
+        if (model.rank != null) {
+            // Countdown on tower's lifespan
+            model.time -= game.time.elapsed;
+            
+            // Has tower's time expired?
+            if (model.time <= 0) {
+                // Downgrade back to a tower placeholder
+                this.downgrade();
+                
+                // Reset timer
+                model.time = 30000;
+            }
+        }
     };
     
     // Retrive the angle at which the turret is rotated
@@ -187,7 +201,23 @@ function Tower(game, rank, posX) {
         }
         
         /* Step 2. Reload data based on new rank */
+        this.reloadProperties();
         
+        return true;
+    };
+    
+    // Downgrades the tower to a broken tower
+    controller.downgrade = function() {
+        // Set the towers rank to null
+        model.rank = null;
+        
+        // Reload the tower's properties
+        this.reloadProperties();
+    };
+    
+    // Reload the towers properties based upon it rank
+    // Must be called after changing the tower's rank
+    controller.reloadProperties = function() {
         // Update the tower's type based upon its rank
         model.type = window.data.upgrade_data.towers[model.rank];
         
@@ -247,8 +277,6 @@ function Tower(game, rank, posX) {
         if (model.viewInfo.hasOwnProperty("tint")) {
             view.base.tint = model.viewInfo.tint;
         }
-        
-        return true;
     };
     
     /**
@@ -261,6 +289,9 @@ function Tower(game, rank, posX) {
     
     // The tower's state (i.e. idle or firing)
     model.state = "idle";
+    
+    // How much time the tower has left before it wears out (30000 mSec i.e. 30 sec)
+    model.time = 30000;
     
     // The current ability/attack/action the tower is performing (null if idle)
     model.action = null;
