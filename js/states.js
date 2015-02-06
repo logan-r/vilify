@@ -126,6 +126,22 @@ window.states.boot = {
   	create: function() {
         // Set the background color to white
         game.stage.backgroundColor = 0xffffff;
+		
+		// Check if a mobile device is being used
+		if (game.device.desktop === false)
+        {
+            // Handle game scaling for the mobile device
+            game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+            game.scale.pageAlignHorizontally = true;
+            game.scale.pageAlignVertically = true;
+            
+            // Attempt to force landscape screen orientation
+            game.scale.forceOrientation(true, false);
+            
+            // TODO: setup event handlers for screen orientation changes
+            //game.scale.enterIncorrectOrientation.add(this.enterIncorrectOrientation, this);
+            //game.scale.leaveIncorrectOrientation.add(this.leaveIncorrectOrientation, this);
+        }
         
         // Start loading game assets
 		game.state.start("preload");
