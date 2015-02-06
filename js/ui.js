@@ -50,6 +50,12 @@ function UI(game) {
                 // Display the object's name
                 name.setText(obj.m.type);
                 
+                // Display the object's flavor text
+                flavor.setText("\""+obj.m.flavor+"\"");
+                
+                // Display the object's description text
+                description.setText(obj.m.description);
+                
                 // Display the object's health
                 healthAmount.setText(obj.m.health + "/" + obj.m.maxHealth);
                 
@@ -74,15 +80,15 @@ function UI(game) {
     researchAmount.anchor.setTo(1, 0);
     
     // Object's name
-    var name = game.add.text(game.width / 2, game.height / 2 + UI_VERTICAL_OFFSET, "Death Knight", titleFont);
+    var name = game.add.text(game.width / 2, game.height / 2 + UI_VERTICAL_OFFSET, "", titleFont);
     name.anchor.setTo(0.5, 0.5);
     
     // Object's flavor
-    var flavor = game.add.text(game.width / 2, game.height / 2 + UI_VERTICAL_OFFSET, "\"Now you see it, now you - oh, wait - now you see it again.\"", textFont);
+    var flavor = game.add.text(game.width / 2, game.height / 2 + UI_VERTICAL_OFFSET, "", textFont);
     flavor.anchor.setTo(0.5, 0.5);
     
     // Object's description
-    var description = game.add.text(game.width / 2, game.height / 2 + UI_VERTICAL_OFFSET, "Teleports enemies backwards.", textFont);
+    var description = game.add.text(game.width / 2, game.height / 2 + UI_VERTICAL_OFFSET, "", textFont);
     description.anchor.setTo(0.5, 0.5);
     
     // Vertically align text

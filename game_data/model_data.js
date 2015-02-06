@@ -81,7 +81,9 @@ window.data.model_data = {
 				"animation": "punch",
 				"damage": 1 // Damage per frame
 			}
-		]
+		],
+		"flavor": "A soldier from a alien empire sent to earth to take all our applesauce.",
+		"description": "Level 1. Doesn't deal a massive amount of damage."
 	},
 	"exterminator": {
 		"health": 1,
