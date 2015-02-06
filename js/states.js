@@ -201,6 +201,9 @@ window.states.preload = {
         // Load icons
         game.load.image('clock', '/images/clock.png');
         game.load.image('werewolf-icon', '/images/werewolf.png');
+        game.load.image('heart-icon', '/images/heart.png');
+        game.load.image('research icon', '/images/research.png');
+        game.load.image('ice cream', '/images/icecream.png');
 	},
   	create: function() {
         // Start the game

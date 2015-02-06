@@ -1,7 +1,7 @@
 // UI (the stats display for tower, monsters, and possibly heroes)
 function UI(game) {
     // Globals
-    var UI_VERTICAL_OFFSET = -28;
+    var UI_VERTICAL_OFFSET = -42;
     
     // Font objects
     var titleFont = {
@@ -17,6 +17,20 @@ function UI(game) {
         "font": "14px Komika Text",
         align: "center" 
     };
+    
+    // Display amount of ice cream player has earned
+    var icecreamIcon = game.add.sprite(game.width - 10, 10, "ice cream");
+    icecreamIcon.anchor.setTo(1, 0);
+    icecreamIcon.angle = 15;
+    var icecreamAmount = game.add.text(game.width - 10 - 32, 10, "38", titleFont);
+    icecreamAmount.anchor.setTo(1, 0);
+    
+    // Display how much research the player has
+    var icecreamIcon = game.add.sprite(game.width - 10, 65, "research icon");
+    icecreamIcon.anchor.setTo(1, 0);
+    icecreamIcon.angle = -15;
+    var icecreamAmount = game.add.text(game.width - 10 - 32, 65 + 5, "3", titleFont);
+    icecreamAmount.anchor.setTo(1, 0);
     
     // Object's name
     var name = game.add.text(game.width / 2, game.height / 2 + UI_VERTICAL_OFFSET, "Death Knight", titleFont);
@@ -34,11 +48,11 @@ function UI(game) {
     name.y = name.y - name.height - 4;
     description.y = description.y + description.height + 4;
     
-    var clock = game.add.sprite(game.width / 2 - 45, description.y + 60, "clock");
+    var clock = game.add.sprite(game.width / 2 - 45, description.y + 60, "heart-icon");
     clock.anchor.setTo(0.5, 0.5);
     
     // Object's stats
-    var timeStat = game.add.text(game.width / 2 - 45, clock.y + 42, "0:23", textFontSmall);
+    var timeStat = game.add.text(game.width / 2 - 45, clock.y + 42, "14/20", textFontSmall);
     timeStat.anchor.setTo(0.5, 0.5);
     
     var clock = game.add.sprite(game.width / 2 + 45, description.y + 60, "werewolf-icon");
