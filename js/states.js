@@ -54,6 +54,8 @@ window.states.game = {
         
         // Create monsters group
         monsters = ObjectGroup(game);
+        spawners.get(2).c.spawn("A");
+        ui.updateActiveObject(monsters.get(0))
         
         // Create heroes group
         heroes = ObjectGroup(game);
@@ -88,6 +90,7 @@ window.states.game = {
         heroes.update();
         inventory.update();
         effects.update();
+        ui.update();
         
         // Handle mouse/touch input
         if (game.input.activePointer.isDown) {
