@@ -6,6 +6,7 @@ window.states.game = {
         // Create game object groups
         window.floor = null;
         window.spawners = null;
+        window.ui = null;
         window.projectiles = null;
         window.towers = null;
         window.monsters = null;
@@ -39,6 +40,9 @@ window.states.game = {
             spawners.add(Spawner(game, game.width / 3 * (i+1)));
         }
         
+        // Create UI
+        ui = UI(game);
+        
         // Create projecitle group
         projectiles = ObjectGroup(game);
         
@@ -62,18 +66,18 @@ window.states.game = {
         inventory = InventoryGroup(game);
         
         // Spawn some items to fill the inventory
-        for (var i = 0; i < MathEx.randInt(5,7); i++) {
+        /*for (var i = 0; i < MathEx.randInt(5,7); i++) {
             inventory.add(
                 Item(
                     game,
-                    [/*"biochem item", */"tech item", "alien item"][MathEx.randInt(0,1)],//[MathEx.randInt(0,2)],
+                    ["biochem item","tech item", "alien item"][MathEx.randInt(0,1)],//[MathEx.randInt(0,2)],
                     {
                         x: MathEx.randInt(0, game.width - 100),
                         y: MathEx.randInt(0, game.height - 67/2)
                     }
                 )
             );
-        }
+        }*/
 	},
 	
 	update: function() {
@@ -193,6 +197,9 @@ window.states.preload = {
         
         // Load interactive elements images/sprites
         game.load.image('spawner', '/images/spawner/spawner.png');
+        
+        // Load icons
+        game.load.image('clock', '/images/clock.png');
 	},
   	create: function() {
         // Start the game
