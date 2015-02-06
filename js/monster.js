@@ -53,7 +53,7 @@ function Monster(game, rank, posX) {
                             // Play attack animation
                             view.animations.play(ability.animation);
                             
-                            // Update monster state
+                            // Update monster's state
                             model.state = ability.type;
                             model.action = ability;
                             model.target = closestHero.obj;

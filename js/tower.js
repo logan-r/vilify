@@ -13,7 +13,6 @@ function Tower(game, rank, posX) {
     var PADDING_TOP = -8 + 75/2;//-8; // How far from the top of the page the tower is located
     var TURRET_SPACING = 20; // How close the turret is to the base - higher = closer
     
-    
     // TODO: intergrate with model
     var count = 0;
     
@@ -51,27 +50,47 @@ function Tower(game, rank, posX) {
             this.setRotation(this.getRotation() + deltaAngle);
         }
         
-        if (model.hasOwnProperty("abilities")) {
-            // Interate through each of the tower's abilities and check their cooldowns
-            // to see if any of them are ready for use
-            for (var i = 0; i < model.abilities.length; i++) {
-                var ability = model.abilities[i];
-                
-                // Check if ability is ready for use
-                if (ability.cooldown <= 0) {
-                    // Use ability
-                    if (ability.type == "projectile") {
-                        // Fire projectile
-                        this.fire(ability.projectile);
-                    }
+        // If tower is in "idle" state, check if there is an action it can perform
+        if (model.state === "idle") {
+            if (model.hasOwnProperty("abilities")) {
+                // Interate through each of the tower's abilities and check their cooldowns
+                // to see if any of them are ready for use
+                for (var i = 0; i < model.abilities.length; i++) {
+                    var ability = model.abilities[i];
                     
-                    // Reset cooldown
-                    ability.cooldown = ability.cooldownLength;
-                } else {
-                    // Update cooldown
-                    // TODO: use realtime instead of click
-                    ability.cooldown--;
+                    // Check if ability is ready for use
+                    if (ability.cooldown <= 0) {
+                        // Use ability
+                        if (ability.type == "projectile") {
+                            // Play attack animation
+                            view.animations.play("attack");
+                            
+                            // Update tower's state
+                            model.state = "attack";
+                            model.action = ability;
+                            
+                            // Reset cooldown
+                            ability.cooldown = ability.cooldownLength;
+                        }
+                        
+                        // Reset cooldown
+                        ability.cooldown = ability.cooldownLength;
+                    } else {
+                        // Update cooldown
+                        // TODO: use realtime instead of click
+                        ability.cooldown--;
+                    }
                 }
+            }
+        } else if (model.state === "attack") {
+            // Check if tower is done firing a projectile
+            if (view.animations.getAnimation("attack").isFinished) {
+                // Launch projectile
+                this.fire(model.action.projectile);
+                
+                // Go back to idle state
+                model.state = "idle";
+                model.action = null;
             }
         }
     };
@@ -240,6 +259,12 @@ function Tower(game, rank, posX) {
     // The rank of the tower (i.e. "TT", "A", "CCC", etc.)
     model.rank = rank;
     
+    // The tower's state (i.e. idle or firing)
+    model.state = "idle";
+    
+    // The current ability/attack/action the tower is performing (null if idle)
+    model.action = null;
+    
     // The x position of the tower
     model.x = posX;
     
@@ -286,6 +311,10 @@ function Tower(game, rank, posX) {
     // Setup turret dragging event handling
     view.events.onInputDown.add(controller.handleInputDown, controller);
     view.events.onInputUp.add(controller.handleInputUp, controller);
+    
+    // Add attack animation
+    view.animations.add("idle", "1", FPS, false);
+    view.animations.add("attack", Phaser.Animation.generateFrameNames(1, 15), FPS, false);
     
     // Position and angle the turret
     controller.setRotation(-Math.PI / 2 + 1);
