@@ -92,19 +92,36 @@ function Tower(game, rank, posX) {
                 model.state = "idle";
                 model.action = null;
             }
+        } else if (model.state === "destructing") {
+            // Check if tower is done playing destruction animation
+            if (view.base.animations.getAnimation("destroy").isFinished) {
+                // Downgrade the tower back to a tower placeholder
+                this.downgrade();
+            }
         }
         
-        if (model.rank != null) {
+        if (model.rank != null && model.state != "destructing") {
             // Countdown on tower's lifespan
             model.time -= game.time.elapsed;
             
+            // Set the tower's bases frame to show the wearing down occuring
+            /*var frame = Math.floor(10 - (model.time / model.maxTime * 9));
+            frame = Math.max(Math.min(frame, 9), 1); // Keep frame between 1 and 11
+            frame = frame.toString() + ".png";
+            view.base.frameName = frame;
+            console.log(frame)*/
+            
             // Has tower's time expired?
             if (model.time <= 0) {
-                // Downgrade back to a tower placeholder
-                this.downgrade();
+                // Tell the tower to self-destruct
+                model.state = "destructing";
+                model.action = null;
+                
+                // Play destruction animation
+                view.base.animations.play("destroy");
                 
                 // Reset timer
-                model.time = 30000;
+                model.time = model.maxTime;
             }
         }
     };
@@ -291,7 +308,7 @@ function Tower(game, rank, posX) {
     model.state = "idle";
     
     // How much time the tower has left before it wears out (30000 mSec i.e. 30 sec)
-    model.time = 30000;
+    model.time = model.maxTime = 30000;
     
     // The current ability/attack/action the tower is performing (null if idle)
     model.action = null;
@@ -346,6 +363,9 @@ function Tower(game, rank, posX) {
     // Add attack animation
     view.animations.add("idle", ["1.png"], FPS, false);
     view.animations.add("attack", ["1.png","2.png","3.png","4.png","5.png","6.png","7.png","8.png","9.png","10.png","11.png","12.png","13.png","14.png","15.png"], FPS, false);
+    
+    // Add destruction animation
+    view.base.animations.add("destroy", ["1.png", "2.png", "3.png", "4.png", "5.png", "6.png", "7.png", "8.png", "9.png"], FPS, false)
     
     view.animations.play("idle");    
     
