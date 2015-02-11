@@ -34,6 +34,11 @@ function Spawner(game, posX) {
         }
     };
     
+    // Handle the spawner being tapped/clicked
+    controller.handleInputDown = function(view, pointer) {
+        ui.setActiveObject(_self);
+    };
+    
     /**
      * Spawner data/model
      */
@@ -50,6 +55,10 @@ function Spawner(game, posX) {
     
     // Init spawner highlight (null for none currently)
     view.highlight = null;
+    
+    // Setup event handling
+    view.inputEnabled = true;
+    view.events.onInputDown.add(controller.handleInputDown, controller);
     
     /**
      * Generate object that is an instance of this class

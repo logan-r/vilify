@@ -201,6 +201,11 @@ function Monster(game, rank, posX, spawner) {
         game.debug.geom(floor, '#0fffff');
     };
     
+    // Handle the monster being tapped/clicked
+    controller.handleInputDown = function(view, pointer) {
+        ui.setActiveObject(model.spawner);
+    };
+    
     /**
      * Monster data/model
      */
@@ -219,6 +224,10 @@ function Monster(game, rank, posX, spawner) {
     
     // Monsters don't move
     view.body.velocity.x = 0;
+    
+    // Setup event handling
+    view.inputEnabled = true;
+    view.events.onInputDown.add(controller.handleInputDown, controller);
     
     /**
      * Init sprite

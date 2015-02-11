@@ -56,12 +56,12 @@ window.states.game = {
             towers.add(Tower(game, null, 110+210*i));
         }
         towers.get(2).c.upgrade("T");
-        //ui.updateActiveObject(towers.get(1));
+        ui.setActiveObject(towers.get(2));
         
         // Create monsters group
         monsters = ObjectGroup(game);
         spawners.get(2).c.spawn("A");
-        ui.updateActiveObject(spawners.get(1));
+        //ui.setActiveObject(spawners.get(2));
         
         // Create heroes group
         heroes = ObjectGroup(game);
@@ -167,7 +167,7 @@ window.states.preload = {
   	    // Add loading bar
   	    var loadingBar = game.add.sprite(game.width / 2, game.height / 2, "loading");
         loadingBar.anchor.setTo(0.5, 0.5);
-        game.load.setPreloadSprite(loadingBar)
+        game.load.setPreloadSprite(loadingBar);
   	    
   	    // Load item images
         game.load.image('alien item', '/images/items/alien.png');

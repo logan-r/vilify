@@ -109,7 +109,7 @@ window.data.model_data = {
 	
     // Monster spawner
     "spawner": {
-		"flavor": "Need's flavor text.",
+		"flavor": "Needs flavor text.",
 		"description": "You can spawn a monster here."
     },
 	

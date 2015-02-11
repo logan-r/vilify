@@ -53,7 +53,15 @@ function UI(game) {
     // Change the active object (i.e. the object that the player wants to view
     // more info on)
     // @param obj - the new object to view (null for no object)
-    controller.updateActiveObject = function(obj) {
+    controller.setActiveObject = function(obj) {
+        if (activeObj) {
+            // Unhighlight previous active object
+            activeObj.c.unhighlight();
+        }
+        
+        // Highlight the new active object
+        obj.c.highlight();
+        
         // Change the active object
         activeObj = obj;
         

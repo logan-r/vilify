@@ -176,6 +176,12 @@ function Tower(game, rank, posX) {
         model.beingDragged = false;
     };
     
+    controller.handleBaseInputDown = function(view, pointer) {
+        if (!model.beingDragged) {
+            ui.setActiveObject(_self);
+        }
+    };
+    
     // Highlight the spawner to show that it is selected
     controller.highlight = function() {
         view.highlight = game.add.graphics(0, 0);
@@ -371,6 +377,10 @@ function Tower(game, rank, posX) {
     view.events.onInputDown.add(controller.handleInputDown, controller);
     view.events.onInputUp.add(controller.handleInputUp, controller);
     
+    // Set up base selected handling
+    view.base.inputEnabled = true;
+    view.base.events.onInputDown.add(controller.handleBaseInputDown, controller);
+    
     // Add attack animation
     view.animations.add("idle", ["1.png"], FPS, false);
     view.animations.add("attack", ["1.png","2.png","3.png","4.png","5.png","6.png","7.png","8.png","9.png","10.png","11.png","12.png","13.png","14.png","15.png"], FPS, false);
@@ -386,10 +396,10 @@ function Tower(game, rank, posX) {
     /**
      * Generate object that is an instance of this class
      */
-    return {
+    var _self = {
         m: model,
         v: view,
         c: controller,
         type: "Tower"
-    };
+    }; return _self;
 }
