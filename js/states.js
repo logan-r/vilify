@@ -52,12 +52,12 @@ window.states.game = {
             towers.add(Tower(game, null, 110+210*i));
         }
         towers.get(2).c.upgrade("T");
-        ui.updateActiveObject(towers.get(1))
+        ui.updateActiveObject(towers.get(1));
         
         // Create monsters group
         monsters = ObjectGroup(game);
         spawners.get(2).c.spawn("A");
-        //ui.updateActiveObject(monsters.get(0))
+        //ui.updateActiveObject(monsters.get(0));
         
         // Create heroes group
         heroes = ObjectGroup(game);

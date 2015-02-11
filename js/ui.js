@@ -27,24 +27,29 @@ function UI(game) {
     
     // Update the UI - should be called each tick
     controller.update = function() {
-        // 1. Display updated stats for the active object
-        
-        // See what type of object the active object is
-        switch (activeObj.type) {
-            case "Monster":
-                // Update the active object's health
-                //healthAmount.setText(activeObj.m.health + "/" + activeObj.m.maxHealth);
-                
-                break;
-                
+        if (activeObj) {
+            // 1. Display updated stats for the active object
             
-            case "Tower":
-                // Update the active object's time until experation
-                var secondsLeft = ("0" + Math.ceil(activeObj.m.time / 1000)
-                                  ).slice(-2); // Format so that number always has two digits
-                //healthAmount.setText("0:" + secondsLeft);
+            // See what type of object the active object is
+            switch (activeObj.type) {
+                case "Monster":
+                    // Update the active object's health
+                    statsViews[1].setText(activeObj.m.health + "/" + activeObj.m.maxHealth);
+                    
+                    break;
+                    
                 
-                break;
+                case "Tower":
+                    // Is tower not a null tower?
+                    if (activeObj.m.rank != null) {
+                        // Update the active object's time until experation
+                        var secondsLeft = ("0" + Math.ceil(activeObj.m.time / 1000)
+                                          ).slice(-2); // Format so that number always has two digits
+                        statsViews[1].setText("0:" + secondsLeft);
+                    }
+                    
+                    break;
+            }
         }
     };
     
@@ -67,26 +72,73 @@ function UI(game) {
         // See what type of object it is
         switch (obj.type) {
             case "Monster":
-                // Display the object's health
-                //healthIcon.loadTexture(MONSTER_HEALTH_ICON);
-                //healthAmount.setText(obj.m.health + "/" + obj.m.maxHealth);
+                // Initilize the monster's stats
+                stats = [
+                    {
+                        "icon": "heart-icon",
+                        "text": obj.m.health + "/" + obj.m.maxHealth,
+                        "font": textFontSmall,
+                        "offsetY": 42
+                    },
+                    {
+                        "icon": "werewolf-icon",
+                        "text": "upgrade to\nWerewolf",
+                        "font": textFontReallySmall,
+                        "offsetY": 46
+                    }
+                ];
                 
                 break;
             
             case "Tower":
-                // Display how much time the tower has left
-                //healthIcon.loadTexture(TOWER_HEALTH_ICON);
-                //healthAmount.setText("0:26");;
+                // Is tower a destroyed tower?
+                if (obj.m.rank == null) {
+                    // Initilize the destroyed tower's stats
+                    stats = [
+                        {
+                            "icon": "werewolf-icon",
+                            "text": "upgrade to\nWormhole Tower",
+                            "font": textFontReallySmall,
+                            "offsetY": 46
+                        }
+                    ];
+                } else {
+                    // Find out how much time the tower has left
+                    var secondsLeft = "0:" + ("0" + Math.ceil(obj.m.time / 1000)
+                                      ).slice(-2); // Format so that number always has two digits
+                    
+                    // Initilize the tower's stats
+                    stats = [
+                        {
+                            "icon": "clock",
+                            "text": secondsLeft,
+                            "font": textFontSmall,
+                            "offsetY": 42
+                        },
+                        {
+                            "icon": "werewolf-icon",
+                            "text": "upgrade to\nWormhole Tower",
+                            "font": textFontReallySmall,
+                            "offsetY": 46
+                        }
+                    ];
+                }
                 
                 break;
         }
+        
+        // Render object's stats
+        this.renderStats();
     };
     
     // Renders the object specified in the value "stats" into UI buttons and
     // statistics
     controller.renderStats = function() {
         // Remove all previous stats
-        statsView.removeChildren();
+        for (var i = 0; i < statsViews.length; i++) {
+            statsViews[i].destroy();
+        }
+        statsViews = [];
         
         // Interate through each stat creating an icon and text for each
         for (var i = 0; i < stats.length; i++) {
@@ -99,10 +151,12 @@ function UI(game) {
             // Create an icon for that state
             var statIcon = game.add.sprite(game.width / 2 + offsetX, description.y + 60, stat.icon);
             statIcon.anchor.setTo(0.5, 0.5);
+            statsViews.push(statIcon);
             
             // Create text for that icon
             var statText = game.add.text(game.width / 2 + offsetX, statIcon.y + stat.offsetY, stat.text, stat.font);
             statText.anchor.setTo(0.5);
+            statsViews.push(statText);
         }
     };
     
@@ -138,47 +192,9 @@ function UI(game) {
     name.y = name.y - name.height - 4;
     description.y = description.y + description.height + 4;
     
-    /*var healthIcon = game.add.sprite(game.width / 2 - 45, description.y + 60, MONSTER_HEALTH_ICON);
-    healthIcon.anchor.setTo(0.5, 0.5);
-    
-    // Object's stats
-    var healthAmount = game.add.text(game.width / 2 - 45, healthIcon.y + 42, "14/20", textFontSmall);
-    healthAmount.anchor.setTo(0.5, 0.5);*/
-    
-    var stats = [
-        {
-            "icon": "heart-icon",
-            "text": "0:30",
-            "font": textFontSmall,
-            "offsetY": 42
-        },
-        {
-            "icon": "werewolf-icon",
-            "text": "upgrade to\nWerewolf",
-            "font": textFontReallySmall,
-            "offsetY": 46
-        },
-        {
-            "icon": "werewolf-icon",
-            "text": "upgrade to\nZombie",
-            "font": textFontReallySmall,
-            "offsetY": 46
-        }
-    ];
-    
-    var statsView = game.add.group();
-    
-    /*var clock = game.add.sprite(game.width / 2 + 45, description.y + 60, "werewolf-icon");
-    clock.anchor.setTo(0.5, 0.5);*/
-    
-    // Divider
-    /*var div = game.add.graphics(0, 0);
-    div.beginFill(0x000000, 1);
-    div.drawRect(game.width / 2 - 1, ((clock.y + 46) + (description.y + 60)) / 2 - 40, 1, 80);*/
-    
-    // Object's stats
-    /*var timeStat = game.add.text(game.width / 2 + 45, clock.y + 46, "upgrade to\nWerewolf", textFontReallySmall);
-    timeStat.anchor.setTo(0.5);*/
+    // Stats
+    var stats = [];
+    var statsViews = [];
     
     controller.renderStats();
     
