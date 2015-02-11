@@ -33,7 +33,7 @@ function UI(game) {
         switch (activeObj.type) {
             case "Monster":
                 // Update the active object's health
-                healthAmount.setText(activeObj.m.health + "/" + activeObj.m.maxHealth);
+                //healthAmount.setText(activeObj.m.health + "/" + activeObj.m.maxHealth);
                 
                 break;
                 
@@ -42,7 +42,7 @@ function UI(game) {
                 // Update the active object's time until experation
                 var secondsLeft = ("0" + Math.ceil(activeObj.m.time / 1000)
                                   ).slice(-2); // Format so that number always has two digits
-                healthAmount.setText("0:" + secondsLeft);
+                //healthAmount.setText("0:" + secondsLeft);
                 
                 break;
         }
@@ -68,17 +68,41 @@ function UI(game) {
         switch (obj.type) {
             case "Monster":
                 // Display the object's health
-                healthIcon.loadTexture(MONSTER_HEALTH_ICON);
-                healthAmount.setText(obj.m.health + "/" + obj.m.maxHealth);
+                //healthIcon.loadTexture(MONSTER_HEALTH_ICON);
+                //healthAmount.setText(obj.m.health + "/" + obj.m.maxHealth);
                 
                 break;
             
             case "Tower":
                 // Display how much time the tower has left
-                healthIcon.loadTexture(TOWER_HEALTH_ICON);
-                healthAmount.setText("0:26");;
+                //healthIcon.loadTexture(TOWER_HEALTH_ICON);
+                //healthAmount.setText("0:26");;
                 
                 break;
+        }
+    };
+    
+    // Renders the object specified in the value "stats" into UI buttons and
+    // statistics
+    controller.renderStats = function() {
+        // Remove all previous stats
+        statsView.removeChildren();
+        
+        // Interate through each stat creating an icon and text for each
+        for (var i = 0; i < stats.length; i++) {
+            // Get the specific stat for this iteration
+            var stat = stats[i];
+            
+            // Get the x offset from the screen's center for this stat
+            var offsetX = (stats.length - 1) / 2 * -90 + 90 * i;
+            
+            // Create an icon for that state
+            var statIcon = game.add.sprite(game.width / 2 + offsetX, description.y + 60, stat.icon);
+            statIcon.anchor.setTo(0.5, 0.5);
+            
+            // Create text for that icon
+            var statText = game.add.text(game.width / 2 + offsetX, statIcon.y + stat.offsetY, stat.text, stat.font);
+            statText.anchor.setTo(0.5);
         }
     };
     
@@ -114,15 +138,38 @@ function UI(game) {
     name.y = name.y - name.height - 4;
     description.y = description.y + description.height + 4;
     
-    var healthIcon = game.add.sprite(game.width / 2 - 45, description.y + 60, MONSTER_HEALTH_ICON);
+    /*var healthIcon = game.add.sprite(game.width / 2 - 45, description.y + 60, MONSTER_HEALTH_ICON);
     healthIcon.anchor.setTo(0.5, 0.5);
     
     // Object's stats
     var healthAmount = game.add.text(game.width / 2 - 45, healthIcon.y + 42, "14/20", textFontSmall);
-    healthAmount.anchor.setTo(0.5, 0.5);
+    healthAmount.anchor.setTo(0.5, 0.5);*/
     
-    var clock = game.add.sprite(game.width / 2 + 45, description.y + 60, "werewolf-icon");
-    clock.anchor.setTo(0.5, 0.5);
+    var stats = [
+        {
+            "icon": "heart-icon",
+            "text": "0:30",
+            "font": textFontSmall,
+            "offsetY": 42
+        },
+        {
+            "icon": "werewolf-icon",
+            "text": "upgrade to\nWerewolf",
+            "font": textFontReallySmall,
+            "offsetY": 46
+        },
+        {
+            "icon": "werewolf-icon",
+            "text": "upgrade to\nZombie",
+            "font": textFontReallySmall,
+            "offsetY": 46
+        }
+    ];
+    
+    var statsView = game.add.group();
+    
+    /*var clock = game.add.sprite(game.width / 2 + 45, description.y + 60, "werewolf-icon");
+    clock.anchor.setTo(0.5, 0.5);*/
     
     // Divider
     /*var div = game.add.graphics(0, 0);
@@ -130,8 +177,10 @@ function UI(game) {
     div.drawRect(game.width / 2 - 1, ((clock.y + 46) + (description.y + 60)) / 2 - 40, 1, 80);*/
     
     // Object's stats
-    var timeStat = game.add.text(game.width / 2 + 45, clock.y + 46, "upgrade to\nWerewolf", textFontReallySmall);
-    timeStat.anchor.setTo(0.5);
+    /*var timeStat = game.add.text(game.width / 2 + 45, clock.y + 46, "upgrade to\nWerewolf", textFontReallySmall);
+    timeStat.anchor.setTo(0.5);*/
+    
+    controller.renderStats();
     
     return controller;
 }

@@ -52,7 +52,7 @@ window.states.game = {
             towers.add(Tower(game, null, 110+210*i));
         }
         towers.get(2).c.upgrade("T");
-        ui.updateActiveObject(towers.get(2))
+        ui.updateActiveObject(towers.get(1))
         
         // Create monsters group
         monsters = ObjectGroup(game);

@@ -109,7 +109,8 @@ window.data.model_data = {
 	
 	// Towers
 	"destroyed tower": {
-		"velocity": 0
+		"flavor": "The reminants of some previous mechanism.",
+		"description": "You can build a tower here."
 	},
 	"bullet tower": {
 		"abilities": [

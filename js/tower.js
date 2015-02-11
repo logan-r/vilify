@@ -104,13 +104,6 @@ function Tower(game, rank, posX) {
             // Countdown on tower's lifespan
             model.time -= game.time.elapsed;
             
-            // Set the tower's bases frame to show the wearing down occuring
-            /*var frame = Math.floor(10 - (model.time / model.maxTime * 9));
-            frame = Math.max(Math.min(frame, 9), 1); // Keep frame between 1 and 11
-            frame = frame.toString() + ".png";
-            view.base.frameName = frame;
-            console.log(frame)*/
-            
             // Has tower's time expired?
             if (model.time <= 0) {
                 // Tell the tower to self-destruct
