@@ -176,6 +176,21 @@ function Tower(game, rank, posX) {
         model.beingDragged = false;
     };
     
+    // Highlight the spawner to show that it is selected
+    controller.highlight = function() {
+        view.highlight = game.add.graphics(0, 0);
+        view.highlight.beginFill(0x6f5092, 1);
+        view.highlight.drawCircle(model.x, 0, Math.abs(view.base.height) + 70);
+        highlights.add(view.highlight);
+    };
+    
+    // Remove the spawner's highlight to show that it is no longer selected
+    controller.unhighlight = function() {
+        if (view.highlight) {
+            view.highlight.destroy();
+        }
+    };
+    
     // Upgrades the tower
     // Returns true if the tower was upgraded, else returns false
     // rank - the rank (e.g. "T", "C", "A") of the item the tower was upgraded with
@@ -340,6 +355,9 @@ function Tower(game, rank, posX) {
     
     // Set base's image depending on the tower's type
     view.base.frameName = model.viewInfo.base_frame;
+    
+    // Init towwer highlight (null for none currently)
+    view.highlight = null;
     
     // Set base's image's tint
     if (model.viewInfo.hasOwnProperty("tint")) {

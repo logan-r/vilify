@@ -2,8 +2,6 @@
 function UI(game) {
     // Globals
     var UI_VERTICAL_OFFSET = -42;
-    var TOWER_HEALTH_ICON = "clock";
-    var MONSTER_HEALTH_ICON = "heart-icon";
     
     // Font objects
     var titleFont = {
@@ -37,7 +35,6 @@ function UI(game) {
                     statsViews[1].setText(activeObj.m.health + "/" + activeObj.m.maxHealth);
                     
                     break;
-                    
                 
                 case "Tower":
                     // Is tower not a null tower?
@@ -72,6 +69,7 @@ function UI(game) {
         // See what type of object it is
         switch (obj.type) {
             case "Monster":
+                
                 // Initilize the monster's stats
                 stats = [
                     {
@@ -79,29 +77,49 @@ function UI(game) {
                         "text": obj.m.health + "/" + obj.m.maxHealth,
                         "font": textFontSmall,
                         "offsetY": 42
-                    },
-                    {
-                        "icon": "werewolf-icon",
-                        "text": "upgrade to\nWerewolf",
-                        "font": textFontReallySmall,
-                        "offsetY": 46
                     }
                 ];
+                
+                // Does monster have an upgrade option? If so display a stat
+                // button for it
+                if (obj.m.rank.length !== 3) {
+                    // Find what monster this monster can be upgraded too
+                    var upgradeName = window.data.upgrade_data.monsters[obj.m.rank+obj.m.rank[0]];
+                    
+                    // Add button to stats
+                    stats.push({
+                        "icon": "werewolf-icon",
+                        "text": "upgrade to\n" + upgradeName,
+                        "font": textFontReallySmall,
+                        "offsetY": 46
+                    });
+                }
                 
                 break;
             
             case "Tower":
                 // Is tower a destroyed tower?
                 if (obj.m.rank == null) {
-                    // Initilize the destroyed tower's stats
-                    stats = [
-                        {
-                            "icon": "werewolf-icon",
-                            "text": "upgrade to\nWormhole Tower",
-                            "font": textFontReallySmall,
-                            "offsetY": 46
+                    stats = [];
+                    
+                    // Find all rank 1 towers
+                    for (var key in window.data.upgrade_data.towers) {
+                        if (window.data.upgrade_data.towers.hasOwnProperty(key)) {
+                            // Is this tower a rank 1 tower
+                            if (key.length === 1) {
+                                var towerName = window.data.upgrade_data.towers[key];
+                                
+                                // Add a stat button to build it
+                                stats.push({
+                                    "icon": "werewolf-icon",
+                                    "text": "build\n" + towerName,
+                                    "font": textFontReallySmall,
+                                    "offsetY": 46
+                                });
+                            }
                         }
-                    ];
+                    }
+                    
                 } else {
                     // Find out how much time the tower has left
                     var secondsLeft = "0:" + ("0" + Math.ceil(obj.m.time / 1000)
@@ -114,14 +132,23 @@ function UI(game) {
                             "text": secondsLeft,
                             "font": textFontSmall,
                             "offsetY": 42
-                        },
-                        {
-                            "icon": "werewolf-icon",
-                            "text": "upgrade to\nWormhole Tower",
-                            "font": textFontReallySmall,
-                            "offsetY": 46
                         }
                     ];
+                    
+                    // Does tower have an upgrade option? If so display a stat
+                    // button for it
+                    if (obj.m.rank.length !== 3) {
+                        // Find what monster this tower can be upgraded too
+                        var upgradeName = window.data.upgrade_data.towers[obj.m.rank+obj.m.rank[0]];
+                        
+                        // Add button to stats
+                        stats.push({
+                            "icon": "werewolf-icon",
+                            "text": "upgrade to\n" + upgradeName,
+                            "font": textFontReallySmall,
+                            "offsetY": 46
+                        });
+                    }
                 }
                 
                 break;

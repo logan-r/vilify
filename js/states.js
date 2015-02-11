@@ -5,6 +5,7 @@ window.states.game = {
     create: function() {
         // Create game object groups
         window.floor = null;
+        window.highlights = null;
         window.spawners = null;
         window.ui = null;
         window.projectiles = null;
@@ -33,6 +34,9 @@ window.states.game = {
         floor = game.add.graphics(0, 0);
         floor.beginFill(0xdddddd, 1);
         floor.drawRect(0, game.height - FLOOR_HEIGHT + 1, game.width, FLOOR_HEIGHT - 1);
+        
+        // Create highlights sprite group
+        highlights = game.add.group();
         
         // Create spawner group
         spawners = ObjectGroup(game);

@@ -1,5 +1,5 @@
 // Monster class
-function Monster(game, rank, posX) {
+function Monster(game, rank, posX, spawner) {
     // Find the monster's type from its rank
     var type = window.data.upgrade_data.monsters[rank];
     
@@ -208,6 +208,9 @@ function Monster(game, rank, posX) {
     
     // The rank of the model (i.e. "TT", "A", "CCC", etc.)
     model.rank = rank;
+    
+    // The spawner the monster was spawned on
+    model.spawner = spawner;
     
     /**
      * Monster sprite/view

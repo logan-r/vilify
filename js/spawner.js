@@ -12,11 +12,26 @@ function Spawner(game, posX) {
     // @param type - the type of monster to spawn
     controller.spawn = function(type) {
         // Create new monster
-        var m = Monster(game, type, view.x - Math.abs(view.width) / 2);
+        var m = Monster(game, type, view.x - Math.abs(view.width) / 2, _self);
         monsters.add(m);
         
         // Associate that monster with this spawner
         model.monster = m;
+    };
+    
+    // Highlight the spawner to show that it is selected
+    controller.highlight = function() {
+        view.highlight = game.add.graphics(0, 0);
+        view.highlight.beginFill(0x6f5092, 1);
+        view.highlight.drawRect(view.x - Math.abs(view.width), game.height - FLOOR_HEIGHT + 1, Math.abs(view.width), FLOOR_HEIGHT - 1);
+        highlights.add(view.highlight);
+    };
+    
+    // Remove the spawner's highlight to show that it is no longer selected
+    controller.unhighlight = function() {
+        if (view.highlight) {
+            view.highlight.destroy();
+        }
     };
     
     /**
@@ -33,13 +48,16 @@ function Spawner(game, posX) {
      */
     var view = _superclass.v;
     
+    // Init spawner highlight (null for none currently)
+    view.highlight = null;
+    
     /**
      * Generate object that is an instance of this class
      */
-    return {
+    var _self = {
         m: model,
         v: view,
         c: controller,
         type: "Spawner"
-    };
+    }; return _self;
 }
