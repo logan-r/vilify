@@ -32,7 +32,7 @@ function UI(game) {
             switch (activeObj.type) {
                 case "Monster":
                     // Update the active object's health
-                    statsViews[1].setText(activeObj.m.health + "/" + activeObj.m.maxHealth);
+                    statsViews[1].setText(activeObj.m.monster.m.health + "/" + activeObj.m.monster.m.maxHealth);
                     
                     break;
                 
@@ -57,47 +57,89 @@ function UI(game) {
         // Change the active object
         activeObj = obj;
         
-        // Display the object's name
-        name.setText(obj.m.type);
-        
-        // Display the object's flavor text
-        flavor.setText("\""+obj.m.flavor+"\"");
-        
-        // Display the object's description text
-        description.setText(obj.m.description);
-        
         // See what type of object it is
         switch (obj.type) {
-            case "Monster":
+            case "Spawner":
+                // Get the monster associated with the spawner
+                var monster = obj.m.monster;
                 
-                // Initilize the monster's stats
-                stats = [
-                    {
-                        "icon": "heart-icon",
-                        "text": obj.m.health + "/" + obj.m.maxHealth,
-                        "font": textFontSmall,
-                        "offsetY": 42
-                    }
-                ];
-                
-                // Does monster have an upgrade option? If so display a stat
-                // button for it
-                if (obj.m.rank.length !== 3) {
-                    // Find what monster this monster can be upgraded too
-                    var upgradeName = window.data.upgrade_data.monsters[obj.m.rank+obj.m.rank[0]];
+                // Is it an empty spawner?
+                if (monster === null) {
+                    // Display the spawner's name
+                    name.setText(obj.m.type);
+            
+                    // Display the spawner's flavor text
+                    flavor.setText("\"" + obj.m.flavor + "\"");
                     
-                    // Add button to stats
-                    stats.push({
-                        "icon": "werewolf-icon",
-                        "text": "upgrade to\n" + upgradeName,
-                        "font": textFontReallySmall,
-                        "offsetY": 46
-                    });
+                    // Display the spawner's description text
+                    description.setText(obj.m.description);
+                    
+                    // Display the monsters that can be spawned
+                    stats = [];
+                    for (var key in window.data.upgrade_data.monsters) {
+                        if (window.data.upgrade_data.monsters.hasOwnProperty(key)) {
+                            // Is this monster of rank 1?
+                            if (key.length === 1) {
+                                var monsterName = window.data.upgrade_data.monsters[key];
+                                
+                                // Add a stat button to build it
+                                stats.push({
+                                    "icon": "werewolf-icon",
+                                    "text": "spawn\n" + monsterName,
+                                    "font": textFontReallySmall,
+                                    "offsetY": 46
+                                });
+                            }
+                        }
+                    }
+                } else {
+                    // Display the monster's name
+                    name.setText(monster.m.type);
+            
+                    // Display the monster's flavor text
+                    flavor.setText("\"" + monster.m.flavor + "\"");
+                    
+                    // Display the monster's description text
+                    description.setText(monster.m.description);
+                    
+                    // Initilize the monster's stats
+                    stats = [
+                        {
+                            "icon": "heart-icon",
+                            "text": monster.m.health + "/" + monster.m.maxHealth,
+                            "font": textFontSmall,
+                            "offsetY": 42
+                        }
+                    ];
+                    
+                    // Does monster have an upgrade option? If so display a stat
+                    // button for it
+                    if (monster.m.rank.length !== 3) {
+                        // Find what monster this monster can be upgraded too
+                        var upgradeName = window.data.upgrade_data.monsters[monster.m.rank + monster.m.rank[0]];
+                        
+                        // Add button to stats
+                        stats.push({
+                            "icon": "werewolf-icon",
+                            "text": "upgrade to\n" + upgradeName,
+                            "font": textFontReallySmall,
+                            "offsetY": 46
+                        });
+                    }
                 }
                 
                 break;
             
             case "Tower":
+                // Display the tower's name
+                name.setText(obj.m.type);
+        
+                // Display the tower's flavor text
+                flavor.setText("\"" + obj.m.flavor + "\"");
+                
+                // Display the tower's description text
+                description.setText(obj.m.description);
+                
                 // Is tower a destroyed tower?
                 if (obj.m.rank == null) {
                     stats = [];

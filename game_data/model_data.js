@@ -107,6 +107,12 @@ window.data.model_data = {
 		]
 	},
 	
+    // Monster spawner
+    "spawner": {
+		"flavor": "Need's flavor text.",
+		"description": "You can spawn a monster here."
+    },
+	
 	// Towers
 	"destroyed tower": {
 		"flavor": "The reminants of some previous mechanism.",
