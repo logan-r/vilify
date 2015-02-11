@@ -2,6 +2,43 @@ window.data = window.data || {}; // Make sure window.data is defined
 
 window.data.upgrade_data = {
 	"towers": {
+	    "weaponized tower": [
+	    	"missle tower",
+	    	"bomb tower",
+	    	"nuclear tower"
+	    ],
+	    "storm tower": [
+	    	"energy tower",
+	    	"tornado tower",
+	    	"tesla tower"
+	    ],
+	    "arcane tower": [
+	    	"sludge tower",
+	    	"curse tower",
+	    	"portal tower"
+	    ]
+	},
+	"monsters": {
+	    "robot": [
+	    	"scrapyard robot",
+	    	"sentinel",
+	    	"talos"
+	    ],
+	    "beast": [
+	    	"hornet",
+	    	"?",
+	    	"werewolf"
+	    ],
+	    "alien": [
+	    	"invader",
+	    	"exterminator",
+	    	"overlord"
+	    ]
+	}
+};
+
+/*window.data.upgrade_data = {
+	"towers": {
 	    null: "destroyed tower",
 	    "T": "bullet tower",
 	    "C": "slime tower",
@@ -19,4 +56,4 @@ window.data.upgrade_data = {
 		"A": "invader",
 		"AA": "exterminator"
 	}
-};
+};*/

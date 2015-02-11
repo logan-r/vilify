@@ -1,7 +1,7 @@
 // Tower class
-function Tower(game, rank, posX) {
-    // Find the tower's type from its rank
-    var type = window.data.upgrade_data.towers[rank];
+function Tower(game, category, posX) {
+    // Find the first level tower of its category
+    var type = "destroyed tower";
     
     // Inherits from PhysicalObject
     var _superclass = PhysicalObject(game, type, {x: posX, y: 0});
@@ -100,7 +100,7 @@ function Tower(game, rank, posX) {
             }
         }
         
-        if (model.rank != null && model.state != "destructing") {
+        if (model.level != null && model.state != "destructing") {
             // Countdown on tower's lifespan
             model.time -= game.time.elapsed;
             
@@ -197,41 +197,30 @@ function Tower(game, rank, posX) {
         }
     };
     
-    // Upgrades the tower
+    // Upgrades the tower to the next level tower in its category
     // Returns true if the tower was upgraded, else returns false
-    // rank - the rank (e.g. "T", "C", "A") of the item the tower was upgraded with
-    controller.upgrade = function(rank) {
-        /* Step 1. Determine the new rank */
+    // @param category - the tower's new category, only needs to be specified
+    // if the tower is currently destroyed
+    controller.upgrade = function(category) {
+        /* Step 1. Level up */
         
-        // If the tower currently is destroyed and doesn't have a rank (indecated
-        // by the towers rank being null), build a new rank 1 tower
-        if (model.rank === null) {
-            model.rank = rank;
+        // If the tower currently is destroyed and doesn't have a level (indecated
+        // by the towers level being null), build a new level 1 tower
+        if (model.level === null) {
+            model.level = 1;
+            model.category = category;
         } else {
-            // Otherwise upgrade the tower by appending the rank onto the current
-            // rank (for example, a "TT" tower upgraded with a "T" item becomes
-            // a "TTT" tower)
-            
-            // But first check to make sure it is a valid upgrade
-            if (model.rank.length == 3) {
+            // Don't upgrade beyond level 3
+            if (model.level === 3) {
                 // Tower has reach upgrade limit, don't upgrade
                 return false;
-            } else {
-                // Check to make sure item type matches type previous upgrades
-                // e.g. can't add a "C" to a "TT" tower
-                // TODO: maybe change this later?
-                for (var i = 0; i < model.rank.length; i++) {
-                    if (rank != model.rank[i]) {
-                        return false;
-                    }
-                }
             }
             
-            // No errors thrown, go ahead and upgrade
-            model.rank = model.rank + rank;
+            // No errors thrown, go ahead and increase the level
+            model.level++;
         }
         
-        /* Step 2. Reload data based on new rank */
+        /* Step 2. Reload data based on new level */
         this.reloadProperties();
         
         return true;
@@ -239,18 +228,23 @@ function Tower(game, rank, posX) {
     
     // Downgrades the tower to a broken tower
     controller.downgrade = function() {
-        // Set the towers rank to null
-        model.rank = null;
+        // Set the tower's level to null
+        model.level = null;
         
         // Reload the tower's properties
         this.reloadProperties();
     };
     
-    // Reload the towers properties based upon it rank
-    // Must be called after changing the tower's rank
+    // Reload the towers properties based upon it level
+    // Must be called after changing the tower's level
     controller.reloadProperties = function() {
-        // Update the tower's type based upon its rank
-        model.type = window.data.upgrade_data.towers[model.rank];
+        // Is this tower a destroyed tower?
+        if (model.level === null) {
+            model.type = "destroyed tower";
+        } else {
+            // Update the tower's type based upon its level
+            model.type = window.data.upgrade_data.towers[model.category][model.level - 1];
+        }
         
         // Load tower stats window.data.model_data
         if (window.data.model_data.hasOwnProperty(model.type)) {
@@ -315,8 +309,11 @@ function Tower(game, rank, posX) {
      */
     var model = _superclass.m;
     
-    // The rank of the tower (i.e. "TT", "A", "CCC", etc.)
-    model.rank = rank;
+    // Save the tower's category
+    model.category = category;
+    
+    // The level of the tower (from 1 to 3)
+    model.level = null;
     
     // The tower's state (i.e. idle or firing)
     model.state = "idle";

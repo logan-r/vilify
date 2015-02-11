@@ -118,7 +118,7 @@ window.data.model_data = {
 		"flavor": "The reminants of some previous mechanism.",
 		"description": "You can build a tower here."
 	},
-	"bullet tower": {
+	"missle tower": {
 		"abilities": [
 			{
 				"type": "projectile",
@@ -142,7 +142,7 @@ window.data.model_data = {
 	},
 	"energy tower": {
 	},
-	"missile tower": {
+	"bomb tower": {
 		"abilities": [
 			{
 				"type": "projectile",

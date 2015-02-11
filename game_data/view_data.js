@@ -171,7 +171,7 @@ window.data.view_data = {
         },
         "visible": false
     },
-    "bullet tower": {
+    "missle tower": {
         "image": "tower turret",
         "base_frame": "1.png",
         "scale": {
@@ -197,7 +197,7 @@ window.data.view_data = {
         },
         "tint": 0x00ffff
     },
-    "missile tower": {
+    "bomb tower": {
         "image": "tower turret",
         "base_frame": "1.png",
         "scale": {

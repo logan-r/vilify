@@ -1,7 +1,7 @@
 // Monster class
-function Monster(game, rank, posX, spawner) {
-    // Find the monster's type from its rank
-    var type = window.data.upgrade_data.monsters[rank];
+function Monster(game, category, posX, spawner) {
+    // Find the first level monster of its category
+    var type = window.data.upgrade_data.monsters[category][0];
     
     // Inherits from FightingObject
     var _superclass = FightingObject(game, type, {x: posX, y: 0});
@@ -73,34 +73,24 @@ function Monster(game, rank, posX, spawner) {
         }
     };
     
-    // Upgrades the monster
+    // Upgrades the monster to the next level monster in its category
     // Returns true if the monster was upgraded, else returns false
-    // rank - the rank (e.g. "T", "C", "A") of the item the monster was upgraded with
-    controller.upgrade = function(rank) {
-        /* Step 1. Determine the new rank */
-            
-        // First check to make sure this is a valid upgrade, can't upgrade beyond rank 3
-        if (model.rank.length == 3) {
-            // Tower has reach upgrade limit, don't upgrade
+    controller.upgrade = function() {
+        /* Step 1. Level up */
+        
+        // Don't upgrade beyond level 3
+        if (model.level === 3) {
+            // Monster has reach upgrade limit, don't upgrade
             return false;
-        } else {
-            // Check to make sure item type matches type previous upgrades
-            // e.g. can't add a "C" to a "TT" monster
-            // TODO: maybe change this later?
-            for (var i = 0; i < model.rank.length; i++) {
-                if (rank != model.rank[i]) {
-                    return false;
-                }
-            }
         }
-            
-        // No errors thrown, go ahead and upgrade
-        model.rank = model.rank + rank;
         
-        /* Step 2. Reload data based on new rank */
+        // No errors thrown, go ahead and increase the level
+        model.level++;
         
-        // Update the tower's type based upon its rank
-        model.type = window.data.upgrade_data.monsters[model.rank];
+        /* Step 2. Reload data based upon new level */
+        
+        // Update the monster's type based upon its level
+        model.type = window.data.upgrade_data.monsters[model.category][model.level - 1];
         
         // Load monster stats from window.data.model_data
         if (window.data.model_data.hasOwnProperty(model.type)) {
@@ -211,8 +201,11 @@ function Monster(game, rank, posX, spawner) {
      */
     var model = _superclass.m;
     
-    // The rank of the model (i.e. "TT", "A", "CCC", etc.)
-    model.rank = rank;
+    // Save the monster's category
+    model.category = category;
+    
+    // The level of the monster (from 1 to 3)
+    model.level = 1;
     
     // The spawner the monster was spawned on
     model.spawner = spawner;

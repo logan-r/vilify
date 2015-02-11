@@ -9,10 +9,10 @@ function Spawner(game, posX) {
     var controller = _superclass.c;
     
     // Cause the spawner to spawn a new monster
-    // @param type - the type of monster to spawn
-    controller.spawn = function(type) {
+    // @param category - the category of monster to spawn
+    controller.spawn = function(category) {
         // Create new monster
-        var m = Monster(game, type, view.x - Math.abs(view.width) / 2, _self);
+        var m = Monster(game, category, view.x - Math.abs(view.width) / 2, _self);
         monsters.add(m);
         
         // Associate that monster with this spawner
