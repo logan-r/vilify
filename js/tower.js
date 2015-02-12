@@ -233,6 +233,9 @@ function Tower(game, category, posX) {
         
         // Reload the tower's properties
         this.reloadProperties();
+        
+        // Check if this tower is the UI active object
+        console.log(ui.activeObj == _self)
     };
     
     // Reload the towers properties based upon it level

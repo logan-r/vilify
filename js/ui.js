@@ -26,13 +26,22 @@ function UI(game) {
     // Update the UI - should be called each tick
     controller.update = function() {
         if (activeObj) {
-            // 1. Display updated stats for the active object
+            // Check if activeObject's level differce from activeObject's level 
+            // from last tick, if so refresh display
+            if (previousActiveObjLevel != activeObj.m.level) {
+                this.setActiveObject(activeObj);
+            }
             
+            // Display updated stats for the active object
             // See what type of object the active object is
             switch (activeObj.type) {
-                case "Monster":
-                    // Update the active object's health
-                    statsViews[1].setText(activeObj.m.monster.m.health + "/" + activeObj.m.monster.m.maxHealth);
+                case "Spawner":
+                    var monster = activeObj.m.monster;
+                    
+                    if (monster) {
+                        // Update the active object's health
+                        statsViews[1].setText(monster.m.health + "/" + monster.m.maxHealth);
+                    }
                     
                     break;
                 
@@ -47,6 +56,9 @@ function UI(game) {
                     
                     break;
             }
+            
+            // Update previousActiveObjecLevel
+            previousActiveObjLevel = activeObj.m.level;
         }
     };
     
@@ -64,6 +76,7 @@ function UI(game) {
         
         // Change the active object
         activeObj = obj;
+        previousActiveObjLevel = obj.m.level;
         
         // See what type of object it is
         switch (obj.type) {
@@ -234,6 +247,7 @@ function UI(game) {
     };
     
     var activeObj = null;
+    var previousActiveObjLevel = null;
     
     // Display amount of ice cream player has earned
     var icecreamIcon = game.add.sprite(game.width - 10, 10, "ice cream");
