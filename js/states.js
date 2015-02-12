@@ -55,7 +55,7 @@ window.states.game = {
         for (var i = 0; i < 4; i++) {
             towers.add(Tower(game, null, 110+210*i));
         }
-        towers.get(2).c.upgrade("weaponized tower");
+        towers.get(2).c.upgrade("war");
         
         // Create monsters group
         monsters = ObjectGroup(game);
@@ -206,11 +206,18 @@ window.states.preload = {
         game.load.image('spawner', '/images/spawner/spawner.png');
         
         // Load icons
-        game.load.image('clock', '/images/clock.png');
-        game.load.image('werewolf-icon', '/images/werewolf.png');
-        game.load.image('heart-icon', '/images/heart.png');
         game.load.image('research icon', '/images/research.png');
         game.load.image('ice cream', '/images/icecream.png');
+        game.load.image('alien category icon', '/images/icon/alien.png');
+        game.load.image('robot category icon', '/images/icon/robot.png');
+        game.load.image('beast category icon', '/images/icon/beast.png');
+        game.load.image('war category icon', '/images/icon/war.png');
+        game.load.image('storm category icon', '/images/icon/storm.png');
+        game.load.image('arcane category icon', '/images/icon/arcane.png');
+        game.load.image('health icon', '/images/icon/health.png');
+        game.load.image('time icon', '/images/icon/time.png');
+        game.load.image('level icon', '/images/icon/level.png');
+        game.load.image('upgrade icon', '/images/icon/upgrade.png');
 	},
   	create: function() {
         // Start the game

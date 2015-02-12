@@ -88,7 +88,7 @@ function UI(game) {
                         if (window.data.upgrade_data.monsters.hasOwnProperty(category)) {
                             // Add a stat button to build it
                             stats.push({
-                                "icon": "werewolf-icon",
+                                "icon": category + " category icon",
                                 "text": "spawn\n" + category,
                                 "font": textFontReallySmall,
                                 "offsetY": 46
@@ -108,8 +108,14 @@ function UI(game) {
                     // Initilize the monster's stats
                     stats = [
                         {
-                            "icon": "heart-icon",
+                            "icon": "health icon",
                             "text": monster.m.health + "/" + monster.m.maxHealth,
+                            "font": textFontSmall,
+                            "offsetY": 42
+                        },
+                        {
+                            "icon": "level icon",
+                            "text": "level " + monster.m.level,
                             "font": textFontSmall,
                             "offsetY": 42
                         }
@@ -120,7 +126,7 @@ function UI(game) {
                     if (monster.m.level !== 3) {
                         // Add button to stats
                         stats.push({
-                            "icon": "werewolf-icon",
+                            "icon": "upgrade icon",
                             "text": "upgrade",
                             "font": textFontSmall,
                             "offsetY": 42
@@ -149,8 +155,8 @@ function UI(game) {
                         if (window.data.upgrade_data.towers.hasOwnProperty(category)) {
                                 // Add a stat button to build it
                                 stats.push({
-                                    "icon": "werewolf-icon",
-                                    "text": "build\n" + category,
+                                    "icon": category + " category icon",
+                                    "text": "build\n" + category + " tower",
                                     "font": textFontReallySmall,
                                     "offsetY": 46
                                 });
@@ -165,8 +171,14 @@ function UI(game) {
                     // Initilize the tower's stats
                     stats = [
                         {
-                            "icon": "clock",
+                            "icon": "time icon",
                             "text": secondsLeft,
+                            "font": textFontSmall,
+                            "offsetY": 42
+                        },
+                        {
+                            "icon": "level icon",
+                            "text": "level " + obj.m.level,
                             "font": textFontSmall,
                             "offsetY": 42
                         }
@@ -177,7 +189,7 @@ function UI(game) {
                     if (obj.m.level !== 3) {
                         // Add button to stats
                         stats.push({
-                            "icon": "werewolf-icon",
+                            "icon": "upgrade icon",
                             "text": "upgrade",
                             "font": textFontSmall,
                             "offsetY": 42
