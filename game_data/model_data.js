@@ -72,7 +72,7 @@ window.data.model_data = {
 		},
 	},
 	"invader": {
-		"health": 400,
+		"health": 90,
 		"flying": false,
 		"reach": [20, 60],
 		"abilities": [
@@ -83,7 +83,7 @@ window.data.model_data = {
 			}
 		],
 		"flavor": "A soldier from a alien empire sent to earth to take all our applesauce.",
-		"description": "Level 1. Doesn't deal a massive amount of damage."
+		"description": "Good health. Low damage."
 	},
 	"exterminator": {
 		"health": 1,

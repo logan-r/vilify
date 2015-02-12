@@ -179,6 +179,10 @@ function Monster(game, category, posX, spawner) {
     
     // Destroy this monster and remove it from the game world
     controller.destroy = function() {
+        // Remove monster association with its spawner
+        model.spawner.m.monster = null;
+        
+        // Remove monster from game world
         monsters.remove(monsters.getParentOfView(view));
     };
     

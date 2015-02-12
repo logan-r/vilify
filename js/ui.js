@@ -26,26 +26,43 @@ function UI(game) {
     // Update the UI - should be called each tick
     controller.update = function() {
         if (activeObj) {
-            // Check if activeObject's level differce from activeObject's level 
-            // from last tick, if so refresh display
-            if (previousActiveObjLevel != activeObj.m.level) {
-                this.setActiveObject(activeObj);
-            }
-            
             // Display updated stats for the active object
             // See what type of object the active object is
             switch (activeObj.type) {
                 case "Spawner":
                     var monster = activeObj.m.monster;
+                    var monsterLevel;
+                    
+                    // Get the spawner's monster's level (null if no monster)
+                    if (monster === null) {
+                        monsterLevel = null;
+                    } else {
+                        monsterLevel = monster.m.level;
+                    }
+                    
+                    // Check if activeObject's level differce from activeObject's level 
+                    // from last tick, if so refresh display
+                    if (previousActiveObjLevel != monsterLevel) {
+                        this.setActiveObject(activeObj);
+                    }
                     
                     if (monster) {
                         // Update the active object's health
                         statsViews[1].setText(monster.m.health + "/" + monster.m.maxHealth);
                     }
                     
+                    // Update previous monster
+                    previousActiveObjLevel = monsterLevel;
+                    
                     break;
                 
                 case "Tower":
+                    // Check if activeObject's level differce from activeObject's level 
+                    // from last tick, if so refresh display
+                    if (previousActiveObjLevel != activeObj.m.level) {
+                        this.setActiveObject(activeObj);
+                    }
+                    
                     // Is tower not a null tower?
                     if (activeObj.m.level != null) {
                         // Update the active object's time until experation
@@ -54,11 +71,11 @@ function UI(game) {
                         statsViews[1].setText("0:" + secondsLeft);
                     }
                     
+                    // Update previousActiveObjecLevel
+                    previousActiveObjLevel = activeObj.m.level;
+                    
                     break;
             }
-            
-            // Update previousActiveObjecLevel
-            previousActiveObjLevel = activeObj.m.level;
         }
     };
     
