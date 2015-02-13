@@ -15,6 +15,9 @@ window.states.game = {
         window.effects = null;
         window.inventory = null;
         
+        // Init input trackers
+        window.wasDown = false;
+        
         // Init globals
         GROUND_LEVEL = game.height - FLOOR_HEIGHT / 2 + 4;
         
@@ -108,6 +111,26 @@ window.states.game = {
                 }
             }
         }
+        
+         // Handle mouse/touch input
+        if (game.input.activePointer.isDown && !window.wasDown) {
+            // Iterate through the UI buttons, checking to see if any have been clicked
+            for (var i = 0; i < ui.statsViews.length; i++) {
+                // Check if a button is clicked
+                if (ui.statsViews[i].input.checkPointerDown(game.input.activePointer, true)) {
+                    // Fetch the stat associated with the clicked button
+                    var stat = ui.statsViews[i].stat;
+                    
+                    // If there is an action asscociated with the button call it
+                    if (stat.hasOwnProperty("action")) {
+                        stat.action();
+                    }
+                }
+            }
+        }
+        
+        // Update the mouse's previous state
+        window.wasDown = game.input.activePointer.isDown;
         
         // Spawn heroes at random - for debuging
         /*if (Math.random() > 0.9973) {

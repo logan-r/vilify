@@ -48,7 +48,7 @@ function UI(game) {
                     
                     if (monster) {
                         // Update the active object's health
-                        statsViews[1].setText(monster.m.health + "/" + monster.m.maxHealth);
+                        this.statsViews[1].setText(monster.m.health + "/" + monster.m.maxHealth);
                     }
                     
                     // Update previous monster
@@ -68,7 +68,7 @@ function UI(game) {
                         // Update the active object's time until experation
                         var secondsLeft = ("0" + Math.ceil(activeObj.m.time / 1000)
                                           ).slice(-2); // Format so that number always has two digits
-                        statsViews[1].setText("0:" + secondsLeft);
+                        this.statsViews[1].setText("0:" + secondsLeft);
                     }
                     
                     // Update previousActiveObjecLevel
@@ -222,7 +222,10 @@ function UI(game) {
                             "icon": "upgrade icon",
                             "text": "upgrade",
                             "font": textFontSmall,
-                            "offsetY": 42
+                            "offsetY": 42,
+                            "action": function() {
+                                activeObj.c.upgrade();
+                            }
                         });
                     }
                 }
@@ -238,10 +241,10 @@ function UI(game) {
     // statistics
     controller.renderStats = function() {
         // Remove all previous stats
-        for (var i = 0; i < statsViews.length; i++) {
-            statsViews[i].destroy();
+        for (var i = 0; i < this.statsViews.length; i++) {
+            this.statsViews[i].destroy();
         }
-        statsViews = [];
+        this.statsViews = [];
         
         // Interate through each stat creating an icon and text for each
         for (var i = 0; i < stats.length; i++) {
@@ -254,12 +257,16 @@ function UI(game) {
             // Create an icon for that state
             var statIcon = game.add.sprite(game.width / 2 + offsetX, description.y + 60, stat.icon);
             statIcon.anchor.setTo(0.5, 0.5);
-            statsViews.push(statIcon);
+            statIcon.inputEnabled = true;
+            statIcon.stat = stat;
+            this.statsViews.push(statIcon);
             
             // Create text for that icon
             var statText = game.add.text(game.width / 2 + offsetX, statIcon.y + stat.offsetY, stat.text, stat.font);
             statText.anchor.setTo(0.5);
-            statsViews.push(statText);
+            statText.inputEnabled = true;
+            statText.stat = stat;
+            this.statsViews.push(statText);
         }
     };
     
@@ -298,7 +305,7 @@ function UI(game) {
     
     // Stats
     var stats = [];
-    var statsViews = [];
+    controller.statsViews = [];
     
     controller.renderStats();
     

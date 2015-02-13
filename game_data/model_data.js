@@ -150,15 +150,27 @@ window.data.model_data = {
 				"cooldownLength": 100,
 				"cooldown": 100
 			}
-		]
+		],
+		"flavor": "Needs falvor text.",
+		"description": "Needs a description."
 	},
 	"tornado tower": {
 	},
 	"curse tower": {
 	},
-	"tesla tower": {
+	"nuclear tower": {
+		"abilities": [
+			{
+				"type": "projectile",
+				"projectile": "fire missile",
+				"cooldownLength": 100,
+				"cooldown": 100
+			}
+		],
+		"flavor": "needs falvor text.",
+		"description": "needs a description."
 	},
-	"radiation tower": {
+	"tesla tower": {
 	},
 	"wormhole tower": {
 	},

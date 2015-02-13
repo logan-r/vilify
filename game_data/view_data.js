@@ -233,7 +233,7 @@ window.data.view_data = {
         },
         "tint": 0x94d6ff
     },
-    "radiation tower": {
+    "nuclear tower": {
         "image": "tower turret",
         "base_frame": "1.png",
         "scale": {

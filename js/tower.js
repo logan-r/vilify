@@ -233,9 +233,6 @@ function Tower(game, category, posX) {
         
         // Reload the tower's properties
         this.reloadProperties();
-        
-        // Check if this tower is the UI active object
-        console.log(ui.activeObj == _self)
     };
     
     // Reload the towers properties based upon it level
@@ -386,9 +383,9 @@ function Tower(game, category, posX) {
     view.animations.add("attack", ["1.png","2.png","3.png","4.png","5.png","6.png","7.png","8.png","9.png","10.png","11.png","12.png","13.png","14.png","15.png"], FPS, false);
     
     // Add destruction animation
-    view.base.animations.add("destroy", ["1.png", "2.png", "3.png", "4.png", "5.png", "6.png", "7.png", "8.png", "9.png"], FPS, false)
+    view.base.animations.add("destroy", ["1.png", "2.png", "3.png", "4.png", "5.png", "6.png", "7.png", "8.png", "9.png"], FPS, false);
     
-    view.animations.play("idle");    
+    view.animations.play("idle");
     
     // Position and angle the turret
     controller.setRotation(-Math.PI / 2 + 1);
