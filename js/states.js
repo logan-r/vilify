@@ -13,7 +13,6 @@ window.states.game = {
         window.monsters = null;
         window.heroes = null;
         window.effects = null;
-        window.inventory = null;
         
         // Init input trackers
         window.wasDown = false;
@@ -68,23 +67,6 @@ window.states.game = {
         
         // Create effects group
         effects = ObjectGroup(game);
-        
-        // Create inventory
-        inventory = InventoryGroup(game);
-        
-        // Spawn some items to fill the inventory
-        /*for (var i = 0; i < MathEx.randInt(5,7); i++) {
-            inventory.add(
-                Item(
-                    game,
-                    ["biochem item","tech item", "alien item"][MathEx.randInt(0,1)],//[MathEx.randInt(0,2)],
-                    {
-                        x: MathEx.randInt(0, game.width - 100),
-                        y: MathEx.randInt(0, game.height - 67/2)
-                    }
-                )
-            );
-        }*/
 	},
 	
 	update: function() {
@@ -93,7 +75,6 @@ window.states.game = {
         towers.update();
         monsters.update();
         heroes.update();
-        inventory.update();
         effects.update();
         ui.update();
         
@@ -187,11 +168,6 @@ window.states.preload = {
   	    var loadingBar = game.add.sprite(game.width / 2, game.height / 2, "loading");
         loadingBar.anchor.setTo(0.5, 0.5);
         game.load.setPreloadSprite(loadingBar);
-  	    
-  	    // Load item images
-        game.load.image('alien item', '/images/items/alien.png');
-        game.load.image('biochem item', '/images/items/biochemical.png');
-        game.load.image('tech item', '/images/items/tech.png');
         
         // Load tower sprites
         game.load.atlasJSONHash('tower base', '/images/base/sheet.png', '/images/base/data.json');
