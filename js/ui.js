@@ -159,7 +159,10 @@ function UI(game) {
                             "icon": "upgrade icon",
                             "text": "upgrade",
                             "font": textFontSmall,
-                            "offsetY": 42
+                            "offsetY": 42,
+                            "action": function() {
+                                activeObj.m.monster.c.upgrade();
+                            }
                         });
                     }
                 }

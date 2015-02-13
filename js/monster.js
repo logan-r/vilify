@@ -214,6 +214,11 @@ function Monster(game, category, posX, spawner) {
     // The spawner the monster was spawned on
     model.spawner = spawner;
     
+    // Make projectiles fired by this Monster target heroes
+    model.targets = window.heroes;
+    
+    // 
+    
     /**
      * Monster sprite/view
      */
