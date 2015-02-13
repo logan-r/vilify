@@ -58,11 +58,9 @@ window.states.game = {
         for (var i = 0; i < 4; i++) {
             towers.add(Tower(game, null, 110+210*i));
         }
-        towers.get(2).c.upgrade("war");
         
         // Create monsters group
         monsters = ObjectGroup(game);
-        spawners.get(2).c.spawn("alien");
         
         // Create heroes group
         heroes = ObjectGroup(game);

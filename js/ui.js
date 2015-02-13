@@ -121,7 +121,11 @@ function UI(game) {
                                 "icon": category + " category icon",
                                 "text": "spawn\n" + category,
                                 "font": textFontReallySmall,
-                                "offsetY": 46
+                                "offsetY": 46,
+                                "category": category,
+                                "action": function() {
+                                    activeObj.c.spawn(this.category);
+                                }
                             });
                         }
                     }
@@ -191,7 +195,11 @@ function UI(game) {
                                     "icon": category + " category icon",
                                     "text": "build\n" + category + " tower",
                                     "font": textFontReallySmall,
-                                    "offsetY": 46
+                                    "offsetY": 46,
+                                    "category": category,
+                                    "action": function() {
+                                        activeObj.c.upgrade(this.category);
+                                    }
                                 });
                         }
                     }
