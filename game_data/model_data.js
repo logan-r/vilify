@@ -86,7 +86,7 @@ window.data.model_data = {
 		"description": "Good health. Low damage."
 	},
 	"exterminator": {
-		"health": 1,
+		"health": 20,
 		"flying": false,
 		"reach": [20, 40],
 		"abilities": [
@@ -200,16 +200,5 @@ window.data.model_data = {
 		"projectileType": "bullet",
 		"damage": 0,
 		"status": "slime"
-	},
-	
-	// Items
-    "alien item": {
-        "velocity": 600
-    },
-    "biochem item": {
-        "velocity": 600
-    },
-    "tech item": {
-        "velocity": 600
-    }
+	}
 };

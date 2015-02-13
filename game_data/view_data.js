@@ -364,28 +364,5 @@ window.data.view_data = {
             "x": 1,
             "y": 1
         }
-    },
-    
-    // Items
-    "alien item": {
-        "image": "alien item",
-        "scale": {
-            "x": 0.13,
-            "y": 0.13
-        }
-    },
-    "biochem item": {
-        "image": "biochem item",
-        "scale": {
-            "x": 0.13,
-            "y": 0.13
-        }
-    },
-    "tech item": {
-        "image": "tech item",
-        "scale": {
-            "x": 0.13,
-            "y": 0.13
-        }
     }
 };
