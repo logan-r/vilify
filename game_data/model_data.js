@@ -69,7 +69,7 @@ window.data.model_data = {
 		"flying": {
 			"min": 240,
 			"max": 420
-		},
+		}
 	},
 	"invader": {
 		"health": 90,

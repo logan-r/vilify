@@ -169,7 +169,8 @@ window.data.view_data = {
             "x": TOWER_X_SCALE,
             "y": TOWER_Y_SCALE
         },
-        "visible": false
+        "visible": false,
+        "tint": 0xffffff
     },
     "missle tower": {
         "image": "tower turret",
@@ -177,7 +178,8 @@ window.data.view_data = {
         "scale": {
             "x": TOWER_X_SCALE,
             "y": TOWER_Y_SCALE
-        }
+        },
+        "tint": 0xffffff
     },
     "slime tower": {
         "image": "tower turret",

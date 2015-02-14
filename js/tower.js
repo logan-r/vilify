@@ -302,6 +302,9 @@ function Tower(game, category, posX) {
         if (model.viewInfo.hasOwnProperty("tint")) {
             view.base.tint = model.viewInfo.tint;
         }
+    
+        // Reset tower's timer
+        model.time = model.maxTime;
     };
     
     /**

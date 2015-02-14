@@ -160,6 +160,9 @@ function Monster(game, category, posX, spawner) {
             }
         }
         
+        // Update monster's maximum health
+        model.maxHealth = model.health;
+        
         // Fix physics body size
         view.body.setSize(Math.abs(view.width / view.scale.x), Math.abs(view.height / view.scale.y));
         
@@ -216,8 +219,6 @@ function Monster(game, category, posX, spawner) {
     
     // Make projectiles fired by this Monster target heroes
     model.targets = window.heroes;
-    
-    // 
     
     /**
      * Monster sprite/view
