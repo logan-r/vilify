@@ -97,7 +97,10 @@ window.data.view_data = {
         },
         "animations": {
             "idle": {
-                "frames": Phaser.Animation.generateFrameNames('idle' , 1 , 35)
+                "frames": Phaser.Animation.generateFrameNames("idle", 1, 35)
+            },
+            "attack": {
+                "frames": Phaser.Animation.generateFrameNames("attack", 1, 40)
             }
         }
     },
@@ -109,7 +112,16 @@ window.data.view_data = {
         },
         "animations": {
             "idle": {
-                "frames": Phaser.Animation.generateFrameNames('fly' , 1 , 18)
+                "frames": Phaser.Animation.generateFrameNames("fly", 1, 18)
+            },
+            "blade": {
+                "frames": Phaser.Animation.generateFrameNames("blade", 1, 17)
+            },
+            "fire": {
+                "frames": Phaser.Animation.generateFrameNames("fire", 1, 11)
+            },
+            "hit": {
+                "frames": Phaser.Animation.generateFrameNames("hit", 1, 12)
             }
         }
     },

@@ -61,15 +61,35 @@ window.data.model_data = {
 	
 	// Monsters
 	"scrapyard robot": {
-		"health": 1,
-		"flying": false
+		"health": 1000,
+		"flying": false,
+		"reach": [20, 60],
+		"abilities": [
+			{
+				"type": "melee_attack",
+				"animation": "attack",
+				"damage": 1 // Damage per frame
+			}
+		],
+		"flavor": "Needs a flavor.",
+		"description": "Needs a description."
 	},
 	"wasp": {
-		"health": 1,
+		"health": 40,
 		"flying": {
 			"min": 240,
 			"max": 420
-		}
+		},
+		"reach": [20, 60],
+		"abilities": [
+			{
+				"type": "melee_attack",
+				"animation": "blade",
+				"damage": 1 // Damage per frame
+			}
+		],
+		"flavor": "A bee with an itch for destruction.",
+		"description": "Not very powerful in combat, but it can fly."
 	},
 	"invader": {
 		"health": 90,

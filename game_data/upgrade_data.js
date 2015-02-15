@@ -2,20 +2,20 @@ window.data = window.data || {}; // Make sure window.data is defined
 
 window.data.upgrade_data = {
 	"towers": {
-	    "war": [
+	    "war": [ // High damage, AoE, low speed
 	    	"missle tower",
 	    	"bomb tower",
 	    	"nuclear tower"
 	    ],
-	    "storm": [
+	    "storm": [ // Low damage, high speed
 	    	"energy tower",
 	    	"tornado tower",
 	    	"tesla tower"
 	    ],
-	    "arcane": [
+	    "arcane": [ // No damage, misc. effects
 	    	"sludge tower",
 	    	"curse tower",
-	    	"portal tower"
+	    	"rift tower"
 	    ]
 	},
 	"monsters": {
@@ -25,7 +25,7 @@ window.data.upgrade_data = {
 	    	"talos"
 	    ],
 	    "beast": [
-	    	"hornet",
+	    	"wasp",
 	    	"?",
 	    	"werewolf"
 	    ],
