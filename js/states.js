@@ -180,6 +180,7 @@ window.states.preload = {
         game.load.atlasJSONHash('sentinel', '/images/sentinel/sheet-md.png', '/images/sentinel/data-md.json');
         game.load.atlasJSONHash('exterminator', '/images/exterminator/sheet-md.png', '/images/exterminator/data-md.json');
         game.load.atlasJSONHash('werewolf', '/images/werewolf/sheet-md.png', '/images/werewolf/data-md.json');
+        game.load.atlasJSONHash('overlord', '/images/overlord/sheet-md.png', '/images/overlord/data-md.json');
         
         // Load hero sprites
         game.load.atlasJSONHash('soldier', '/images/soldier/sheet.png', '/images/soldier/data.json');

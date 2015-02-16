@@ -189,6 +189,14 @@ window.data.view_data = {
             }
         }
     },
+    "overlord": { // md - 28% of original
+        "image": "overlord",
+        "animations": {
+            "idle": {
+                "frames": Phaser.Animation.generateFrameNames("idle", 1, 28)
+            }
+        }
+    },
     
     // Towers
     "tower base": {

@@ -140,6 +140,14 @@ window.data.model_data = {
 		"flavor": "It's on team Jacob.",
 		"description": "Needs a description."
 	},
+	"overlord": {
+		"health": 80,
+		"flying": false,
+		"reach": [20, 40],
+		"abilities": [],
+		"flavor": "Needs flavor text.",
+		"description": "Needs a description."
+	},
 	
     // Monster spawner
     "spawner": {
