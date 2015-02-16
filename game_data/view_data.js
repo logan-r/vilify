@@ -91,10 +91,6 @@ window.data.view_data = {
     // Monsters
     "scrapyard robot": {
         "image": "scrapyard robot",
-        "scale": {
-            "x": 0.35,
-            "y": 0.35
-        },
         "animations": {
             "idle": {
                 "frames": Phaser.Animation.generateFrameNames("idle", 1, 35)
@@ -107,8 +103,8 @@ window.data.view_data = {
     "wasp": {
         "image": "wasp",
         "scale": {
-            "x": -0.3,
-            "y": 0.3
+            "x": -1,
+            "y": 1
         },
         "animations": {
             "idle": {
@@ -119,38 +115,43 @@ window.data.view_data = {
             },
             "fire": {
                 "frames": Phaser.Animation.generateFrameNames("fire", 1, 11)
-            },
-            "hit": {
-                "frames": Phaser.Animation.generateFrameNames("hit", 1, 12)
             }
         }
     },
     "invader": {
         "image": "invader",
-        "scale": {
-            "x": 0.6,
-            "y": 0.6
-        }, 
         "animations": {
             "idle": {
-                "frames": Phaser.Animation.generateFrameNames('idle' , 1 , 25)
+                "frames": Phaser.Animation.generateFrameNames('idle', 1 , 25)
             },
             "punch": {
                 "frames": Phaser.Animation.generateFrameNames('punch' , 1 , 14),
                 "loop": false
+            }
+        }
+    },
+    "sentinel": { // md - 16% of original
+        "image": "sentinel",
+        "scale": {
+            "x": -1,
+            "y": 1
+        },
+        "animations": {
+            "idle": {
+                "frames": Phaser.Animation.generateFrameNames("idle", 1, 59)
             },
-            "hit": {
-                "frames": Phaser.Animation.generateFrameNames('hit' , 1 , 14),
+            "groundslam": {
+                "frames": Phaser.Animation.generateFrameNames("groundslam", 1, 48),
+                "loop": false
+            },
+            "uppercut": {
+                "frames": Phaser.Animation.generateFrameNames("uppercut", 1, 37),
                 "loop": false
             }
         }
     },
-    "exterminator": {
+    "exterminator": { // md - 20% of original, sd - 15% of original
         "image": "exterminator",
-        "scale": {
-            "x": 0.3,
-            "y": 0.3
-        },
         "animations": {
             "idle": {
                 "frames": Phaser.Animation.generateFrameNames('idle' , 1 , 26)
@@ -162,6 +163,29 @@ window.data.view_data = {
             "fire": {
                 "frames": Phaser.Animation.generateFrameNames('fire' , 1 , 11),
                 "loop": false
+            }
+        }
+    },
+    "werewolf": { // sd - 20% of original, md - 30% of original
+        "image": "werewolf",
+        "scale": {
+            "x": -0.75,
+            "y": 0.75
+        },
+        "animations": {
+            "idle": {
+                "frames": Phaser.Animation.generateFrameNames("idle", 1, 50)
+            },
+            "attack": {
+                "frames": Phaser.Animation.generateFrameNames("attack", 1, 77),
+                "loop": false
+            },
+            "to_howl": {
+                "frames": Phaser.Animation.generateFrameNames("to_howl", 1, 18),
+                "loop": false
+            },
+            "howl": {
+                "frames": Phaser.Animation.generateFrameNames("howl", 1, 2)
             }
         }
     },

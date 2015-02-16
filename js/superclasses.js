@@ -117,6 +117,17 @@ function GameObject(game, type, pos) {
         view.anchor.setTo(0.5, 1);
     }
     
+    // Set the sprite's size
+    if (model.viewInfo.hasOwnProperty("size")) {
+        if (model.viewInfo.scale.hasOwnProperty("width")) {
+            view.width = model.viewInfo.width;
+        }
+        
+        if (model.viewInfo.scale.hasOwnProperty("height")) {
+            view.height = model.viewInfo.height;
+        }
+    }
+    
     // Scale the sprite based upon the data defined in view_data
     if (model.viewInfo.hasOwnProperty("scale")) {
         if (model.viewInfo.scale.hasOwnProperty("x")) {

@@ -105,6 +105,12 @@ window.data.model_data = {
 		"flavor": "A soldier from a alien empire sent to earth to take all our applesauce.",
 		"description": "Good health. Low damage."
 	},
+	"sentinel": {
+		"health": 80,
+		"flying": false,
+		"reach": [20, 40],
+		"abilities": []
+	},
 	"exterminator": {
 		"health": 20,
 		"flying": false,
@@ -125,6 +131,14 @@ window.data.model_data = {
 				"cooldown": 100
 			}
 		]
+	},
+	"werewolf": {
+		"health": 80,
+		"flying": false,
+		"reach": [20, 40],
+		"abilities": [],
+		"flavor": "It's on team Jacob.",
+		"description": "Needs a description."
 	},
 	
     // Monster spawner

@@ -174,11 +174,12 @@ window.states.preload = {
         game.load.atlasJSONHash('tower turret', '/images/turret/sheet.png', '/images/turret/data.json');
         
         // Load monster sprites
-        game.load.atlasJSONHash('scrapyard robot', '/images/scrapyard_robot/sheet.png', '/images/scrapyard_robot/data.json');
-        game.load.atlasJSONHash('wasp', '/images/wasp/sheet.png', '/images/wasp/data.json');
-        game.load.atlasJSONHash('invader', '/images/invader/sheet-50percent.png', '/images/invader/data-50percent.json');
-        game.load.atlasJSONHash('exterminator', '/images/exterminator/sheet-50percent.png', '/images/exterminator/data-50percent.json');
-        game.load.atlasJSONHash('werewolf', '/images/werewolf/sheet-running.png', '/images/werewolf/data-running.json');
+        game.load.atlasJSONHash('scrapyard robot', '/images/scrapyard_robot/sheet-md.png', '/images/scrapyard_robot/data-md.json');
+        game.load.atlasJSONHash('wasp', '/images/wasp/sheet-md.png', '/images/wasp/data-md.json');
+        game.load.atlasJSONHash('invader', '/images/invader/sheet-md.png', '/images/invader/data-md.json');
+        game.load.atlasJSONHash('sentinel', '/images/sentinel/sheet-md.png', '/images/sentinel/data-md.json');
+        game.load.atlasJSONHash('exterminator', '/images/exterminator/sheet-md.png', '/images/exterminator/data-md.json');
+        game.load.atlasJSONHash('werewolf', '/images/werewolf/sheet-md.png', '/images/werewolf/data-md.json');
         
         // Load hero sprites
         game.load.atlasJSONHash('soldier', '/images/soldier/sheet.png', '/images/soldier/data.json');
