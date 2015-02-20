@@ -5,10 +5,10 @@ window.data.upgrade_data = {
 	    "war": [ // High damage, AoE, low speed
 	    	"missle tower",
 	    	"bomb tower",
-	    	"nuclear tower"
+	    	"ballistic tower"
 	    ],
 	    "storm": [ // Low damage, high speed
-	    	"energy tower",
+	    	"lightning tower",
 	    	"tornado tower",
 	    	"tesla tower"
 	    ],

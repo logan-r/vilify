@@ -166,6 +166,18 @@ window.data.view_data = {
             }
         }
     },
+    "talos": { // md - 35% of original
+        "image": "talos",
+        "scale": {
+            "x": 1,
+            "y": 1
+        },
+        "animations": {
+            "idle": {
+                "frames": Phaser.Animation.generateFrameNames("idle", 1, 21)
+            }
+        }
+    },
     "werewolf": { // sd - 20% of original, md - 30% of original
         "image": "werewolf",
         "scale": {
@@ -234,14 +246,14 @@ window.data.view_data = {
         },
         "tint": 0x00ff00
     },
-    "energy tower": {
+    "lightning tower": {
         "image": "tower turret",
         "base_frame": "1.png",
         "scale": {
             "x": TOWER_X_SCALE,
             "y": TOWER_Y_SCALE
         },
-        "tint": 0x00ffff
+        "tint": 0x94d6ff
     },
     "bomb tower": {
         "image": "tower turret",
@@ -250,7 +262,7 @@ window.data.view_data = {
             "x": TOWER_X_SCALE,
             "y": TOWER_Y_SCALE
         },
-        "tint": 0x8a0707
+        "tint": 0xbbbbbb
     },
     "tornado tower": {
         "image": "tower turret",
@@ -259,7 +271,7 @@ window.data.view_data = {
             "x": TOWER_X_SCALE,
             "y": TOWER_Y_SCALE
         },
-        "tint": 0x4c7a8a
+        "tint": 0x62A3CC
     },
     "curse tower": {
         "image": "tower turret",
@@ -270,6 +282,15 @@ window.data.view_data = {
         },
         "tint": 0xff00ff
     },
+    "ballistic tower": {
+        "image": "tower turret",
+        "base_frame": "1.png",
+        "scale": {
+            "x": TOWER_X_SCALE,
+            "y": TOWER_Y_SCALE
+        },
+        "tint": 0x777777
+    },
     "tesla tower": {
         "image": "tower turret",
         "base_frame": "1.png",
@@ -277,16 +298,8 @@ window.data.view_data = {
             "x": TOWER_X_SCALE,
             "y": TOWER_Y_SCALE
         },
-        "tint": 0x94d6ff
-    },
-    "nuclear tower": {
-        "image": "tower turret",
-        "base_frame": "1.png",
-        "scale": {
-            "x": TOWER_X_SCALE,
-            "y": TOWER_Y_SCALE
-        },
-        "tint": 0xbfa900
+        "tint": 0x3C7D9E
+        //"tint": 0x4c7a8a
     },
     "wormhole tower": {
         "image": "tower turret",

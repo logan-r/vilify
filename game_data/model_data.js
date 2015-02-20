@@ -132,6 +132,14 @@ window.data.model_data = {
 			}
 		]
 	},
+	"talos": {
+		"health": 80,
+		"flying": false,
+		"reach": [20, 40],
+		"abilities": [],
+		"flavor": "Needs flavor text.",
+		"description": "Needs a description."
+	},
 	"werewolf": {
 		"health": 80,
 		"flying": false,
