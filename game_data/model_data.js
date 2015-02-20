@@ -111,6 +111,14 @@ window.data.model_data = {
 		"reach": [20, 40],
 		"abilities": []
 	},
+	"zombie bunny": {
+		"health": 80,
+		"flying": false,
+		"reach": [20, 40],
+		"abilities": [],
+		"flavor": "It's a zombie! It's also a bunny.",
+		"description": "Needs a description."
+	},
 	"exterminator": {
 		"health": 20,
 		"flying": false,

@@ -178,6 +178,7 @@ window.states.preload = {
         game.load.atlasJSONHash('wasp', '/images/wasp/sheet-md.png', '/images/wasp/data-md.json');
         game.load.atlasJSONHash('invader', '/images/invader/sheet-md.png', '/images/invader/data-md.json');
         game.load.atlasJSONHash('sentinel', '/images/sentinel/sheet-md.png', '/images/sentinel/data-md.json');
+        game.load.atlasJSONHash('zombie bunny', '/images/zombie_bunny/sheet-md.png', '/images/zombie_bunny/data-md.json');
         game.load.atlasJSONHash('exterminator', '/images/exterminator/sheet-md.png', '/images/exterminator/data-md.json');
         game.load.atlasJSONHash('talos', '/images/talos/sheet-md.png', '/images/talos/data-md.json');
         game.load.atlasJSONHash('werewolf', '/images/werewolf/sheet-md.png', '/images/werewolf/data-md.json');

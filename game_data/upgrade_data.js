@@ -25,9 +25,9 @@ window.data.upgrade_data = {
 	    	"talos"
 	    ],
 	    "beast": [
+	    	"zombie bunny",
 	    	"werewolf",
-	    	"wasp",
-	    	"?"
+	    	"wasp"
 	    ],
 	    "alien": [
 	    	"invader",

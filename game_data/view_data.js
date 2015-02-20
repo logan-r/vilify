@@ -150,6 +150,18 @@ window.data.view_data = {
             }
         }
     },
+    "zombie bunny": { // md - 28% of original
+        "image": "zombie bunny",
+        "scale": {
+            "x": -1,
+            "y": 1
+        },
+        "animations": {
+            "idle": {
+                "frames": ["hop1"]
+            }
+        }
+    },
     "exterminator": { // md - 20% of original, sd - 15% of original
         "image": "exterminator",
         "animations": {
