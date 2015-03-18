@@ -331,11 +331,11 @@ window.data.view_data = {
             "y": 0.35
         }
     },
-    "laser": {
-        "image": "laser",
+    "ballistic missile": {
+        "image": "missile",
         "scale": {
-            "x": 1,
-            "y": 1
+            "x": 0.35,
+            "y": 0.35
         }
     },
     "fire missile": {
@@ -345,11 +345,18 @@ window.data.view_data = {
             "y": 0.35
         }
     },
-    "ballistic missile": {
-        "image": "missile",
+    "electric bolt": {
+        "image": "electric",
         "scale": {
-            "x": 0.35,
-            "y": 0.35
+            "x": 0.4,
+            "y": 0.4
+        }
+    },
+    "laser": {
+        "image": "laser",
+        "scale": {
+            "x": 1,
+            "y": 1
         }
     },
     "tank missile": {
@@ -362,7 +369,7 @@ window.data.view_data = {
     "slime": {
         "image": "slime",
         "animations": {
-            "idle": Phaser.Animation.generateFrameNames(1 , 8)
+            "idle": Phaser.Animation.generateFrameNames(1, 8)
         },
         "scale": {
             "x": 0.25,
@@ -375,7 +382,7 @@ window.data.view_data = {
         "image": "explosion",
         "animations": {
             "idle": {
-                "frames": Phaser.Animation.generateFrameNames(1 , 21),
+                "frames": Phaser.Animation.generateFrameNames(1, 21),
                 "loop": false
             }
         },
@@ -392,7 +399,7 @@ window.data.view_data = {
         "image": "fireball",
         "animations": {
             "idle": {
-                "frames": Phaser.Animation.generateFrameNames(1 , 31),
+                "frames": Phaser.Animation.generateFrameNames(1, 31),
                 "loop": false
             }
         },
@@ -409,7 +416,7 @@ window.data.view_data = {
         "image": "splat",
         "animations": {
             "idle": {
-                "frames": Phaser.Animation.generateFrameNames(1 , 11),
+                "frames": Phaser.Animation.generateFrameNames(1, 11),
                 "loop": false
             }
         },
@@ -430,7 +437,7 @@ window.data.view_data = {
         "image": "impact",
         "animations": {
             "idle": {
-                "frames": Phaser.Animation.generateFrameNames(1 , 30),
+                "frames": Phaser.Animation.generateFrameNames(1, 30),
                 "loop": false
             }
         },
@@ -441,6 +448,23 @@ window.data.view_data = {
         "anchor": {
             "x": 0,
             "y": 0
+        }
+    },
+    "spark": { // md - 40% of original
+        "image": "spark",
+        "animations": {
+            "idle": {
+                "frames": Phaser.Animation.generateFrameNames(1, 10),
+                "loop": false
+            }
+        },
+        "scale": {
+            "x": 0.7,
+            "y": 0.7
+        },
+        "anchor": {
+            "x": 0,
+            "y": -0.5
         }
     },
     

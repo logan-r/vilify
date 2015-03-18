@@ -176,17 +176,29 @@ window.data.model_data = {
 		"flavor": "The reminants of some previous mechanism.",
 		"description": "You can build a tower here."
 	},
-	"missle tower": {
+	"ballistic tower": {
 		"abilities": [
 			{
 				"type": "projectile",
-				"projectile": "missile",
+				"projectile": "ballistic missile",
 				"cooldownLength": 100,
 				"cooldown": 100
 			}
 		],
-		"flavor": "The most generic tower there is.",
-		"description": "Average damage, average attack speed, average everything."
+		"flavor": "needs falvor text",
+		"description": "needs a description"
+	},
+	"lightning tower": {
+		"abilities": [
+			{
+				"type": "projectile",
+				"projectile": "electric bolt",
+				"cooldownLength": 120,
+				"cooldown": 120
+			}
+		],
+		"flavor": "needs falvor text",
+		"description": "needs a description"
 	},
 	"slime tower": {
 		"abilities": [
@@ -197,8 +209,6 @@ window.data.model_data = {
 				"cooldown": 100
 			}
 		]
-	},
-	"energy tower": {
 	},
 	"bomb tower": {
 		"abilities": [
@@ -216,33 +226,32 @@ window.data.model_data = {
 	},
 	"curse tower": {
 	},
-	"ballistic tower": {
+	"missle tower": {
 		"abilities": [
 			{
 				"type": "projectile",
-				"projectile": "ballistic missile",
+				"projectile": "missile",
 				"cooldownLength": 100,
 				"cooldown": 100
+			}
+		],
+		"flavor": "The most generic tower there is.",
+		"description": "Average damage, average attack speed, average everything."
+	},
+	"tesla tower": {
+		"abilities": [
+			{
+				"type": "projectile",
+				"projectile": "electric bolt",
+				"cooldownLength": 10,
+				"cooldown": 10
 			}
 		],
 		"flavor": "needs falvor text",
 		"description": "needs a description"
 	},
-	"tesla tower": {
-	},
-	"wormhole tower": {
-	},
 	
 	// Projectiles
-	"missile": {
-		"effect": "explosion",
-		"projectileType": "bomb",
-		"damage": 100
-	},
-	"laser": {
-		"projectileType": "bullet",
-		"damage": 100
-	},
 	"fire missile": {
 		"effect": "fireball",
 		"projectileType": "bomb",
@@ -252,6 +261,21 @@ window.data.model_data = {
 		"effect": "impact",
 		"projectileType": "bomb",
 		"damage": 1
+	},
+	"missile": {
+		"effect": "explosion",
+		"projectileType": "bomb",
+		"damage": 100
+	},
+	"electric bolt": {
+		"effect": "spark",
+		"projectileType": "bomb",
+		"damage": 1,
+		"noGravity": true // Not effected by gravity
+	},
+	"laser": {
+		"projectileType": "bullet",
+		"damage": 100
 	},
 	"tank missile": {
 		"effect": "fireball",

@@ -193,6 +193,7 @@ window.states.preload = {
         
         // Load projectiles images/sprites
         game.load.image('missile', '/images/projectiles/red2.png');
+        game.load.image('electric', '/images/projectiles/electric.png');
         game.load.image('tank missile', '/images/projectiles/green2.png');
         game.load.image('laser', '/images/projectiles/laser.png');
         game.load.atlasJSONHash('slime', '/images/slime/sheet.png', '/images/slime/data.json');
@@ -201,6 +202,7 @@ window.states.preload = {
         game.load.atlasJSONHash('explosion', '/images/explosion/sheet.png', '/images/explosion/data.json');
         game.load.atlasJSONHash('fireball', '/images/fireball/sheet.png', '/images/fireball/data.json');
         game.load.atlasJSONHash('impact', '/images/impact/sheet-md.png', '/images/impact/data-md.json');
+        game.load.atlasJSONHash('spark', '/images/spark/sheet-md.png', '/images/spark/data-md.json');
         game.load.atlasJSONHash('tornado', '/images/tornado/sheet.png', '/images/tornado/data.json');
         game.load.atlasJSONHash('splat', '/images/splat/sheet.png', '/images/splat/data.json');
         

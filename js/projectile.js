@@ -29,7 +29,11 @@ function Projectile(game, type, targets, pos, angle) {
         view.body.velocity.x = controller.getHorizontalVelocity();
         view.body.velocity.y = controller.getVerticalVelocity();
         
-        this.applyGravity();
+        if (!model.noGravity) {
+            this.applyGravity();
+        } else {
+            view.body.angularVelocity = 0;
+        }
         
         this.collideGround();
         
