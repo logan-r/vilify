@@ -43,7 +43,7 @@ window.states.game = {
         // Create spawner group
         spawners = ObjectGroup(game);
         for (var i = 0; i < 3; i++) {
-            spawners.add(Spawner(game, game.width / 3 * (i+1)));
+            spawners.add(Spawner(game, (game.width - 120) / 3 * (i+1)));
         }
         
         // Create UI
@@ -205,6 +205,7 @@ window.states.preload = {
         
         // Load interactive elements images/sprites
         game.load.image('spawner', '/images/spawner/spawner.png');
+        game.load.image('machine', '/images/machine.png');
         
         // Load icons
         game.load.image('research icon', '/images/research.png');

@@ -7,6 +7,9 @@ function UI(game) {
     var titleFont = {
         "font": "40px Komika Title"
     };
+    var titleFontSmall = {
+        "font": "28px Komika Title"
+    };
     var textFont = {
         "font": "26px Komika Text"
     };
@@ -284,18 +287,25 @@ function UI(game) {
     var activeObj = null;
     var previousActiveObjLevel = null;
     
+    // Display ice cream machine
+    var icecreamMachine = game.add.sprite(game.width + 10, game.height - 7, "machine");
+    icecreamMachine.anchor.setTo(1, 1);
+    icecreamMachine.scale.set(0.8, 0.8);
+    
     // Display amount of ice cream player has earned
-    var icecreamIcon = game.add.sprite(game.width - 10, 10, "ice cream");
-    icecreamIcon.anchor.setTo(1, 0);
+    var icecreamIcon = game.add.sprite(game.width - 46, game.height - icecreamMachine.height - 20, "ice cream");
+    icecreamIcon.anchor.setTo(1, 1);
     icecreamIcon.angle = 15;
-    var icecreamAmount = game.add.text(game.width - 10 - 32, 10, "29", titleFont);
-    icecreamAmount.anchor.setTo(1, 0);
+    icecreamIcon.scale.setTo(0.8, 0.8);
+    var icecreamAmount = game.add.text(game.width - 40, game.height - icecreamMachine.height - 20 - 10, "29", titleFontSmall);
+    icecreamAmount.anchor.setTo(1, 1);
+    icecreamAmount.x = game.width - 38 - icecreamAmount.width;
     
     // Display how much research the player has
-    var researchIcon = game.add.sprite(game.width - 10, 65, "research icon");
+    var researchIcon = game.add.sprite(game.width - 10, 10, "research icon");
     researchIcon.anchor.setTo(1, 0);
     researchIcon.angle = -15;
-    var researchAmount = game.add.text(game.width - 10 - 32, 65 + 5, "3", titleFont);
+    var researchAmount = game.add.text(game.width - 10 - 32, 10 + 5, "3", titleFont);
     researchAmount.anchor.setTo(1, 0);
     
     // Object's name
