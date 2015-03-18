@@ -200,6 +200,7 @@ window.states.preload = {
         // Load effect sprites
         game.load.atlasJSONHash('explosion', '/images/explosion/sheet.png', '/images/explosion/data.json');
         game.load.atlasJSONHash('fireball', '/images/fireball/sheet.png', '/images/fireball/data.json');
+        game.load.atlasJSONHash('impact', '/images/impact/sheet-md.png', '/images/impact/data-md.json');
         game.load.atlasJSONHash('tornado', '/images/tornado/sheet.png', '/images/tornado/data.json');
         game.load.atlasJSONHash('splat', '/images/splat/sheet.png', '/images/splat/data.json');
         

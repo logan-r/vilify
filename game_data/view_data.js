@@ -240,7 +240,7 @@ window.data.view_data = {
         "visible": false,
         "tint": 0xffffff
     },
-    "missle tower": {
+    "ballistic tower": {
         "image": "tower turret",
         "base_frame": "1.png",
         "scale": {
@@ -294,7 +294,7 @@ window.data.view_data = {
         },
         "tint": 0xff00ff
     },
-    "ballistic tower": {
+    "missile tower": {
         "image": "tower turret",
         "base_frame": "1.png",
         "scale": {
@@ -339,6 +339,13 @@ window.data.view_data = {
         }
     },
     "fire missile": {
+        "image": "missile",
+        "scale": {
+            "x": 0.35,
+            "y": 0.35
+        }
+    },
+    "ballistic missile": {
         "image": "missile",
         "scale": {
             "x": 0.35,
@@ -413,6 +420,23 @@ window.data.view_data = {
         "offset": {
             "y": 130,
             "x": 0
+        },
+        "anchor": {
+            "x": 0,
+            "y": 0
+        }
+    },
+    "impact": { // md - 70% of original
+        "image": "impact",
+        "animations": {
+            "idle": {
+                "frames": Phaser.Animation.generateFrameNames(1 , 30),
+                "loop": false
+            }
+        },
+        "scale": {
+            "x": 0.7,
+            "y": 0.7
         },
         "anchor": {
             "x": 0,

@@ -216,17 +216,17 @@ window.data.model_data = {
 	},
 	"curse tower": {
 	},
-	"nuclear tower": {
+	"ballistic tower": {
 		"abilities": [
 			{
 				"type": "projectile",
-				"projectile": "fire missile",
+				"projectile": "ballistic missile",
 				"cooldownLength": 100,
 				"cooldown": 100
 			}
 		],
-		"flavor": "needs falvor text.",
-		"description": "needs a description."
+		"flavor": "needs falvor text",
+		"description": "needs a description"
 	},
 	"tesla tower": {
 	},
@@ -237,7 +237,7 @@ window.data.model_data = {
 	"missile": {
 		"effect": "explosion",
 		"projectileType": "bomb",
-		"damage": 1
+		"damage": 100
 	},
 	"laser": {
 		"projectileType": "bullet",
@@ -247,6 +247,11 @@ window.data.model_data = {
 		"effect": "fireball",
 		"projectileType": "bomb",
 		"damage": 4
+	},
+	"ballistic missile": {
+		"effect": "impact",
+		"projectileType": "bomb",
+		"damage": 1
 	},
 	"tank missile": {
 		"effect": "fireball",
