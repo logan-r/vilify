@@ -249,15 +249,6 @@ window.data.view_data = {
         },
         "tint": 0xffffff
     },
-    "sludge tower": {
-        "image": "tower turret",
-        "base_frame": "1.png",
-        "scale": {
-            "x": TOWER_X_SCALE,
-            "y": TOWER_Y_SCALE
-        },
-        "tint": 0x00ff00
-    },
     "lightning tower": {
         "image": "tower turret",
         "base_frame": "1.png",
@@ -266,6 +257,15 @@ window.data.view_data = {
             "y": TOWER_Y_SCALE
         },
         "tint": 0x94d6ff
+    },
+    "sludge tower": {
+        "image": "tower turret",
+        "base_frame": "1.png",
+        "scale": {
+            "x": TOWER_X_SCALE,
+            "y": TOWER_Y_SCALE
+        },
+        "tint": 0x74b58c
     },
     "bomb tower": {
         "image": "tower turret",
@@ -292,7 +292,7 @@ window.data.view_data = {
             "x": TOWER_X_SCALE,
             "y": TOWER_Y_SCALE
         },
-        "tint": 0xff00ff
+        "tint": 0x8c74b5
     },
     "missile tower": {
         "image": "tower turret",
@@ -319,7 +319,7 @@ window.data.view_data = {
             "x": TOWER_X_SCALE,
             "y": TOWER_Y_SCALE
         },
-        "tint": 0x3b2438
+        "tint": 0xb574b0
     },
     
     // Projectiles
@@ -352,32 +352,34 @@ window.data.view_data = {
         }
     },
     "tornado bolt": {
-        "image": "smoke",
-        "tint": 0xa69d88,
+        "image": "ball",
+        "tint": 0xb59e74,
         "scale": {
-            "x": 0.7,
-            "y": 0.7
+            "x": 0.35,
+            "y": 0.35
         }
     },
     "slime blob": {
-        "image": "smoke",
+        "image": "ball",
+        "tint": 0x74b58c,
         "scale": {
-            "x": 0.7,
-            "y": 0.7
+            "x": 0.35,
+            "y": 0.35
         }
     },
     "curse bolt": {
-        "image": "smoke",
+        "image": "ball",
+        "tint": 0x8c74b5,
         "scale": {
-            "x": 0.7,
-            "y": 0.7
+            "x": 0.35,
+            "y": 0.35
         }
     },
     "rift bolt": {
-        "image": "smoke",
+        "image": "ball",
         "scale": {
-            "x": 0.7,
-            "y": 0.7
+            "x": 0.35,
+            "y": 0.35
         }
     },
     "laser": {
@@ -477,7 +479,7 @@ window.data.view_data = {
             "y": 0
         }
     },
-    "smoke": { // md - 40% of original
+    "slime smoke": { // md - 40% of original
         "image": "smoke",
         "animations": {
             "idle": {
@@ -485,6 +487,25 @@ window.data.view_data = {
                 "loop": false
             }
         },
+        "tint": 0x74b58c,
+        "scale": {
+            "x": 0.7,
+            "y": 0.7
+        },
+        "anchor": {
+            "x": 0,
+            "y": 0
+        }
+    },
+    "curse smoke": { // md - 40% of original
+        "image": "smoke",
+        "animations": {
+            "idle": {
+                "frames": Phaser.Animation.generateFrameNames(1, 27),
+                "loop": false
+            }
+        },
+        "tint": 0x8c74b5,
         "scale": {
             "x": 0.7,
             "y": 0.7

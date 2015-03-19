@@ -312,13 +312,13 @@ window.data.model_data = {
 		"noGravity": true // Not effected by gravity
 	},
 	"slime blob": {
-		"effect": "smoke",
+		"effect": "slime smoke",
 		"projectileType": "bomb",
 		"damage": 0,
 		"status": "slime"
 	},
 	"curse bolt": {
-		"effect": "smoke",
+		"effect": "curse smoke",
 		"projectileType": "bomb",
 		"damage": 0,
 		"noGravity": true, // Not effected by gravity

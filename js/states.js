@@ -194,7 +194,7 @@ window.states.preload = {
         // Load projectiles images/sprites
         game.load.image('missile', '/images/projectiles/red2.png');
         game.load.image('electric', '/images/projectiles/electric.png');
-        game.load.image('smoke', '/images/projectiles/smoke.png');
+        game.load.image('ball', '/images/projectiles/smoke.png');
         game.load.image('tank missile', '/images/projectiles/green2.png');
         game.load.image('laser', '/images/projectiles/laser.png');
         

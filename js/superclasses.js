@@ -402,7 +402,7 @@ function FightingObject(game, type, pos) {
         switch (status) {
             case "slime":
                 // Tint FightingObject green
-                view.tint = 0x00ff00;
+                view.tint = 0x74b58c;
                 
                 // Slow down FightingObject by 50%
                 model.velocity = model.initVelocity * 0.5;
@@ -412,7 +412,7 @@ function FightingObject(game, type, pos) {
             
             case "curse":
                 // Tint FightingObject purple
-                view.tint = 0xff00ff;
+                view.tint = 0x8c74b5;
                 
                 // TODO: Reduce the FightingObject's damage
                 
