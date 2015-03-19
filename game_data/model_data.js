@@ -193,14 +193,14 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "electric bolt",
-				"cooldownLength": 120,
-				"cooldown": 120
+				"cooldownLength": 80,
+				"cooldown": 80
 			}
 		],
 		"flavor": "needs falvor text",
-		"description": "needs a description"
+		"description": "Fires at a slightly faster rate than a ballistic tower, but does slightly less damage."
 	},
-	"slime tower": {
+	"sludge tower": {
 		"abilities": [
 			{
 				"type": "projectile",

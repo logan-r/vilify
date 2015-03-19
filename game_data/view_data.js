@@ -249,7 +249,7 @@ window.data.view_data = {
         },
         "tint": 0xffffff
     },
-    "slime tower": {
+    "sludge tower": {
         "image": "tower turret",
         "base_frame": "1.png",
         "scale": {
