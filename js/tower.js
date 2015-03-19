@@ -97,6 +97,10 @@ function Tower(game, category, posX) {
             if (view.base.animations.getAnimation("destroy").isFinished) {
                 // Downgrade the tower back to a tower placeholder
                 this.downgrade();
+                
+                // Go back to idle state
+                model.state = "idle";
+                model.action = null;
             }
         }
         
@@ -230,6 +234,7 @@ function Tower(game, category, posX) {
     controller.downgrade = function() {
         // Set the tower's level to null
         model.level = null;
+        model.category = null;
         
         // Reload the tower's properties
         this.reloadProperties();
@@ -322,7 +327,7 @@ function Tower(game, category, posX) {
     model.state = "idle";
     
     // How much time the tower has left before it wears out (30000 mSec i.e. 30 sec)
-    model.time = model.maxTime = 30000;
+    model.time = model.maxTime = window.data.constants.TOWER_TIME;
     
     // The current ability/attack/action the tower is performing (null if idle)
     model.action = null;
