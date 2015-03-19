@@ -418,6 +418,11 @@ function FightingObject(game, type, pos) {
                 
                 break;
             
+            case "rift": 
+                // Player has been sucked through a rift in spacetime and needs
+                // to be sent backwards to the entrance of the lab
+                view.x = 0;
+            
             default:
                 // Error!
                 break;

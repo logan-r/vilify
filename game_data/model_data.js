@@ -270,6 +270,18 @@ window.data.model_data = {
 		"flavor": "needs falvor text",
 		"description": "needs a description"
 	},
+	"rift tower": {
+		"abilities": [
+			{
+				"type": "projectile",
+				"projectile": "rift bolt",
+				"cooldownLength": 100,
+				"cooldown": 100
+			}
+		],
+		"flavor": "Opens a rift in the spacetime continuum.",
+		"description": "Sends heroes back to the entrance of the lab."
+	},
 	
 	// Projectiles
 	"fire missile": {
@@ -311,6 +323,13 @@ window.data.model_data = {
 		"damage": 0,
 		"noGravity": true, // Not effected by gravity
 		"status": "curse"
+	},
+	"rift bolt": {
+		"effect": "rift",
+		"projectileType": "bomb",
+		"damage": 0,
+		"noGravity": true, // Not effected by gravity
+		"status": "rift"
 	},
 	"laser": {
 		"projectileType": "bullet",

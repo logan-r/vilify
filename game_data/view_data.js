@@ -373,6 +373,13 @@ window.data.view_data = {
             "y": 0.7
         }
     },
+    "rift bolt": {
+        "image": "smoke",
+        "scale": {
+            "x": 0.7,
+            "y": 0.7
+        }
+    },
     "laser": {
         "image": "laser",
         "scale": {
@@ -477,6 +484,27 @@ window.data.view_data = {
                 "frames": Phaser.Animation.generateFrameNames(1, 27),
                 "loop": false
             }
+        },
+        "scale": {
+            "x": 0.7,
+            "y": 0.7
+        },
+        "anchor": {
+            "x": 0,
+            "y": 0
+        }
+    },
+    "rift": { // md - 30% of original
+        "image": "rift",
+        "animations": {
+            "idle": {
+                "frames": Phaser.Animation.generateFrameNames(1, 49),
+                "loop": false
+            }
+        },
+        "offset": {
+            "x": 0,
+            "y": 20
         },
         "scale": {
             "x": 0.7,

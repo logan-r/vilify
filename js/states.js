@@ -205,6 +205,7 @@ window.states.preload = {
         game.load.atlasJSONHash('spark', '/images/spark/sheet-md.png', '/images/spark/data-md.json');
         game.load.atlasJSONHash('tornado', '/images/tornado/sheet.png', '/images/tornado/data.json');
         game.load.atlasJSONHash('smoke', '/images/smoke/sheet-md.png', '/images/smoke/data-md.json');
+        game.load.atlasJSONHash('rift', '/images/rift/sheet-md.png', '/images/rift/data-md.json');
         
         // Load interactive elements images/sprites
         game.load.image('spawner', '/images/spawner/spawner.png');
