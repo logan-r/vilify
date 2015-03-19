@@ -96,7 +96,8 @@ window.data.view_data = {
                 "frames": Phaser.Animation.generateFrameNames("idle", 1, 35)
             },
             "attack": {
-                "frames": Phaser.Animation.generateFrameNames("attack", 1, 40)
+                "frames": Phaser.Animation.generateFrameNames("attack", 1, 40),
+                "loop": false
             }
         }
     },
@@ -111,10 +112,12 @@ window.data.view_data = {
                 "frames": Phaser.Animation.generateFrameNames("fly", 1, 18)
             },
             "blade": {
-                "frames": Phaser.Animation.generateFrameNames("blade", 1, 17)
+                "frames": Phaser.Animation.generateFrameNames("blade", 1, 17),
+                "loop": false
             },
             "fire": {
-                "frames": Phaser.Animation.generateFrameNames("fire", 1, 11)
+                "frames": Phaser.Animation.generateFrameNames("fire", 1, 11),
+                "loop": false
             }
         }
     },
