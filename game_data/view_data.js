@@ -313,7 +313,7 @@ window.data.view_data = {
         "tint": 0x3C7D9E
         //"tint": 0x4c7a8a
     },
-    "wormhole tower": {
+    "rift tower": {
         "image": "tower turret",
         "base_frame": "1.png",
         "scale": {
@@ -352,6 +352,13 @@ window.data.view_data = {
             "y": 0.4
         }
     },
+    "curse bolt": {
+        "image": "smoke",
+        "scale": {
+            "x": 0.7,
+            "y": 0.7
+        }
+    },
     "laser": {
         "image": "laser",
         "scale": {
@@ -378,11 +385,11 @@ window.data.view_data = {
     },
     
     // Effects
-    "explosion": {
-        "image": "explosion",
+    "impact": { // md - 70% of original
+        "image": "impact",
         "animations": {
             "idle": {
-                "frames": Phaser.Animation.generateFrameNames(1, 21),
+                "frames": Phaser.Animation.generateFrameNames(1, 30),
                 "loop": false
             }
         },
@@ -412,32 +419,11 @@ window.data.view_data = {
             "y": 0
         }
     },
-    "splat": {
-        "image": "splat",
+    "explosion": {
+        "image": "explosion",
         "animations": {
             "idle": {
-                "frames": Phaser.Animation.generateFrameNames(1, 11),
-                "loop": false
-            }
-        },
-        "scale": {
-            "x": 0.3,
-            "y": 0.3
-        },
-        "offset": {
-            "y": 130,
-            "x": 0
-        },
-        "anchor": {
-            "x": 0,
-            "y": 0
-        }
-    },
-    "impact": { // md - 70% of original
-        "image": "impact",
-        "animations": {
-            "idle": {
-                "frames": Phaser.Animation.generateFrameNames(1, 30),
+                "frames": Phaser.Animation.generateFrameNames(1, 21),
                 "loop": false
             }
         },
@@ -465,6 +451,44 @@ window.data.view_data = {
         "anchor": {
             "x": 0,
             "y": -0.5
+        }
+    },
+    "splat": {
+        "image": "splat",
+        "animations": {
+            "idle": {
+                "frames": Phaser.Animation.generateFrameNames(1, 11),
+                "loop": false
+            }
+        },
+        "scale": {
+            "x": 0.3,
+            "y": 0.3
+        },
+        "offset": {
+            "y": 130,
+            "x": 0
+        },
+        "anchor": {
+            "x": 0,
+            "y": 0
+        }
+    },
+    "smoke": { // md - 40% of original
+        "image": "smoke",
+        "animations": {
+            "idle": {
+                "frames": Phaser.Animation.generateFrameNames(1, 27),
+                "loop": false
+            }
+        },
+        "scale": {
+            "x": 0.7,
+            "y": 0.7
+        },
+        "anchor": {
+            "x": 0,
+            "y": 0
         }
     },
     

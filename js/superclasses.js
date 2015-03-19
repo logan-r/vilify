@@ -410,6 +410,14 @@ function FightingObject(game, type, pos) {
                 
                 break;
             
+            case "curse":
+                // Tint FightingObject purple
+                view.tint = 0xff00ff;
+                
+                // TODO: Reduce the FightingObject's damage
+                
+                break;
+            
             default:
                 // Error!
                 break;

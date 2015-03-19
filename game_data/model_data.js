@@ -225,6 +225,16 @@ window.data.model_data = {
 	"tornado tower": {
 	},
 	"curse tower": {
+		"abilities": [
+			{
+				"type": "projectile",
+				"projectile": "curse bolt",
+				"cooldownLength": 100,
+				"cooldown": 100
+			}
+		],
+		"flavor": "Needs falvor text.",
+		"description": "Needs a description."
 	},
 	"missle tower": {
 		"abilities": [
@@ -272,6 +282,13 @@ window.data.model_data = {
 		"projectileType": "bomb",
 		"damage": 1,
 		"noGravity": true // Not effected by gravity
+	},
+	"curse bolt": {
+		"effect": "smoke",
+		"projectileType": "bomb",
+		"damage": 0,
+		"noGravity": true, // Not effected by gravity
+		"status": "curse"
 	},
 	"laser": {
 		"projectileType": "bullet",
