@@ -274,7 +274,7 @@ window.data.view_data = {
             "x": TOWER_X_SCALE,
             "y": TOWER_Y_SCALE
         },
-        "tint": 0xbbbbbb
+        "tint": 0xb57474
     },
     "tornado tower": {
         "image": "tower turret",
@@ -283,7 +283,7 @@ window.data.view_data = {
             "x": TOWER_X_SCALE,
             "y": TOWER_Y_SCALE
         },
-        "tint": 0x62A3CC
+        "tint": 0xb59e74
     },
     "curse tower": {
         "image": "tower turret",
@@ -301,7 +301,7 @@ window.data.view_data = {
             "x": TOWER_X_SCALE,
             "y": TOWER_Y_SCALE
         },
-        "tint": 0x777777
+        "tint": 0x999999
     },
     "tesla tower": {
         "image": "tower turret",
@@ -310,8 +310,7 @@ window.data.view_data = {
             "x": TOWER_X_SCALE,
             "y": TOWER_Y_SCALE
         },
-        "tint": 0x3C7D9E
-        //"tint": 0x4c7a8a
+        "tint": 0x5697BF
     },
     "rift tower": {
         "image": "tower turret",
@@ -350,6 +349,14 @@ window.data.view_data = {
         "scale": {
             "x": 0.4,
             "y": 0.4
+        }
+    },
+    "tornado bolt": {
+        "image": "smoke",
+        "tint": 0xa69d88,
+        "scale": {
+            "x": 0.7,
+            "y": 0.7
         }
     },
     "slime blob": {
@@ -450,21 +457,13 @@ window.data.view_data = {
             "y": -0.5
         }
     },
-    "splat": {
-        "image": "splat",
+    "tornado": {
+        "image": "tornado",
         "animations": {
             "idle": {
-                "frames": Phaser.Animation.generateFrameNames(1, 11),
+                "frames": Phaser.Animation.generateFrameNames(1, 35),
                 "loop": false
             }
-        },
-        "scale": {
-            "x": 0.3,
-            "y": 0.3
-        },
-        "offset": {
-            "y": 130,
-            "x": 0
         },
         "anchor": {
             "x": 0,

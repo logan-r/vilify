@@ -223,6 +223,16 @@ window.data.model_data = {
 		"description": "Needs a description."
 	},
 	"tornado tower": {
+		"abilities": [
+			{
+				"type": "projectile",
+				"projectile": "tornado bolt",
+				"cooldownLength": 100,
+				"cooldown": 100
+			}
+		],
+		"flavor": "Needs falvor text.",
+		"description": "Needs a description."
 	},
 	"curse tower": {
 		"abilities": [
@@ -236,7 +246,7 @@ window.data.model_data = {
 		"flavor": "Needs falvor text.",
 		"description": "Needs a description."
 	},
-	"missle tower": {
+	"missile tower": {
 		"abilities": [
 			{
 				"type": "projectile",
@@ -281,6 +291,12 @@ window.data.model_data = {
 		"effect": "spark",
 		"projectileType": "bomb",
 		"damage": 1,
+		"noGravity": true // Not effected by gravity
+	},
+	"tornado bolt": {
+		"effect": "tornado",
+		"projectileType": "bomb",
+		"damage": 20,
 		"noGravity": true // Not effected by gravity
 	},
 	"slime blob": {
