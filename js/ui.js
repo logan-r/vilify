@@ -51,7 +51,7 @@ function UI(game) {
                     
                     if (monster) {
                         // Update the active object's health
-                        this.statsViews[1].setText(monster.m.health + "/" + monster.m.maxHealth);
+                        this.statsViews[1].setText(Math.ceil(monster.m.health) + "/" + monster.m.maxHealth);
                     }
                     
                     // Update previous monster
@@ -146,7 +146,7 @@ function UI(game) {
                     stats = [
                         {
                             "icon": "health icon",
-                            "text": monster.m.health + "/" + monster.m.maxHealth,
+                            "text": Math.ceil(monster.m.health) + "/" + monster.m.maxHealth,
                             "font": textFontSmall,
                             "offsetY": 42
                         },

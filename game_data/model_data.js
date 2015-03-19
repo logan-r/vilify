@@ -16,7 +16,7 @@ window.data.model_data = {
 			{
 				"type": "melee_attack",
 				"animation": "fire",
-				"damage": 1 // Damage per frame
+				"damage": 1 // Damage per second
 			},
 			{
 				"type": "range_attack",
@@ -38,7 +38,7 @@ window.data.model_data = {
 			{
 				"type": "melee_attack",
 				"animation": "attack",
-				"damage": 1 // Damage per frame
+				"damage": 100 // Damage per second
 			}
 		]
 	},
@@ -68,7 +68,7 @@ window.data.model_data = {
 			{
 				"type": "melee_attack",
 				"animation": "attack",
-				"damage": 1 // Damage per frame
+				"damage": 100 // Damage per second
 			}
 		],
 		"flavor": "Needs a flavor.",
@@ -85,7 +85,7 @@ window.data.model_data = {
 			{
 				"type": "melee_attack",
 				"animation": "blade",
-				"damage": 1 // Damage per frame
+				"damage": 1 // Damage per second
 			}
 		],
 		"flavor": "A bee with an itch for destruction.",
@@ -99,7 +99,7 @@ window.data.model_data = {
 			{
 				"type": "melee_attack",
 				"animation": "punch",
-				"damage": 1 // Damage per frame
+				"damage": 1 // Damage per second
 			}
 		],
 		"flavor": "A soldier from a alien empire sent to earth to take all our applesauce.",
@@ -127,7 +127,7 @@ window.data.model_data = {
 			{
 				"type": "melee_attack",
 				"animation": "attack",
-				"damage": 1 // Damage per frame
+				"damage": 1 // Damage per second
 			},
 			{
 				"type": "range_attack",

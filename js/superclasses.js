@@ -374,8 +374,8 @@ function FightingObject(game, type, pos) {
     controller.update_melee_attack = function() {
         // Check if attack animation is completed
         if (view.animations.getAnimation(model.action.animation).isFinished) {
-            // Deal damage to target
-            model.target.c.damage(1 * view.animations.getAnimation(model.action.animation).frameTotal);
+            // Deal damage to target (Damage per second * number of elapsed seconds)
+            model.target.c.damage(model.action.damage * view.animations.getAnimation(model.action.animation).frameTotal / window.data.constants.FPS);
             
             // Go back to idle state
             model.state = "idle";
@@ -414,7 +414,8 @@ function FightingObject(game, type, pos) {
                 // Tint FightingObject purple
                 view.tint = 0x8c74b5;
                 
-                // TODO: Reduce the FightingObject's damage
+                // TODO: Make the FightingObject more vunerable to attacks from
+                // other FightingObjects
                 
                 break;
             
