@@ -352,6 +352,13 @@ window.data.view_data = {
             "y": 0.4
         }
     },
+    "slime blob": {
+        "image": "smoke",
+        "scale": {
+            "x": 0.7,
+            "y": 0.7
+        }
+    },
     "curse bolt": {
         "image": "smoke",
         "scale": {
@@ -371,16 +378,6 @@ window.data.view_data = {
         "scale": {
             "x": 0.35,
             "y": 0.35
-        }
-    },
-    "slime": {
-        "image": "slime",
-        "animations": {
-            "idle": Phaser.Animation.generateFrameNames(1, 8)
-        },
-        "scale": {
-            "x": 0.25,
-            "y": 0.25
         }
     },
     

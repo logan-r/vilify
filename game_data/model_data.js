@@ -204,7 +204,7 @@ window.data.model_data = {
 		"abilities": [
 			{
 				"type": "projectile",
-				"projectile": "slime",
+				"projectile": "slime blob",
 				"cooldownLength": 100,
 				"cooldown": 100
 			}
@@ -283,6 +283,12 @@ window.data.model_data = {
 		"damage": 1,
 		"noGravity": true // Not effected by gravity
 	},
+	"slime blob": {
+		"effect": "smoke",
+		"projectileType": "bomb",
+		"damage": 0,
+		"status": "slime"
+	},
 	"curse bolt": {
 		"effect": "smoke",
 		"projectileType": "bomb",
@@ -298,11 +304,5 @@ window.data.model_data = {
 		"effect": "fireball",
 		"projectileType": "bomb",
 		"damage": 1
-	},
-	"slime": {
-		"effect": "splat",
-		"projectileType": "bullet",
-		"damage": 0,
-		"status": "slime"
 	}
 };
