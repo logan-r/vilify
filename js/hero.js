@@ -10,7 +10,12 @@ function Hero(game, type) {
     
     // Update the hero - called each tick
     controller.update = function() {
-        // Hero only move when in idle state
+        // Check to see if there is a non-idle action the Hero can take
+        if (model.state === "idle") {
+            this.calculateNewAction();
+        }
+        
+        // Only move the hero if it is still in idle state
         if (model.state === "idle") {
             view.body.velocity.x = model.velocity;
         } else {

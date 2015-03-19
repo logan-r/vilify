@@ -366,9 +366,6 @@ function FightingObject(game, type, pos) {
         if (!view.animations.getAnimation("idle").isPlaying) {
             view.animations.play("idle");
         }
-        
-        // Check to see if there is a non-idle action the FighingObject can take
-        this.calculateNewAction();
     };
     
     controller.update_melee_attack = function() {

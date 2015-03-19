@@ -13,8 +13,13 @@ function Monster(game, category, posX, spawner) {
     
     // Update the monster - performed on every tick of the game's clock
     controller.update = function() {
+        // Check to see if there is a non-idle action the Monster can take
+        if (model.state === "idle") {
+            this.calculateNewAction();
+        }
+        
+        // Update monster based upon what action it is currently performing
         if (model.hasOwnProperty("abilities")) {
-            // Update monster based upon what action it is currently performing
             this.updateState();
         }
     };
