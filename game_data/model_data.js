@@ -38,7 +38,7 @@ window.data.model_data = {
 			{
 				"type": "melee_attack",
 				"animation": "attack",
-				"damage": 100 // Damage per second
+				"damage": 4 // Damage per second
 			}
 		]
 	},
@@ -109,15 +109,21 @@ window.data.model_data = {
 		"health": 80,
 		"flying": false,
 		"reach": [20, 40],
-		"abilities": []
+		"abilities": [
+			{
+				"type": "melee_attack",
+				"animation": "groundslam",
+				"damage": 1 // Damage per second
+			}
+		]
 	},
 	"zombie bunny": {
 		"health": 80,
 		"flying": false,
 		"reach": [20, 40],
 		"abilities": [],
-		"flavor": "It's a zombie! It's also a bunny.",
-		"description": "Needs a description."
+		"flavor": "It's a zombie! ...a zombie bunny!",
+		"description": "Has lots of health, but isn't itellegent enough to do anything but hop."
 	},
 	"exterminator": {
 		"health": 20,
@@ -146,7 +152,14 @@ window.data.model_data = {
 		"reach": [20, 40],
 		"abilities": [],
 		"flavor": "Needs flavor text.",
-		"description": "Needs a description."
+		"description": "Needs a description.",
+		"abilities": [
+			{
+				"type": "melee_attack",
+				"animation": "groundslam",
+				"damage": 1 // Damage per second
+			}
+		]
 	},
 	"werewolf": {
 		"health": 80,
@@ -159,8 +172,29 @@ window.data.model_data = {
 	"overlord": {
 		"health": 80,
 		"flying": false,
-		"reach": [20, 40],
-		"abilities": [],
+		"reach": [-10, 10],
+		"abilities": [
+			{
+				"type": "melee_attack",
+				"animation": "punch",
+				"damage": 1 // Damage per second
+			},
+			{
+				"type": "melee_attack",
+				"animation": "punchB",
+				"damage": 1 // Damage per second
+			},
+			{
+				"type": "melee_attack",
+				"animation": "jab",
+				"damage": 1 // Damage per second
+			},
+			{
+				"type": "melee_attack",
+				"animation": "uppercut",
+				"damage": 1 // Damage per second
+			}
+		],
 		"flavor": "Needs flavor text.",
 		"description": "Needs a description."
 	},

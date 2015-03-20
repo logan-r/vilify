@@ -156,12 +156,19 @@ window.data.view_data = {
     "zombie bunny": { // md - 28% of original
         "image": "zombie bunny",
         "scale": {
-            "x": -1,
-            "y": 1
+            "x": -0.8,
+            "y": 0.8
         },
         "animations": {
             "idle": {
-                "frames": ["hop1"]
+                "frames": ["hop1","hop2","hop3","hop4","hop5","hop6","hop7","hop8",
+                    "hop9","hop10","hop11","hop12","hop13","hop14","hop15","hop16",
+                    "hop17","hop18","hop19","hop20","hop21","hop22","hop1","hop1",
+                    "hop1","hop1","hop1","hop1","hop1","hop1","hop1","hop1","hop1"]
+            },
+            "hit": {
+                "frames": Phaser.Animation.generateFrameNames("hit", 1, 12),
+                "loop": false
             }
         }
     },
@@ -190,6 +197,14 @@ window.data.view_data = {
         "animations": {
             "idle": {
                 "frames": Phaser.Animation.generateFrameNames("idle", 1, 21)
+            },
+            "groundslam": {
+                "frames": Phaser.Animation.generateFrameNames("groundpunch", 1, 12),
+                "loop": false
+            },
+            "spin": {
+                "frames": Phaser.Animation.generateFrameNames("spin", 1, 8),
+                "loop": false
             }
         }
     },
@@ -221,6 +236,26 @@ window.data.view_data = {
         "animations": {
             "idle": {
                 "frames": Phaser.Animation.generateFrameNames("idle", 1, 28)
+            },
+            "jab": {
+                "frames": Phaser.Animation.generateFrameNames("jab", 1, 38),
+                "loop": false
+            },
+            "punch": {
+                "frames": Phaser.Animation.generateFrameNames("punch", 1, 19),
+                "loop": false
+            },
+            "punchB": {
+                "frames": Phaser.Animation.generateFrameNames("punchB", 1, 13),
+                "loop": false
+            },
+            "taunt": {
+                "frames": Phaser.Animation.generateFrameNames("taunt", 1, 22),
+                "loop": false
+            },
+            "uppercut": {
+                "frames": Phaser.Animation.generateFrameNames("uppercut", 1, 21),
+                "loop": false
             }
         }
     },

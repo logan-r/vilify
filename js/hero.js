@@ -37,21 +37,28 @@ function Hero(game, type) {
         if (closestMonster !== null) {
             // Is monster within melee range?
             if (closestMonster.distance === "melee") {
-                // Find melee ability
+                // Find all melee abilities
+                var meleeAbilities = [];
+                
+                // Interate through all the hero's abilities checking to see
+                // if they are melee attacks
                 for (var i = 0; i < model.abilities.length; i++) {
                     var ability = model.abilities[i];
                     if (ability.type === "melee_attack") {
-                        // Play attack animation
-                        view.animations.play(ability.animation);
-                        
-                        // Update hero's state
-                        model.state = ability.type;
-                        model.action = ability;
-                        model.target = closestMonster.obj;
-                        
-                        break;
+                        meleeAbilities.push(ability);
                     }
                 }
+                
+                // Select a random melee attack from the list of abilities
+                var ability = meleeAbilities[MathEx.randInt(0, meleeAbilities.length - 1)];
+                    
+                // Play attack animation
+                view.animations.play(ability.animation);
+                
+                // Update hero state
+                model.state = ability.type;
+                model.action = ability;
+                model.target = closestMonster.obj;
             } else {
                 // Does the hero have any ranged abilities?
                 for (var i = 0; i < model.abilities.length; i++) {
