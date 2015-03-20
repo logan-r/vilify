@@ -112,7 +112,7 @@ window.states.game = {
         window.wasDown = game.input.activePointer.isDown;
         
         // Spawn heroes at random - for debuging
-        if (Math.random() > 0.995) {//0.9973) {
+        if (Math.random() > 0.9973) {//0.9973) {
             var types = ["ninja"]; //["soldier", "soldier", "soldier", "soldier", "soldier", "soldier", "tank", "tank", "tank", "tank", "jet", "helicopter"];
             heroes.add(Hero(game, types[MathEx.randInt(0, types.length - 1)]));
         }

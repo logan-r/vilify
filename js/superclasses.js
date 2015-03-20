@@ -339,10 +339,10 @@ function FightingObject(game, type, pos) {
     
     // If FightingObject isn't capable of fly, spawn object at bottom of screen
     if (!model.flying) {
-        view.y = GROUND_LEVEL;
+        view.y = model.y = GROUND_LEVEL;
     } else {
         // Otherwise, spawn object at random height within it flying range
-        view.y = MathEx.randInt(model.flying.min, model.flying.max);
+        view.y = model.y = MathEx.randInt(model.flying.min, model.flying.max);
     }
     
     /**
@@ -371,6 +371,11 @@ function FightingObject(game, type, pos) {
     controller.update_melee_attack = function() {
         // Check if attack animation is completed
         if (view.animations.getAnimation(model.action.animation).isFinished) {
+            // Apply effect to target, if acceptable
+            if (model.action.hasOwnProperty("status")) {
+                model.target.c.applyStatus(model.action.status);
+            }
+            
             // Deal damage to target (Damage per second * number of elapsed seconds)
             model.target.c.damage(model.action.damage * view.animations.getAnimation(model.action.animation).frameTotal / window.data.constants.FPS);
             
@@ -420,6 +425,18 @@ function FightingObject(game, type, pos) {
                 // Player has been sucked through a rift in spacetime and needs
                 // to be sent backwards to the entrance of the lab
                 view.x = 0;
+                
+                break;
+            
+            
+            case "knockback":
+                // Make the FightingObject move backwards
+                view.body.velocity.x = -400;
+                view.body.velocity.y = -1500;
+                view.body.acceleration.y = 8000;
+                model.state = "knockback";
+                
+                break;
             
             default:
                 // Error!

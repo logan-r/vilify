@@ -15,9 +15,14 @@ function Hero(game, type) {
             this.calculateNewAction();
         }
         
-        // Only move the hero if it is still in idle state
+        // Only move the hero if it is still in moving state
         if (model.state === "idle") {
             view.body.velocity.x = model.velocity;
+            
+            // Make sure hero is at the correct y position
+            view.y = model.y;
+        } else if (model.state === "knockback") {
+            // TODO
         } else {
             view.body.velocity.x = 0;
         }
@@ -86,6 +91,21 @@ function Hero(game, type) {
                     }
                 }
             }
+        }
+    };
+    
+    // Update function for when the hero is in the knockback state
+    controller.update_knockback = function() {
+        // Check if hero has landed on the ground (and thus if the knockback is over)
+        if (view.y > model.y) {
+            // Reset movement
+            view.body.velocity.x = 0;
+            view.body.velocity.y = 0;
+            view.body.acceleration.y = 0;
+            view.y = model.y;
+            
+            // Go back to idle state
+            model.state = "idle";
         }
     };
     

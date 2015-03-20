@@ -114,6 +114,12 @@ window.data.model_data = {
 				"type": "melee_attack",
 				"animation": "groundslam",
 				"damage": 1 // Damage per second
+			},
+			{
+				"type": "melee_attack",
+				"animation": "uppercut",
+				"damage": 1, // Damage per second
+				"status": "knockback"
 			}
 		]
 	},
@@ -157,6 +163,11 @@ window.data.model_data = {
 				"type": "melee_attack",
 				"animation": "groundslam",
 				"damage": 1 // Damage per second
+			},
+			{
+				"type": "melee_attack",
+				"animation": "spin",
+				"damage": 1 // Damage per second
 			}
 		]
 	},
@@ -166,7 +177,14 @@ window.data.model_data = {
 		"reach": [20, 40],
 		"abilities": [],
 		"flavor": "It's on team Jacob.",
-		"description": "Needs a description."
+		"description": "Needs a description.",
+		"abilities": [
+			{
+				"type": "melee_attack",
+				"animation": "attack",
+				"damage": 1 // Damage per second
+			}
+		]
 	},
 	"overlord": {
 		"health": 80,
