@@ -177,12 +177,18 @@ window.data.model_data = {
 		"reach": [20, 40],
 		"abilities": [],
 		"flavor": "It's on team Jacob.",
-		"description": "Needs a description.",
+		"description": "Low health, but high damage. When in not in combat, it can howl - impowering\nnearby with the  monsters thrill of the hunt.",
 		"abilities": [
 			{
 				"type": "melee_attack",
 				"animation": "attack",
 				"damage": 1 // Damage per second
+			},
+			{
+				"type": "enhancer",
+				"animation": "howl",
+				"targets": [-1, 1],
+				"status": "rage"
 			}
 		]
 	},

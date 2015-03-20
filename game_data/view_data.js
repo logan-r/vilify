@@ -222,12 +222,12 @@ window.data.view_data = {
                 "frames": Phaser.Animation.generateFrameNames("attack", 1, 77),
                 "loop": false
             },
-            "to_howl": {
-                "frames": Phaser.Animation.generateFrameNames("to_howl", 1, 18),
-                "loop": false
-            },
             "howl": {
-                "frames": Phaser.Animation.generateFrameNames("howl", 1, 2)
+                "frames": Phaser.Animation.generateFrameNames("tohowl", 1, 18).concat(
+                    ["howl1","howl2","howl1","howl2","howl1","howl2","howl1","howl2",
+                    "howl1","howl2","howl1","howl2","howl1","howl2","howl1","howl2"]).concat(
+                    Phaser.Animation.generateFrameNames("tohowl", 18, 1)),
+                "loop": false
             }
         }
     },

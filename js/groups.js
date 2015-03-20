@@ -38,9 +38,31 @@ function ObjectGroup(game) {
     };
     
     // Returns the object at a certain index in the group
-    // index - the index of the item
+    // Returns -1 if invalid index
+    // @param index - the index of the item
     controller.get = function(index) {
+        // Check to make sure index is valid
+        if (index < 0 || index > objs.length - 1) {
+            return -1;
+        }
+        
         return objs[index];
+    };
+    
+    // Returns the index of an object within the group
+    // if not found returns -1
+    // @param obj - the object whose index you want to find
+    controller.getIndex = function(obj) {
+        // Iterate through each object in the list of objects, checking to see
+        // if they match
+        for (var i = 0; i < objs.length; i++) {
+            if (obj === objs[i]) {
+                return i;
+            }
+        }
+        
+        // No matches found, return -1
+        return -1;
     };
     
     // Iterates over every object in this object group and call its update

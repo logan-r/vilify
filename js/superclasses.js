@@ -422,12 +422,19 @@ function FightingObject(game, type, pos) {
                 break;
             
             case "rift": 
-                // Player has been sucked through a rift in spacetime and needs
+                // FightingObject has been sucked through a rift in spacetime and needs
                 // to be sent backwards to the entrance of the lab
                 view.x = 0;
                 
                 break;
             
+            case "rage":
+                // FightingObject has been enraged, does more damage
+                view.tint = 0xb57474;
+                
+                // TODO: make it do more damage for some time
+                
+                break;
             
             case "knockback":
                 // Make the FightingObject move backwards

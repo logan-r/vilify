@@ -30,8 +30,7 @@ function Monster(game, category, posX, spawner) {
             // Find the closest hero
             var closestHero = this.getClosest(heroes);
             
-            // Check to make sure there is a closestHero
-            if (closestHero !== null) {
+            if (closestHero !== null ) {
                 // Is hero within melee range?
                 if (closestHero.distance === "melee") {
                     // Find all melee abilities
@@ -48,7 +47,7 @@ function Monster(game, category, posX, spawner) {
                     
                     // Select a random melee attack from the list of abilities
                     var ability = meleeAbilities[MathEx.randInt(0, meleeAbilities.length - 1)];
-                        
+                    
                     // Play attack animation
                     view.animations.play(ability.animation);
                     
@@ -57,33 +56,87 @@ function Monster(game, category, posX, spawner) {
                     model.action = ability;
                     model.target = closestHero.obj;
                 } else {
-                    // Does the monsters have any ranged abilities?
+                    // Does the monsters have any non-melee abilities?
+                    var nonMeleeAbilities = [];
+                    
+                    // Interate through all the monster's abilities checking to see
+                    // if they are non-melee
                     for (var i = 0; i < model.abilities.length; i++) {
                         var ability = model.abilities[i];
-                        if (ability.type === "range_attack") {
-                            // Check if ability is ready for use
-                            if (ability.cooldown <= 0) {
-                                // Play attack animation
-                                view.animations.play(ability.animation);
-                                
-                                // Update monster's state
-                                model.state = ability.type;
-                                model.action = ability;
-                                model.target = closestHero.obj;
-                                
-                                // Reset cooldown
-                                ability.cooldown = ability.cooldownLength;
-                                
-                                break;
+                        if (ability.type !== "melee_attack") {
+                            // Check to see if ability doesn't have cooldown
+                            if (!ability.hasOwnProperty("cooldown")) {
+                                // Ability is always ready to use, add to list of
+                                // useable abilities
+                                nonMeleeAbilities.push(ability);
                             } else {
-                                // Update cooldown
-                                // TODO: use realtime instead of click
-                                ability.cooldown--;
+                                // If cooldown period is complete add to list of
+                                // useable abilities (don't reset the cooldown until
+                                // it is actually certain it being used though)
+                                if (ability.cooldown <= 0) {
+                                    nonMeleeAbilities.push(ability);
+                                } else {
+                                    // Count down cooldown
+                                    // TODO: use real time instead of ticks
+                                    ability.cooldown--;
+                                }
                             }
+                        }
+                    }
+                    
+                    if (nonMeleeAbilities.length > 0) {
+                        // Select a random ability to use from the list of abilities
+                        var ability = nonMeleeAbilities[MathEx.randInt(0, nonMeleeAbilities.length - 1)];
+                        
+                        // Play ability's animation
+                        view.animations.play(ability.animation);
+                        
+                        // Update monster's state
+                        model.state = ability.type;
+                        model.action = ability;
+                        model.target = closestHero.obj;
+                        
+                        // If abiltity had cooldown, reset it
+                        if (ability.hasOwnProperty("cooldown")) {
+                            ability.cooldown = ability.cooldownLength;
                         }
                     }
                 }
             }
+        }
+    };
+    
+    // Update function called each tick when performing a enhancer action
+    controller.update_enhancer = function() {
+        // Check if ability animation is completed
+        if (view.animations.getAnimation(model.action.animation).isFinished) {
+            // Find this monster's spawner's index
+            var index = spawners.getIndex(model.spawner);
+            
+            // Find out which monsters to enhance
+            for (var i = 0; i < model.action.targets.length; i++) {
+                // Get the target
+                var targetIndex = index + model.action.targets[i];
+                var targetSpawner = spawners.get(targetIndex);
+                if (targetSpawner === -1) {
+                    // Not a valid target, skip
+                    continue;
+                }
+                var target = targetSpawner.m.monster;
+                if (target === null) {
+                    // Not a valid target, skip
+                    continue;
+                }
+                
+                // Apply effect to target, if acceptable
+                if (model.action.hasOwnProperty("status")) {
+                    target.c.applyStatus(model.action.status);
+                }
+            }
+            
+            // Go back to idle state
+            model.state = "idle";
+            model.action = null;
         }
     };
     
