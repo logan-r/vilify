@@ -121,7 +121,6 @@ window.data.model_data = {
 		"health": 80,
 		"flying": false,
 		"reach": [20, 40],
-		"abilities": [],
 		"flavor": "It's a zombie! ...a zombie bunny!",
 		"description": "Has lots of health, but isn't itellegent enough to do anything but hop."
 	},

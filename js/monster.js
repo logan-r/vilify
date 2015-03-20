@@ -26,58 +26,60 @@ function Monster(game, category, posX, spawner) {
     
     // Calculate what action the monster should take next
     controller.calculateNewAction = function() {
-        // Find the closest hero
-        var closestHero = this.getClosest(heroes);
-        
-        // Check to make sure there is a closestHero
-        if (closestHero !== null) {
-            // Is hero within melee range?
-            if (closestHero.distance === "melee") {
-                // Find all melee abilities
-                var meleeAbilities = [];
-                
-                // Interate through all the monster's abilities checking to see
-                // if they are melee attacks
-                for (var i = 0; i < model.abilities.length; i++) {
-                    var ability = model.abilities[i];
-                    if (ability.type === "melee_attack") {
-                        meleeAbilities.push(ability);
-                    }
-                }
-                
-                // Select a random melee attack from the list of abilities
-                var ability = meleeAbilities[MathEx.randInt(0, meleeAbilities.length - 1)];
+        if (model.hasOwnProperty("abilities")) {
+            // Find the closest hero
+            var closestHero = this.getClosest(heroes);
+            
+            // Check to make sure there is a closestHero
+            if (closestHero !== null) {
+                // Is hero within melee range?
+                if (closestHero.distance === "melee") {
+                    // Find all melee abilities
+                    var meleeAbilities = [];
                     
-                // Play attack animation
-                view.animations.play(ability.animation);
-                
-                // Update monster state
-                model.state = ability.type;
-                model.action = ability;
-                model.target = closestHero.obj;
-            } else {
-                // Does the monsters have any ranged abilities?
-                for (var i = 0; i < model.abilities.length; i++) {
-                    var ability = model.abilities[i];
-                    if (ability.type === "range_attack") {
-                        // Check if ability is ready for use
-                        if (ability.cooldown <= 0) {
-                            // Play attack animation
-                            view.animations.play(ability.animation);
-                            
-                            // Update monster's state
-                            model.state = ability.type;
-                            model.action = ability;
-                            model.target = closestHero.obj;
-                            
-                            // Reset cooldown
-                            ability.cooldown = ability.cooldownLength;
-                            
-                            break;
-                        } else {
-                            // Update cooldown
-                            // TODO: use realtime instead of click
-                            ability.cooldown--;
+                    // Interate through all the monster's abilities checking to see
+                    // if they are melee attacks
+                    for (var i = 0; i < model.abilities.length; i++) {
+                        var ability = model.abilities[i];
+                        if (ability.type === "melee_attack") {
+                            meleeAbilities.push(ability);
+                        }
+                    }
+                    
+                    // Select a random melee attack from the list of abilities
+                    var ability = meleeAbilities[MathEx.randInt(0, meleeAbilities.length - 1)];
+                        
+                    // Play attack animation
+                    view.animations.play(ability.animation);
+                    
+                    // Update monster state
+                    model.state = ability.type;
+                    model.action = ability;
+                    model.target = closestHero.obj;
+                } else {
+                    // Does the monsters have any ranged abilities?
+                    for (var i = 0; i < model.abilities.length; i++) {
+                        var ability = model.abilities[i];
+                        if (ability.type === "range_attack") {
+                            // Check if ability is ready for use
+                            if (ability.cooldown <= 0) {
+                                // Play attack animation
+                                view.animations.play(ability.animation);
+                                
+                                // Update monster's state
+                                model.state = ability.type;
+                                model.action = ability;
+                                model.target = closestHero.obj;
+                                
+                                // Reset cooldown
+                                ability.cooldown = ability.cooldownLength;
+                                
+                                break;
+                            } else {
+                                // Update cooldown
+                                // TODO: use realtime instead of click
+                                ability.cooldown--;
+                            }
                         }
                     }
                 }
