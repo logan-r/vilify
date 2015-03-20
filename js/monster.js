@@ -19,9 +19,9 @@ function Monster(game, category, posX, spawner) {
         }
         
         // Update monster based upon what action it is currently performing
-        //if (model.hasOwnProperty("abilities")) {
+        if (model.hasOwnProperty("abilities")) {
             this.updateState();
-        //}
+        }
     };
     
     // Calculate what action the monster should take next

@@ -18,6 +18,9 @@ function ObjectGroup(game) {
     // Removes an object from the group
     // obj - the object to be removed
     controller.remove = function(obj) {
+        if (!obj) {
+            return;
+        }
         // TODO: implement re-use of dead sprites to avoid cost of creating
         // new sprites
         
