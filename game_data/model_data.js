@@ -1,5 +1,12 @@
 window.data = window.data || {}; // Make sure window.data is defined
 
+// Rate-Of-Fire speeds for towers
+var ROF_EXTREMELY_FAST = 150;
+var ROF_FAST = 750;
+var ROF_AVERAGE = 1000;
+var ROF_SLOW = 1250;
+var ROF_EXTREMELY_SLOW = 1850;
+
 window.data.model_data = {
 	// Heroes
 	"soldier": {
@@ -31,13 +38,13 @@ window.data.model_data = {
 	"ninja": {
 		"velocity": 100,
 		"flying": false,
-		"health": 100,
+		"health": 3,
 		"reach": 35,
 		"abilities": [
 			{
 				"type": "melee_attack",
 				"animation": "attack",
-				"damage": 4 // Damage per second
+				"damage": 3 // Damage per second
 			}
 		]
 	},
@@ -60,21 +67,21 @@ window.data.model_data = {
 	
 	// Monsters
 	"scrapyard robot": {
-		"health": 1000,
+		"health": 12,
 		"flying": false,
 		"reach": [20, 60],
 		"abilities": [
 			{
 				"type": "melee_attack",
 				"animation": "attack",
-				"damage": 100 // Damage per second
+				"damage": 3 // Damage per second
 			}
 		],
 		"flavor": "Needs a flavor.",
 		"description": "Needs a description."
 	},
 	"wasp": {
-		"health": 40,
+		"health": 1,
 		"flying": {
 			"min": 240,
 			"max": 420
@@ -84,53 +91,53 @@ window.data.model_data = {
 			{
 				"type": "melee_attack",
 				"animation": "blade",
-				"damage": 1 // Damage per second
+				"damage": 2 // Damage per second
 			}
 		],
 		"flavor": "A bee with an itch for destruction.",
 		"description": "Not very powerful in combat, but it can fly."
 	},
 	"invader": {
-		"health": 90,
+		"health": 15,
 		"flying": false,
 		"reach": [20, 60],
 		"abilities": [
 			{
 				"type": "melee_attack",
 				"animation": "punch",
-				"damage": 1 // Damage per second
+				"damage": 2.75 // Damage per second
 			}
 		],
 		"flavor": "A soldier from a alien empire sent to earth to take all our applesauce.",
 		"description": "Good health. Low damage."
 	},
 	"sentinel": {
-		"health": 80,
+		"health": 18,
 		"flying": false,
 		"reach": [20, 40],
 		"abilities": [
 			{
 				"type": "melee_attack",
 				"animation": "groundslam",
-				"damage": 1 // Damage per second
+				"damage": 5 // Damage per second
 			},
 			{
 				"type": "melee_attack",
 				"animation": "uppercut",
-				"damage": 1, // Damage per second
+				"damage": 4, // Damage per second
 				"status": "knockback"
 			}
 		]
 	},
 	"zombie bunny": {
-		"health": 80,
+		"health": 30,
 		"flying": false,
 		"reach": [20, 40],
 		"flavor": "It's a zombie! ...a zombie bunny!",
 		"description": "Has lots of health, but isn't itellegent enough to do anything but hop."
 	},
 	"exterminator": {
-		"health": 20,
+		"health": 10,
 		"flying": false,
 		"reach": [20, 40],
 		"abilities": [
@@ -145,12 +152,12 @@ window.data.model_data = {
 				"projectile": "laser",
 				"angle": Math.PI / 2,
 				"offsetY": 70,
-				"cooldown": 100
+				"cooldown": 1200
 			}
 		]
 	},
 	"talos": {
-		"health": 80,
+		"health": 24,
 		"flying": false,
 		"reach": [20, 40],
 		"abilities": [],
@@ -160,17 +167,17 @@ window.data.model_data = {
 			{
 				"type": "melee_attack",
 				"animation": "groundslam",
-				"damage": 1 // Damage per second
+				"damage": 8 // Damage per second
 			},
 			{
 				"type": "melee_attack",
 				"animation": "spin",
-				"damage": 1 // Damage per second
+				"damage": 8 // Damage per second
 			}
 		]
 	},
 	"werewolf": {
-		"health": 80,
+		"health": 15,
 		"flying": false,
 		"reach": [20, 40],
 		"abilities": [],
@@ -180,7 +187,7 @@ window.data.model_data = {
 			{
 				"type": "melee_attack",
 				"animation": "attack",
-				"damage": 1 // Damage per second
+				"damage": 10 // Damage per second
 			},
 			{
 				"type": "enhancer",
@@ -191,30 +198,30 @@ window.data.model_data = {
 		]
 	},
 	"overlord": {
-		"health": 80,
+		"health": 20,
 		"flying": false,
 		"reach": [-10, 10],
 		"abilities": [
 			{
 				"type": "melee_attack",
 				"animation": "punch",
-				"damage": 1 // Damage per second
+				"damage": 6 // Damage per second
 			},
 			{
 				"type": "melee_attack",
 				"animation": "punchB",
-				"damage": 1 // Damage per second
+				"damage": 6 // Damage per second
 			},
 			{
 				"type": "melee_attack",
 				"animation": "jab",
-				"damage": 1 // Damage per second
-			},
+				"damage": 6 // Damage per second
+			}/*,
 			{
 				"type": "melee_attack",
 				"animation": "uppercut",
-				"damage": 1 // Damage per second
-			}
+				"damage": 3.2
+			}*/
 		],
 		"flavor": "Needs flavor text.",
 		"description": "Needs a description."
@@ -236,7 +243,7 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "ballistic missile",
-				"cooldown": 1000
+				"cooldown": ROF_AVERAGE
 			}
 		],
 		"flavor": "needs falvor text",
@@ -247,7 +254,7 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "electric bolt",
-				"cooldown": 800
+				"cooldown": ROF_FAST
 			}
 		],
 		"flavor": "needs falvor text",
@@ -258,7 +265,7 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "slime blob",
-				"cooldown": 1000
+				"cooldown": ROF_SLOW
 			}
 		]
 	},
@@ -267,7 +274,7 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "fire missile",
-				"cooldown": 1000
+				"cooldown": ROF_SLOW
 			}
 		],
 		"flavor": "Needs falvor text.",
@@ -278,7 +285,7 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "tornado bolt",
-				"cooldown": 1000
+				"cooldown": ROF_FAST
 			}
 		],
 		"flavor": "Needs falvor text.",
@@ -289,7 +296,7 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "curse bolt",
-				"cooldown": 1000
+				"cooldown": ROF_SLOW
 			}
 		],
 		"flavor": "Needs falvor text.",
@@ -300,7 +307,7 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "missile",
-				"cooldown": 1000
+				"cooldown": ROF_AVERAGE
 			}
 		],
 		"flavor": "The most generic tower there is.",
@@ -311,7 +318,7 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "electric bolt",
-				"cooldown": 100
+				"cooldown": ROF_EXTREMELY_FAST
 			}
 		],
 		"flavor": "needs falvor text",
@@ -322,7 +329,7 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "rift bolt",
-				"cooldown": 1000
+				"cooldown": ROF_EXTREMELY_SLOW
 			}
 		],
 		"flavor": "Opens a rift in the spacetime continuum.",
@@ -330,20 +337,20 @@ window.data.model_data = {
 	},
 	
 	// Projectiles
+	"ballistic missile": {
+		"effect": "impact",
+		"projectileType": "bomb",
+		"damage": 2
+	},
 	"fire missile": {
 		"effect": "fireball",
 		"projectileType": "bomb",
 		"damage": 4
 	},
-	"ballistic missile": {
-		"effect": "impact",
-		"projectileType": "bomb",
-		"damage": 1
-	},
 	"missile": {
 		"effect": "explosion",
 		"projectileType": "bomb",
-		"damage": 100
+		"damage": 4
 	},
 	"electric bolt": {
 		"effect": "spark",
@@ -354,7 +361,7 @@ window.data.model_data = {
 	"tornado bolt": {
 		"effect": "tornado",
 		"projectileType": "bomb",
-		"damage": 20,
+		"damage": 2,
 		"noGravity": true // Not effected by gravity
 	},
 	"slime blob": {
@@ -379,7 +386,7 @@ window.data.model_data = {
 	},
 	"laser": {
 		"projectileType": "bullet",
-		"damage": 100
+		"damage": 1
 	},
 	"tank missile": {
 		"effect": "fireball",
