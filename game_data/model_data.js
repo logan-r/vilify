@@ -24,7 +24,6 @@ window.data.model_data = {
 				"projectile": "tank missile",
 				"angle": -Math.PI / 2,
 				"offsetY": 45,
-				"cooldownLength": 100,
 				"cooldown": 100
 			}
 		]
@@ -146,7 +145,6 @@ window.data.model_data = {
 				"projectile": "laser",
 				"angle": Math.PI / 2,
 				"offsetY": 70,
-				"cooldownLength": 100,
 				"cooldown": 100
 			}
 		]
@@ -238,7 +236,6 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "ballistic missile",
-				"cooldownLength": 1000,
 				"cooldown": 1000
 			}
 		],
@@ -250,7 +247,6 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "electric bolt",
-				"cooldownLength": 800,
 				"cooldown": 800
 			}
 		],
@@ -262,7 +258,6 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "slime blob",
-				"cooldownLength": 1000,
 				"cooldown": 1000
 			}
 		]
@@ -272,7 +267,6 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "fire missile",
-				"cooldownLength": 1000,
 				"cooldown": 1000
 			}
 		],
@@ -284,7 +278,6 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "tornado bolt",
-				"cooldownLength": 1000,
 				"cooldown": 1000
 			}
 		],
@@ -296,7 +289,6 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "curse bolt",
-				"cooldownLength": 1000,
 				"cooldown": 1000
 			}
 		],
@@ -308,7 +300,6 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "missile",
-				"cooldownLength": 1000,
 				"cooldown": 1000
 			}
 		],
@@ -320,7 +311,6 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "electric bolt",
-				"cooldownLength": 100,
 				"cooldown": 100
 			}
 		],
@@ -332,7 +322,6 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "rift bolt",
-				"cooldownLength": 1000,
 				"cooldown": 1000
 			}
 		],

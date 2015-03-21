@@ -167,6 +167,16 @@ function Monster(game, category, posX, spawner) {
             }
         }
         
+        // If the monster has abilities with cooldowns, clone the time
+        if (model.hasOwnProperty("abilities")) {
+            for (var i = 0; i < model.abilities.length; i++) {
+                // Does the ability have a cooldown?
+                if (model.abilities[i].hasOwnProperty("cooldown")) {
+                    model.abilities[i].cooldownLength = model.abilities[i].cooldown;
+                }
+            }
+        }
+        
         // Load view data from window.data.view_data
         if (window.data.view_data.hasOwnProperty(model.type)) {
             model.viewInfo = {};

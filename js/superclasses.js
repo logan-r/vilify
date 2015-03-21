@@ -196,6 +196,16 @@ function PhysicalObject(game, type, pos) {
      */
     var model = _superclass.m;
     
+    // If the object has abilities with cooldowns, clone the time
+    if (model.hasOwnProperty("abilities")) {
+        for (var i = 0; i < model.abilities.length; i++) {
+            // Does the ability have a cooldown?
+            if (model.abilities[i].hasOwnProperty("cooldown")) {
+                model.abilities[i].cooldownLength = model.abilities[i].cooldown;
+            }
+        }
+    }
+    
     /**
      * PhysicalObject sprite/view
      */
