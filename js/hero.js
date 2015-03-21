@@ -85,8 +85,7 @@ function Hero(game, type) {
                             break;
                         } else {
                             // Update cooldown
-                            // TODO: use realtime instead of click
-                            ability.cooldown--;
+                            ability.cooldown -= 1000 / window.data.constants.FPS;
                         }
                     }
                 }

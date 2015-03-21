@@ -238,8 +238,8 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "ballistic missile",
-				"cooldownLength": 100,
-				"cooldown": 100
+				"cooldownLength": 1000,
+				"cooldown": 1000
 			}
 		],
 		"flavor": "needs falvor text",
@@ -250,8 +250,8 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "electric bolt",
-				"cooldownLength": 80,
-				"cooldown": 80
+				"cooldownLength": 800,
+				"cooldown": 800
 			}
 		],
 		"flavor": "needs falvor text",
@@ -262,8 +262,8 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "slime blob",
-				"cooldownLength": 100,
-				"cooldown": 100
+				"cooldownLength": 1000,
+				"cooldown": 1000
 			}
 		]
 	},
@@ -272,8 +272,8 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "fire missile",
-				"cooldownLength": 100,
-				"cooldown": 100
+				"cooldownLength": 1000,
+				"cooldown": 1000
 			}
 		],
 		"flavor": "Needs falvor text.",
@@ -284,8 +284,8 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "tornado bolt",
-				"cooldownLength": 100,
-				"cooldown": 100
+				"cooldownLength": 1000,
+				"cooldown": 1000
 			}
 		],
 		"flavor": "Needs falvor text.",
@@ -296,8 +296,8 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "curse bolt",
-				"cooldownLength": 100,
-				"cooldown": 100
+				"cooldownLength": 1000,
+				"cooldown": 1000
 			}
 		],
 		"flavor": "Needs falvor text.",
@@ -308,8 +308,8 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "missile",
-				"cooldownLength": 100,
-				"cooldown": 100
+				"cooldownLength": 1000,
+				"cooldown": 1000
 			}
 		],
 		"flavor": "The most generic tower there is.",
@@ -320,8 +320,8 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "electric bolt",
-				"cooldownLength": 10,
-				"cooldown": 10
+				"cooldownLength": 100,
+				"cooldown": 100
 			}
 		],
 		"flavor": "needs falvor text",
@@ -332,8 +332,8 @@ window.data.model_data = {
 			{
 				"type": "projectile",
 				"projectile": "rift bolt",
-				"cooldownLength": 100,
-				"cooldown": 100
+				"cooldownLength": 1000,
+				"cooldown": 1000
 			}
 		],
 		"flavor": "Opens a rift in the spacetime continuum.",

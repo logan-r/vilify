@@ -77,8 +77,7 @@ function Monster(game, category, posX, spawner) {
                                     nonMeleeAbilities.push(ability);
                                 } else {
                                     // Count down cooldown
-                                    // TODO: use real time instead of ticks
-                                    ability.cooldown--;
+                                    ability.cooldown -= 1000 / window.data.constants.FPS;
                                 }
                             }
                         }

@@ -77,8 +77,7 @@ function Tower(game, category, posX) {
                         ability.cooldown = ability.cooldownLength;
                     } else {
                         // Update cooldown
-                        // TODO: use realtime instead of click
-                        ability.cooldown--;
+                        ability.cooldown -= 1000 / window.data.constants.FPS;
                     }
                 }
             }
@@ -106,7 +105,7 @@ function Tower(game, category, posX) {
         
         if (model.level != null && model.state != "destructing") {
             // Countdown on tower's lifespan
-            model.time -= game.time.elapsed;
+            model.time -= 1000 / window.data.constants.FPS;
             
             // Has tower's time expired?
             if (model.time <= 0) {
