@@ -28,6 +28,11 @@ function UI(game) {
     
     // Update the UI - should be called each tick
     controller.update = function() {
+        // Update resource labels (e.g. the thing that display to the player how
+        // much research and icecream he/she has)
+        researchAmount.setText(window.research);
+        icecreamAmount.setText(window.icecream);
+        
         if (activeObj) {
             // Display updated stats for the active object
             // See what type of object the active object is
@@ -297,15 +302,15 @@ function UI(game) {
     icecreamIcon.anchor.setTo(1, 1);
     icecreamIcon.angle = 15;
     icecreamIcon.scale.setTo(0.8, 0.8);
-    var icecreamAmount = game.add.text(game.width - 40, game.height - icecreamMachine.height - 20 - 10, "29", titleFontSmall);
+    var icecreamAmount = game.add.text(game.width - 40, game.height - icecreamMachine.height - 20 - 10, window.icecream, titleFontSmall);
     icecreamAmount.anchor.setTo(1, 1);
-    icecreamAmount.x = game.width - 38 - icecreamAmount.width;
+    icecreamAmount.x = game.width - 38 - icecreamAmount.width * 4;
     
     // Display how much research the player has
     var researchIcon = game.add.sprite(game.width - 10, 10, "research icon");
     researchIcon.anchor.setTo(1, 0);
     researchIcon.angle = -15;
-    var researchAmount = game.add.text(game.width - 10 - 32, 10 + 5, "3", titleFont);
+    var researchAmount = game.add.text(game.width - 10 - 32, 10 + 5, window.research, titleFont);
     researchAmount.anchor.setTo(1, 0);
     
     // Object's name

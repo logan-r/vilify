@@ -134,7 +134,12 @@ function Hero(game, type) {
     
     // Destroy this hero and remove it from the game world
     controller.destroy = function() {
+        // Kill the hero
         heroes.remove(heroes.getParentOfView(view));
+        
+        // Give the player research
+        // TODO: improve - relating amount of research to hero's strength
+        window.research++;
     };
     
     // Debug the hero's reach by drawing a rectangle on the screen

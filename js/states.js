@@ -14,6 +14,14 @@ window.states.game = {
         window.heroes = null;
         window.effects = null;
         
+        // Resources (TODO: move into some data variable (maybe call "lab"?) and 
+        // preferably make inaccesable to console)
+        window.research = 2;
+        window.icecream = 0;
+        
+        // Timers
+        window.icecreamTimer = window.data.constants.ICECREAM_INTERVAL;
+        
         // Init input trackers
         window.wasDown = false;
         
@@ -77,6 +85,19 @@ window.states.game = {
         heroes.update();
         effects.update();
         ui.update();
+        
+        // Update icecream timer and see if the player has waited enough time to
+        // get another unit of icecream
+        if (window.icecreamTimer <= 0) {
+            // Reset the timer
+            window.icecreamTimer = window.data.constants.ICECREAM_INTERVAL;
+            
+            // Grant the player more icecream
+            window.icecream++;
+        } else {
+            // Countdown the number of milliseconds passed this frame from the time
+            window.icecreamTimer -= 1000 / window.data.constants.FPS;
+        }
         
         // Handle mouse/touch input
         if (game.input.activePointer.isDown) {
