@@ -131,6 +131,7 @@ function UI(game) {
                                 "font": textFontReallySmall,
                                 "offsetY": 46,
                                 "category": category,
+                                "cost": 1,
                                 "action": function() {
                                     activeObj.c.spawn(this.category);
                                 }
@@ -172,6 +173,7 @@ function UI(game) {
                             "text": "upgrade",
                             "font": textFontSmall,
                             "offsetY": 42,
+                            "cost": 1,
                             "action": function() {
                                 activeObj.m.monster.c.upgrade();
                             }
@@ -205,6 +207,7 @@ function UI(game) {
                                     "font": textFontReallySmall,
                                     "offsetY": 46,
                                     "category": category,
+                                    "cost": 1,
                                     "action": function() {
                                         activeObj.c.upgrade(this.category);
                                     }
@@ -242,6 +245,7 @@ function UI(game) {
                             "text": "upgrade",
                             "font": textFontSmall,
                             "offsetY": 42,
+                            "cost": 1,
                             "action": function() {
                                 activeObj.c.upgrade();
                             }

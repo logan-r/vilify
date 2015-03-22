@@ -123,7 +123,17 @@ window.states.game = {
                     
                     // If there is an action asscociated with the button call it
                     if (stat.hasOwnProperty("action")) {
-                        stat.action();
+                        // First, make sure the player can afford to take the action
+                        if (stat.hasOwnProperty("cost")) {
+                            if (window.research - stat.cost >= 0) {
+                                stat.action();
+                                
+                                // Charge the user
+                                window.research = window.research - stat.cost;
+                            }
+                        } else {
+                            stat.action();
+                        }
                     }
                 }
             }
