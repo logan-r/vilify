@@ -143,7 +143,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":21,"y":27,"w":172,"h":276},
 	"sourceSize": {"w":260,"h":304}
-}},
+},
 "shoot/1.png":
 {
 	"frame": {"x":1272,"y":1628,"w":202,"h":243},
@@ -343,7 +343,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":10,"y":5,"w":596,"h":381},
 	"sourceSize": {"w":617,"h":391}
-},
+}},
 "meta": {
 	"app": "http://www.codeandweb.com/texturepacker",
 	"version": "1.0",

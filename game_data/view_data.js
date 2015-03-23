@@ -12,11 +12,12 @@ window.data.view_data = {
             "y": 0.3
         },
         "animations": {
-            "move": {
+            "idle": {
                 "frames": Phaser.Animation.generateFrameNames('walk/' , 1 , 18, '.png')
             },
             "fire": {
-                "frames": Phaser.Animation.generateFrameNames('shoot/' , 2 , 3, '.png')
+                "frames": Phaser.Animation.generateFrameNames('shoot/' , 1 , 25, '.png'),
+                "loop": false
             }
         }
     },

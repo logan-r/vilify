@@ -12,7 +12,15 @@ window.data.model_data = {
 	"soldier": {
 		"velocity": 100,
 		"flying": false,
-		"health": 100
+		"health": 3,
+		"reach": 35,
+		"abilities": [
+			{
+				"type": "melee_attack",
+				"animation": "fire",
+				"damage": 1
+			}
+		]
 	},
 	"tank": {
 		"velocity": 50,
@@ -24,14 +32,6 @@ window.data.model_data = {
 				"type": "melee_attack",
 				"animation": "fire",
 				"damage": 1 // Damage per second
-			},
-			{
-				"type": "range_attack",
-				"animation": "fire",
-				"projectile": "tank missile",
-				"angle": -Math.PI / 2,
-				"offsetY": 45,
-				"cooldown": 100
 			}
 		]
 	},
