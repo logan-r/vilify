@@ -9,21 +9,47 @@ var ROF_EXTREMELY_SLOW = 1850;
 
 window.data.model_data = {
 	// Heroes
-	"soldier": {
-		"velocity": 100,
+	"ninja": {
+		"velocity": 140,
 		"flying": false,
 		"health": 3,
 		"reach": 35,
 		"abilities": [
 			{
 				"type": "melee_attack",
+				"animation": "attack",
+				"damage": 2 // Damage per second
+			}
+		]
+	},
+	"sheriff": {
+		"velocity": 120,
+		"flying": false,
+		"health": 5,
+		"reach": 35,
+		"abilities": [
+			{
+				"type": "melee_attack",
+				"animation": "attack",
+				"damage": 3 // Damage per second
+			}
+		]
+	},
+	"soldier": {
+		"velocity": 100,
+		"flying": false,
+		"health": 5,
+		"reach": 35,
+		"abilities": [
+			{
+				"type": "melee_attack",
 				"animation": "fire",
-				"damage": 1
+				"damage": 3
 			}
 		]
 	},
 	"tank": {
-		"velocity": 50,
+		"velocity": 30,
 		"flying": false,
 		"health": 5,
 		"reach": 35,
@@ -32,19 +58,6 @@ window.data.model_data = {
 				"type": "melee_attack",
 				"animation": "fire",
 				"damage": 1 // Damage per second
-			}
-		]
-	},
-	"ninja": {
-		"velocity": 100,
-		"flying": false,
-		"health": 3,
-		"reach": 35,
-		"abilities": [
-			{
-				"type": "melee_attack",
-				"animation": "attack",
-				"damage": 3 // Damage per second
 			}
 		]
 	},

@@ -144,7 +144,7 @@ window.states.game = {
         
         // Spawn heroes at random - for debuging
         if (Math.random() > 0.9973) {//0.9973) {
-            var types = ["soldier"]; //["soldier", "soldier", "soldier", "soldier", "soldier", "soldier", "tank", "tank", "tank", "tank", "jet", "helicopter"];
+            var types = ["sheriff"]; //["soldier", "soldier", "soldier", "soldier", "soldier", "soldier", "tank", "tank", "tank", "tank", "jet", "helicopter"];
             heroes.add(Hero(game, types[MathEx.randInt(0, types.length - 1)]));
         }
 	},
@@ -216,9 +216,10 @@ window.states.preload = {
         game.load.atlasJSONHash('overlord', '/images/overlord/sheet-md.png', '/images/overlord/data-md.json');
         
         // Load hero sprites
+        game.load.atlasJSONHash('ninja', '/images/ninja/sheet-50percent.png', '/images/ninja/data-50percent.json');
+        game.load.atlasJSONHash('sheriff', '/images/sheriff/sheet-md.png', '/images/sheriff/data-md.json');
         game.load.atlasJSONHash('soldier', '/images/soldier/sheet.png', '/images/soldier/data.json');
         game.load.atlasJSONHash('tank', '/images/tank/sheet.png', '/images/tank/data.json');
-        game.load.atlasJSONHash('ninja', '/images/ninja/sheet-50percent.png', '/images/ninja/data-50percent.json');
         game.load.atlasJSONHash('helicopter', '/images/helicopter/sheet.png', '/images/helicopter/data.json');
         game.load.atlasJSONHash('jet', '/images/jet/sheet.png', '/images/jet/data.json');
         

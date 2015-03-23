@@ -61,6 +61,30 @@ window.data.view_data = {
             }
         }
     },
+    "sheriff": { // md - 38% of original
+        "image": "sheriff",
+        "scale": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "animations": {
+            "idle": {
+                "frames": Phaser.Animation.generateFrameNames("run", 1, 8)
+            },
+            "attack": {
+                "frames": Phaser.Animation.generateFrameNames("attack", 1, 7),
+                "loop": false
+            },
+            "shoot": {
+                "frames": Phaser.Animation.generateFrameNames("shoot", 1, 3),
+                "loop": false
+            },
+            "death": {
+                "frames": Phaser.Animation.generateFrameNames("dead", 1, 10),
+                "loop": false
+            }
+        }
+    },
     "jet": {
         "image": "jet",
         "scale": {
